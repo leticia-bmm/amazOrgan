@@ -27,7 +27,7 @@ private Integer DNI;
   
   
 public Receptor(Integer dNI, Integer dOB, String status, String blood_type, Integer urgency,
-		List<amazOrgan.pojos.antigen> antigen, List<antibody> antobody, Location location, Doctor doctor_charge,
+		List<Antigen> antigen, List<Antibody> antobody, Location location, Doctor doctor_charge,
 		Request request, int dNI_donor) {
 	super();
 	DNI = dNI;
@@ -72,16 +72,16 @@ public Integer getUrgency() {
 public void setUrgency(Integer urgency) {
 	this.urgency = urgency;
 }
-public List<antigen> getAntigen() {
+public List<Antigen> getAntigen() {
 	return antigen;
 }
-public void setAntigen(List<antigen> antigen) {
+public void setAntigen(List<Antigen> antigen) {
 	this.antigen = antigen;
 }
-public List<antibody> getAntobody() {
+public List<Antibody> getAntobody() {
 	return antobody;
 }
-public void setAntobody(List<antibody> antobody) {
+public void setAntobody(List<Antibody> antobody) {
 	this.antobody = antobody;
 }
 public Location getLocation() {

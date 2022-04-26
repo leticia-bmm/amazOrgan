@@ -4,6 +4,10 @@ import java.io.Serializable;
 
 public class Location implements Serializable{
 		
+		/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2724475628719553532L;
 		private Integer id;
 		private Float latitude;
 		private Float longitude;
