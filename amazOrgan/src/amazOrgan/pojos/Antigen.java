@@ -1,9 +1,13 @@
 package amazOrgan.pojos;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Antigen {
+public class Antigen implements Serializable {
 
+	
+	private static final long serialVersionUID = -228773951826510194L;
+	
 	Integer ID;
 	boolean A;
 	boolean B;
@@ -13,18 +17,13 @@ public class Antigen {
 	boolean DR;
 	
 	
-	public Antigen(Integer iD, boolean a, boolean b, boolean c, boolean dP, boolean dQ, boolean dR) {
+	
+	//Empty constructor
+	public Antigen() {
 		super();
-		ID = iD;
-		A = a;
-		B = b;
-		C = c;
-		DP = dP;
-		DQ = dQ;
-		DR = dR;
 	}
 
-
+	//getters and setters for the attributes
 	public Integer getID() {
 		return ID;
 	}
@@ -107,7 +106,7 @@ public class Antigen {
 		return Objects.hash(A, B, C, DP, DQ, DR, ID);
 	}
 
-
+	//equals uses all of the attributes
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
