@@ -7,11 +7,8 @@ import java.util.Objects;
 public class Receptor implements Serializable {
 	
 
+	private static final long serialVersionUID = 1910429613743762649L;
 	
-  /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 private Integer DNI;
   private Integer DOB;
   private String status;
