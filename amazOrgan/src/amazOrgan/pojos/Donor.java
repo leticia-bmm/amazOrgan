@@ -43,7 +43,7 @@ public class Donor implements Serializable{
 	}
 
 	public void setdni(Integer dni) {
-		dni = dni;
+		this.dni = dni;
 	}
 
 	public LocalDate getdob() {
@@ -51,7 +51,7 @@ public class Donor implements Serializable{
 	}
 
 	public void setdob(LocalDate dOB) {
-		dob = dOB;
+		this.dob = dOB;
 	}
 
 	public boolean isAlive() {

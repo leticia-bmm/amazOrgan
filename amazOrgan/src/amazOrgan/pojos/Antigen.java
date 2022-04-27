@@ -109,11 +109,6 @@ public class Antigen implements Serializable {
 
 
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
-
 
 	@Override
 	public String toString() {
@@ -125,7 +120,7 @@ public class Antigen implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(a, b, c, dp, dq, dr, id);
+		return Objects.hash(id);
 	}
 
 
@@ -139,14 +134,10 @@ public class Antigen implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Antigen other = (Antigen) obj;
-		return a == other.a && b == other.b && c == other.c && dp == other.dp && dq == other.dq && dr == other.dr
-				&& Objects.equals(id, other.id);
+		return Objects.equals(id, other.id);
 	}
 
-	
 
-
-	
 	
 	
 }

@@ -26,7 +26,7 @@ public class Antibody implements Serializable {
 	}
 
 	public void setID(Integer iD) {
-		id = iD;
+		this.id = iD;
 	}
 
 	public boolean isClass_I() {
@@ -54,7 +54,7 @@ public class Antibody implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, class_I, class_II);
+		return Objects.hash(id);
 	}
 
 
@@ -67,13 +67,10 @@ public class Antibody implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Antibody other = (Antibody) obj;
-		return Objects.equals(id, other.id) && class_I == other.class_I && class_II == other.class_II;
+		return Objects.equals(id, other.id);
 	}
-	
-	
-	
-	
-	
+
+
 	
 	
 	
