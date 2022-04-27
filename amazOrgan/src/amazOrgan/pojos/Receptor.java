@@ -8,39 +8,27 @@ public class Receptor implements Serializable {
 	
 
 	
-  /**
-	 * 
-	 */
+ 
 	private static final long serialVersionUID = 1L;
-private Integer DNI;
+	private Integer DNI;
   private Integer DOB;
   private String status;
   private String blood_type;
   private Integer urgency;
   List<Antigen> antigen;
   List<Antibody> antobody;
-  Location location;
-  Doctor doctor_charge;
-  Request request;
-  int DNI_donor;
+  private Location location;
+  private Doctor doctor_charge;
+  private Request request;
+  Integer DNI_donor;
   
   
   
 public Receptor(Integer dNI, Integer dOB, String status, String blood_type, Integer urgency,
 		List<Antigen> antigen, List<Antibody> antobody, Location location, Doctor doctor_charge,
-		Request request, int dNI_donor) {
+		Request request, Integer dNI_donor) {
 	super();
-	DNI = dNI;
-	DOB = dOB;
-	this.status = status;
-	this.blood_type = blood_type;
-	this.urgency = urgency;
-	this.antigen = antigen;
-	this.antobody = antobody;
-	this.location = location;
-	this.doctor_charge = doctor_charge;
-	this.request = request;
-	DNI_donor = dNI_donor;
+	
 }
 public Integer getDNI() {
 	return DNI;
@@ -105,7 +93,7 @@ public void setRequest(Request request) {
 public int getDNI_donor() {
 	return DNI_donor;
 }
-public void setDNI_donor(int dNI_donor) {
+public void setDNI_donor(Integer dNI_donor) {
 	DNI_donor = dNI_donor;
 }
 @Override
