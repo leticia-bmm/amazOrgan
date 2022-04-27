@@ -4,9 +4,9 @@ import java.util.List;
 
 import amazOrgan.pojos.Receptor;
 
-public interface Doctor {
+public interface DoctorManager {
 	//insert a doctor
-	public void addDoctor (Doctor d);
+	public void addDoctor (DoctorManager d);
 	// Get all Receptors
 	public List <Receptor>listMyPatients (Integer medical_ID); 
 	// Update my data

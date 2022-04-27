@@ -11,8 +11,8 @@ public class Donor implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 7891925133827348336L;
-	private Integer DNI;
-	private LocalDate DOB;
+	private Integer dni;
+	private LocalDate dob;
 	private boolean alive;
 	private String bloodType;
 	private Antigen antigen;
@@ -25,8 +25,8 @@ public class Donor implements Serializable{
 	public Donor(Integer dNI, LocalDate dOB, boolean alive, String bloodType, Antigen antigen, Antibody antibody,
 			Location location, Doctor doctor_charge, List<Organ> organs) {
 		super();
-		DNI = dNI;
-		DOB = dOB;
+		dni = dNI;
+		dob = dOB;
 		this.alive = alive;
 		this.bloodType = bloodType;
 		this.antigen = antigen;
@@ -38,20 +38,20 @@ public class Donor implements Serializable{
 	
 	// getters and setters
 
-	public Integer getDNI() {
-		return DNI;
+	public Integer getdni() {
+		return dni;
 	}
 
-	public void setDNI(Integer dNI) {
-		DNI = dNI;
+	public void setdni(Integer dni) {
+		dni = dni;
 	}
 
-	public LocalDate getDOB() {
-		return DOB;
+	public LocalDate getdob() {
+		return dob;
 	}
 
-	public void setDOB(LocalDate dOB) {
-		DOB = dOB;
+	public void setdob(LocalDate dOB) {
+		dob = dOB;
 	}
 
 	public boolean isAlive() {
@@ -112,7 +112,7 @@ public class Donor implements Serializable{
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(DNI);
+		return Objects.hash(dni);
 	}
 
 	
@@ -126,13 +126,13 @@ public class Donor implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Donor other = (Donor) obj;
-		return Objects.equals(DNI, other.DNI);
+		return Objects.equals(dni, other.dni);
 	}
 
 	
 	//this string has to be adapted with the foreign keys
 	@Override
 	public String toString() {
-		return "Donor [DNI=" + DNI + ", DOB=" + DOB + ", alive=" + alive + ", bloodType=" + bloodType + "]";
+		return "Donor [dni=" + dni + ", dob=" + dob + ", alive=" + alive + ", bloodType=" + bloodType + "]";
 	}
 }

@@ -8,7 +8,7 @@ public class Doctor implements Serializable {
 	
 	private static final long serialVersionUID = -7252588993432397735L;
 	
-	private Integer Medical_ID;
+	private Integer Medical_id;
 	private Integer Phone_number;
 	private String Name;
 	
@@ -18,10 +18,10 @@ public class Doctor implements Serializable {
 		super();
 	}
 	public Integer getMedical_ID() {
-		return Medical_ID;
+		return Medical_id;
 	}
 	public void setMedical_ID(Integer medical_ID) {
-		Medical_ID = medical_ID;
+		Medical_id = medical_ID;
 	}
 	public Integer getPhone_number() {
 		return Phone_number;
@@ -37,11 +37,11 @@ public class Doctor implements Serializable {
 	}
 	@Override
 	public String toString() {
-		return "Doctor [Medical_ID=" + Medical_ID + ", Phone_number=" + Phone_number + ", Name=" + Name + "]";
+		return "Doctor [Medical_ID=" + Medical_id + ", Phone_number=" + Phone_number + ", Name=" + Name + "]";
 	}
 	@Override
 	public int hashCode() {
-		return Objects.hash(Medical_ID, Name, Phone_number);
+		return Objects.hash(Medical_id, Name, Phone_number);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -52,7 +52,7 @@ public class Doctor implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Doctor other = (Doctor) obj;
-		return Objects.equals(Medical_ID, other.Medical_ID) && Objects.equals(Name, other.Name)
+		return Objects.equals(Medical_id, other.Medical_id) && Objects.equals(Name, other.Name)
 				&& Objects.equals(Phone_number, other.Phone_number);
 	}
 	

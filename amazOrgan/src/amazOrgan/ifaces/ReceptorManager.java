@@ -2,9 +2,9 @@ package amazOrgan.ifaces;
 
 
 
-public interface Receptor {
+public interface ReceptorManager {
 	// Insert a Receptor
-	public void addReceptor (Receptor r);
+	public void addReceptor (ReceptorManager r);
 	// Update alive
 	public void updateAlive (Integer DNI); 
 	//Update status
