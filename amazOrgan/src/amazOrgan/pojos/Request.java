@@ -8,6 +8,7 @@ public class Request {
 	private Type_organ type_organ;
 	private Float size;
 	private boolean received;
+	private Donor donor;
 	
 	//constructor
 	public Request() {
@@ -47,15 +48,22 @@ public class Request {
 	public void setReceived(boolean received) {
 		this.received = received;
 	}
+	
+	public Donor getDonor() {
+		return donor;
+	}
+
+	public void setDonor(Donor donor) {
+		this.donor = donor;
+	}
 
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, received, size, type_organ);
+		return Objects.hash(donor, id, received, size, type_organ);
 	}
 
 
-	//hash code taking everything into account
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -65,15 +73,17 @@ public class Request {
 		if (getClass() != obj.getClass())
 			return false;
 		Request other = (Request) obj;
-		return Objects.equals(id, other.id) && received == other.received && Objects.equals(size, other.size)
-				&& Objects.equals(type_organ, other.type_organ);
+		return Objects.equals(donor, other.donor) && Objects.equals(id, other.id) && received == other.received
+				&& Objects.equals(size, other.size) && Objects.equals(type_organ, other.type_organ);
 	}
 
-	//to string method
+
 	@Override
 	public String toString() {
-		return "Request [id=" + id + ", type_organ=" + type_organ + ", size=" + size + ", received=" + received + "]";
+		return "Request [id=" + id + ", type_organ=" + type_organ + ", size=" + size + ", received=" + received
+				+ ", donor=" + donor + "]";
 	}
+
 	
 	
 	
