@@ -4,9 +4,9 @@ import java.util.Objects;
 
 public class Type_organ implements Serializable {
 
-	private static final long serialVersionUID = 3624405488128120546L;
+	private static final long serialVersionUid = 3624405488128120546L;
 	
-	private Integer ID;
+	private Integer id;
 	private String name;
 	private Integer lifespan;
 	
@@ -14,12 +14,12 @@ public class Type_organ implements Serializable {
 		super(); 
 	}
 
-	public Integer getID() {
-		return ID;
+	public Integer getid() {
+		return id;
 	}
 
-	public void setID(Integer iD) {
-		ID = iD;
+	public void setid(Integer id) {
+		id = id;
 	}
 
 	public String getName() {
@@ -40,7 +40,7 @@ public class Type_organ implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(ID, lifespan, name);
+		return Objects.hash(id, lifespan, name);
 	}
 
 	@Override
@@ -52,13 +52,13 @@ public class Type_organ implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Type_organ other = (Type_organ) obj;
-		return Objects.equals(ID, other.ID) && Objects.equals(lifespan, other.lifespan)
+		return Objects.equals(id, other.id) && Objects.equals(lifespan, other.lifespan)
 				&& Objects.equals(name, other.name);
 	}
 
 	@Override
 	public String toString() {
-		return "Type_organ [ID=" + ID + ", name=" + name + ", lifespan=" + lifespan + "]";
+		return "Type_organ [id=" + id + ", name=" + name + ", lifespan=" + lifespan + "]";
 	}
 	
 	
