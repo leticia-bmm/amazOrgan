@@ -9,9 +9,7 @@ public class Receptor implements Serializable {
 
 	private static final long serialVersionUID = 1910429613743762649L;
 	
-	
 private Integer DNI;
-	
   private Integer DOB;
   private String status;
   private String blood_type;
