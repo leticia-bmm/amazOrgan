@@ -15,7 +15,7 @@ public class Receptor implements Serializable {
   private String status;
   private String blood_type;
   private Integer urgency;
-  List<Antigen> antigen;
+  private List<Antigen> antigen;
   List<Antibody> antobody;
   private Location location;
   private Doctor doctor_charge;
