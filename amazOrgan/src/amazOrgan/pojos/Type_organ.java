@@ -19,7 +19,7 @@ public class Type_organ implements Serializable {
 	}
 
 	public void setid(Integer id) {
-		id = id;
+		this.id = id;
 	}
 
 	public String getName() {

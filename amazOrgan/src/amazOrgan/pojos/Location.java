@@ -45,6 +45,8 @@ public class Location implements Serializable{
 			return "Location [id=" + id + ", latitude=" + latitude + ", longitude=" + longitude + "]";
 		}
 
+		
+		//hash code only with id
 		@Override
 		public int hashCode() {
 			return Objects.hash(id);
@@ -61,7 +63,8 @@ public class Location implements Serializable{
 			Location other = (Location) obj;
 			return Objects.equals(id, other.id);
 		}
-		
+
+
 		
 		
 

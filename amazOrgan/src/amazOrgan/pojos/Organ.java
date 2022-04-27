@@ -48,15 +48,14 @@ public class Organ implements Serializable{
 	public String toString() {
 		return "Organ [ID=" + id + ", size=" + size + ", available=" + available + "]";
 	}
-	
-	
 
+	
+	//hash code only with id
 	@Override
 	public int hashCode() {
-		return Objects.hash(available, id, size, type_organ);
+		return Objects.hash(id);
 	}
 
-	//hash code 
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -66,21 +65,8 @@ public class Organ implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Organ other = (Organ) obj;
-		return available == other.available && Objects.equals(id, other.id) && Objects.equals(size, other.size)
-				&& Objects.equals(type_organ, other.type_organ);
+		return Objects.equals(id, other.id);
 	}
-	
-	
-
-	
-
-	
-	
-	
-	
-	
-	
-	
 	
 	
 

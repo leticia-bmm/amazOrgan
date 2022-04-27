@@ -49,13 +49,13 @@ public class Request {
 	}
 
 
+	//hash code only with id
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, received, size, type_organ);
+		return Objects.hash(id);
 	}
 
 
-	//hash code taking everything into account
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -65,15 +65,17 @@ public class Request {
 		if (getClass() != obj.getClass())
 			return false;
 		Request other = (Request) obj;
-		return Objects.equals(id, other.id) && received == other.received && Objects.equals(size, other.size)
-				&& Objects.equals(type_organ, other.type_organ);
+		return Objects.equals(id, other.id);
 	}
+
 
 	//to string method
 	@Override
 	public String toString() {
 		return "Request [id=" + id + ", type_organ=" + type_organ + ", size=" + size + ", received=" + received + "]";
 	}
+	
+	
 	
 	
 	
