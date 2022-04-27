@@ -11,7 +11,7 @@ public class Type_organ implements Serializable {
 	private Integer lifespan;
 	
 	public Type_organ() {
-		super();
+		super(); 
 	}
 
 	public Integer getID() {
