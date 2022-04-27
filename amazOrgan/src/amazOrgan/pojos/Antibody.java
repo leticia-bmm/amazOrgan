@@ -9,9 +9,9 @@ public class Antibody implements Serializable {
 	private static final long serialVersionUID = 7893987927997686073L;
 	
 	
-	Integer ID;
-	boolean class_I;
-	boolean class_II;
+	private Integer id;
+	private boolean class_I;
+	private boolean class_II;
 	
 	
 	//Empty constructor
@@ -22,11 +22,11 @@ public class Antibody implements Serializable {
 	
 	//getters and setters
 	public Integer getID() {
-		return ID;
+		return id;
 	}
 
 	public void setID(Integer iD) {
-		ID = iD;
+		id = iD;
 	}
 
 	public boolean isClass_I() {
@@ -48,13 +48,13 @@ public class Antibody implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Antibody [ID=" + ID + ", class_I=" + class_I + ", class_II=" + class_II + "]";
+		return "Antibody [ID=" + id + ", class_I=" + class_I + ", class_II=" + class_II + "]";
 	}
 
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(ID, class_I, class_II);
+		return Objects.hash(id, class_I, class_II);
 	}
 
 
@@ -67,7 +67,7 @@ public class Antibody implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Antibody other = (Antibody) obj;
-		return Objects.equals(ID, other.ID) && class_I == other.class_I && class_II == other.class_II;
+		return Objects.equals(id, other.id) && class_I == other.class_I && class_II == other.class_II;
 	}
 	
 	

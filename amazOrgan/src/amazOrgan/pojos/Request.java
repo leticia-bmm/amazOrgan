@@ -4,15 +4,15 @@ import java.util.Objects;
 
 public class Request {
 
-	Integer ID;
-	Type_organ type_organ;
-	Float size;
-	boolean received;
+	private Integer id;
+	private Type_organ type_organ;
+	private Float size;
+	private boolean received;
 	
 	//constructor
-	public Request(Integer ID, Type_organ type_organ, Float size, boolean received) {
+	public Request(Integer id, Type_organ type_organ, Float size, boolean received) {
 		super();
-		this.ID = ID;
+		this.id = id;
 		this.type_organ = type_organ;
 		this.size = size;
 		this.received = received;
@@ -21,11 +21,11 @@ public class Request {
 	
 	//getters and setters
 	public Integer getDNI() {
-		return ID;
+		return id;
 	}
 
 	public void setDNI(Integer dNI) {
-		ID = dNI;
+		id = dNI;
 	}
 
 	public Type_organ getType_organ() {
@@ -55,7 +55,7 @@ public class Request {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(ID);
+		return Objects.hash(id);
 	}
 
 
@@ -69,14 +69,14 @@ public class Request {
 		if (getClass() != obj.getClass())
 			return false;
 		Request other = (Request) obj;
-		return Objects.equals(ID, other.ID);
+		return Objects.equals(id, other.id);
 	}
 
 
 	//to string method
 	@Override
 	public String toString() {
-		return "Request [ID=" + ID + ", type_organ=" + type_organ + ", size=" + size + ", received=" + received + "]";
+		return "Request [id=" + id + ", type_organ=" + type_organ + ", size=" + size + ", received=" + received + "]";
 	}
 	
 	

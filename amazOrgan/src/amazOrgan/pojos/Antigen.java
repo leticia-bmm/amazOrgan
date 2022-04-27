@@ -8,13 +8,13 @@ public class Antigen implements Serializable {
 	
 	private static final long serialVersionUID = -228773951826510194L;
 	
-	Integer ID;
-	boolean A;
-	boolean B;
-	boolean C;
-	boolean DP;
-	boolean DQ;
-	boolean DR;
+	private Integer id;
+	private boolean a;
+	private boolean b;
+	private boolean c;
+	private boolean dp;
+	private boolean dq;
+	private boolean dr;
 	
 	
 	
@@ -23,90 +23,113 @@ public class Antigen implements Serializable {
 		super();
 	}
 
-	//getters and setters for the attributes
-	public Integer getID() {
-		return ID;
+
+
+	public Integer getId() {
+		return id;
 	}
 
 
-	public void setID(Integer iD) {
-		ID = iD;
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
+
 
 
 	public boolean isA() {
-		return A;
+		return a;
 	}
+
 
 
 	public void setA(boolean a) {
-		A = a;
+		this.a = a;
 	}
+
 
 
 	public boolean isB() {
-		return B;
+		return b;
 	}
+
 
 
 	public void setB(boolean b) {
-		B = b;
+		this.b = b;
 	}
+
 
 
 	public boolean isC() {
-		return C;
+		return c;
 	}
+
 
 
 	public void setC(boolean c) {
-		C = c;
+		this.c = c;
 	}
 
 
-	public boolean isDP() {
-		return DP;
+
+	public boolean isDp() {
+		return dp;
 	}
 
 
-	public void setDP(boolean dP) {
-		DP = dP;
+
+	public void setDp(boolean dp) {
+		this.dp = dp;
 	}
 
 
-	public boolean isDQ() {
-		return DQ;
+
+	public boolean isDq() {
+		return dq;
 	}
 
 
-	public void setDQ(boolean dQ) {
-		DQ = dQ;
+
+	public void setDq(boolean dq) {
+		this.dq = dq;
 	}
 
 
-	public boolean isDR() {
-		return DR;
+
+	public boolean isDr() {
+		return dr;
 	}
 
 
-	public void setDR(boolean dR) {
-		DR = dR;
+
+	public void setDr(boolean dr) {
+		this.dr = dr;
 	}
+
+
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 
 
 	@Override
 	public String toString() {
-		return "Antigen [ID=" + ID + ", A=" + A + ", B=" + B + ", C=" + C + ", DP=" + DP + ", DQ=" + DQ + ", DR=" + DR
+		return "Antigen [id=" + id + ", a=" + a + ", b=" + b + ", c=" + c + ", dp=" + dp + ", dq=" + dq + ", dr=" + dr
 				+ "]";
 	}
 
 
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(A, B, C, DP, DQ, DR, ID);
+		return Objects.hash(a, b, c, dp, dq, dr, id);
 	}
 
-	//equals uses all of the attributes
+
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -116,10 +139,13 @@ public class Antigen implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Antigen other = (Antigen) obj;
-		return A == other.A && B == other.B && C == other.C && DP == other.DP && DQ == other.DQ && DR == other.DR
-				&& Objects.equals(ID, other.ID);
+		return a == other.a && b == other.b && c == other.c && dp == other.dp && dq == other.dq && dr == other.dr
+				&& Objects.equals(id, other.id);
 	}
+
 	
+
+
 	
 	
 	
