@@ -1,6 +1,7 @@
 package amazOrgan.pojos;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Location implements Serializable{
 	
@@ -43,6 +44,24 @@ public class Location implements Serializable{
 		public String toString() {
 			return "Location [id=" + id + ", latitude=" + latitude + ", longitude=" + longitude + "]";
 		}
+
+		@Override
+		public int hashCode() {
+			return Objects.hash(id);
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			Location other = (Location) obj;
+			return Objects.equals(id, other.id);
+		}
+		
 		
 		
 
