@@ -14,7 +14,7 @@ public class Receptor {
 	  private Location location;
 	  private Doctor doctor;
 	  private Request request;
-	  private Donor donor;
+	 
 	  
 	  //empty Constructor
 	public Receptor() {
@@ -102,19 +102,14 @@ public class Receptor {
 		this.request = request;
 	}
 
-	public Donor getDonor() {
-		return donor;
-	}
-
-	public void setDonor(Donor donor) {
-		this.donor = donor;
-	}
+	
+	
 
 	
 	//hashcode
 	@Override
 	public int hashCode() {
-		return Objects.hash(dni);
+		return Objects.hash(antibody, antigen, blood_type, dni, dob, doctor, location, request, status, urgency);
 	}
 
 	@Override
@@ -126,7 +121,11 @@ public class Receptor {
 		if (getClass() != obj.getClass())
 			return false;
 		Receptor other = (Receptor) obj;
-		return Objects.equals(dni, other.dni);
+		return Objects.equals(antibody, other.antibody) && Objects.equals(antigen, other.antigen)
+				&& Objects.equals(blood_type, other.blood_type) && Objects.equals(dni, other.dni)
+				&& Objects.equals(dob, other.dob) && Objects.equals(doctor, other.doctor)
+				&& Objects.equals(location, other.location) && Objects.equals(request, other.request)
+				&& Objects.equals(status, other.status) && Objects.equals(urgency, other.urgency);
 	}
 
 	
@@ -135,8 +134,11 @@ public class Receptor {
 	public String toString() {
 		return "Receptor [dni=" + dni + ", dob=" + dob + ", status=" + status + ", blood_type=" + blood_type
 				+ ", urgency=" + urgency + ", antigen=" + antigen + ", antibody=" + antibody + ", location=" + location
-				+ ", doctor=" + doctor + ", request=" + request + ", donor=" + donor + "]";
+				+ ", doctor=" + doctor + ", request=" + request + "]";
 	}
+
+	
+
 	
 	
 	
