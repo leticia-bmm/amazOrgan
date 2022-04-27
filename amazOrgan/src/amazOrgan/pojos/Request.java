@@ -10,18 +10,16 @@ public class Request {
 	private boolean received;
 	
 	//constructor
-	public Request(Integer id, Type_organ type_organ, Float size, boolean received) {
-		super();
-		this.id = id;
-		this.type_organ = type_organ;
-		this.size = size;
-		this.received = received;
-	}
+	
 	
 	
 	//getters and setters
 	public Integer getDNI() {
 		return id;
+	}
+
+	public Request() {
+		super();
 	}
 
 	public void setDNI(Integer dNI) {
