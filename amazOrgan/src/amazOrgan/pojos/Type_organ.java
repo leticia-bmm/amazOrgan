@@ -4,8 +4,7 @@ import java.util.Objects;
 
 public class Type_organ implements Serializable {
 
-	private static final long serialVersionUid = 3624405488128120546L;
-	
+	private static final long serialVersionUID = -60093262058037111L;
 	private Integer id;
 	private String name;
 	private Integer lifespan;

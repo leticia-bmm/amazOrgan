@@ -7,9 +7,6 @@ import java.util.Objects;
 
 public class Donor implements Serializable{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 7891925133827348336L;
 	private Integer dni;
 	private LocalDate dob;

@@ -1,9 +1,11 @@
 package amazOrgan.pojos;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Request {
+public class Request implements Serializable{
 
+	private static final long serialVersionUID = 5641142258720418989L;
 	private Integer id;
 	private Type_organ type_organ;
 	private Float size;

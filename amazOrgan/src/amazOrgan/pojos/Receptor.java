@@ -1,9 +1,11 @@
 package amazOrgan.pojos;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Receptor {
+public class Receptor implements Serializable{
 
+	  private static final long serialVersionUID = -4194855458607458480L;
 	  private Integer dni;
 	  private Integer dob;
 	  private String status;
