@@ -7,20 +7,21 @@ import java.util.Objects;
 public class Receptor implements Serializable {
 	
 
+	private static final long serialVersionUID = 1910429613743762649L;
 	
- 
-	private static final long serialVersionUID = 1L;
-	private Integer DNI;
+	
+private Integer DNI;
+	
   private Integer DOB;
   private String status;
   private String blood_type;
   private Integer urgency;
-  private List<Antigen> antigen;
+  List<Antigen> antigen;
   List<Antibody> antobody;
-  private Location location;
-  private Doctor doctor_charge;
-  private Request request;
-  Integer DNI_donor;
+  Location location;
+  Doctor doctor_charge;
+  Request request;
+  int DNI_donor;
   
   
   
