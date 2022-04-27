@@ -1,6 +1,7 @@
 package amazOrgan.pojos;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 public class Doctor implements Serializable {
@@ -11,13 +12,18 @@ public class Doctor implements Serializable {
 	private Integer medical_id;
 	private Integer phone_number;
 	private String name;
+	private List<Receptor> receptors;
 	
 	
 	
+	
+	//empty constructor
 	public Doctor() {
 		super();
 	}
 	
+	
+	//getters and setters
 	public Integer getmedical_id() {
 		return medical_id;
 	}
@@ -37,16 +43,26 @@ public class Doctor implements Serializable {
 		this.name = name;
 	}
 	
+	public List<Receptor> getReceptors() {
+		return receptors;
+	}
+
+	public void setReceptors(List<Receptor> receptors) {
+		this.receptors = receptors;
+	}
+	
 	@Override
 	public String toString() {
 		return "Doctor [medical_id=" + medical_id + ", phone_number=" + phone_number + ", name=" + name + "]";
 	}
 
+	//hashcode
 	@Override
 	public int hashCode() {
 		return Objects.hash(medical_id);
 	}
 
+	//equals
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
