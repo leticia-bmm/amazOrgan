@@ -61,11 +61,7 @@ public class Request {
 	//hash code only with id
 	@Override
 	public int hashCode() {
-<<<<<<< HEAD
 		return Objects.hash(id);
-=======
-		return Objects.hash(donor, id, received, size, type_organ);
->>>>>>> branch 'master' of https://github.com/leticia-bmm/amazOrgan
 	}
 
 
@@ -78,19 +74,10 @@ public class Request {
 		if (getClass() != obj.getClass())
 			return false;
 		Request other = (Request) obj;
-<<<<<<< HEAD
 		return Objects.equals(id, other.id);
-=======
-		return Objects.equals(donor, other.donor) && Objects.equals(id, other.id) && received == other.received
-				&& Objects.equals(size, other.size) && Objects.equals(type_organ, other.type_organ);
->>>>>>> branch 'master' of https://github.com/leticia-bmm/amazOrgan
 	}
 
-
-<<<<<<< HEAD
 	//to string method
-=======
->>>>>>> branch 'master' of https://github.com/leticia-bmm/amazOrgan
 	@Override
 	public String toString() {
 		return "Request [id=" + id + ", type_organ=" + type_organ + ", size=" + size + ", received=" + received
