@@ -1,121 +1,149 @@
 package amazOrgan.pojos;
 
-import java.io.Serializable;
-import java.util.List;
 import java.util.Objects;
 
-public class Receptor implements Serializable {
-	
+public class Receptor {
 
-	private static final long serialVersionUID = 1910429613743762649L;
+	  private Integer dni;
+	  private Integer dob;
+	  private String status;
+	  private String blood_type;
+	  private Integer urgency;
+	  private Antigen antigen;
+	  private Antibody antibody;
+	  private Location location;
+	  private Doctor doctor;
+	  private Request request;
+	  private Donor donor;
+	  
+	  //empty Constructor
+	public Receptor() {
+		super();
+	}
 	
-private Integer DNI;
-  private Integer DOB;
-  private String status;
-  private String blood_type;
-  private Integer urgency;
-  List<Antigen> antigen;
-  List<Antibody> antobody;
-  Location location;
-  Doctor doctor_charge;
-  Request request;
-  int DNI_donor;
-  
-  
-  
-public Receptor(Integer dNI, Integer dOB, String status, String blood_type, Integer urgency,
-		List<Antigen> antigen, List<Antibody> antobody, Location location, Doctor doctor_charge,
-		Request request, Integer dNI_donor) {
-	super();
+	//Getters and Setters
+	public Integer getDni() {
+		return dni;
+	}
+
+	public void setDni(Integer dni) {
+		this.dni = dni;
+	}
+
+	public Integer getDob() {
+		return dob;
+	}
+
+	public void setDob(Integer dob) {
+		this.dob = dob;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getBlood_type() {
+		return blood_type;
+	}
+
+	public void setBlood_type(String blood_type) {
+		this.blood_type = blood_type;
+	}
+
+	public Integer getUrgency() {
+		return urgency;
+	}
+
+	public void setUrgency(Integer urgency) {
+		this.urgency = urgency;
+	}
+
+	public Antigen getAntigen() {
+		return antigen;
+	}
+
+	public void setAntigen(Antigen antigen) {
+		this.antigen = antigen;
+	}
+
+	public Antibody getAntibody() {
+		return antibody;
+	}
+
+	public void setAntibody(Antibody antibody) {
+		this.antibody = antibody;
+	}
+
+	public Location getLocation() {
+		return location;
+	}
+
+	public void setLocation(Location location) {
+		this.location = location;
+	}
+
+	public Doctor getDoctor() {
+		return doctor;
+	}
+
+	public void setDoctor(Doctor doctor) {
+		this.doctor = doctor;
+	}
+
+	public Request getRequest() {
+		return request;
+	}
+
+	public void setRequest(Request request) {
+		this.request = request;
+	}
+
+	public Donor getDonor() {
+		return donor;
+	}
+
+	public void setDonor(Donor donor) {
+		this.donor = donor;
+	}
+
 	
-}
-public Integer getDNI() {
-	return DNI;
-}
-public void setDNI(Integer dNI) {
-	DNI = dNI;
-}
-public Integer getDOB() {
-	return DOB;
-}
-public void setDOB(Integer dOB) {
-	DOB = dOB;
-}
-public String getStatus() {
-	return status;
-}
-public void setStatus(String status) {
-	this.status = status;
-}
-public String getBlood_type() {
-	return blood_type;
-}
-public void setBlood_type(String blood_type) {
-	this.blood_type = blood_type;
-}
-public Integer getUrgency() {
-	return urgency;
-}
-public void setUrgency(Integer urgency) {
-	this.urgency = urgency;
-}
-public List<Antigen> getAntigen() {
-	return antigen;
-}
-public void setAntigen(List<Antigen> antigen) {
-	this.antigen = antigen;
-}
-public List<Antibody> getAntobody() {
-	return antobody;
-}
-public void setAntobody(List<Antibody> antobody) {
-	this.antobody = antobody;
-}
-public Location getLocation() {
-	return location;
-}
-public void setLocation(Location location) {
-	this.location = location;
-}
-public Doctor getDoctor_charge() {
-	return doctor_charge;
-}
-public void setDoctor_charge(Doctor doctor_charge) {
-	this.doctor_charge = doctor_charge;
-}
-public Request getRequest() {
-	return request;
-}
-public void setRequest(Request request) {
-	this.request = request;
-}
-public int getDNI_donor() {
-	return DNI_donor;
-}
-public void setDNI_donor(Integer dNI_donor) {
-	DNI_donor = dNI_donor;
-}
-@Override
-public String toString() {
-	return "Receptor [DNI=" + DNI + ", DOB=" + DOB + ", status=" + status + ", blood_type=" + blood_type + ", urgency="
-			+ urgency + ", location=" + location + ", DNI_donor=" + DNI_donor + "]";
-}
-@Override
-public int hashCode() {
-	return Objects.hash(DNI, DNI_donor, DOB, blood_type, location, status, urgency);
-}
-@Override
-public boolean equals(Object obj) {
-	if (this == obj)
-		return true;
-	if (obj == null)
-		return false;
-	if (getClass() != obj.getClass())
-		return false;
-	Receptor other = (Receptor) obj;
-	return Objects.equals(DNI, other.DNI) && DNI_donor == other.DNI_donor && Objects.equals(DOB, other.DOB)
-			&& Objects.equals(blood_type, other.blood_type) && Objects.equals(location, other.location)
-			&& Objects.equals(status, other.status) && Objects.equals(urgency, other.urgency);
-}
-  
+	//hashcode
+	@Override
+	public int hashCode() {
+		return Objects.hash(dni);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Receptor other = (Receptor) obj;
+		return Objects.equals(dni, other.dni);
+	}
+
+	
+	//toString
+	@Override
+	public String toString() {
+		return "Receptor [dni=" + dni + ", dob=" + dob + ", status=" + status + ", blood_type=" + blood_type
+				+ ", urgency=" + urgency + ", antigen=" + antigen + ", antibody=" + antibody + ", location=" + location
+				+ ", doctor=" + doctor + ", request=" + request + ", donor=" + donor + "]";
+	}
+	
+	
+	
+	  
+	  
+	  
+	  
+	  
+	
 }

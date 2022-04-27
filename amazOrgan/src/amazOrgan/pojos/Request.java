@@ -10,7 +10,9 @@ public class Request {
 	private boolean received;
 	
 	//constructor
-	
+	public Request() {
+		super();
+	}	
 	
 	
 	//getters and setters
@@ -18,12 +20,8 @@ public class Request {
 		return id;
 	}
 
-	public Request() {
-		super();
-	}
-
 	public void setDNI(Integer dNI) {
-		id = dNI;
+		this.id = dNI;
 	}
 
 	public Type_organ getType_organ() {
@@ -53,11 +51,11 @@ public class Request {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id);
+		return Objects.hash(id, received, size, type_organ);
 	}
 
 
-	//hash code only taking into account the id
+	//hash code taking everything into account
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -67,9 +65,9 @@ public class Request {
 		if (getClass() != obj.getClass())
 			return false;
 		Request other = (Request) obj;
-		return Objects.equals(id, other.id);
+		return Objects.equals(id, other.id) && received == other.received && Objects.equals(size, other.size)
+				&& Objects.equals(type_organ, other.type_organ);
 	}
-
 
 	//to string method
 	@Override
