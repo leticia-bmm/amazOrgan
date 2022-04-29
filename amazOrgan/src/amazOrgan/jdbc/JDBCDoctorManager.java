@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import amazOrgan.ifaces.DoctorManager;
+import amazOrgan.pojos.Doctor;
 import amazOrgan.pojos.Receptor;
 
 
@@ -80,6 +81,12 @@ public class JDBCDoctorManager implements DoctorManager {
 				}
 				return vets;
 			}
+
+		@Override
+		public void addDoctor(Doctor d) {
+			// TODO Auto-generated method stub
+			
+		}
 
 			@Override
 			
