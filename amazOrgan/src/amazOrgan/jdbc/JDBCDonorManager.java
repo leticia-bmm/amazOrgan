@@ -15,9 +15,12 @@ updateAlive (DNI: int): void
 
 showDonorsByBloodType (bloodtype: text): void 
 */
-import hospital.jdbc.PreparedStatement;
-import hospital.jdbc.SQLException;
+import hospital.jdbc.Exception;
+import hospital.jdbc.ResultSet;
+import hospital.jdbc.Statement;
 import hospital.jdbc.String;
+import hospital.pojos.Vet;
+
 
 public class JDBCDonorManager implements DonorManager {
 	
@@ -31,33 +34,37 @@ public class JDBCDonorManager implements DonorManager {
 		public void addDonor(Donor d) {
 			
 			
-			// TODO Auto-generated method stub
+			// TODO Auto-generated method stub el id es autoincrement
 			
 		}
 
 		@Override
 		public void deleteDonor(Integer DNI) {
-			// TODO Auto-generated method stub
-			
 			try {
 				String sql = "DELETE FROM donor WHERE DNI=?";
-				PreparedStatement p = manager.getConnection().prepareStatement(sql);
-				p.setInteger(1, dogId);
-				p.executeUpdate();
+				
+				PreparedStatement prep = manager.getConnection().prepareStatement(sql);
+				prep.setInteger(1, DNI);
+				prep.executeUpdate();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
-		}
+		
 
 		@Override
 		public void getDonor(Integer DNI) {
 			// TODO Auto-generated method stub
 			
+			
+
+			
 		}
 
 		@Override
 		public void updateAlive(Integer DNI) {
+			
+			
 			// TODO Auto-generated method stub
 			
 		}
