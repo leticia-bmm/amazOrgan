@@ -1,10 +1,10 @@
 package amazOrgan.ifaces;
 
-
+import amazOrgan.pojos.Receptor;
 
 public interface ReceptorManager {
 	// Insert a Receptor
-	public void addReceptor (ReceptorManager r);
+	public void addReceptor (Receptor r);
 	// Update alive
 	public void updateAlive (Integer DNI); 
 	//Update status
