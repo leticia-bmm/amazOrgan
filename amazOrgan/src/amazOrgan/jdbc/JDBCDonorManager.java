@@ -42,7 +42,7 @@ public class JDBCDonorManager implements DonorManager {
 			try {
 				String sql = "DELETE FROM donor WHERE DNI=?";
 				PreparedStatement p = manager.getConnection().prepareStatement(sql);
-				p.setInt(1, dogId);
+				p.setInteger(1, dogId);
 				p.executeUpdate();
 			} catch (SQLException e) {
 				e.printStackTrace();

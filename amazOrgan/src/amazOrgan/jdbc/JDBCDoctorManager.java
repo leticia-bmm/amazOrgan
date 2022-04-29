@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import amazOrgan.ifaces.DoctorManager;
+import amazOrgan.pojos.Doctor;
 import amazOrgan.pojos.Receptor;
 
 
@@ -19,7 +20,7 @@ public class JDBCDoctorManager implements DoctorManager {
 	}
 	
 	@Override
-	public void addDoctor(DoctorManager d) {
+	public void addDoctor(Doctor d) {
 		
 			try {
 				String sql = "INSERT INTO doctor (medical id, phone number, name) VALUES (?,?,?)";
@@ -61,18 +62,16 @@ public class JDBCDoctorManager implements DoctorManager {
 		public List <Receptor> listMyPatients (Integer medical_ID){
 			
 			// TODO is not finished . i do not know how to do it
+			
 			List<Receptor> receptors = new ArrayList<Receptor>();
 				try {
 					Statement stmt = manager.getConnection().createStatement();
-					String sql = "SELECT * FROM vets";
+					String sql = "SELECT * FROM Patients";
 					ResultSet rs = stmt.executeQuery(sql);
 					while (rs.next()) {
-						Integer id = rs.getInt("id");
+						Integer id = rs.getInteger("id");
 						String name = rs.getString("name");
 						String speciality = rs.getString("speciality");
-						Vet v = new Vet(id, name, speciality);
-						vets.add(v);
-					}
 					rs.close();
 					stmt.close();
 				} catch (Exception e) {
