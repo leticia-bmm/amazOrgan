@@ -1,5 +1,6 @@
 package amazOrgan.jdbc;
 
+import java.sql.PreparedStatement;
 import java.util.List;
 
 import amazOrgan.ifaces.DoctorManager;
@@ -15,11 +16,7 @@ updateAlive (DNI: int): void
 
 showDonorsByBloodType (bloodtype: text): void 
 */
-import hospital.jdbc.Exception;
-import hospital.jdbc.ResultSet;
-import hospital.jdbc.Statement;
-import hospital.jdbc.String;
-import hospital.pojos.Vet;
+
 
 
 public class JDBCDonorManager implements DonorManager {
@@ -44,7 +41,7 @@ public class JDBCDonorManager implements DonorManager {
 				String sql = "DELETE FROM donor WHERE DNI=?";
 				
 				PreparedStatement prep = manager.getConnection().prepareStatement(sql);
-				prep.setInteger(1, DNI);
+				prep.setInt(1, DNI);
 				prep.executeUpdate();
 			} catch (SQLException e) {
 				e.printStackTrace();

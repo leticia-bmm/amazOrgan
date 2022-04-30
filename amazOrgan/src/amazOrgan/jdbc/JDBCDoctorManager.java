@@ -25,9 +25,9 @@ public class JDBCDoctorManager implements DoctorManager {
 			try {
 				String sql = "INSERT INTO doctor (medical id, phone number, name) VALUES (?,?,?)";
 				PreparedStatement prep = manager.getConnection().prepareStatement(sql);
-				prep.setInteger(1, d.getMedical_id());
-				prep.setInteger(2, d.getPhone_number());
-				prep.setString(3, d.getName());
+				prep.setInt(1, d.getmedical_id());
+				prep.setInt(2, d.getphone_number());
+				prep.setString(3, d.getname());
 				prep.executeUpdate();
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -35,7 +35,7 @@ public class JDBCDoctorManager implements DoctorManager {
 			
 			
 	}
-	// chage my data
+	// change my data
 	public void changeMyData(Integer medical_id) {
 		try {
 			String sql = "UPDATE Doctor" + " SET medical_id=?" + " phone_number=?" + " name=?" ;
