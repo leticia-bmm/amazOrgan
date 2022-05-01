@@ -32,6 +32,7 @@ public class JDBCDoctorManager implements DoctorManager {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
 	}
 
 	// change my data
