@@ -29,10 +29,8 @@ public class JDBCDonorManager implements DonorManager {
 
 		@Override
 		public void addDonor(Donor d) {
-			
-			
-			// TODO Auto-generated method stub el id es autoincrement
-			
+			String sql = "INSERT INTO donor (dni, dob, alive, bloodType, antigen, antibody, location, doctor_charge, organs) VALUES (?,?,?,?,?,?,?,?,?)";
+			PreparedStatement prep = manager.getConnection().
 		}
 
 		@Override
