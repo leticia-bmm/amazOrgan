@@ -1,6 +1,5 @@
 package amazOrgan.jpa;
 
-package hospital.jpa;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -11,9 +10,10 @@ import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
-import hospital.ifaces.UserManager;
-import hospital.pojos.Role;
-import hospital.pojos.User;
+import amazOrgan.ifaces.UserManager;
+import amazOrgan.pojos.Role;
+import amazOrgan.pojos.User;
+
 
 public class JPAUserManager implements UserManager {
 
@@ -25,16 +25,14 @@ public class JPAUserManager implements UserManager {
 	}
 
 	private void connect() {
-		em = Persistence.createEntityManagerFactory("doghospital-provider").createEntityManager();
+		em = Persistence.createEntityManagerFactory("amazOrgan-provider").createEntityManager();
 		em.getTransaction().begin();
 		em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
 		em.getTransaction().commit();
 		// Insert the roles needed only if they are not there already
 		if (this.getRoles().isEmpty()) {
-			Role owner = new Role("owner");
-			Role vet = new Role("vet");
-			this.newRole(owner);
-			this.newRole(vet);
+			Role owner = new Role("doctor");
+			this.newRole(doctor);
 		}
 	}
 
@@ -56,8 +54,7 @@ public class JPAUserManager implements UserManager {
 		em.getTransaction().commit();
 	}
 
-	@Override
-	public Role getRole(String name) {
+	public Role getRoles(String name) {
 		Query q = em.createNativeQuery("SELECT * FROM roles WHERE name = ?", Role.class);
 		q.setParameter(1, name);
 		return (Role) q.getSingleResult();
