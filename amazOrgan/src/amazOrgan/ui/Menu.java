@@ -6,10 +6,13 @@ import java.io.InputStreamReader;
 public class Menu {
 
 	private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+	// TODO 
+	//private static ....Managers
 
-	public static int first_menu() {
+	public static void first_menu() {
 
 		try {
+			int option;
 			while (true) {
 
 				System.out.println("Please, choose an option:");
@@ -18,30 +21,36 @@ public class Menu {
 				System.out.println("3) Work with donors");
 				System.out.println("4) Work with receptors");
 				System.out.println("0) Exit");
-				int option = Integer.parseInt(reader.readLine());
+				option = Integer.parseInt(reader.readLine());
 
 				switch (option) {
 				case 1:
-					return 1;
+					//See my patients
+					System.out.println("SEE MY PATIENTS");
+					
+					break;
+					
 				case 2:
-					return 2;
-				case 3: // call donor menu
-					int a = donor_menu();
-					if (a == 0) {
-						break;
-					} else {
-						return a;
-					}
+					//Change my data
+					System.out.println("CHANGE MY DATA");
+					
+					break;
+					
+				case 3: 
+					// call donor menu
+					donor_menu();
+					break;
 
-				case 4: // call receptor menu
-					int b = receptor_menu();
-					if (b == 0) {
-						break;
-					} else {
-						return b;
-					}
+				case 4: 
+					// call receptor menu
+					receptor_menu();
+					break;
+					
 				case 0:
-					return 0;
+					//go out of the method to exit the program from the main
+					//this is the only moment we exit from this method
+					return;
+					
 				default:
 					System.out.println("The selected option is not correct.");
 					break;
@@ -50,12 +59,13 @@ public class Menu {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return -1;
+		
 	}
 
-	public static int donor_menu() {
+	public static void donor_menu() {
 
 		try {
+			int option;
 			while (true) {
 				System.out.println("Please, choose an option:");
 				System.out.println("1) Register donor");
@@ -64,35 +74,59 @@ public class Menu {
 				System.out.println("4) Delete donor");
 				System.out.println("5) Get donor");
 				System.out.println("0) Back");
-				int option = Integer.parseInt(reader.readLine());
+				option = Integer.parseInt(reader.readLine());
 
 				switch (option) {
 				case 1:
-					return 3;
+					//Register donor
+					System.out.println("REGISTER DONOR");
+					
+					break;
+					
 				case 2:
-					return 4;
+					//Show donors
+					System.out.println("SHOW DONORS");
+					
+					break;
+					
 				case 3:
-					return 5;
+					//Update alive
+					System.out.println("UPDATE ALIVE");
+					
+					break;
+					
 				case 4:
-					return 6;
+					//Delete donor
+					System.out.println("DELETE DONOR");
+					
+					break;
+					
 				case 5:
-					return 7;
+					//Get donor
+					System.out.println("GET DONOR");
+					
+					break;
+					
 				case 0:
-					return 0;
+					//Back
+					return;	//we exit the method to return to first_menu
+					
 				default:
 					System.out.println("The selected option is not correct.");
 					break;
 				}
 			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return -1;
+		
 	}
 
-	public static int receptor_menu() {
+	public static void receptor_menu() {
 
 		try {
+			int option;
 			while (true) {
 				System.out.println("Please, choose an option:");
 				System.out.println("1) Register receptor");
@@ -101,19 +135,37 @@ public class Menu {
 				System.out.println("4) Update data");
 				System.out.println("0) Back");
 
-				int option = Integer.parseInt(reader.readLine());
+				option = Integer.parseInt(reader.readLine());
 
 				switch (option) {
 				case 1:
-					return 8;
+					//Register receptor
+					System.out.println("REGISTER RECEPTOR");
+					
+					break;
+					
 				case 2:
-					return 9;
+					//Show receptors
+					System.out.println("SHOW RECEPTORS");
+					
+					break;
+					
 				case 3:
-					return 10;
+					//Search receptor
+					System.out.println("SEARCH RECEPTOR");
+					
+					break;
+					
 				case 4:
-					return 11;
+					//Update data
+					System.out.println("UPDATE DATA");
+					
+					break;
+					
 				case 0:
-					return 0;
+					//Back
+					return;	//we exit the method to return to first_menu
+					
 				default:
 					System.out.println("The selected option is not correct.");
 					break;
@@ -122,20 +174,30 @@ public class Menu {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return -1;
+		
 	}
+	
+	
 
 	public static void main(String[] ars) {
 
 		System.out.println("Welcome to amazOrgan!");
+		
+		// TODO 
 		// Initialize database for JDBC
+		//-----------------------------
+		
+		// = new ...Manager()
 
+		// TODO 
 		// Initialize database for JPA
+		//----------------------------
+		// userManager = new JPAUserManager();
 
+		
 		// Menu loop
 		try {
 			int option;
-
 			while (true) {
 				System.out.println("Please, choose an option: ");
 				System.out.println("1) Login as a Doctor");
@@ -146,9 +208,14 @@ public class Menu {
 				switch (option) {
 				case 1:
 					// Login as a Doctor
+					System.out.println("LOGIN AS A DOCTOR");
+					
 					break;
+					
 				case 2:
 					// Register as a Doctor
+					System.out.println("REGISTER AS A DOCTOR");
+					
 					break;
 
 				default:
@@ -159,70 +226,20 @@ public class Menu {
 				break; // to exit the loop
 			}
 
-			// The doctor is able to work with the database
-			// call first menu
-			// call second menu (donor or receptor)
+			// Now, the doctor is able to work with the database
+			// 1) call first menu
+			// 2) call second menu (donor or receptor)
 
-			while (true) {
-				option = first_menu();
-				switch (option) {
-
-				// Doctor
-				case 1:
-					// See my patients
-					System.out.println("See my patients");
-					break;
-				case 2:
-					// Change my data
-					System.out.println("Change my data");
-					break;
-
-				// Donor
-				case 3:
-					// Register donor
-					System.out.println("Register donor");
-					break;
-				case 4:
-					// Show donors
-					System.out.println("Show donors");
-					break;
-				case 5:
-					// Update alive
-					System.out.println("See my patients");
-					break;
-				case 6:
-					// Delete donor
-					System.out.println("Update alive");
-					break;
-				case 7:
-					// Get donor
-					System.out.println("Get donor");
-					break;
-
-				// Receptor
-				case 8:
-					// Register receptor
-					System.out.println("Register receptor");
-					break;
-				case 9:
-					// Show receptors
-					System.out.println("Show receptors");
-					break;
-				case 10:
-					// Search receptors
-					System.out.println("Search receptors");
-					break;
-				case 11:
-					// Update data
-					System.out.println("Update data");
-					break;
-
-				case 0:
-					// Close the connection with the database
-
-					System.exit(0);
-				}
-			}
+			first_menu();
+			//if we reach this point, it is because the user wants to exit the program
+			
+			// TODO 
+			// Close the connection with the database
+			//---------------------------------------
+			//disconnect()
+			
+			System.exit(0);
+			
 
 		} catch (Exception e) {
 			e.printStackTrace();
