@@ -1,6 +1,5 @@
 package amazOrgan.pojos;
 
-
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Objects;
@@ -10,9 +9,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
+
 
 @Entity
 @Table(name = "users")
@@ -20,25 +20,29 @@ public class User implements Serializable {
 
 	private static final long serialVersionUID = 1798339578536720273L;
 	
+	//we create the class User to handle the login and log out methods
 	@Id
 	@GeneratedValue(generator = "users")
 	@TableGenerator(name = "users", table = "sqlite_sequence",
 		pkColumnName = "name", valueColumnName = "seq", pkColumnValue = "users")
 	private Integer id;
-	private String email;
+	private String medical_id;
 	@Lob
 	private byte[] password;
-	@ManyToOne
-	@JoinColumn(name = "role_id")
-	private Role role;
+	@OneToOne
+	//type of relationship with the other class
+	@JoinColumn(name = "medical_id")
+	//which class?
+	private Doctor doctor;
 	
-	public User() {
+	
+	User() {
 		super();
 	}
 
-	public User(String email, byte[] password) {
+	public User(String medical_id, byte[] password) {
 		super();
-		this.email = email;
+		this.medical_id = medical_id;
 		this.password = password;
 	}
 
@@ -50,12 +54,12 @@ public class User implements Serializable {
 		this.id = id;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getMedical_id() {
+		return medical_id;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setMedical_id(String medical_id) {
+		this.medical_id = medical_id;
 	}
 
 	public byte[] getPassword() {
@@ -66,13 +70,6 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
-	public Role getRole() {
-		return role;
-	}
-
-	public void setRole(Role role) {
-		this.role = role;
-	}
 
 	@Override
 	public int hashCode() {
@@ -93,8 +90,7 @@ public class User implements Serializable {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", email=" + email + ", password=" + Arrays.toString(password) + ", role=" + role.getName()
-				+ "]";
+		return "User [id=" + id + ", medical id=" + medical_id + ", password=" + Arrays.toString(password) + "]";
 	}
 
 }
