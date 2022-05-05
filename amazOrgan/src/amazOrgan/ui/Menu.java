@@ -49,6 +49,7 @@ public class Menu {
 				case 0:
 					//go out of the method to exit the program from the main
 					//this is the only moment we exit from this method
+					System.out.println("Thanks for choosing amazOrgan");
 					return;
 					
 				default:
