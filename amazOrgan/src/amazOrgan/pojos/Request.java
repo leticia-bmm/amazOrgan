@@ -19,12 +19,12 @@ public class Request implements Serializable{
 	
 	
 	//getters and setters
-	public Integer getDNI() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setDNI(Integer dNI) {
-		this.id = dNI;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public Type_organ getType_organ() {
