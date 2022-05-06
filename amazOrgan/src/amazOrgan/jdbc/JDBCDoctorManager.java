@@ -23,7 +23,7 @@ public class JDBCDoctorManager implements DoctorManager {
 	@Override
 	public void addDoctor(Doctor d) {
 		try {
-			String sql = "INSERT INTO doctor (medical id, phone number, name) VALUES (?,?,?)";
+			String sql = "INSERT INTO doctor (medical id, phone number, name) VALUES (?,?,?)"; 
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setInt(1, d.getmedical_id());
 			prep.setInt(2, d.getphone_number());
@@ -40,34 +40,41 @@ public class JDBCDoctorManager implements DoctorManager {
 	// or do a new method called searchDoctor
 	// this is so that we can work with the doctors method
 	// TODO
-	public void changeMyData(Integer medical_id) {
+	// we have to do a method to change the doctor
+	//
+	public void changeMyData(Doctor d) {
 		try {
-			String sql = "UPDATE Doctor" + " SET medical_id=?" + " phone_number=?" + " name=?";
+			String sql = "UPDATE Doctor " + " phone_number=? " + " name=? WHERE medical_id=?";
 			PreparedStatement p = manager.getConnection().prepareStatement(sql);
-			p.setInteger(1, d.getMedical_id());
-			p.setInteger(2, d.getPhone_number());
-			p.setString(3, d.getname());
+			p.setInt(1, d.getphone_number());
+			p.setString(2, d.getname());
 			p.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	// show the data
-	// the same problem as before
 	public void showMyData(Integer medical_id) {
-		
+		try {
+			String sql = "SELECT doctor WHERE medical_id=?";
+			PreparedStatement p= manager.getConnection().prepareStatement(sql);
+			
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
+	
+	
 
 	// list of receptors
-	public List<Receptor> listMyPatients(Integer medical_ID) {
-
-		// TODO is not finished . i do not know how to do it
+	public List<Receptor> listMyPatients(Integer Medical_Id) {
 
 		List<Receptor> receptors = new ArrayList<Receptor>();
 		try {
 			Statement stmt = manager.getConnection().createStatement();
-			String sql = "SELECT * FROM receptor";
+			String sql = "SELECT * FROM receptor ";
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
 				Integer id = rs.getInt("id");

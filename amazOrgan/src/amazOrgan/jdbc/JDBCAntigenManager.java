@@ -22,7 +22,7 @@ public class JDBCAntigenManager {
 	public void addAntigen (Antigen a) {
 		
 		try {
-			String sql = "INSERT INTO antigen  (a,b,c,dp,dq,dr) VALUES (?,?,?,?,?,?)";
+			String sql = "INSERT INTO antigen (a,b,c,dp,dq,dr) VALUES (?,?,?,?,?,?)";
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setBoolean(1, a.isA());
 			prep.setBoolean(2, a.isB());
@@ -30,9 +30,7 @@ public class JDBCAntigenManager {
 			prep.setBoolean(4, a.isDp());
 			prep.setBoolean(5, a.isDq());
 			prep.setBoolean(6, a.isDr());
-			prep.executeUpdate();
-			
-			
+			prep.executeUpdate();			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
