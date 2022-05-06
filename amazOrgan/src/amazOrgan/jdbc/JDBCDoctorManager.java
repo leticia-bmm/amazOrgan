@@ -54,12 +54,10 @@ public class JDBCDoctorManager implements DoctorManager {
 		}
 	}
 
-	public void showMyData(Integer medical_id) {
+	public void showMyData(Doctor d) {
 		try {
-			String sql = "SELECT doctor WHERE medical_id=?";
-			PreparedStatement p= manager.getConnection().prepareStatement(sql);
-			
-			
+			String sql = "SELECT * FROM doctor WHERE medical_id=?";
+			PreparedStatement p= manager.getConnection().prepareStatement(sql);			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
