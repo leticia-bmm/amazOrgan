@@ -14,9 +14,7 @@ public class Doctor implements Serializable {
 	private String name;
 	private List<Donor> donors;
 	//TODO getters and setter of donors and add them into string
-	
-	
-	
+	//elimination of the table 
 	
 	//empty constructor
 	public Doctor() {
