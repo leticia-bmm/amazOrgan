@@ -26,11 +26,16 @@ public class JDBCAntibodyManager implements AntibodyManager {
 		try {
 			String sql = "INSERT INTO antibody (class I, class II) VALUES (?,?)";
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
-			prep.setBoolean(1,a.)
+			prep.setBoolean(1, a.isClass_I());
+			prep.setBoolean(2, a.isClass_II());
+			prep.executeUpdate();
 			
 			
-		}
+		} catch (Exception e) {
+			e.printStackTrace();
 	}
+	}
+	
 
 	@Override
 	public void deleteAntibody(Integer ID) {

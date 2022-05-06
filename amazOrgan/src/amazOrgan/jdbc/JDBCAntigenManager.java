@@ -33,6 +33,8 @@ public class JDBCAntigenManager {
 			prep.executeUpdate();
 			
 			
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -45,7 +47,6 @@ public class JDBCAntigenManager {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		
-		// TODO Auto-generated method stub
 		
 	}
 

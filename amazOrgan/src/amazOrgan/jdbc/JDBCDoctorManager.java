@@ -44,10 +44,10 @@ public class JDBCDoctorManager implements DoctorManager {
 		try {
 			String sql = "UPDATE Doctor" + " SET medical_id=?" + " phone_number=?" + " name=?";
 			PreparedStatement p = manager.getConnection().prepareStatement(sql);
-			/*p.setInteger(1, d.getMedical_id());
+			p.setInteger(1, d.getMedical_id());
 			p.setInteger(2, d.getPhone_number());
 			p.setString(3, d.getname());
-			p.executeUpdate();*/
+			p.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
