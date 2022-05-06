@@ -38,11 +38,11 @@ public class JDBCAntibodyManager implements AntibodyManager {
 	
 
 	@Override
-	public void deleteAntibody(Integer ID) {
+	public void deleteAntibody(Integer id) {
 		try {
 			String sql = "DELETE FROM antibody WHERE id=?";
 			PreparedStatement p = manager.getConnection().prepareStatement(sql);
-			p.setInt(1, ID);
+			p.setInt(1, id);
 			p.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

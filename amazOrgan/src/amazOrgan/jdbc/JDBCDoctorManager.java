@@ -1,5 +1,6 @@
 package amazOrgan.jdbc;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,8 +9,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import amazOrgan.ifaces.DoctorManager;
+import amazOrgan.pojos.Antibody;
+import amazOrgan.pojos.Antigen;
 import amazOrgan.pojos.Doctor;
+import amazOrgan.pojos.Location;
 import amazOrgan.pojos.Receptor;
+import amazOrgan.pojos.Request;
+import hospital.pojos.Vet;
 
 public class JDBCDoctorManager implements DoctorManager {
 
@@ -23,7 +29,7 @@ public class JDBCDoctorManager implements DoctorManager {
 	@Override
 	public void addDoctor(Doctor d) {
 		try {
-			String sql = "INSERT INTO doctor (medical id, phone number, name) VALUES (?,?,?)"; 
+			String sql = "INSERT INTO doctor (medical_id, phone_number, name) VALUES (?,?,?)"; 
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setInt(1, d.getmedical_id());
 			prep.setInt(2, d.getphone_number());
@@ -54,11 +60,10 @@ public class JDBCDoctorManager implements DoctorManager {
 		}
 	}
 
-	public void showMyData(Doctor d) {
+	public void showMyData(Integer Medical_id) {
 		try {
 			String sql = "SELECT * FROM doctor WHERE medical_id=?";
 			PreparedStatement p= manager.getConnection().prepareStatement(sql);			
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -74,10 +79,19 @@ public class JDBCDoctorManager implements DoctorManager {
 			Statement stmt = manager.getConnection().createStatement();
 			String sql = "SELECT * FROM receptor ";
 			ResultSet rs = stmt.executeQuery(sql);
-			while (rs.next()) {
-				Integer id = rs.getInt("id");
-				String name = rs.getString("name");
-				String speciality = rs.getString("speciality");
+			while (rs.next()) { 			
+				Integer dni = rs.getInt("dni");
+				Date dob = rs.getDate("dob");
+				String status= rs.getString("status");
+				String blood_type= rs.getString("blood_type");
+				Integer urgency =rs.getInt("urgency");
+				Antigen antigen =rs.getAntigen("antigen");
+				Antibody antibody = rs.getAntibody("antibody");
+				Location location = rs.getLocation("location");
+				Request request = rs.getRequest("request");
+				Boolean alive = rs.getBoolean("alive");
+				Receptor r = new Receptor (dni, dob, status, blood_type, urgency, antigen ,antibody, location, request, alive);;
+				receptors.add(r);
 				rs.close();
 				stmt.close();
 			}

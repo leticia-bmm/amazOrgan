@@ -36,11 +36,11 @@ public class JDBCAntigenManager {
 		}
 	}
 
-	public void deleteAntigen(Integer ID) {
+	public void deleteAntigen(Integer id) {
 		try{
 			String sql = "DELETE FROM antigen WHERE id=?";
 			PreparedStatement p = manager.getConnection().prepareStatement(sql);
-			p.setInt(1, ID);
+			p.setInt(1, id);
 			p.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
