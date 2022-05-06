@@ -13,11 +13,11 @@ public class Type_organ implements Serializable {
 		super(); 
 	}
 
-	public Integer getid() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setid(Integer id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
