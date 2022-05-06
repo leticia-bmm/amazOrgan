@@ -11,7 +11,7 @@ public interface DoctorManager {
 	// Get all Receptors
 	public List <Receptor>listMyPatients (Integer medical_ID); 
 	// Update my data
-	public void changeMyData (Integer medical_ID);
+	public void changeMyData (Doctor d);
 	// show my data
 	public void showMyData (Integer medical_ID);
 	
