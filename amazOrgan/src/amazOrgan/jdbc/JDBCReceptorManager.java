@@ -41,7 +41,17 @@ public class JDBCReceptorManager implements ReceptorManager{
 
 	@Override
 	public void updateAlive(Integer DNI) {
-		// TODO Auto-generated method stub
+		try {
+			String sql = ""
+			
+			
+			
+			
+			
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 	}
 

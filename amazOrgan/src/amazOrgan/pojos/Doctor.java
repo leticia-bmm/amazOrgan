@@ -12,7 +12,8 @@ public class Doctor implements Serializable {
 	private Integer medical_id;
 	private Integer phone_number;
 	private String name;
-	private List<Receptor> receptors;
+	private List<Donor> donors;
+	//TODO getters and setter of donors and add them into string
 	
 	
 	
@@ -43,13 +44,7 @@ public class Doctor implements Serializable {
 		this.name = name;
 	}
 	
-	public List<Receptor> getReceptors() {
-		return receptors;
-	}
 
-	public void setReceptors(List<Receptor> receptors) {
-		this.receptors = receptors;
-	}
 	
 	@Override
 	public String toString() {
