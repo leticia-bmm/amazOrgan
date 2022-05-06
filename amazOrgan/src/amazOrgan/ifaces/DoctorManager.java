@@ -13,7 +13,7 @@ public interface DoctorManager {
 	// Update my data
 	public void changeMyData (Doctor d);
 	// show my data
-	public void showMyData (Integer medical_ID);
+	public void showMyData (Doctor d);
 	
 	
 	
