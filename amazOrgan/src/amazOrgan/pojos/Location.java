@@ -13,7 +13,12 @@ public class Location implements Serializable{
 		
 	
 	public Location() {
+		super();
+	}
 	
+	public Location(Float latitude, Float longitude) {
+		this.latitude = latitude;
+		this.longitude = longitude;
 	}
 	
 		public Integer getId() {

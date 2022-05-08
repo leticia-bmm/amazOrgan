@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import amazOrgan.ifaces.LocationManager;
 import amazOrgan.pojos.Location;
 
-//public void addLocation (LocationManager l) ;
+//public void addLocation (Location l);
 //public void deleteLocation (Integer ID);
 
 public class JDBCLocationManager implements LocationManager {

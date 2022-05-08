@@ -3,11 +3,18 @@ package amazOrgan.ui;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
+import amazOrgan.ifaces.LocationManager;
+import amazOrgan.jdbc.JDBCLocationManager;
+import amazOrgan.pojos.Location;
+
+import amazOrgan.jdbc.JDBCManager;
+
 public class Menu {
 
 	private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 	// TODO 
 	//private static ....Managers
+	private static LocationManager locationManager;
 
 	public static void first_menu() {
 
@@ -81,7 +88,7 @@ public class Menu {
 				case 1:
 					//Register donor
 					System.out.println("REGISTER DONOR");
-					
+										
 					break;
 					
 				case 2:
@@ -187,6 +194,8 @@ public class Menu {
 		// TODO 
 		// Initialize database for JDBC
 		//-----------------------------
+		JDBCManager jdbcManager = new JDBCManager();
+		locationManager = new JDBCLocationManager(jdbcManager);
 		
 		// = new ...Manager()
 
@@ -210,6 +219,10 @@ public class Menu {
 				case 1:
 					// Login as a Doctor
 					System.out.println("LOGIN AS A DOCTOR");
+					System.out.println("Add a location");
+					
+					Location l = new Location(1.3F, 2.3F);
+					locationManager.addLocation(l);
 					
 					break;
 					
