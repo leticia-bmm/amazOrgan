@@ -20,6 +20,7 @@ public class JDBCLocationManager implements LocationManager {
 	public void addLocation(Location l) {
 		try {
 			String sql = "INSERT INTO location (latitude, longitude) VALUES (?, ?)";
+			System.out.println(l.getLatitude());
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setFloat(1, l.getLatitude());
 			prep.setFloat(2, l.getLongitude());

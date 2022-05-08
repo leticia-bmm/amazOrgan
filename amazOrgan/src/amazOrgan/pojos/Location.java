@@ -16,7 +16,7 @@ public class Location implements Serializable{
 		super();
 	}
 	
-	public Location(Float latitude, Float longitude) {
+	public Location(float latitude, float longitude) {
 		this.latitude = latitude;
 		this.longitude = longitude;
 	}

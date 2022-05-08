@@ -12,9 +12,10 @@ import amazOrgan.jdbc.JDBCManager;
 public class Menu {
 
 	private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-	// TODO 
-	//private static ....Managers
+	// TODO
+	// private static ....Managers
 	private static LocationManager locationManager;
+	
 
 	public static void first_menu() {
 
@@ -32,33 +33,33 @@ public class Menu {
 
 				switch (option) {
 				case 1:
-					//See my patients
+					// See my patients
 					System.out.println("SEE MY PATIENTS");
-					
+
 					break;
-					
+
 				case 2:
-					//Change my data
+					// Change my data
 					System.out.println("CHANGE MY DATA");
-					
+
 					break;
-					
-				case 3: 
+
+				case 3:
 					// call donor menu
 					donor_menu();
 					break;
 
-				case 4: 
+				case 4:
 					// call receptor menu
 					receptor_menu();
 					break;
-					
+
 				case 0:
-					//go out of the method to exit the program from the main
-					//this is the only moment we exit from this method
+					// go out of the method to exit the program from the main
+					// this is the only moment we exit from this method
 					System.out.println("Thanks for choosing amazOrgan");
 					return;
-					
+
 				default:
 					System.out.println("The selected option is not correct.");
 					break;
@@ -67,7 +68,7 @@ public class Menu {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	public static void donor_menu() {
@@ -86,49 +87,49 @@ public class Menu {
 
 				switch (option) {
 				case 1:
-					//Register donor
+					// Register donor
 					System.out.println("REGISTER DONOR");
-										
+
 					break;
-					
+
 				case 2:
-					//Show donors
+					// Show donors
 					System.out.println("SHOW DONORS");
-					
+
 					break;
-					
+
 				case 3:
-					//Update alive
+					// Update alive
 					System.out.println("UPDATE ALIVE");
-					
+
 					break;
-					
+
 				case 4:
-					//Delete donor
+					// Delete donor
 					System.out.println("DELETE DONOR");
-					
+
 					break;
-					
+
 				case 5:
-					//Get donor
+					// Get donor
 					System.out.println("GET DONOR");
-					
+
 					break;
-					
+
 				case 0:
-					//Back
-					return;	//we exit the method to return to first_menu
-					
+					// Back
+					return; // we exit the method to return to first_menu
+
 				default:
 					System.out.println("The selected option is not correct.");
 					break;
 				}
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	public static void receptor_menu() {
@@ -147,33 +148,33 @@ public class Menu {
 
 				switch (option) {
 				case 1:
-					//Register receptor
+					// Register receptor
 					System.out.println("REGISTER RECEPTOR");
-					
+
 					break;
-					
+
 				case 2:
-					//Show receptors
+					// Show receptors
 					System.out.println("SHOW RECEPTORS");
-					
+
 					break;
-					
+
 				case 3:
-					//Search receptor
+					// Search receptor
 					System.out.println("SEARCH RECEPTOR");
-					
+
 					break;
-					
+
 				case 4:
-					//Update data
+					// Update data
 					System.out.println("UPDATE DATA");
-					
+
 					break;
-					
+
 				case 0:
-					//Back
-					return;	//we exit the method to return to first_menu
-					
+					// Back
+					return; // we exit the method to return to first_menu
+
 				default:
 					System.out.println("The selected option is not correct.");
 					break;
@@ -182,32 +183,30 @@ public class Menu {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-	}
-	
-	
 
+	}
+
+	
 	public static void main(String[] ars) {
 
 		System.out.println("Welcome to amazOrgan!");
 		System.out.println("hola");
-		
-		// TODO 
+
+		// TODO
 		// Initialize database for JDBC
-		//-----------------------------
+		// -----------------------------
 		JDBCManager jdbcManager = new JDBCManager();
 		locationManager = new JDBCLocationManager(jdbcManager);
-		Location l = new Location(5.4F, 2.1F);
-		locationManager.addLocation(l);
 		
+		
+
 		// = new ...Manager()
 
-		// TODO 
+		// TODO
 		// Initialize database for JPA
-		//----------------------------
+		// ----------------------------
 		// userManager = new JPAUserManager();
 
-		
 		// Menu loop
 		try {
 			int option;
@@ -223,17 +222,18 @@ public class Menu {
 					// Login as a Doctor
 					System.out.println("LOGIN AS A DOCTOR");
 					System.out.println("Add a location");
-					Float f = (float) 1.34;
-					Float f1 = (float) 1.34;
-					Location l = new Location(f, f1);
+					float f = (float) 5.4;
+					System.out.println(f);
+					float f2 = (float) 5.4;
+					Location l = new Location(f, f2);
 					locationManager.addLocation(l);
-					
+
 					break;
-					
+
 				case 2:
 					// Register as a Doctor
 					System.out.println("REGISTER AS A DOCTOR");
-					
+
 					break;
 
 				default:
@@ -249,21 +249,20 @@ public class Menu {
 			// 2) call second menu (donor or receptor)
 
 			first_menu();
-			//if we reach this point, it is because the user wants to exit the program
-			
-			// TODO 
+			// if we reach this point, it is because the user wants to exit the program
+
+			// TODO
 			// Close the connection with the database
-			//---------------------------------------
-			//disconnect()
-			
+			// ---------------------------------------
+			// disconnect()
+			jdbcManager.disconnect();
+
 			System.exit(0);
-			
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 	}
-	
 
 }
