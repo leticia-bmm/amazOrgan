@@ -220,8 +220,9 @@ public class Menu {
 					// Login as a Doctor
 					System.out.println("LOGIN AS A DOCTOR");
 					System.out.println("Add a location");
-					
-					Location l = new Location(1.3F, 2.3F);
+					Float f = (float) 1.34;
+					Float f1 = (float) 1.34;
+					Location l = new Location(f, f1);
 					locationManager.addLocation(l);
 					
 					break;

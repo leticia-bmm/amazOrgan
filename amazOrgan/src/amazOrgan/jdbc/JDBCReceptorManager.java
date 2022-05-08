@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import amazOrgan.ifaces.ReceptorManager;
+import amazOrgan.pojos.Doctor;
 import amazOrgan.pojos.Receptor;
 
 public class JDBCReceptorManager implements ReceptorManager{
@@ -22,7 +23,7 @@ public class JDBCReceptorManager implements ReceptorManager{
 	@Override
 	public void addReceptor(Receptor r) {
 			try {
-				String sql = "INSERT INTO receptor (dni, dob, status, blood_type, alive, urgency, antigen, antibody, location, doctor_charge, request) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+				String sql = "INSERT INTO receptor (dni, dob, status, blood_type, alive, urgency, antigen, antibody, location, request) VALUES (?,?,?,?,?,?,?,?,?,?)";
 				PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 				prep.setInt(1, r.getDni());
 				prep.setDate(2, r.getDob());
@@ -33,8 +34,7 @@ public class JDBCReceptorManager implements ReceptorManager{
 				prep.setInt(7, r.getAntigen().getId());
 				prep.setInt(8, r.getAntibody().getID());
 				prep.setInt(9, r.getLocation().getId());
-				//TODO finish the method
-				prep.setInt(11, r.getRequest().getId());
+				prep.setInt(10, r.getRequest().getId());
 				prep.executeUpdate();
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -68,7 +68,6 @@ public class JDBCReceptorManager implements ReceptorManager{
 			String sql = "SELECT * FROM receptor WHERE dni = ?";
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setInt(1, dni);
-			
 			prep.execute();			
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -77,40 +76,43 @@ public class JDBCReceptorManager implements ReceptorManager{
 		
 	}
 
-	@Override
-	public void showReceptorsByBloodType(String bloodtype) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void showReceptorsByUrgency() {
-		// TODO Auto-generated method stub
-		
-	}
 	
 	@Override
-	public void assign(int vetId, int dogId) {
+	public void assignDoctor(Receptor r, Doctor d) {
 		try {
-			String sql = "INSERT INTO examines (vetId, dogId) VALUES (?,?)";
+			String sql = "INSERT INTO examines (receptor_id, medical_id) VALUES (?,?)";
 			PreparedStatement p = manager.getConnection().prepareStatement(sql);
-			p.setInt(1, vetId);
-			p.setInt(2, dogId);
+			p.setInt(1, r.getDni());
+			p.setInt(2, d.getmedical_id());
+			p.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
 	@Override
-	public void unassign(int vetId, int dogId) {
+	public void unassignDoctor(Receptor r, Doctor d) {
 		try {
-			String sql = "DELETE FROM examines WHERE vetId=? AND dogId=?";
+			String sql = "DELETE FROM examines WHERE receptor_id=? AND medical_id=?";
 			PreparedStatement p = manager.getConnection().prepareStatement(sql);
-			p.setInt(1, vetId);
-			p.setInt(2, dogId);
+			p.setInt(1, r.getDni());
+			p.setInt(2, d.getmedical_id());
+			p.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public List<Receptor> showReceptorsByBloodType(String bloodtype) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Receptor> showReceptorsByUrgency() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

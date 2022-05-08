@@ -2,6 +2,10 @@ package amazOrgan.ifaces;
 
 import amazOrgan.pojos.Receptor;
 
+import java.util.List;
+
+import amazOrgan.pojos.Doctor;
+
 public interface ReceptorManager {
 	// Insert a Receptor
 	public void addReceptor (Receptor r);
@@ -10,7 +14,11 @@ public interface ReceptorManager {
 	//get receptor
 	public Receptor getReceptor (Integer DNI);
 	// Show by bloodtype
-	public void showReceptorsByBloodType (String bloodtype);
+	public List <Receptor> showReceptorsByBloodType (String bloodtype);
 	//Show by urgency
-	public void showReceptorsByUrgency();
+	public List <Receptor> showReceptorsByUrgency();
+	//Assign doctor to receptor
+	public void assignDoctor (Receptor r, Doctor d);
+	//Unassign doctor an receptor 
+	public void unassignDoctor (Receptor r, Doctor d);
 }

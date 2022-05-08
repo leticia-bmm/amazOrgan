@@ -47,7 +47,6 @@ public class JDBCDoctorManager implements DoctorManager {
 	// this is so that we can work with the doctors method
 	// TODO
 	// we have to do a method to change the doctor
-	//
 	public void changeMyData(Doctor d) {
 		try {
 			String sql = "UPDATE Doctor " + " phone_number=? " + " name=? WHERE medical_id=?";
@@ -60,10 +59,13 @@ public class JDBCDoctorManager implements DoctorManager {
 		}
 	}
 
-	public void showMyData(Integer Medical_id) {
+	@Override
+	public void showMyData(Integer medical_id) {
 		try {
 			String sql = "SELECT * FROM doctor WHERE medical_id=?";
-			PreparedStatement p= manager.getConnection().prepareStatement(sql);			
+			PreparedStatement p = manager.getConnection().prepareStatement(sql);	
+			p.setInt(1, medical_id);
+			p.
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -90,7 +92,7 @@ public class JDBCDoctorManager implements DoctorManager {
 				Location location = rs.getLocation("location");
 				Request request = rs.getRequest("request");
 				Boolean alive = rs.getBoolean("alive");
-				Receptor r = new Receptor (dni, dob, status, blood_type, urgency, antigen ,antibody, location, request, alive);;
+				Receptor r = new Receptor (dni, dob, status, blood_type, urgency, antigen ,antibody, location, request, alive);
 				receptors.add(r);
 				rs.close();
 				stmt.close();
@@ -102,5 +104,6 @@ public class JDBCDoctorManager implements DoctorManager {
 		return receptors;
 
 	}
+
 
 }
