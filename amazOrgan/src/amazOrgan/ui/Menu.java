@@ -190,12 +190,15 @@ public class Menu {
 	public static void main(String[] ars) {
 
 		System.out.println("Welcome to amazOrgan!");
+		System.out.println("hola");
 		
 		// TODO 
 		// Initialize database for JDBC
 		//-----------------------------
 		JDBCManager jdbcManager = new JDBCManager();
 		locationManager = new JDBCLocationManager(jdbcManager);
+		Location l = new Location(5.4F, 2.1F);
+		locationManager.addLocation(l);
 		
 		// = new ...Manager()
 
@@ -261,5 +264,6 @@ public class Menu {
 		}
 
 	}
+	
 
 }

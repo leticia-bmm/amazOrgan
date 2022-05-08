@@ -109,7 +109,7 @@ public class JDBCManager {
 			
 			
 			//location
-			sql = "CREATE TABLE \"location\" ( "
+			sql = "CREATE TABLE location ( "
 					+ "	\"id\"	INTEGER PRIMARY KEY AUTOINCREMENT, "
 					+ "	\"latitude\"	FLOAT NOT NULL, "
 					+ "	\"longitude\"	FLOAT NOT NULL "
