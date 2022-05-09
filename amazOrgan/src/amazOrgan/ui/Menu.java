@@ -187,6 +187,7 @@ public class Menu {
 	}
 
 	
+	
 	public static void main(String[] ars) {
 
 		System.out.println("Welcome to amazOrgan!");
@@ -222,9 +223,9 @@ public class Menu {
 					// Login as a Doctor
 					System.out.println("LOGIN AS A DOCTOR");
 					System.out.println("Add a location");
-					float f = (float) 5.4;
+					float f = (float) 57.09;
 					System.out.println(f);
-					float f2 = (float) 5.4;
+					float f2 = (float) 98.34;
 					Location l = new Location(f, f2);
 					locationManager.addLocation(l);
 
@@ -264,5 +265,7 @@ public class Menu {
 		}
 
 	}
+	
+	
 
 }
