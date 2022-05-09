@@ -15,7 +15,6 @@ public class Menu {
 	// TODO
 	// private static ....Managers
 	private static LocationManager locationManager;
-	
 
 	public static void first_menu() {
 
@@ -186,7 +185,6 @@ public class Menu {
 
 	}
 
-	
 	public static void main(String[] ars) {
 
 		System.out.println("Welcome to amazOrgan!");
@@ -197,8 +195,6 @@ public class Menu {
 		// -----------------------------
 		JDBCManager jdbcManager = new JDBCManager();
 		locationManager = new JDBCLocationManager(jdbcManager);
-		
-		
 
 		// = new ...Manager()
 
