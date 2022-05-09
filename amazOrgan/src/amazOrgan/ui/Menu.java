@@ -185,11 +185,7 @@ public class Menu {
 
 	}
 
-<<<<<<< HEAD
-=======
-	
-	
->>>>>>> branch 'master' of https://github.com/leticia-bmm/amazOrgan
+
 	public static void main(String[] ars) {
 
 		System.out.println("Welcome to amazOrgan!");
