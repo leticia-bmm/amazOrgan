@@ -1,5 +1,4 @@
 package amazOrgan.jdbc;
-	
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,30 +11,27 @@ import amazOrgan.ifaces.AntibodyManager;
 import amazOrgan.pojos.Antibody;
 
 public class JDBCAntibodyManager implements AntibodyManager {
-	
+
 	private JDBCManager manager;
-	
+
 	public JDBCAntibodyManager(JDBCManager m) {
 		this.manager = m;
-	
+
 	}
 
 	@Override
 	public void addAntibody(Antibody a) {
-		
+
 		try {
 			String sql = "INSERT INTO antibody (class I, class II) VALUES (?,?)";
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setBoolean(1, a.isClass_I());
 			prep.setBoolean(2, a.isClass_II());
 			prep.executeUpdate();
-			
-			
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
 	}
-	}
-	
 
 	@Override
 	public void deleteAntibody(Integer id) {
@@ -48,9 +44,5 @@ public class JDBCAntibodyManager implements AntibodyManager {
 			e.printStackTrace();
 		}
 	}
-		}
-	
-		
-	
-
+}
 

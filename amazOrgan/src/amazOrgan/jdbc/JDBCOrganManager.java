@@ -20,7 +20,7 @@ public class JDBCOrganManager implements OrganManager {
 			String sql = "INSERT INTO organ(id, type_organ, size, available) VALUES (?,?,?,?)";
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setInt(1, o.getID());
-			prep.setInt(2, o.getType_organ().getid());
+			prep.setInt(2, o.getType_organ().getId());
 			prep.setFloat(3, o.getSize());
 			prep.setBoolean(4, o.isAvailable());
 			

@@ -185,6 +185,11 @@ public class Menu {
 
 	}
 
+<<<<<<< HEAD
+=======
+	
+	
+>>>>>>> branch 'master' of https://github.com/leticia-bmm/amazOrgan
 	public static void main(String[] ars) {
 
 		System.out.println("Welcome to amazOrgan!");
@@ -218,9 +223,9 @@ public class Menu {
 					// Login as a Doctor
 					System.out.println("LOGIN AS A DOCTOR");
 					System.out.println("Add a location");
-					float f = (float) 5.4;
+					Float f = 1.09f;
 					System.out.println(f);
-					float f2 = (float) 5.4;
+					Float f2 = 1.34f;
 					Location l = new Location(f, f2);
 					locationManager.addLocation(l);
 
@@ -260,5 +265,7 @@ public class Menu {
 		}
 
 	}
+	
+	
 
 }

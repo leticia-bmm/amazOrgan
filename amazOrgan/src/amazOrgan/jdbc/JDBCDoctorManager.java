@@ -60,11 +60,11 @@ public class JDBCDoctorManager implements DoctorManager {
 	}
 
 	@Override
-	public void showMyData(Integer medical_id) {
+	public void showMyData(Doctor d) {
 		try {
 			String sql = "SELECT * FROM doctor WHERE medical_id=?";
 			PreparedStatement p = manager.getConnection().prepareStatement(sql);	
-			p.setInt(1, medical_id);
+			p.setInt(1, d.getmedical_id());
 			p.
 		} catch (Exception e) {
 			e.printStackTrace();
