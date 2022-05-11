@@ -15,7 +15,6 @@ import amazOrgan.pojos.Doctor;
 import amazOrgan.pojos.Location;
 import amazOrgan.pojos.Receptor;
 import amazOrgan.pojos.Request;
-import hospital.pojos.Vet;
 
 public class JDBCDoctorManager implements DoctorManager {
 
