@@ -105,5 +105,11 @@ public class JDBCDoctorManager implements DoctorManager {
 
 	}
 
+	@Override
+	public Doctor getDoctor(Integer medical_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

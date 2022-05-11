@@ -44,5 +44,11 @@ public class JDBCAntibodyManager implements AntibodyManager {
 			e.printStackTrace();
 		}
 	}
+
+	@Override
+	public Antibody getAntibody(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
 

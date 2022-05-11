@@ -8,6 +8,6 @@ public interface Type_organManager {
 	public void addTypeOfOrgan (Type_organ o);
 	
 	//search a type of organ by its ID
-	public Type_organ searchTypeOfOrgan (Integer ID);
+	public Type_organ getTypeOfOrgan (Integer ID);
 	
 }

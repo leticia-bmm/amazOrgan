@@ -44,4 +44,10 @@ public class JDBCLocationManager implements LocationManager {
 
 	}
 
+	@Override
+	public Location getLocation(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

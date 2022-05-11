@@ -1,6 +1,6 @@
 package amazOrgan.ifaces;
 
-import amazOrgan.pojos.Donor;
+import amazOrgan.pojos.Organ;
 import amazOrgan.pojos.Request;
 
 public interface RequestManager {
@@ -10,7 +10,9 @@ public interface RequestManager {
 	updateDonorDNI (d: Donor): void */
 	
 	public void addRequest(Request r);
-	public void updateDonorDNI (Donor d);
+	public void updateOrganId (Organ o);
+	public Request getRequest (Integer id);
+	
 	
 
 }
