@@ -87,10 +87,17 @@ public class JDBCDoctorManager implements DoctorManager {
 				String status= rs.getString("status");
 				String blood_type= rs.getString("blood_type");
 				Integer urgency =rs.getInt("urgency");
-				Antigen antigen =rs.getAntigen("antigen");
+				// ¿aquí lo estoy cogiendo de antobody, antigen, //
+				Integer id_antibody = rs.getInt("antibody");
+				Integer id_antigen= rs.getInt("antigen");
+				Integer id_location= rs.getInt("location");
+				Integer id_request = rs.getInt("request");
+				/*
+				Antigen antigen =rs.getInt();
 				Antibody antibody = rs.getAntibody("antibody");
 				Location location = rs.getLocation("location");
 				Request request = rs.getRequest("request");
+				*/
 				Boolean alive = rs.getBoolean("alive");
 				Receptor r = new Receptor (dni, dob, status, blood_type, urgency, antigen ,antibody, location, request, alive);
 				receptors.add(r);
