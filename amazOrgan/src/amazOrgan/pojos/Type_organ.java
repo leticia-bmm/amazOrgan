@@ -13,6 +13,14 @@ public class Type_organ implements Serializable {
 		super(); 
 	}
 
+	public Type_organ(Integer id, String name, Integer lifespan) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.lifespan = lifespan;
+	}
+
+
 	public Integer getId() {
 		return id;
 	}

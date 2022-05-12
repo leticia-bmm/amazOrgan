@@ -17,10 +17,20 @@ public class Organ implements Serializable{
 		super();
 	}
 	
+	//Another constructor
+	public Organ(Integer id, Float size, boolean available) {
+		super();
+		this.id = id;
+		this.size = size;
+		this.available = available;
+		
+	}
+	
 	//getters and setters
 	public Integer getID() {
 		return id;
 	}
+
 	public void setID(Integer iD) {
 		this.id = iD;
 	}
