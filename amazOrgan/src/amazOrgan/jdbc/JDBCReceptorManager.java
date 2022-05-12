@@ -1,5 +1,6 @@
 package amazOrgan.jdbc;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,8 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import amazOrgan.ifaces.ReceptorManager;
+import amazOrgan.pojos.Antigen;
 import amazOrgan.pojos.Doctor;
 import amazOrgan.pojos.Receptor;
+import amazOrgan.jdbc.JDBCAntigenManager;
 
 public class JDBCReceptorManager implements ReceptorManager{
 	
@@ -65,10 +68,18 @@ public class JDBCReceptorManager implements ReceptorManager{
 	public Receptor getReceptor(Integer dni) {
 		Receptor r = new Receptor ();
 		try {
-			String sql = "SELECT * FROM receptor WHERE dni = ?";
-			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
-			prep.setInt(1, dni);
-			prep.execute();			
+			Statement stmt = manager.getConnection().createStatement();
+			String sql = "SELECT * FROM receptor WHERE dni = ?" + dni;
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				Date dob = rs.getDate("dob");
+				String status = rs.getString("status");
+				String blood_type = rs.getString("blood_type");
+				Integer urgency = rs.getInt("urgency");
+				Integer antigen_id = rs.getInt("antigen_id");
+				
+			}
+					
 		}catch(Exception e) {
 			e.printStackTrace();
 		}

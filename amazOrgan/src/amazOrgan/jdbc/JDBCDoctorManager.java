@@ -15,7 +15,6 @@ import amazOrgan.pojos.Doctor;
 import amazOrgan.pojos.Location;
 import amazOrgan.pojos.Receptor;
 import amazOrgan.pojos.Request;
-import hospital.pojos.Vet;
 
 public class JDBCDoctorManager implements DoctorManager {
 
@@ -60,11 +59,11 @@ public class JDBCDoctorManager implements DoctorManager {
 	}
 
 	@Override
-	public void showMyData(Integer medical_id) {
+	public void showMyData(Doctor d) {
 		try {
 			String sql = "SELECT * FROM doctor WHERE medical_id=?";
 			PreparedStatement p = manager.getConnection().prepareStatement(sql);	
-			p.setInt(1, medical_id);
+			p.setInt(1, d.getmedical_id());
 			p.
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -87,10 +86,17 @@ public class JDBCDoctorManager implements DoctorManager {
 				String status= rs.getString("status");
 				String blood_type= rs.getString("blood_type");
 				Integer urgency =rs.getInt("urgency");
-				Antigen antigen =rs.getAntigen("antigen");
+				// ¿aquí lo estoy cogiendo de antobody, antigen, //
+				Integer id_antibody = rs.getInt("antibody");
+				Integer id_antigen= rs.getInt("antigen");
+				Integer id_location= rs.getInt("location");
+				Integer id_request = rs.getInt("request");
+				/*
+				Antigen antigen =rs.getInt();
 				Antibody antibody = rs.getAntibody("antibody");
 				Location location = rs.getLocation("location");
 				Request request = rs.getRequest("request");
+				*/
 				Boolean alive = rs.getBoolean("alive");
 				Receptor r = new Receptor (dni, dob, status, blood_type, urgency, antigen ,antibody, location, request, alive);
 				receptors.add(r);
@@ -103,6 +109,12 @@ public class JDBCDoctorManager implements DoctorManager {
 
 		return receptors;
 
+	}
+
+	@Override
+	public Doctor getDoctor(Integer medical_id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

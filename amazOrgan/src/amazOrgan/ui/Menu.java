@@ -15,7 +15,6 @@ public class Menu {
 	// TODO
 	// private static ....Managers
 	private static LocationManager locationManager;
-	
 
 	public static void first_menu() {
 
@@ -186,7 +185,7 @@ public class Menu {
 
 	}
 
-	
+
 	public static void main(String[] ars) {
 
 		System.out.println("Welcome to amazOrgan!");
@@ -197,8 +196,6 @@ public class Menu {
 		// -----------------------------
 		JDBCManager jdbcManager = new JDBCManager();
 		locationManager = new JDBCLocationManager(jdbcManager);
-		
-		
 
 		// = new ...Manager()
 
@@ -222,9 +219,9 @@ public class Menu {
 					// Login as a Doctor
 					System.out.println("LOGIN AS A DOCTOR");
 					System.out.println("Add a location");
-					float f = (float) 5.4;
+					Float f = 1.09f;
 					System.out.println(f);
-					float f2 = (float) 5.4;
+					Float f2 = 1.34f;
 					Location l = new Location(f, f2);
 					locationManager.addLocation(l);
 
@@ -264,5 +261,7 @@ public class Menu {
 		}
 
 	}
+	
+	
 
 }

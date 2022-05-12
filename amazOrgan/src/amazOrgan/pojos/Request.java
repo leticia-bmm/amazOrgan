@@ -10,7 +10,7 @@ public class Request implements Serializable{
 	private Type_organ type_organ;
 	private Float size;
 	private boolean received;
-	private Donor donor;
+	private Organ organ_recived;
 	
 	//constructor
 	public Request() {
@@ -51,12 +51,12 @@ public class Request implements Serializable{
 		this.received = received;
 	}
 	
-	public Donor getDonor() {
-		return donor;
+	public Organ getOrganId() {
+		return organ_recived;
 	}
 
-	public void setDonor(Donor donor) {
-		this.donor = donor;
+	public void setOrganId(Organ organ_recived) {
+		this.organ_recived = organ_recived;
 	}
 
 
@@ -83,7 +83,7 @@ public class Request implements Serializable{
 	@Override
 	public String toString() {
 		return "Request [id=" + id + ", type_organ=" + type_organ + ", size=" + size + ", received=" + received
-				+ ", donor=" + donor + "]";
+				+ ", donor=" + organ_recived + "]";
 	}
 
 	
