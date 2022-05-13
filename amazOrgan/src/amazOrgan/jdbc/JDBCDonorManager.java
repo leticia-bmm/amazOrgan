@@ -87,7 +87,6 @@ public class JDBCDonorManager implements DonorManager {
 		} catch (Exception e) {
 
 		}
-
 	}
 
 	@Override
