@@ -1,12 +1,13 @@
 package amazOrgan.jdbc;
 
 import java.sql.PreparedStatement;
-
+import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import java.sql.Statement;
 
 import amazOrgan.ifaces.AntibodyManager;
 import amazOrgan.pojos.Antibody;
+import amazOrgan.pojos.Antigen;
 
 public class JDBCAntibodyManager implements AntibodyManager {
 
@@ -21,7 +22,7 @@ public class JDBCAntibodyManager implements AntibodyManager {
 	public void addAntibody(Antibody a) {
 
 		try {
-			String sql = "INSERT INTO antibody (class I, class II) VALUES (?,?)";
+			String sql = "INSERT INTO antibody (class_I, class_II) VALUES (?,?)";
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setBoolean(1, a.isClass_I());
 			prep.setBoolean(2, a.isClass_II());
@@ -45,8 +46,19 @@ public class JDBCAntibodyManager implements AntibodyManager {
 
 	@Override
 	public Antibody getAntibody(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		Antibody a = new Antibody ();
+		try {
+			Statement stmt = manager.getConnection().createStatement();
+			String sql = "SELECT * FROM doctor WHERE id = ?" + id;
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				Boolean classI = rs.getBoolean("class_I");
+				Boolean classII = rs.getBoolean("class_II");
+				}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return a;
 	}
 }
 

@@ -71,10 +71,10 @@ public class JDBCDoctorManager implements DoctorManager {
 				Integer receptor_id = rs.getInt("receptor_id");
 				r = JDBCReceptorManager.getReceptor(receptor_id);
 				receptors.add(r);			
-				rs.close();
 				
 			}
 			stmt.close();
+			rs.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
