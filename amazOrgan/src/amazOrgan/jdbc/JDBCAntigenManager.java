@@ -10,6 +10,7 @@ import java.util.List;
 import amazOrgan.ifaces.AntigenManager;
 import amazOrgan.pojos.Antibody;
 import amazOrgan.pojos.Antigen;
+import amazOrgan.pojos.Doctor;
 
 public class JDBCAntigenManager implements AntigenManager {
 
@@ -51,10 +52,26 @@ public class JDBCAntigenManager implements AntigenManager {
 
 	}
 
-	@Override
-	public static Antigen getAntigen(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Antigen getAntigen(Integer id) {
+		
+			Antigen ant = new Antigen ();
+			try {
+				Statement stmt = manager.getConnection().createStatement();
+				String sql = "SELECT * FROM doctor WHERE id = ?" + id;
+				ResultSet rs = stmt.executeQuery(sql);
+				while (rs.next()) {
+					Boolean a = rs.getBoolean("a");
+					Boolean b = rs.getBoolean("b");
+					Boolean c = rs.getBoolean("c");
+					Boolean dp = rs.getBoolean("dp");
+					Boolean dq = rs.getBoolean("dq");
+					Boolean dr = rs.getBoolean("dr");
+					
+					}
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			return ant;
 	}
 
 }
