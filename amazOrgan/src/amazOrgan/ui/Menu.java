@@ -88,7 +88,7 @@ public class Menu {
 				case 1:
 					// Register donor
 					System.out.println("REGISTER DONOR");
-
+					
 					break;
 
 				case 2:
