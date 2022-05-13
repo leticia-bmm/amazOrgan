@@ -1,11 +1,9 @@
 package amazOrgan.jdbc;
 
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
+
 import java.sql.SQLException;
-import java.util.List;
+
 
 import amazOrgan.ifaces.AntibodyManager;
 import amazOrgan.pojos.Antibody;
