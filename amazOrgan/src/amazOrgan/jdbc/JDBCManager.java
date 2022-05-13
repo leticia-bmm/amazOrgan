@@ -91,7 +91,6 @@ public class JDBCManager {
 					+ "id_antibody INTEGER REFERENCES \"antibody\"(id),"
 					+ "id_location INTEGER REFERENCES location(id),"
 					+ "id_doctor_charge INTEGER REFERENCES doctor(medical_id),"
-					+ "id_organ INTEGER REFERENCES \"organ\"(id),"
 					+ "	CHECK (blood_type IN ('A+', 'B+', 'AB+', 'O+', 'A-', 'B-', 'AB-', 'O-'))"
 					+ "	)";
 			stmt.executeUpdate(sql);
@@ -121,8 +120,10 @@ public class JDBCManager {
 					+ "	\"id\"	INTEGER PRIMARY KEY AUTOINCREMENT, "
 					+ "	\"id_type_organ\"	INTEGER, "
 					+ "	\"size_organ\"	FLOAT, "
+					+ " \" donor_dni\"  INTEGER,"
 					+ "	\"available\"	BOOLEAN, "
-					+ "	FOREIGN KEY(\"id_type_organ\") REFERENCES \"type_of_organ\"(\"id\") "
+					+ "	FOREIGN KEY(\"id_type_organ\") REFERENCES \"type_of_organ\"(\"id\"), "
+					+ " FOREIGN KEY (\"donor_dni\") REFERENCES \"donor\" "
 					+ ")";
 			stmt.executeUpdate(sql);
 			
@@ -155,7 +156,7 @@ public class JDBCManager {
 					+ "id INTEGER PRIMARY KEY AUTOINCREMENT, "
 					+ "id_type_organ INTEGER REFERENCES type_of_organ (id), "
 					+ "received BOOLEAN, "
-					+ "donor_DNI INTEGER DEFAULT NULL, "
+					+ "id_organ INTEGER DEFAULT NULL, "
 					+ "size_organ FLOAT "
 					+ ")";
 			stmt.executeUpdate(sql);

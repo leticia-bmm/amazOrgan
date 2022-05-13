@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import amazOrgan.ifaces.ReceptorManager;
@@ -15,59 +16,58 @@ import amazOrgan.pojos.Doctor;
 import amazOrgan.pojos.Receptor;
 import amazOrgan.jdbc.JDBCAntigenManager;
 
-public class JDBCReceptorManager implements ReceptorManager{
-	
+public class JDBCReceptorManager implements ReceptorManager {
+
 	private JDBCManager manager;
-	
+
 	public JDBCReceptorManager(JDBCManager m) {
 		this.manager = m;
-	
+
 	}
 
 	@Override
 	public void addReceptor(Receptor r) {
-			try {
-				String sql = "INSERT INTO receptor (dni, dob, status, blood_type, alive, urgency, antigen, antibody, location, request) VALUES (?,?,?,?,?,?,?,?,?,?)";
-				PreparedStatement prep = manager.getConnection().prepareStatement(sql);
-				prep.setInt(1, r.getDni());
-				prep.setDate(2, r.getDob());
-				prep.setString(3, r.getStatus());
-				prep.setString(4, r.getBlood_type());
-				prep.setBoolean(5, r.getAlive());
-				prep.setInt(6, r.getUrgency());
-				prep.setInt(7, r.getAntigen().getId());
-				prep.setInt(8, r.getAntibody().getID());
-				prep.setInt(9, r.getLocation().getId());
-				prep.setInt(10, r.getRequest().getId());
-				prep.executeUpdate();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-	}
-	
-	
-	//inUpdate receptor, we are giving the NEW receptor to the function in 
-	//JDBC, that means that we have to create the function change the 
-	//data of the receptor in JAVA
-	//TODO write the java function for the JDBCs
-	@Override
-	public void updateReceptor (Receptor r) {
 		try {
-			String sql = "UPDATE receptor " + "SET alive = ? " + "status = ? " + "urgency = ? " + "WHERE dni = ?" ;
+			String sql = "INSERT INTO receptor (dni, dob, status, blood_type, alive, urgency, id_antigen, id_antibody, id_location, id_request) VALUES (?,?,?,?,?,?,?,?,?,?)";
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
-			prep.setBoolean(1,  r.getAlive());
+			prep.setInt(1, r.getDni());
+			prep.setDate(2, r.getDob());
+			prep.setString(3, r.getStatus());
+			prep.setString(4, r.getBlood_type());
+			prep.setBoolean(5, r.getAlive());
+			prep.setInt(6, r.getUrgency());
+			prep.setInt(7, r.getAntigen().getId());
+			prep.setInt(8, r.getAntibody().getID());
+			prep.setInt(9, r.getLocation().getId());
+			prep.setInt(10, r.getRequest().getId());
+			prep.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	// inUpdate receptor, we are giving the NEW receptor to the function in
+	// JDBC, that means that we have to create the function change the
+	// data of the receptor in JAVA
+	// TODO write the java function for the JDBCs
+	@Override
+	public void updateReceptor(Receptor r) {
+		try {
+			String sql = "UPDATE receptor " + "SET alive = ? " + "status = ? " + "urgency = ? " + "WHERE dni = ?";
+			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
+			prep.setBoolean(1, r.getAlive());
 			prep.setString(2, r.getStatus());
 			prep.setInt(3, r.getUrgency());
 			prep.setInt(4, r.getDni());
-			prep.executeUpdate();			
-		}catch (Exception e) {
+			prep.executeUpdate();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
 	@Override
 	public Receptor getReceptor(Integer dni) {
-		Receptor r = new Receptor ();
+		Receptor r = new Receptor();
 		try {
 			Statement stmt = manager.getConnection().createStatement();
 			String sql = "SELECT * FROM receptor WHERE dni = ?" + dni;
@@ -77,27 +77,25 @@ public class JDBCReceptorManager implements ReceptorManager{
 				String status = rs.getString("status");
 				String blood_type = rs.getString("blood_type");
 				Integer urgency = rs.getInt("urgency");
-				Integer antigen_id = rs.getInt("antigen_id");
+				Integer antigen_id = rs.getInt("id_antigen");
+				Boolean alive = rs.getBoolean("alive");
 				Antigen antigen = JDBCAntigenManager.getAntigen(antigen_id);
-				Integer antibody_id = rs.getInt("antibody_id");
+				Integer antibody_id = rs.getInt("id_antibody");
 				Antibody antibody = JDBCAntibodyManager.getAntibody(antibody_id);
-				Integer location_id = rs.getInt("location_id");
-				Integer request_id = rs.getInt("request_id");
-				Boolean alive = rs.getBoolean("ailve");
-				
-				
-				
+				Integer location_id = rs.getInt("id_location");
+				Location location = JDBCLocationManager.getLocation(location_id);
+				Integer request_id = rs.getInt("id_request");
+				Request request = JDBCRequestManager.getRequest(request_id);
 				r = new Receptor(dni, dob, status, blood_type, urgency, antigen, antibody, location, request, alive);
 			}
-					
-		}catch(Exception e) {
+			rs.close();
+			stmt.close();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return r;
-		
 	}
 
-	
 	@Override
 	public void assignDoctor(Receptor r, Doctor d) {
 		try {
@@ -126,20 +124,68 @@ public class JDBCReceptorManager implements ReceptorManager{
 
 	@Override
 	public List<Receptor> showReceptorsByBloodType(String bloodtype) {
-		// TODO Auto-generated method stub
-		return null;
+		List <Receptor> receptors = new LinkedList();
+		try {
+			Statement stmt = manager.getConnection().createStatement();
+			String sql = "SELECT * FROM receptor WHERE blood_type = ?" + bloodtype;
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				Integer dni = rs.getInt("dni");
+				Date dob = rs.getDate("dob");
+				String status = rs.getString("status");
+				String blood_type = rs.getString("blood_type");
+				Integer urgency = rs.getInt("urgency");
+				Integer antigen_id = rs.getInt("id_antigen");
+				Boolean alive = rs.getBoolean("alive");
+				Antigen antigen = JDBCAntigenManager.getAntigen(antigen_id);
+				Integer antibody_id = rs.getInt("id_antibody");
+				Antibody antibody = JDBCAntibodyManager.getAntibody(antibody_id);
+				Integer location_id = rs.getInt("id_location");
+				Location location = JDBCLocationManager.getLocation(location_id);
+				Integer request_id = rs.getInt("id_request");
+				Request request = JDBCRequestManager.getRequest(request_id);
+				Receptor r = new Receptor(dni, dob, status, blood_type, urgency, antigen, antibody, location, request, alive);
+				receptors.add(r);
+			}
+			rs.close();
+			stmt.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return receptors;
 	}
 
 	@Override
 	public List<Receptor> showReceptorsByUrgency() {
-		// TODO Auto-generated method stub
-		return null;
+		List <Receptor> receptors = new LinkedList();
+		try {
+			Statement stmt = manager.getConnection().createStatement();
+			String sql = "SELECT * FROM receptor ORDER BY urgency ";
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				Integer dni = rs.getInt("dni");
+				Date dob = rs.getDate("dob");
+				String status = rs.getString("status");
+				String blood_type = rs.getString("blood_type");
+				Integer urgency = rs.getInt("urgency");
+				Integer antigen_id = rs.getInt("id_antigen");
+				Boolean alive = rs.getBoolean("alive");
+				Antigen antigen = JDBCAntigenManager.getAntigen(antigen_id);
+				Integer antibody_id = rs.getInt("id_antibody");
+				Antibody antibody = JDBCAntibodyManager.getAntibody(antibody_id);
+				Integer location_id = rs.getInt("id_location");
+				Location location = JDBCLocationManager.getLocation(location_id);
+				Integer request_id = rs.getInt("id_request");
+				Request request = JDBCRequestManager.getRequest(request_id);
+				Receptor r = new Receptor(dni, dob, status, blood_type, urgency, antigen, antibody, location, request, alive);
+				receptors.add(r);
+			}
+			rs.close();
+			stmt.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return receptors;
 	}
-
-
-	
-	
-	
-	
 
 }

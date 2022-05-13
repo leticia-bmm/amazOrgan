@@ -9,6 +9,7 @@ import amazOrgan.ifaces.OrganManager;
 import amazOrgan.pojos.Organ;
 import amazOrgan.pojos.Type_organ;
 
+
 public class JDBCOrganManager implements OrganManager {
 
 	private JDBCManager manager;
@@ -20,12 +21,12 @@ public class JDBCOrganManager implements OrganManager {
 	@Override
 	public void addOrgan(Organ o) {
 		try {
-			String sql = "INSERT INTO organ(id, id_type_organ, size_organ, available) VALUES (?,?,?,?)";
+			String sql = "INSERT INTO organ(id_type_organ, size_organ, available, donor_dni) VALUES (?,?,?,?)";
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
-			prep.setInt(1, o.getID());
-			prep.setInt(2, o.getType_organ().getId());
-			prep.setFloat(3, o.getSize());
-			prep.setBoolean(4, o.isAvailable());
+			prep.setInt(1, o.getType_organ().getId());
+			prep.setFloat(2, o.getSize());
+			prep.setBoolean(3, o.isAvailable());
+			prep.setInt(4, o.getDonor().getdni());
 			prep.executeUpdate();
 		}catch(Exception e) {
 			e.printStackTrace();

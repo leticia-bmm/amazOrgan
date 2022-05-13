@@ -148,6 +148,11 @@ public class Menu {
 				switch (option) {
 				case 1:
 					// Register receptor
+					// we are going to register an entire receptor
+					//all the atribites that te recepotr has
+					//except for the doctor in charge
+					//since it is a may to many relationship
+					//we are then asking 
 					System.out.println("REGISTER RECEPTOR");
 
 					break;
