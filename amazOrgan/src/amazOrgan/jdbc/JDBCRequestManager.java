@@ -19,11 +19,7 @@ public class JDBCRequestManager implements RequestManager {
 	@Override
 	public void addRequest(Request r) {
 		try {
-<<<<<<< HEAD
 			String sql = "INSERT INTO request (id, id_type_organ, received, donor_DNI, size_organ) VALUES (?,?,?,?,?)";
-=======
-			String sql = "INSERT INTO request (id, type_organ, size, received, donor) VALUES (?,?,?,?,?)";
->>>>>>> branch 'master' of https://github.com/leticia-bmm/amazOrgan
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setInt(1, r.getId());
 			prep.setInt(2, r.getType_organ().getId());
