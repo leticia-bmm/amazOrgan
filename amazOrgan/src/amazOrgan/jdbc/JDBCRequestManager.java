@@ -4,7 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import amazOrgan.ifaces.RequestManager;
-import amazOrgan.pojos.Donor;
+import amazOrgan.pojos.Organ;
 import amazOrgan.pojos.Request;
 
 public class JDBCRequestManager implements RequestManager {
@@ -24,6 +24,7 @@ public class JDBCRequestManager implements RequestManager {
 			prep.setInt(1, r.getId());
 			prep.setInt(2, r.getType_organ().getId());
 			prep.setBoolean(3, r.isReceived());
+			//TODO change donor -> organ 
 			prep.setInt(4, r.getDonor().getdni());
 			prep.setFloat(5, r.getSize());
 			prep.executeUpdate();
@@ -33,15 +34,20 @@ public class JDBCRequestManager implements RequestManager {
 	}
 
 	@Override
-	public void updateDonorDNI(Donor d) {
-		try {
-			String sql = "UPDATE donor" + " SET alive=?";
-			PreparedStatement p = manager.getConnection().prepareStatement(sql);
-			p.setBoolean()
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
+	public void updateOrganId(Organ o) {
+		// TODO Auto-generated method stub
+		// Recibo un organ que ha sido el que me han donado
+		// Guardo en la info del request
+		
 	}
+
+	@Override
+	public Request getRequest(Integer id) {
+		// TODO Auto-generated method stub
+		// getTypeOtgan
+		return null;
+	}
+
+
 
 }

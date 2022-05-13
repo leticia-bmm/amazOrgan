@@ -10,7 +10,8 @@ public class Organ implements Serializable{
 	private Integer id;
 	private Type_organ type_organ;
 	private Float size;
-	private boolean available;
+	private Boolean available;
+	private Donor donor;
 	
 	//constructor
 	public Organ() {
@@ -34,6 +35,13 @@ public class Organ implements Serializable{
 	public void setID(Integer iD) {
 		this.id = iD;
 	}
+	public Donor getDonor() {
+		return donor;
+	}
+
+	public void setDonor(Donor donor) {
+		this.donor = donor;
+	}
 	public Type_organ getType_organ() {
 		return type_organ;
 	}
@@ -56,7 +64,7 @@ public class Organ implements Serializable{
 	//tostring
 	@Override
 	public String toString() {
-		return "Organ [ID=" + id + ", size=" + size + ", available=" + available + "]";
+		return "Organ [ID=" + id + ", size=" + size + ", available=" + available + "donor = "+ donor +"]";
 	}
 
 	
