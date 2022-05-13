@@ -88,6 +88,11 @@ public class Menu {
 				case 1:
 					// Register donor
 					System.out.println("REGISTER DONOR");
+					//steps:
+					//1) ask for: DNI, dob, blood type, alive
+					//2)Antigen, Antibody, Location, Doctor in charge
+					//3)introduce the organs in a list
+					//call the constructor
 					
 					break;
 
@@ -265,7 +270,7 @@ public class Menu {
 	
 	/*public static void main(String[] ars) {
 		JDBCManager jdbcManager = new JDBCManager();
-		//crear el location manager que os haga falta
+		//crear el manager que os haga falta
 				
 		jdbcManager.disconnect();
 		System.exit(0);
