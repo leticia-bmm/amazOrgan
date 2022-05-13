@@ -3,7 +3,9 @@ package amazOrgan.ui;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
+import amazOrgan.ifaces.DoctorManager;
 import amazOrgan.ifaces.LocationManager;
+import amazOrgan.jdbc.JDBCDoctorManager;
 import amazOrgan.jdbc.JDBCLocationManager;
 import amazOrgan.pojos.Location;
 
@@ -15,6 +17,7 @@ public class Menu {
 	// TODO
 	// private static ....Managers
 	private static LocationManager locationManager;
+	private static DoctorManager doctorManager;
 
 	public static void first_menu() {
 
@@ -34,13 +37,15 @@ public class Menu {
 				case 1:
 					// See my patients
 					System.out.println("SEE MY PATIENTS");
-
+					//list donors from JDBCDoctorManager
+					//list receptors from JDBCDoctorManager (join with examines)
+					
 					break;
 
 				case 2:
 					// Change my data
 					System.out.println("CHANGE MY DATA");
-
+					doctorManager.changeMyData(null);
 					break;
 
 				case 3:
@@ -88,35 +93,41 @@ public class Menu {
 				case 1:
 					// Register donor
 					System.out.println("REGISTER DONOR");
-					//steps:
-					//1) ask for: DNI, dob, blood type, alive
-					//2)Antigen, Antibody, Location, Doctor in charge
-					//3)introduce the organs in a list
-					//call the constructor
-					
+					// steps:
+					// 1) ask for: DNI, dob, blood type, alive
+					// 2)Antigen, Antibody, Location, Doctor in charge
+					// 3)introduce the organs in a list
+					// call the constructor
+					//call match function
+
 					break;
 
 				case 2:
 					// Show donors
 					System.out.println("SHOW DONORS");
+					//list all the donors (JDBCDonorManager)
 
 					break;
 
 				case 3:
 					// Update alive
 					System.out.println("UPDATE ALIVE");
-
+					updateAlive();
+					//call match function
+				
+					
 					break;
 
 				case 4:
 					// Delete donor
 					System.out.println("DELETE DONOR");
-
+					deleteDonor();
 					break;
 
 				case 5:
 					// Get donor
 					System.out.println("GET DONOR");
+					getDonor();
 
 					break;
 
@@ -154,32 +165,37 @@ public class Menu {
 				case 1:
 					// Register receptor
 					// we are going to register an entire receptor
-					//all the atribites that te recepotr has
-					//except for the doctor in charge
-					//since it is a may to many relationship
-					//we are then asking 
+					// all the atribites that te recepotr has
+					// except for the doctor in charge
+					// since it is a may to many relationship
+					// we are then asking
 					System.out.println("REGISTER RECEPTOR");
-					//when we register a patient, we have to 
-					//call the methods add 
-					//and all the objects to addthem individually un the database
+					// when we register a patient, we have to
+					// call the methods add
+					// and all the objects to addthem individually un the database
+					//call match function
 					break;
 
 				case 2:
 					// Show receptors
 					System.out.println("SHOW RECEPTORS");
+					//list receptors (JDBCReceptorManager)
+					//another menu for: by bloodType, by Urgency
 
 					break;
 
 				case 3:
 					// Search receptor
 					System.out.println("SEARCH RECEPTOR");
-
+					getReceptor();
 					break;
 
 				case 4:
 					// Update data
 					System.out.println("UPDATE DATA");
-
+					updateReceptor();
+					//we can change alive, urgency and status
+					//we call match function when changing urgency and status(only when waiting)
 					break;
 
 				case 0:
@@ -197,8 +213,7 @@ public class Menu {
 
 	}
 
-
-/*	public static void main(String[] ars) {
+public static void main(String[] ars) {
 
 		System.out.println("Welcome to amazOrgan!");
 		
@@ -207,7 +222,8 @@ public class Menu {
 		// -----------------------------
 		JDBCManager jdbcManager = new JDBCManager();
 		locationManager = new JDBCLocationManager(jdbcManager);
-
+		doctorManager = new JDBCDoctorManager(jdbcManager);
+		
 		// = new ...Manager()
 
 		// TODO
@@ -270,21 +286,19 @@ public class Menu {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-		}*/
+		}
 
 	
 	
 	
-	public static void main(String[] ars) {
+	/*public static void main(String[] ars) {
 		JDBCManager jdbcManager = new JDBCManager();
 		System.out.println("Welcome to amazOrgan!");
 		
 				
 		jdbcManager.disconnect();
 		System.exit(0);
-	}
+	}*/
 	
 
 }
-
-
