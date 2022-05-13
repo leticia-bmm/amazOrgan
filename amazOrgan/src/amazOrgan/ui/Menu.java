@@ -191,7 +191,7 @@ public class Menu {
 	}
 
 
-	public static void main(String[] ars) {
+/*	public static void main(String[] ars) {
 
 		System.out.println("Welcome to amazOrgan!");
 		
@@ -263,18 +263,21 @@ public class Menu {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		}*/
 
-	}
 	
 	
-	/*public static void main(String[] ars) {
+	
+	public static void main(String[] ars) {
 		JDBCManager jdbcManager = new JDBCManager();
-		//crear el location manager que os haga falta
+		System.out.println("Welcome to amazOrgan!");
+		
 				
 		jdbcManager.disconnect();
 		System.exit(0);
-	}*/
+	}
 	
 
 }
+
+
