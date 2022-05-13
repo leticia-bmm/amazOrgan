@@ -1,6 +1,5 @@
 package amazOrgan.jdbc;
 
-import java.beans.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
