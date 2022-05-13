@@ -58,51 +58,23 @@ public class JDBCDoctorManager implements DoctorManager {
 		}
 	}
 
-	@Override
-	public void showMyData(Doctor d) {
-		try {
-			String sql = "SELECT * FROM doctor WHERE medical_id=?";
-			PreparedStatement p = manager.getConnection().prepareStatement(sql);	
-			p.setInt(1, d.getmedical_id());
-			p.
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	
-
 	// list of receptors
-	public List<Receptor> listMyPatients(Integer Medical_Id) {
-
+	public List<Receptor> listMyPatients(Integer medical_id) {
+		// 
 		List<Receptor> receptors = new ArrayList<Receptor>();
+		Receptor  r = new Receptor();
 		try {
 			Statement stmt = manager.getConnection().createStatement();
-			String sql = "SELECT * FROM receptor ";
+			String sql = "SELECT * FROM examines WHERE medical_id=" + medical_id;
 			ResultSet rs = stmt.executeQuery(sql);
-			while (rs.next()) { 			
-				Integer dni = rs.getInt("dni");
-				Date dob = rs.getDate("dob");
-				String status= rs.getString("status");
-				String blood_type= rs.getString("blood_type");
-				Integer urgency =rs.getInt("urgency");
-				// ¿aquí lo estoy cogiendo de antobody, antigen, //
-				Integer id_antibody = rs.getInt("antibody");
-				Integer id_antigen= rs.getInt("antigen");
-				Integer id_location= rs.getInt("location");
-				Integer id_request = rs.getInt("request");
-				/*
-				Antigen antigen =rs.getInt();
-				Antibody antibody = rs.getAntibody("antibody");
-				Location location = rs.getLocation("location");
-				Request request = rs.getRequest("request");
-				*/
-				Boolean alive = rs.getBoolean("alive");
-				Receptor r = new Receptor (dni, dob, status, blood_type, urgency, antigen ,antibody, location, request, alive);
-				receptors.add(r);
+			while (rs.next()) {	
+				Integer receptor_id = rs.getInt("receptor_id");
+				r = JDBCReceptorManager.getReceptor();
+				receptors.add(r);			
 				rs.close();
-				stmt.close();
+				
 			}
+			stmt.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -113,8 +85,23 @@ public class JDBCDoctorManager implements DoctorManager {
 
 	@Override
 	public Doctor getDoctor(Integer medical_id) {
+		
+		Doctor d = new Doctor ();
+		try {
+			Statement stmt = manager.getConnection().createStatement();
+			String sql = "SELECT * FROM doctor WHERE medical_id = ?" + medical_id;
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				Integer phone_number = rs.getInt("phone_number");
+				String name = rs.getString("name");
+											}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return d;
+		
 		// TODO Auto-generated method stub
-		return null;
+	
 	}
 
 
