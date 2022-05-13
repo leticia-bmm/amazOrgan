@@ -159,7 +159,9 @@ public class Menu {
 					//since it is a may to many relationship
 					//we are then asking 
 					System.out.println("REGISTER RECEPTOR");
-
+					//when we register a patient, we have to 
+					//call the methods add 
+					//and all the objects to addthem individually un the database
 					break;
 
 				case 2:

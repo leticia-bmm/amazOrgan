@@ -51,7 +51,7 @@ public class JDBCOrganManager implements OrganManager {
 		Organ o = null;
 		try {
 			Statement stmt = manager.getConnection().createStatement();
-			String sql = "SELECT * FROM organ WHERE id="+id;
+			String sql = "SELECT * FROM organ AS WHERE id="+id;
 			ResultSet rs = stmt.executeQuery(sql);
 			while(rs.next()) {
 				Integer id_type_organ = rs.getInt("id_type_organ");

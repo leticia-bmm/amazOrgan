@@ -169,6 +169,16 @@ public class JDBCManager {
 					+ ")";
 			stmt.executeUpdate(sql);
 			
+			//inserting all the info into type of organ
+			sql = "INSERT INTO type_of_organ (name, lifespan) VALUES (\"kidney\", 50) "
+					+ "INSERT INTO type_of_organ (name, lifespan) VALUES (\"liver\", 30) "
+					+ "INSERT INTO type_of_organ (name, lifespan) VALUES (\"pancreas\", 30) "
+					+ "INSERT INTO type_of_organ (name, lifespan) VALUES (\"lung\", 8) "
+					+ "INSERT INTO type_of_organ (name, lifespan) VALUES (\"heat\", 8) "
+					+ "INSERT INTO type_of_organ (name, lifespan) VALUES (\"bowel\", 12) "
+					+ "INSERT INTO type_of_organ (name, lifespan) VALUES (\"bone marrow\", 8) ";
+			stmt.executeUpdate(sql);
+			
 		} catch (SQLException e) {
 			// Do not complain if tables already exist
 			if (!e.getMessage().contains("already exists")) {

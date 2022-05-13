@@ -52,7 +52,7 @@ public class JDBCAntigenManager implements AntigenManager {
 
 	}
 
-	public Antigen getAntigen(Integer id) {
+	public static Antigen getAntigen(Integer id) {
 		
 			Antigen ant = new Antigen ();
 			try {

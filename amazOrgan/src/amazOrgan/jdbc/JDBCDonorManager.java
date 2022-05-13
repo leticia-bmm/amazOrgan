@@ -83,8 +83,7 @@ public class JDBCDonorManager implements DonorManager {
 				Integer antibody_id = rs.getInt("id_antibody");
 				Antibody ab = JDBCAntibodyManager.getAntibody(antibody_id);
 				Integer id_doctor_charge = rs.getInt("id_doctor_charge");
-				
-				
+
 			}
 
 		} catch (Exception e) {
