@@ -275,12 +275,8 @@ public class Menu {
 	
 	public static void main(String[] ars) {
 		JDBCManager jdbcManager = new JDBCManager();
-<<<<<<< HEAD
 		System.out.println("Welcome to amazOrgan!");
 		
-=======
-		//crear el manager que os haga falta
->>>>>>> branch 'master' of https://github.com/leticia-bmm/amazOrgan
 				
 		jdbcManager.disconnect();
 		System.exit(0);
