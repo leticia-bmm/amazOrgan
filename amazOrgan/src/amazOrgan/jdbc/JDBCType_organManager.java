@@ -15,7 +15,7 @@ public class JDBCType_organManager implements Type_organManager {
 	public JDBCType_organManager(JDBCManager m) {
 		this.manager = m;
 	}
-	//TODO check if the methods are well created
+
 	@Override
 	public void addTypeOfOrgan(Type_organ o) {
 		try {
@@ -31,8 +31,9 @@ public class JDBCType_organManager implements Type_organManager {
 		}
 	}
 
+
 	@Override
-	public Type_organ searchTypeOfOrgan(Integer ID) {
+	public Type_organ getTypeOfOrgan(Integer ID) {
 		Type_organ t = null;
 		try {
 			Statement stmt = manager.getConnection().createStatement();

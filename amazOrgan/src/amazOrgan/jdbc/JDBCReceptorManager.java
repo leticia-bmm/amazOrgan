@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import amazOrgan.ifaces.ReceptorManager;
+import amazOrgan.pojos.Antibody;
 import amazOrgan.pojos.Antigen;
 import amazOrgan.pojos.Doctor;
 import amazOrgan.pojos.Receptor;
@@ -77,7 +78,16 @@ public class JDBCReceptorManager implements ReceptorManager{
 				String blood_type = rs.getString("blood_type");
 				Integer urgency = rs.getInt("urgency");
 				Integer antigen_id = rs.getInt("antigen_id");
+				Antigen antigen = JDBCAntigenManager.getAntigen(antigen_id);
+				Integer antibody_id = rs.getInt("antibody_id");
+				Antibody antibody = JDBCAntibodyManager.getAntibody(antibody_id);
+				Integer location_id = rs.getInt("location_id");
+				Integer request_id = rs.getInt("request_id");
+				Boolean alive = rs.getBoolean("ailve");
 				
+				
+				
+				r = new Receptor(dni, dob, status, blood_type, urgency, antigen, antibody, location, request, alive);
 			}
 					
 		}catch(Exception e) {

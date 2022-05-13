@@ -189,8 +189,7 @@ public class Menu {
 	public static void main(String[] ars) {
 
 		System.out.println("Welcome to amazOrgan!");
-		System.out.println("hola");
-
+		
 		// TODO
 		// Initialize database for JDBC
 		// -----------------------------
@@ -252,6 +251,7 @@ public class Menu {
 			// Close the connection with the database
 			// ---------------------------------------
 			// disconnect()
+			
 			jdbcManager.disconnect();
 
 			System.exit(0);
@@ -262,6 +262,14 @@ public class Menu {
 
 	}
 	
+	
+	/*public static void main(String[] ars) {
+		JDBCManager jdbcManager = new JDBCManager();
+		//crear el location manager que os haga falta
+				
+		jdbcManager.disconnect();
+		System.exit(0);
+	}*/
 	
 
 }

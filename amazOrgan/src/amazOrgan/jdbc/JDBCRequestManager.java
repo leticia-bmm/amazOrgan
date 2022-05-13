@@ -20,7 +20,6 @@ public class JDBCRequestManager implements RequestManager {
 	public void addRequest(Request r) {
 		try {
 			String sql = "INSERT INTO request (id, id_type_organ, received, donor_DNI, size_organ) VALUES (?,?,?,?,?)";
-
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setInt(1, r.getId());
 			prep.setInt(2, r.getType_organ().getId());

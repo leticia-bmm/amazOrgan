@@ -69,7 +69,7 @@ public class JDBCDoctorManager implements DoctorManager {
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {	
 				Integer receptor_id = rs.getInt("receptor_id");
-				r = JDBCReceptorManager.getReceptor();
+				r = JDBCReceptorManager.getReceptor(receptor_id);
 				receptors.add(r);			
 				rs.close();
 				
@@ -94,8 +94,8 @@ public class JDBCDoctorManager implements DoctorManager {
 			while (rs.next()) {
 				Integer phone_number = rs.getInt("phone_number");
 				String name = rs.getString("name");
-											}
-		}catch(Exception e) {
+				}
+		} catch(Exception e) {
 			e.printStackTrace();
 		}
 		return d;

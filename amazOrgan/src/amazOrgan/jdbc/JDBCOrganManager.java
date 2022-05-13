@@ -17,7 +17,6 @@ public class JDBCOrganManager implements OrganManager {
 		this.manager = m;
 	}
 
-	//TODO check if the methods are well created
 	@Override
 	public void addOrgan(Organ o) {
 		try {
@@ -69,7 +68,7 @@ public class JDBCOrganManager implements OrganManager {
 		return o;
 	}
 	
-
+	@Override
 	public Type_organ getType_organOfOrgan(Integer id_type_organ) {
 		Type_organ t = null;
 		try {

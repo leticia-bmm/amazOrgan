@@ -12,7 +12,7 @@ public interface ReceptorManager {
 	// Update receptor (the only parameters we are updating are alive / urgency / status)
 	public void updateReceptor (Receptor r); 
 	//get receptor
-	public Receptor getReceptor (Integer DNI);
+	public Receptor getReceptor (Integer dni);
 	// Show by bloodtype
 	public List <Receptor> showReceptorsByBloodType (String bloodtype);
 	//Show by urgency

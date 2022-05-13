@@ -52,7 +52,7 @@ public class JDBCAntigenManager implements AntigenManager {
 	}
 
 	@Override
-	public Antigen getAntigen(Integer id) {
+	public static Antigen getAntigen(Integer id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
