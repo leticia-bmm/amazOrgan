@@ -78,9 +78,12 @@ public class JDBCDonorManager implements DonorManager {
 				Date dob = rs.getDate("dob");
 				String bloodType = rs.getString("blood_type");
 				boolean alive = rs.getBoolean("alive");
-				Int
+				Integer antigen_id = rs.getInt("id_antigen");
 				Antigen ag = JDBCAntigenManager.getAntigen(antigen_id);
-				Antibody ab = JDBCAntibodyManager.getAntibody(DNI);
+				Integer antibody_id = rs.getInt("id_antibody");
+				Antibody ab = JDBCAntibodyManager.getAntibody(antibody_id);
+				Integer id_doctor_charge = rs.getInt("id_doctor_charge");
+				
 				
 			}
 
@@ -90,9 +93,16 @@ public class JDBCDonorManager implements DonorManager {
 	}
 
 	@Override
-	public void updateAlive(Integer DNI) {
-
-		// TODO Auto-generated method stub
+	public void updateAlive(Donor d) {
+		try {
+			String sql = "UPDATE donor " + "SET alive = ? " + "WHERE dni = ?";
+			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
+			prep.setBoolean(1, d.isAlive());
+			prep.setInt(2, d.getdni());
+			prep.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 	}
 

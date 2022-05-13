@@ -20,7 +20,7 @@ public interface DonorManager {
 	public void addDonor(Donor d);
 	public void deleteDonor(Integer DNI);
 	public void getDonor(Integer DNI);
-	public void updateAlive (Integer DNI);
+	public void updateAlive (Donor d);
 	public List <Donor> showDonorsByBloodType (String bloodType);
 	
 	
