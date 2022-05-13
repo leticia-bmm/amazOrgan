@@ -69,7 +69,7 @@ public class JDBCDoctorManager implements DoctorManager {
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {	
 				Integer receptor_id = rs.getInt("receptor_id");
-				r = JDBCReceptorManager.getReceptor(receptor_id);
+				r = getReceptor(receptor_id);
 				receptors.add(r);			
 				
 			}
