@@ -3,8 +3,13 @@ package amazOrgan.ui;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
+import amazOrgan.ifaces.AntibodyManager;
+import amazOrgan.ifaces.AntigenManager;
 import amazOrgan.ifaces.DoctorManager;
+import amazOrgan.ifaces.DonorManager;
 import amazOrgan.ifaces.LocationManager;
+import amazOrgan.ifaces.OrganManager;
+import amazOrgan.ifaces.ReceptorManager;
 import amazOrgan.jdbc.JDBCDoctorManager;
 import amazOrgan.jdbc.JDBCLocationManager;
 import amazOrgan.pojos.Location;
@@ -16,8 +21,17 @@ public class Menu {
 	private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 	// TODO
 	// private static ....Managers
-	private static LocationManager locationManager;
+	private static AntibodyManager antibodyManager;
+	private static AntigenManager antigenManager;
 	private static DoctorManager doctorManager;
+	private static DonorManager donorManager;
+	private static LocationManager locationManager;
+	private static OrganManager organManager;
+	private static ReceptorManager receptorManager;
+	private static RequestManager reqManager;
+	
+	
+	
 
 	public static void first_menu() {
 
