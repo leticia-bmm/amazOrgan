@@ -99,8 +99,6 @@ public class JDBCDoctorManager implements DoctorManager {
 			e.printStackTrace();
 		}
 		return d;
-		
-		// TODO Auto-generated method stub
 	
 	}
 
