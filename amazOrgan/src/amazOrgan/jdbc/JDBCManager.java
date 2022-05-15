@@ -120,7 +120,7 @@ public class JDBCManager {
 					+ "	\"id\"	INTEGER PRIMARY KEY AUTOINCREMENT, "
 					+ "	\"id_type_organ\"	INTEGER, "
 					+ "	\"size_organ\"	FLOAT, "
-					+ " \" donor_dni\"  INTEGER,"
+					+ " \"donor_dni\"  INTEGER,"
 					+ "	\"available\"	BOOLEAN, "
 					+ "	FOREIGN KEY(\"id_type_organ\") REFERENCES \"type_of_organ\"(\"id\"), "
 					+ " FOREIGN KEY (\"donor_dni\") REFERENCES \"donor\" "
@@ -138,7 +138,6 @@ public class JDBCManager {
 					+ "	\"id_antigen\"	INTEGER, "
 					+ "	\"id_antibody\"	INTEGER, "
 					+ "	\"id_location\"	INTEGER, "
-					+ "	\"id_doctor_charge\"	INTEGER, "
 					+ "	\"id_request\"	INTEGER, "
 					+ "	PRIMARY KEY(\"dni\"), "
 					+ "	CHECK(status IN ('Waiting','Accepted','Rejected','Operating')), "
@@ -146,7 +145,6 @@ public class JDBCManager {
 					+ "	FOREIGN KEY(\"id_antigen\") REFERENCES \"antigen\"(\"id\"), "
 					+ "	FOREIGN KEY(\"id_location\") REFERENCES \"location\"(\"id\"), "
 					+ "	FOREIGN KEY(\"id_antibody\") REFERENCES \"antibody\"(\"id\"), "
-					+ "	FOREIGN KEY(\"id_doctor_charge\") REFERENCES \"doctor\"(\"medical_id\"), "
 					+ "	FOREIGN KEY(\"id_request\") REFERENCES \"request\"(\"id\") "
 					+ ")";
 			stmt.executeUpdate(sql);
