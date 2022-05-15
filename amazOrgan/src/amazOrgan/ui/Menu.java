@@ -13,11 +13,17 @@ import amazOrgan.ifaces.ReceptorManager;
 import amazOrgan.ifaces.RequestManager;
 import amazOrgan.ifaces.Type_organManager;
 import amazOrgan.jdbc.JDBCAntibodyManager;
+import amazOrgan.jdbc.JDBCAntigenManager;
 import amazOrgan.jdbc.JDBCDoctorManager;
+import amazOrgan.jdbc.JDBCDonorManager;
 import amazOrgan.jdbc.JDBCLocationManager;
 import amazOrgan.pojos.Location;
 
 import amazOrgan.jdbc.JDBCManager;
+import amazOrgan.jdbc.JDBCOrganManager;
+import amazOrgan.jdbc.JDBCReceptorManager;
+import amazOrgan.jdbc.JDBCRequestManager;
+import amazOrgan.jdbc.JDBCType_organManager;
 
 public class Menu {
 
@@ -240,8 +246,17 @@ public static void main(String[] ars) {
 		// -----------------------------
 		JDBCManager jdbcManager = new JDBCManager();
 		antibodyManager = new JDBCAntibodyManager(jdbcManager);
-		locationManager = new JDBCLocationManager(jdbcManager);
+		antigenManager = new JDBCAntigenManager(jdbcManager);
 		doctorManager = new JDBCDoctorManager(jdbcManager);
+		donorManager = new JDBCDonorManager(jdbcManager);
+		locationManager = new JDBCLocationManager(jdbcManager);
+		organManager = new JDBCOrganManager(jdbcManager);
+		receptorManager = new JDBCReceptorManager(jdbcManager);
+		requestManager = new JDBCRequestManager(jdbcManager);
+		type_organManager = new JDBCType_organManager(jdbcManager);
+
+
+		
 		
 		// = new ...Manager()
 

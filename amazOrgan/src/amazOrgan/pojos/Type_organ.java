@@ -1,13 +1,28 @@
 package amazOrgan.pojos;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.TableGenerator;
+
+
 
 public class Type_organ implements Serializable {
 
+	
 	private static final long serialVersionUID = -60093262058037111L;
-	private Integer id;
+	
+	private Integer id;  //same names as in the database
 	private String name;
 	private Integer lifespan;
+	private List <Request> requests;
+	private List <Organ> organs;
+	
 	
 	public Type_organ() {
 		super(); 
@@ -45,6 +60,22 @@ public class Type_organ implements Serializable {
 		this.lifespan = lifespan;
 	}
 
+	public List<Request> getRequests() {
+		return requests;
+	}
+
+	public void setRequests(List<Request> requests) {
+		this.requests = requests;
+	}
+
+	public List<Organ> getOrgans() {
+		return organs;
+	}
+
+	public void setOrgans(List<Organ> organs) {
+		this.organs = organs;
+	}
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id, lifespan, name);
@@ -65,8 +96,11 @@ public class Type_organ implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Type_organ [id=" + id + ", name=" + name + ", lifespan=" + lifespan + "]";
+		return "Type_organ [id=" + id + ", name=" + name + ", lifespan=" + lifespan + ", requests=" + requests
+				+ ", organs=" + organs + "]";
 	}
+
+
 	
 	
 
