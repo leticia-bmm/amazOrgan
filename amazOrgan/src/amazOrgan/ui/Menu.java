@@ -10,6 +10,7 @@ import amazOrgan.ifaces.DonorManager;
 import amazOrgan.ifaces.LocationManager;
 import amazOrgan.ifaces.OrganManager;
 import amazOrgan.ifaces.ReceptorManager;
+import amazOrgan.ifaces.RequestManager;
 import amazOrgan.jdbc.JDBCDoctorManager;
 import amazOrgan.jdbc.JDBCLocationManager;
 import amazOrgan.pojos.Location;
