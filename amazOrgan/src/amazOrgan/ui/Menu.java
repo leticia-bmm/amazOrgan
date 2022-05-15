@@ -12,6 +12,7 @@ import amazOrgan.ifaces.OrganManager;
 import amazOrgan.ifaces.ReceptorManager;
 import amazOrgan.ifaces.RequestManager;
 import amazOrgan.ifaces.Type_organManager;
+import amazOrgan.ifaces.UserManager;
 import amazOrgan.jdbc.JDBCAntibodyManager;
 import amazOrgan.jdbc.JDBCAntigenManager;
 import amazOrgan.jdbc.JDBCDoctorManager;
@@ -24,6 +25,8 @@ import amazOrgan.jdbc.JDBCOrganManager;
 import amazOrgan.jdbc.JDBCReceptorManager;
 import amazOrgan.jdbc.JDBCRequestManager;
 import amazOrgan.jdbc.JDBCType_organManager;
+import amazOrgan.jpa.JPAUserManager;
+import amazOrgan.pojos.User;
 
 public class Menu {
 
@@ -39,11 +42,12 @@ public class Menu {
 	private static ReceptorManager receptorManager;
 	private static RequestManager requestManager;
 	private static Type_organManager type_organManager;
-	
-	
-	
+	private static UserManager userManager;
 
-	public static void first_menu() {
+	
+	
+	//TODO: receives the medical_id of the doctor
+	public static void doctor_menu() {
 
 		try {
 			int option;
@@ -61,9 +65,9 @@ public class Menu {
 				case 1:
 					// See my patients
 					System.out.println("SEE MY PATIENTS");
-					//list donors from JDBCDoctorManager
-					//list receptors from JDBCDoctorManager (join with examines)
-					
+					// list donors from JDBCDoctorManager
+					// list receptors from JDBCDoctorManager (join with examines)
+
 					break;
 
 				case 2:
@@ -74,12 +78,12 @@ public class Menu {
 
 				case 3:
 					// call donor menu
-					donor_menu();
+					doc_donor_menu();
 					break;
 
 				case 4:
 					// call receptor menu
-					receptor_menu();
+					doc_receptor_menu();
 					break;
 
 				case 0:
@@ -99,7 +103,7 @@ public class Menu {
 
 	}
 
-	public static void donor_menu() {
+	public static void doc_donor_menu() {
 
 		try {
 			int option;
@@ -122,14 +126,14 @@ public class Menu {
 					// 2)Antigen, Antibody, Location, Doctor in charge
 					// 3)introduce the organs in a list
 					// call the constructor
-					//call match function
+					// call match function
 
 					break;
 
 				case 2:
 					// Show donors
 					System.out.println("SHOW DONORS");
-					//list all the donors (JDBCDonorManager)
+					// list all the donors (JDBCDonorManager)
 
 					break;
 
@@ -137,9 +141,8 @@ public class Menu {
 					// Update alive
 					System.out.println("UPDATE ALIVE");
 					updateAlive();
-					//call match function
-				
-					
+					// call match function
+
 					break;
 
 				case 4:
@@ -157,7 +160,7 @@ public class Menu {
 
 				case 0:
 					// Back
-					return; // we exit the method to return to first_menu
+					return; // we exit the method to return to doctor_menu
 
 				default:
 					System.out.println("The selected option is not correct.");
@@ -171,7 +174,7 @@ public class Menu {
 
 	}
 
-	public static void receptor_menu() {
+	public static void doc_receptor_menu() {
 
 		try {
 			int option;
@@ -197,14 +200,14 @@ public class Menu {
 					// when we register a patient, we have to
 					// call the methods add
 					// and all the objects to addthem individually un the database
-					//call match function
+					// call match function
 					break;
 
 				case 2:
 					// Show receptors
 					System.out.println("SHOW RECEPTORS");
-					//list receptors (JDBCReceptorManager)
-					//another menu for: by bloodType, by Urgency
+					// list receptors (JDBCReceptorManager)
+					// another menu for: by bloodType, by Urgency
 
 					break;
 
@@ -218,13 +221,13 @@ public class Menu {
 					// Update data
 					System.out.println("UPDATE DATA");
 					updateReceptor();
-					//we can change alive, urgency and status
-					//we call match function when changing urgency and status(only when waiting)
+					// we can change alive, urgency and status
+					// we call match function when changing urgency and status(only when waiting)
 					break;
 
 				case 0:
 					// Back
-					return; // we exit the method to return to first_menu
+					return; // we exit the method to return to doctor_menu
 
 				default:
 					System.out.println("The selected option is not correct.");
@@ -237,10 +240,10 @@ public class Menu {
 
 	}
 
-public static void main(String[] ars) {
+	public static void main(String[] ars) {
 
 		System.out.println("Welcome to amazOrgan!");
-		
+
 		// TODO
 		// Initialize database for JDBC
 		// -----------------------------
@@ -255,15 +258,12 @@ public static void main(String[] ars) {
 		requestManager = new JDBCRequestManager(jdbcManager);
 		type_organManager = new JDBCType_organManager(jdbcManager);
 
-
-		
-		
 		// = new ...Manager()
 
 		// TODO
 		// Initialize database for JPA
 		// ----------------------------
-		// userManager = new JPAUserManager();
+		userManager = new JPAUserManager();
 
 		// Menu loop
 		try {
@@ -272,6 +272,8 @@ public static void main(String[] ars) {
 				System.out.println("Please, choose an option: ");
 				System.out.println("1) Login as a Doctor");
 				System.out.println("2) Register as a Doctor");
+				System.out.println("3) Login as a Donor");
+				System.out.println("4) Register as a Donor");
 
 				option = Integer.parseInt(reader.readLine());
 
@@ -279,18 +281,31 @@ public static void main(String[] ars) {
 				case 1:
 					// Login as a Doctor
 					System.out.println("LOGIN AS A DOCTOR");
-					System.out.println("Add a location");
-					Float f = 1.09f;
-					System.out.println(f);
-					Float f2 = 1.34f;
-					Location l = new Location(f, f2);
-					locationManager.addLocation(l);
+					//login_doctor()   ask here for the id and the password				
+					//doctor_menu(medical_id)
 
 					break;
 
 				case 2:
 					// Register as a Doctor
 					System.out.println("REGISTER AS A DOCTOR");
+					//register_doctor()   ask here for the id and the password				
+					//doctor_menu(medical_id)
+					break;
+					
+				case 3:
+					// Login as a Donor
+					System.out.println("LOGIN AS A DONOR");
+					//login_donor()   ask here for the id and the password				
+					//donor_menu(dni) you can only insert info or see your data
+
+					break;
+
+				case 4:
+					// Register as a Donor
+					System.out.println("Register AS A DONOR");
+					//register_donor()   ask here for the id and the password				
+					//donor_menu(dni) you can only insert info or see your data
 
 					break;
 
@@ -302,18 +317,14 @@ public static void main(String[] ars) {
 				break; // to exit the loop
 			}
 
-			// Now, the doctor is able to work with the database
-			// 1) call first menu
-			// 2) call second menu (donor or receptor)
-
-			first_menu();
+			
 			// if we reach this point, it is because the user wants to exit the program
 
 			// TODO
 			// Close the connection with the database
 			// ---------------------------------------
 			// disconnect()
-			
+
 			jdbcManager.disconnect();
 
 			System.exit(0);
@@ -322,17 +333,40 @@ public static void main(String[] ars) {
 			e.printStackTrace();
 		}
 
+		/*
+		 * public static void main(String[] ars) { JDBCManager jdbcManager = new
+		 * JDBCManager(); System.out.println("Welcome to amazOrgan!");
+		 * 
+		 * 
+		 * jdbcManager.disconnect(); System.exit(0); }
+		 */
+
+	}
 	
 	
+	//TODO: menu del donor pero desde el donor pasandole su DNI
 	
-	/*public static void main(String[] ars) {
-		JDBCManager jdbcManager = new JDBCManager();
-		System.out.println("Welcome to amazOrgan!");
+	//TODO
+	//loginDoctor
+	
+	public static void loginDoctor() throws Exception {
+		//User needs to provide an id and a password
 		
-				
-		jdbcManager.disconnect();
-		System.exit(0);
-	}*/
+		User u = userManager.checkPassword(id, password);
+		//Enter the doctor menu if the combination was valid
+		if (u != null) {
+			//doctor menu with that user
+		}
+		//if not, ask again
+		
+	}
 	
+	//AL REGISTRAR un doctor:
+	//crear un doctor
+	//crear un user y un role = "doctor" (con user.setRole)
+	//el digest se crea al registrar
+	
+	
+	//IF ALGUIEN TIENE DUDAS SOBRE JPA (USER-ROLE): VER CLASE 27/04
 
 }

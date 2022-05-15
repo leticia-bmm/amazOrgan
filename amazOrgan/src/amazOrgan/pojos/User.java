@@ -9,40 +9,36 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
-
 
 @Entity
 @Table(name = "users")
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1798339578536720273L;
-	
-	//we create the class User to handle the login and log out methods
-	@Id
+
+	@Id // to indicate the primary key: the following attribute
 	@GeneratedValue(generator = "users")
-	@TableGenerator(name = "users", table = "sqlite_sequence",
-		pkColumnName = "name", valueColumnName = "seq", pkColumnValue = "users")
-	private Integer id;
-	private String medical_id;
-	@Lob
+	@TableGenerator(name = "users", table = "sqlite_sequence", pkColumnName = "name", valueColumnName = "seq", pkColumnValue = "users")
+
+	private Integer id; // can be medical_id if the user is a doctor or the DNI if the user is a donor
+
+	@Lob // to indicate that it is an array of bytes
 	private byte[] password;
-	@OneToOne
-	//type of relationship with the other class
-	@JoinColumn(name = "medical_id")
-	//which class?
-	private Doctor doctor;
-	
-	
-	User() {
+
+	@ManyToOne // the other side of the relationship
+	@JoinColumn(name = "role_id")
+	private Role role;
+
+	public User() {
 		super();
 	}
 
-	public User(String medical_id, byte[] password) {
+	public User(Integer id, byte[] password) {
 		super();
-		this.medical_id = medical_id;
+		this.id = id;
 		this.password = password;
 	}
 
@@ -54,13 +50,6 @@ public class User implements Serializable {
 		this.id = id;
 	}
 
-	public String getMedical_id() {
-		return medical_id;
-	}
-
-	public void setMedical_id(String medical_id) {
-		this.medical_id = medical_id;
-	}
 
 	public byte[] getPassword() {
 		return password;
@@ -70,6 +59,13 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
 
 	@Override
 	public int hashCode() {
@@ -90,7 +86,8 @@ public class User implements Serializable {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", medical id=" + medical_id + ", password=" + Arrays.toString(password) + "]";
+		return "User [id=" + id + ", password=" + Arrays.toString(password) + ", role="
+				+ role.getName() + "]";
 	}
 
 }

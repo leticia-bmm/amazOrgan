@@ -12,7 +12,7 @@
 		<!-- Entity Class -->
 		<!--classes that are using JPA -->
 		<class>amazOrgan.pojos.User</class>
-		<class>amazOrgan.pojos.Type_organ</class>
+		<class>amazOrgan.pojos.Role</class>
 		
  
 		<properties>	
