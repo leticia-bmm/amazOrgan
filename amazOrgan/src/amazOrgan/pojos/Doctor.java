@@ -13,6 +13,7 @@ public class Doctor implements Serializable {
 	private Integer phone_number;
 	private String name;
 	private List<Donor> donors;
+	private List <Receptor> receptors;
 	//TODO getters and setter of donors and add them into string
 	//elimination of the table 
 	

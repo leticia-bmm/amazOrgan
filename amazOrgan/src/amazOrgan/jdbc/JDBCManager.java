@@ -41,19 +41,10 @@ public class JDBCManager {
 	private void createTables() {
 		// Create Tables
 		try {
-			
-			
-			Statement stmt = c.createStatement();
-			String sql = "CREATE TABLE owners (" 
-					+ "	id	    INTEGER PRIMARY KEY AUTOINCREMENT,"
-					+ "	name	TEXT NOT NULL," 
-			        + "	phone	INTEGER NOT NULL," 
-					+ "	email	TEXT NOT NULL,"
-					+ "	cardNumber	INTEGER NOT NULL" + ");";
-			stmt.executeUpdate(sql);
-			
+		
 			//antibody
-			sql = "CREATE TABLE \"antibody\" ( "
+			Statement stmt = c.createStatement();
+			String sql = "CREATE TABLE \"antibody\" ( "
 					+ "	\"id\"	INTEGER PRIMARY KEY AUTOINCREMENT, "
 					+ "	\"class_I\"	BOOLEAN NOT NULL, "
 					+ "	\"class_II\"	BOOLEAN NOT NULL "
@@ -105,7 +96,6 @@ public class JDBCManager {
 					+ "PRIMARY KEY (\"medical_id\", \"receptor_id\") "
 					+ ")";
 			stmt.executeUpdate(sql);
-			
 			
 			//location
 			sql = "CREATE TABLE location ( "

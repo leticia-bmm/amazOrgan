@@ -22,17 +22,18 @@ showDonorsByBloodType (bloodtype: text): void
 import amazOrgan.pojos.Organ;
 
 public class JDBCDonorManager implements DonorManager {
-
+	
 	private JDBCManager manager;
 
 	public JDBCDonorManager(JDBCManager m) {
 		this.manager = m;
 	}
 
+	
 	@Override
 	public void addDonor(Donor d) {
 		try {
-			String sql = "INSERT INTO donor (dni, dob, blood_type, alive, id_antigen, id_antibody, id_location, id_doctor_charge, id_organ) VALUES (?,?,?,?,?,?,?,?,?)";
+			String sql = "INSERT INTO donor (dni, dob, blood_type, alive, id_antigen, id_antibody, id_location, id_doctor_charge) VALUES (?,?,?,?,?,?,?,?)";
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setInt(1, d.getdni());
 			prep.setDate(2, d.getdob());
@@ -42,11 +43,6 @@ public class JDBCDonorManager implements DonorManager {
 			prep.setInt(6, d.getAntibody().getID());
 			prep.setInt(7, d.getLocation().getId());
 			prep.setInt(8, d.getDoctor_charge().getmedical_id());
-
-			// every Donor has a List <Organ> organsList <Organ> organs
-			for (Organ o : d.getOrgans()) {
-				JDBCOrganManager.addOrgan(o);
-			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -91,23 +87,29 @@ public class JDBCDonorManager implements DonorManager {
 		}
 	}
 
-	@Override
-	public void updateAlive(Donor d) {
-		try {
-			String sql = "UPDATE donor " + "SET alive = ? " + "WHERE dni = ?";
-			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
-			prep.setBoolean(1, d.isAlive());
-			prep.setInt(2, d.getdni());
-			prep.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	}
 
 	@Override
 	public List<Donor> showDonorsByBloodType(String bloodType) {
 		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public void updateDonor(Donor d) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public List<Donor> listAllDonors() {
+		// TODO Auto-generated method stub
+		//list all donors is going to return a list of donors 
+		// that only have dni, blood type
+		// and a list of organs that only have a type of organ
+		// create constructors
+		//the query will be a join
 		return null;
 	}
 
