@@ -74,6 +74,7 @@ public class Menu {
 					// Change my data
 					System.out.println("CHANGE MY DATA");
 					//doctorManager.changeMyData(null);
+					//hecho
 					break;
 
 				case 3:
@@ -111,7 +112,7 @@ public class Menu {
 				System.out.println("Please, choose an option:");
 				System.out.println("1) Register donor");
 				System.out.println("2) Show donors");
-				System.out.println("3) Update alive");
+				System.out.println("3) Update existing donor");
 				System.out.println("4) Delete donor");
 				System.out.println("5) Get donor");
 				System.out.println("0) Back");
@@ -120,13 +121,16 @@ public class Menu {
 				switch (option) {
 				case 1:
 					// Register donor
-					System.out.println("REGISTER DONOR");
+					System.out.println("REGISTER DONOR");//ONLY DEAD DONORS
 					// steps:
-					// 1) ask for: DNI, dob, blood type, alive
-					// 2)Antigen, Antibody, Location, Doctor in charge
-					// 3)introduce the organs in a list
-					// call the constructor
-					// call match function
+					// si no estaba en la database, hay que llamar a addDonor con toda la info
+					//		dob, blood type, alive
+					
+					// 		Antigen, Antibody, Location y Organs (dentro de un for), Doctor in charge NO porque es el mismo
+					// 		introduce the organs in a list
+					// 		call the constructor
+					
+					// 3) call match function
 
 					break;
 
@@ -134,26 +138,39 @@ public class Menu {
 					// Show donors
 					System.out.println("SHOW DONORS");
 					// list all the donors (JDBCDonorManager)
+					//solo de los donors que son alive y whose organs are available
+					//cosas que queremos del donor: dni, blood type y de la lista de organos donados solo el type of organ
+					//desde este metodo habria que llamar a los constructores correspondientes pero pasandoles solo pocas cosas
+					//vamos a tener dos queries: una que devuleve los dnis de los donors que estan alive y sus organs available y otra que devuelve el nombre de los organs
+					
 
 					break;
 
 				case 3:
 					// Update alive
-					System.out.println("UPDATE ALIVE");
-					//updateAlive();
+					System.out.println("UPDATE EXISTING DONOR");
+					// 1) ask for: DNI
+					// 2) select del donor con el dni:
+					// si el donor estaba en la database:
+					//		llamar a updateDonor (con la info que se ha leido + la que falta por pedir)
+					//		call the constructor
+					//
+					// para pasar de alive = true a alive = false 
+					// lo que hace que tambien se pase de available = false a available = true
+					
 					// call match function
 
 					break;
 
 				case 4:
 					// Delete donor
-					System.out.println("DELETE DONOR");
+					System.out.println("DELETE DONOR");	//hay que tener en cuenta on cascade
 					//deleteDonor();
 					break;
 
 				case 5:
 					// Get donor
-					System.out.println("GET DONOR");
+					System.out.println("GET DONOR"); //BY DNI
 					//getDonor();
 
 					break;
@@ -350,6 +367,8 @@ public class Menu {
 			int option;
 			System.out.println("Please, choose an option:");
 			System.out.println("1) Insert data");
+			// al insertar alive es by default true 
+			// en los organs available es by default false
 			System.out.println("2) See my data");
 			option = Integer.parseInt(reader.readLine());
 			

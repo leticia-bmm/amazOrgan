@@ -17,6 +17,10 @@ import amazOrgan.pojos.Receptor;
 import amazOrgan.pojos.Request;
 
 public class JDBCDoctorManager implements DoctorManager {
+	
+	//TODO
+	//listMyDonors(medical_id)
+	//select de la tabla donor que devuelva todos los donors que tienen id_doctorincharge = medical_id
 
 	private JDBCManager manager;
 
@@ -59,7 +63,8 @@ public class JDBCDoctorManager implements DoctorManager {
 	}
 
 	// list of receptors
-	public List<Receptor> listMyPatients(Integer medical_id) {
+	//TODO hay que añadir lo del join
+	public List<Receptor> listMyReceptors(Integer medical_id) {
 		// 
 		List<Receptor> receptors = new ArrayList<Receptor>();
 		Receptor  r = new Receptor();
