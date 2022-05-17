@@ -73,7 +73,7 @@ public class Menu {
 				case 2:
 					// Change my data
 					System.out.println("CHANGE MY DATA");
-					doctorManager.changeMyData(null);
+					//doctorManager.changeMyData(null);
 					break;
 
 				case 3:
@@ -140,7 +140,7 @@ public class Menu {
 				case 3:
 					// Update alive
 					System.out.println("UPDATE ALIVE");
-					updateAlive();
+					//updateAlive();
 					// call match function
 
 					break;
@@ -148,13 +148,13 @@ public class Menu {
 				case 4:
 					// Delete donor
 					System.out.println("DELETE DONOR");
-					deleteDonor();
+					//deleteDonor();
 					break;
 
 				case 5:
 					// Get donor
 					System.out.println("GET DONOR");
-					getDonor();
+					//getDonor();
 
 					break;
 
@@ -214,13 +214,13 @@ public class Menu {
 				case 3:
 					// Search receptor
 					System.out.println("SEARCH RECEPTOR");
-					getReceptor();
+					//getReceptor();
 					break;
 
 				case 4:
 					// Update data
 					System.out.println("UPDATE DATA");
-					updateReceptor();
+					//updateReceptor();
 					// we can change alive, urgency and status
 					// we call match function when changing urgency and status(only when waiting)
 					break;
@@ -345,6 +345,18 @@ public class Menu {
 	
 	
 	//TODO: menu del donor pero desde el donor pasandole su DNI
+	public static void donor_menu (int DNI) {
+		try {
+			int option;
+			System.out.println("Please, choose an option:");
+			System.out.println("1) Insert data");
+			System.out.println("2) See my data");
+			option = Integer.parseInt(reader.readLine());
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
 	//TODO
 	//loginDoctor
