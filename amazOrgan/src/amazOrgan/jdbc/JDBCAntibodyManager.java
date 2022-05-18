@@ -46,15 +46,15 @@ public class JDBCAntibodyManager implements AntibodyManager {
 
 	@Override
 	public Antibody getAntibody(Integer id) {
-		Antibody a = new Antibody();
+		Antibody a = null;
 		try {
 			Statement stmt = manager.getConnection().createStatement();
-			String sql = "SELECT * FROM doctor WHERE id = ?" + id;
+			String sql = "SELECT * FROM antibody WHERE id = ?" + id;
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
 				Boolean classI = rs.getBoolean("class_I");
 				Boolean classII = rs.getBoolean("class_II");
-				//TODO acaba los metodos
+				a= new Antibody(classI, classII);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

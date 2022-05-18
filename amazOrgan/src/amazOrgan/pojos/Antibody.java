@@ -20,6 +20,13 @@ public class Antibody implements Serializable {
 	}
 
 	
+	public Antibody(Boolean classI, Boolean classII) {
+		this.class_I= classI;
+		this.class_II= classII;
+		// TODO Auto-generated constructor stub
+	}
+
+
 	//getters and setters
 	public Integer getID() {
 		return id;

@@ -25,6 +25,18 @@ public class Antigen implements Serializable {
 
 
 
+	public Antigen(Boolean a2, Boolean b2, Boolean c2, Boolean dp2, Boolean dq2, Boolean dr2) {
+		super();
+		this.a = a2;
+		this.b = b2;
+		this.c = c2;
+		this.dp = dp2;
+		this.dq = dq2;
+		this.dr = dr2;
+	}
+
+
+
 	public Integer getId() {
 		return id;
 	}

@@ -54,10 +54,10 @@ public class JDBCAntigenManager implements AntigenManager {
 
 	@Override
 	public Antigen getAntigen(Integer id) {
-		Antigen ant = new Antigen();
+		Antigen ant = null;
 		try {
 			Statement stmt = manager.getConnection().createStatement();
-			String sql = "SELECT * FROM doctor WHERE id = ?" + id;
+			String sql = "SELECT * FROM antigen WHERE id = ?" + id;
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
 				Boolean a = rs.getBoolean("a");
@@ -66,8 +66,8 @@ public class JDBCAntigenManager implements AntigenManager {
 				Boolean dp = rs.getBoolean("dp");
 				Boolean dq = rs.getBoolean("dq");
 				Boolean dr = rs.getBoolean("dr");
-
-				//TODO acaba los metodos
+				ant = new Antigen(a, b, c, dp, dq, dr);
+				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
