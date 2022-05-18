@@ -44,10 +44,7 @@ public class Menu {
 	private static Type_organManager type_organManager;
 	private static UserManager userManager;
 
-	
-	
-	//TODO: receives the medical_id of the doctor
-	public static void doctor_menu() {
+	public static void doctor_menu(int medical_id) {
 
 		try {
 			int option;
@@ -73,8 +70,8 @@ public class Menu {
 				case 2:
 					// Change my data
 					System.out.println("CHANGE MY DATA");
-					//doctorManager.changeMyData(null);
-					//hecho
+					// doctorManager.changeMyData(null);
+					// hecho
 					break;
 
 				case 3:
@@ -104,6 +101,7 @@ public class Menu {
 
 	}
 
+	// TODO tiene que recibir el medical_id???????????
 	public static void doc_donor_menu() {
 
 		try {
@@ -121,15 +119,16 @@ public class Menu {
 				switch (option) {
 				case 1:
 					// Register donor
-					System.out.println("REGISTER DONOR");//ONLY DEAD DONORS
+					System.out.println("REGISTER DONOR");// ONLY DEAD DONORS
 					// steps:
 					// si no estaba en la database, hay que llamar a addDonor con toda la info
-					//		dob, blood type, alive
-					
-					// 		Antigen, Antibody, Location y Organs (dentro de un for), Doctor in charge NO porque es el mismo
-					// 		introduce the organs in a list
-					// 		call the constructor
-					
+					// dob, blood type, alive
+
+					// Antigen, Antibody, Location y Organs (dentro de un for), Doctor in charge NO
+					// porque es el mismo
+					// introduce the organs in a list
+					// call the constructor
+
 					// 3) call match function
 
 					break;
@@ -138,11 +137,13 @@ public class Menu {
 					// Show donors
 					System.out.println("SHOW DONORS");
 					// list all the donors (JDBCDonorManager)
-					//solo de los donors que son alive y whose organs are available
-					//cosas que queremos del donor: dni, blood type y de la lista de organos donados solo el type of organ
-					//desde este metodo habria que llamar a los constructores correspondientes pero pasandoles solo pocas cosas
-					//vamos a tener dos queries: una que devuleve los dnis de los donors que estan alive y sus organs available y otra que devuelve el nombre de los organs
-					
+					// solo de los donors que son alive y whose organs are available
+					// cosas que queremos del donor: dni, blood type y de la lista de organos
+					// donados solo el type of organ
+					// desde este metodo habria que llamar a los constructores correspondientes pero
+					// pasandoles solo pocas cosas
+					// vamos a tener dos queries: una que devuleve los dnis de los donors que estan
+					// alive y sus organs available y otra que devuelve el nombre de los organs
 
 					break;
 
@@ -152,26 +153,26 @@ public class Menu {
 					// 1) ask for: DNI
 					// 2) select del donor con el dni:
 					// si el donor estaba en la database:
-					//		llamar a updateDonor (con la info que se ha leido + la que falta por pedir)
-					//		call the constructor
+					// llamar a updateDonor (con la info que se ha leido + la que falta por pedir)
+					// call the constructor
 					//
-					// para pasar de alive = true a alive = false 
+					// para pasar de alive = true a alive = false
 					// lo que hace que tambien se pase de available = false a available = true
-					
+
 					// call match function
 
 					break;
 
 				case 4:
 					// Delete donor
-					System.out.println("DELETE DONOR");	//hay que tener en cuenta on cascade
-					//deleteDonor();
+					System.out.println("DELETE DONOR"); // hay que tener en cuenta on cascade
+					// deleteDonor();
 					break;
 
 				case 5:
 					// Get donor
-					System.out.println("GET DONOR"); //BY DNI
-					//getDonor();
+					System.out.println("GET DONOR"); // BY DNI
+					// getDonor();
 
 					break;
 
@@ -184,13 +185,14 @@ public class Menu {
 					break;
 				}
 			}
-
+ 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 	}
 
+	// TODO tiene que recibir el medical_id???????????
 	public static void doc_receptor_menu() {
 
 		try {
@@ -231,13 +233,13 @@ public class Menu {
 				case 3:
 					// Search receptor
 					System.out.println("SEARCH RECEPTOR");
-					//getReceptor();
+					// getReceptor();
 					break;
 
 				case 4:
 					// Update data
 					System.out.println("UPDATE DATA");
-					//updateReceptor();
+					// updateReceptor();
 					// we can change alive, urgency and status
 					// we call match function when changing urgency and status(only when waiting)
 					break;
@@ -298,31 +300,37 @@ public class Menu {
 				case 1:
 					// Login as a Doctor
 					System.out.println("LOGIN AS A DOCTOR");
-					//login_doctor()   ask here for the id and the password				
-					//doctor_menu(medical_id)
+					// login_doctor() ask here for the id and the password
+					int medical_id = 1;
+					doctor_menu(medical_id); // this method is called from the login
 
 					break;
 
 				case 2:
 					// Register as a Doctor
 					System.out.println("REGISTER AS A DOCTOR");
-					//register_doctor()   ask here for the id and the password				
-					//doctor_menu(medical_id)
+					// register_doctor() ask here for the id and the password
+					int id = 1;
+					doctor_menu(id); // this method is called from the register
 					break;
-					
+
 				case 3:
 					// Login as a Donor
 					System.out.println("LOGIN AS A DONOR");
-					//login_donor()   ask here for the id and the password				
-					//donor_menu(dni) you can only insert info or see your data
+					// login_donor() ask here for the id and the password
+					int dni = 1;
+					donor_menu(dni); // this method is called from the login
+					// you can only insert info or see your data
 
 					break;
 
 				case 4:
 					// Register as a Donor
 					System.out.println("Register AS A DONOR");
-					//register_donor()   ask here for the id and the password				
-					//donor_menu(dni) you can only insert info or see your data
+					// register_donor() ask here for the id and the password
+					int DNI = 3;
+					donor_menu(DNI); // this method is called from the register
+					// you can only insert info or see your data
 
 					break;
 
@@ -334,16 +342,10 @@ public class Menu {
 				break; // to exit the loop
 			}
 
-			
 			// if we reach this point, it is because the user wants to exit the program
 
-			// TODO
 			// Close the connection with the database
-			// ---------------------------------------
-			// disconnect()
-
 			jdbcManager.disconnect();
-
 			System.exit(0);
 
 		} catch (Exception e) {
@@ -359,45 +361,61 @@ public class Menu {
 		 */
 
 	}
-	
-	
-	//TODO: menu del donor pero desde el donor pasandole su DNI
-	public static void donor_menu (int DNI) {
+
+	// TODO: menu del donor pero desde el donor pasandole su DNI
+	public static void donor_menu(int DNI) {
 		try {
 			int option;
-			System.out.println("Please, choose an option:");
-			System.out.println("1) Insert data");
-			// al insertar alive es by default true 
-			// en los organs available es by default false
-			System.out.println("2) See my data");
-			option = Integer.parseInt(reader.readLine());
-			
-		}catch(Exception e) {
+			while (true) {
+				System.out.println("Please, choose an option:");
+				System.out.println("1) Insert data");
+				System.out.println("2) See my data");
+				System.out.println("0) Exit");
+
+				option = Integer.parseInt(reader.readLine());
+				switch (option) {
+				case 1:
+					System.out.println("INSERT DATA");
+					// al insertar alive es by default true
+					// en los organs available es by default false
+					break;
+
+				case 2:
+					System.out.println("SEE MY DATA");
+					break;
+
+				case 0:
+					System.out.println("Thanks for choosing amazOrgan");
+					return;
+				}
+			}
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
-	//TODO
-	//loginDoctor
-	
+
+	// TODO
+	// loginDoctor
+
 	public static void loginDoctor() throws Exception {
-		//User needs to provide an id and a password
-		
+		// User needs to provide an id and a password
+
 		User u = userManager.checkPassword(id, password);
-		//Enter the doctor menu if the combination was valid
+		// Enter the doctor menu if the combination was valid
 		if (u != null) {
-			//doctor menu with that user
+			// doctor menu with that user
 		}
-		//if not, ask again
-		
+		// if not, ask again
+
+		// llamar desde aquí al doctor_menu
+
 	}
-	
-	//AL REGISTRAR un doctor:
-	//crear un doctor
-	//crear un user y un role = "doctor" (con user.setRole)
-	//el digest se crea al registrar
-	
-	
-	//IF ALGUIEN TIENE DUDAS SOBRE JPA (USER-ROLE): VER CLASE 27/04
+
+	// AL REGISTRAR un doctor:
+	// crear un doctor
+	// crear un user y un role = "doctor" (con user.setRole)
+	// el digest se crea al registrar
+
+	// IF ALGUIEN TIENE DUDAS SOBRE JPA (USER-ROLE): VER CLASE 27/04
 
 }

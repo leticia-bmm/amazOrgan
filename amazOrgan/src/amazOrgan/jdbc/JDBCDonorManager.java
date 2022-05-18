@@ -60,7 +60,7 @@ public class JDBCDonorManager implements DonorManager {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	}
+	} 
 
 	@Override
 	public void getDonor(Integer DNI) {
