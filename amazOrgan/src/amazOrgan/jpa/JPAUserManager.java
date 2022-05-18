@@ -15,14 +15,14 @@ import amazOrgan.pojos.Role;
 
 public class JPAUserManager implements UserManager {
 
-	private EntityManager em;  //create an entity manager to do the connection
+	private EntityManager em; // create an entity manager to do the connection
 
 	public JPAUserManager() {
 		this.connect();
 	}
 
-	
-	//the only place where connect is called is from the constructor so it should be private
+	// the only place where connect is called is from the constructor so it should
+	// be private
 	private void connect() {
 		em = Persistence.createEntityManagerFactory("amazOrgan-provider").createEntityManager();
 		em.getTransaction().begin();
@@ -50,8 +50,8 @@ public class JPAUserManager implements UserManager {
 		em.getTransaction().commit();
 	}
 
-	
-	// private because it is only called from connect (because we only want the roles that are defined)
+	// private because it is only called from connect (because we only want the
+	// roles that are defined)
 	private void newRole(Role r) { // insert a new role into the database
 		em.getTransaction().begin();
 		em.persist(r);
@@ -82,20 +82,21 @@ public class JPAUserManager implements UserManager {
 		Query q = em.createNativeQuery("SELECT * FROM users WHERE id = ? AND password = ?", User.class);
 		// from users because it is where the password is stored
 		// User.class because it returns a User
-		q.setParameter(1, id);		//the first ? is going to be the id
-		
-		//we have to create the digest to store it (cannot insert the password!!)
+		q.setParameter(1, id); // the first ? is going to be the id
+
+		// we have to create the digest to store it (cannot insert the password!!)
 		try {
-			MessageDigest md = MessageDigest.getInstance("MD5");		//MD5: most common algorithm
+			MessageDigest md = MessageDigest.getInstance("MD5"); // MD5: most common algorithm
 			md.update(passwd.getBytes());
-			//we get the hash from the digest
+			// we get the hash from the digest
 			byte[] digest = md.digest();
-			q.setParameter(2, digest); //the digest is what is inserted into the database (because it is difficult to decode)
+			q.setParameter(2, digest); // the digest is what is inserted into the database (because it is difficult to
+										// decode)
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}
 		try {
-			u = (User) q.getSingleResult();  //the user that is going to be received
+			u = (User) q.getSingleResult(); // the user that is going to be received
 		} catch (NoResultException e) {
 		}
 		return u;

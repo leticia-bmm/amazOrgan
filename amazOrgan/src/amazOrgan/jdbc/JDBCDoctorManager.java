@@ -17,10 +17,11 @@ import amazOrgan.pojos.Receptor;
 import amazOrgan.pojos.Request;
 
 public class JDBCDoctorManager implements DoctorManager {
-	
-	//TODO
-	//listMyDonors(medical_id)
-	//select de la tabla donor que devuelva todos los donors que tienen id_doctorincharge = medical_id
+
+	// TODO
+	// listMyDonors(medical_id)
+	// select de la tabla donor que devuelva todos los donors que tienen
+	// id_doctorincharge = medical_id
 
 	private JDBCManager manager;
 
@@ -32,7 +33,7 @@ public class JDBCDoctorManager implements DoctorManager {
 	@Override
 	public void addDoctor(Doctor d) {
 		try {
-			String sql = "INSERT INTO doctor (medical_id, phone_number, name) VALUES (?,?,?)"; 
+			String sql = "INSERT INTO doctor (medical_id, phone_number, name) VALUES (?,?,?)";
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setInt(1, d.getmedical_id());
 			prep.setInt(2, d.getphone_number());
@@ -63,20 +64,20 @@ public class JDBCDoctorManager implements DoctorManager {
 	}
 
 	// list of receptors
-	//TODO hay que añadir lo del join
+	// TODO hay que añadir lo del join
 	public List<Receptor> listMyReceptors(Integer medical_id) {
-		// 
+		//
 		List<Receptor> receptors = new ArrayList<Receptor>();
-		Receptor  r = new Receptor();
+		Receptor r = new Receptor();
 		try {
 			Statement stmt = manager.getConnection().createStatement();
 			String sql = "SELECT * FROM examines WHERE medical_id=" + medical_id;
 			ResultSet rs = stmt.executeQuery(sql);
-			while (rs.next()) {	
+			while (rs.next()) {
 				Integer receptor_id = rs.getInt("receptor_id");
 				r = getReceptor(receptor_id);
-				receptors.add(r);			
-				
+				receptors.add(r);
+
 			}
 			stmt.close();
 			rs.close();
@@ -90,8 +91,8 @@ public class JDBCDoctorManager implements DoctorManager {
 
 	@Override
 	public Doctor getDoctor(Integer medical_id) {
-		
-		Doctor d = new Doctor ();
+
+		Doctor d = new Doctor();
 		try {
 			Statement stmt = manager.getConnection().createStatement();
 			String sql = "SELECT * FROM doctor WHERE medical_id = ?" + medical_id;
@@ -99,13 +100,12 @@ public class JDBCDoctorManager implements DoctorManager {
 			while (rs.next()) {
 				Integer phone_number = rs.getInt("phone_number");
 				String name = rs.getString("name");
-				}
-		} catch(Exception e) {
+			}
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return d;
-	
-	}
 
+	}
 
 }
