@@ -51,11 +51,11 @@ public class Request implements Serializable{
 		this.received = received;
 	}
 	
-	public Organ getOrganId() {
+	public Organ getOrgan() {
 		return organ_recived;
 	}
 
-	public void setOrganId(Organ organ_recived) {
+	public void setOrgan(Organ organ_recived) {
 		this.organ_recived = organ_recived;
 	}
 

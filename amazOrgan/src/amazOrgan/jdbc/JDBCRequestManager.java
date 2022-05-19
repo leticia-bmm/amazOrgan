@@ -19,14 +19,13 @@ public class JDBCRequestManager implements RequestManager {
 	@Override
 	public void addRequest(Request r) {
 		try {
-			String sql = "INSERT INTO request (id, id_type_organ, received, donor_DNI, size_organ) VALUES (?,?,?,?,?)";
+			String sql = "INSERT INTO request (id_type_organ, received, organ_id, size_organ) VALUES (?,?,?,?)";
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
-			prep.setInt(1, r.getId());
-			prep.setInt(2, r.getType_organ().getId());
-			prep.setBoolean(3, r.isReceived());
-			//TODO change donor -> organ 
-			prep.setInt(4, r.getDonor().getdni());
-			prep.setFloat(5, r.getSize());
+			
+			prep.setInt(1, r.getType_organ().getId());
+			prep.setBoolean(2, r.isReceived());
+			prep.setInt(3, r.getOrgan().getID();
+			prep.setFloat(4, r.getSize());
 			prep.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -35,19 +34,15 @@ public class JDBCRequestManager implements RequestManager {
 
 	@Override
 	public void updateOrganId(Organ o) {
-		// TODO Auto-generated method stub
-		// Recibo un organ que ha sido el que me han donado
-		// Guardo en la info del request
-		
+		//TODO all method with an update of received -> true and organ _id
+		String sql ;
+
 	}
 
 	@Override
 	public Request getRequest(Integer id) {
-		// TODO Auto-generated method stub
-		// getTypeOtgan
+		//TODO all method
 		return null;
 	}
-
-
 
 }

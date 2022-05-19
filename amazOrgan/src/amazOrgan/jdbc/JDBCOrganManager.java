@@ -21,12 +21,12 @@ public class JDBCOrganManager implements OrganManager {
 	@Override
 	public void addOrgan(Organ o) {
 		try {
-			String sql = "INSERT INTO organ(id_type_organ, size_organ, available, donor_dni) VALUES (?,?,?,?)";
+			String sql = "INSERT INTO organ(id_type_organ, size_organ, donor_dni, available) VALUES (?,?,?,?)";
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setInt(1, o.getType_organ().getId());
 			prep.setFloat(2, o.getSize());
-			prep.setBoolean(3, o.isAvailable());
-			prep.setInt(4, o.getDonor().getdni());
+			prep.setInt(3, o.getDonor().getdni());
+			prep.setBoolean(4, o.isAvailable());
 			prep.executeUpdate();
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -51,7 +51,7 @@ public class JDBCOrganManager implements OrganManager {
 		Organ o = null;
 		try {
 			Statement stmt = manager.getConnection().createStatement();
-			String sql = "SELECT * FROM organ AS WHERE id="+id;
+			String sql = "SELECT * FROM organ AS o1";
 			ResultSet rs = stmt.executeQuery(sql);
 			while(rs.next()) {
 				Integer id_type_organ = rs.getInt("id_type_organ");
