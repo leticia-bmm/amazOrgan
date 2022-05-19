@@ -10,8 +10,8 @@ public interface RequestManager {
 	updateDonorDNI (d: Donor): void */
 	
 	public void addRequest(Request r);
-	public void updateOrganId (Organ o);
-	public Request getRequest (Integer id);
+	public void updateOrganId(Request r);
+	public Request getRequest(Integer id);
 	
 	
 

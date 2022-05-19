@@ -16,6 +16,7 @@ public class JDBCType_organManager implements Type_organManager {
 		this.manager = m;
 	}
 
+	//TODO test methods
 	@Override
 	public void addTypeOfOrgan(Type_organ o) {
 		try {
@@ -33,16 +34,16 @@ public class JDBCType_organManager implements Type_organManager {
 
 
 	@Override
-	public Type_organ getTypeOfOrgan(Integer ID) {
+	public Type_organ getTypeOfOrgan(Integer id) {
 		Type_organ t = null;
 		try {
 			Statement stmt = manager.getConnection().createStatement();
-			String sql = "SELECT * FROM type_of_organ WHERE id="+ID;
+			String sql = "SELECT * FROM type_of_organ WHERE id="+id;
 			ResultSet rs = stmt.executeQuery(sql);
 			while(rs.next()) {
 				String name = rs.getString("name");
 				int lifespan = rs.getInt("lifespan");
-				t = new Type_organ(ID, name, lifespan);
+				t = new Type_organ(id, name, lifespan);
 			}
 			rs.close();
 			stmt.close();
