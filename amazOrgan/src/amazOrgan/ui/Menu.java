@@ -109,7 +109,7 @@ public class Menu {
 			while (true) {
 				System.out.println("Please, choose an option:");
 				System.out.println("1) Register donor");
-				System.out.println("2) Show donors");
+				System.out.println("2) Show all available donors");
 				System.out.println("3) Update existing donor");
 				System.out.println("4) Delete donor");
 				System.out.println("5) Get donor");
@@ -121,11 +121,12 @@ public class Menu {
 					// Register donor
 					System.out.println("REGISTER DONOR");// ONLY DEAD DONORS
 					// steps:
-					// si no estaba en la database, hay que llamar a addDonor con toda la info
+					// Hay que llamar a addDonor con toda la info
 					// dob, blood type, alive
 
+					//llamar a los add:
 					// Antigen, Antibody, Location y Organs (dentro de un for), Doctor in charge NO
-					// porque es el mismo
+					// porque es el mismo --> hacer un get doctor con el id
 					// introduce the organs in a list
 					// call the constructor
 
@@ -135,7 +136,7 @@ public class Menu {
 
 				case 2:
 					// Show donors
-					System.out.println("SHOW DONORS");
+					System.out.println("SHOW ALL AVAILABLE DONORS");
 					// list all the donors (JDBCDonorManager)
 					// solo de los donors que son alive y whose organs are available
 					// cosas que queremos del donor: dni, blood type y de la lista de organos
@@ -151,7 +152,7 @@ public class Menu {
 					// Update alive
 					System.out.println("UPDATE EXISTING DONOR");
 					// 1) ask for: DNI
-					// 2) select del donor con el dni:
+					// 2) select del donor con el dni: (getDonor)
 					// si el donor estaba en la database:
 					// llamar a updateDonor (con la info que se ha leido + la que falta por pedir)
 					// call the constructor

@@ -5,7 +5,7 @@ import java.sql.Date;
 import java.util.List;
 import java.util.Objects;
 
-public class Donor implements Serializable{
+public class Donor implements Serializable {
 
 	private static final long serialVersionUID = 7891925133827348336L;
 	private Integer dni;
@@ -16,9 +16,9 @@ public class Donor implements Serializable{
 	private Antibody antibody;
 	private Location location;
 	private Doctor doctor_charge;
-	private List <Organ> organs;
-	
-	//constructor
+	private List<Organ> organs;
+
+	// constructor
 	public Donor(Integer dNI, Date dOB, boolean alive, String bloodType, Antigen antigen, Antibody antibody,
 			Location location, Doctor doctor_charge, List<Organ> organs) {
 		super();
@@ -32,13 +32,14 @@ public class Donor implements Serializable{
 		this.doctor_charge = doctor_charge;
 		this.organs = organs;
 	}
-	
-	//construcutor for the organs??
-	public Donor(Integer dni) {
+
+	public Donor(Integer dni, String bloodType, List<Organ> organs) {
 		super();
 		this.dni = dni;
+		this.bloodType = bloodType;
+		this.organs = organs;
 	}
-	
+
 	// getters and setters
 
 	public Integer getdni() {
@@ -118,8 +119,7 @@ public class Donor implements Serializable{
 		return Objects.hash(dni);
 	}
 
-	
-	//hash 
+	// hash
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -132,8 +132,7 @@ public class Donor implements Serializable{
 		return Objects.equals(dni, other.dni);
 	}
 
-	
-	//this string has to be adapted with the foreign keys
+	// this string has to be adapted with the foreign keys
 	@Override
 	public String toString() {
 		return "Donor [dni=" + dni + ", dob=" + dob + ", alive=" + alive + ", bloodType=" + bloodType + "]";
