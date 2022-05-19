@@ -33,6 +33,12 @@ public class Donor implements Serializable{
 		this.organs = organs;
 	}
 	
+	//construcutor for the organs??
+	public Donor(Integer dni) {
+		super();
+		this.dni = dni;
+	}
+	
 	// getters and setters
 
 	public Integer getdni() {
