@@ -27,6 +27,17 @@ public class Organ implements Serializable{
 		
 	}
 	
+	//TODO preguntar lo del super
+	public Organ(Integer organ_id, Type_organ t, Float size_organ, Boolean available, Donor d) {
+		super();
+		this.id = organ_id;
+		this.type_organ = t;
+		this.size = size_organ;
+		this.available = available;
+		this.donor = d;
+		
+	}
+
 	//getters and setters
 	public Integer getID() {
 		return id;

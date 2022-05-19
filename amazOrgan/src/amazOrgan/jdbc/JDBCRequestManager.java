@@ -6,8 +6,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import amazOrgan.ifaces.RequestManager;
+import amazOrgan.pojos.Donor;
 import amazOrgan.pojos.Organ;
 import amazOrgan.pojos.Request;
+import amazOrgan.pojos.Type_organ;
 
 public class JDBCRequestManager implements RequestManager {
 
@@ -44,15 +46,33 @@ public class JDBCRequestManager implements RequestManager {
 	@Override
 	public Request getRequest(Integer id) {
 		Request r = null;
+		Type_organ t = null;
+		Organ o = null;
+		Donor d = null;
 		try {
 			Statement stmt = manager.getConnection().createStatement();
 			String sql = "SELECT * FROM request AS r1 "
-					+ "JOIN type_of_organ AS t1 ON r1.id_type_organ = t1.id "
-					+ "JOIN organ AS o1 ON r1.organ_id = o1.id "
+					+ "LEFT JOIN type_of_organ AS t1 ON r1.id_type_organ = t1.id "
+					+ "LEFT JOIN organ AS o1 ON r1.organ_id = o1.id "
 					+ "WHERE r1.id = " + id;
 			ResultSet rs = stmt.executeQuery(sql);
 			while(rs.next()) {
+				Boolean received = rs.getBoolean("received");
+				Float size_organ_request = rs.getFloat("size_organ");
+				Integer id_type_organ = rs.getInt("id_type_organ");
+				String name = rs.getString("name");
+				Integer lifespan = rs.getInt("lifespan");
+				t = new Type_organ(id_type_organ, name, lifespan);
+				Integer organ_id = rs.getInt("organ_id");
+				if (organ_id != null) {
+					Float size_organ = rs.getFloat("size_organ");
+					Boolean available = rs.getBoolean("available");
+					Integer donor_dni = rs.getInt("donor_dni");	
+					d = new Donor(donor_dni);
+					o = new Organ(organ_id, t, size_organ, available, d);
+				}
 				
+				r = new Request(id, t, size_organ_request, received, o);
 				
 			}
 			rs.close();
