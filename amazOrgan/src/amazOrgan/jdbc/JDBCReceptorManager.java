@@ -70,7 +70,14 @@ public class JDBCReceptorManager implements ReceptorManager {
 		Receptor r = new Receptor();
 		try {
 			Statement stmt = manager.getConnection().createStatement();
-			String sql = "SELECT * FROM receptor WHERE dni = ?" + dni;
+			String sql = "SELECT * FROM receptor AS r1 "
+					+ "JOIN antigen AS ag1 ON r1.id_antigen = ag1.id "
+					+ "JOIN antibody AS ab1 ON r1.id_antibody = ab1.id "
+					+ "JOIN location AS l1 ON r1.id_location = l1.id "
+					+ "JOIN request AS re1 ON r1.id_request = re1.id "
+					+ "JOIN type_of_organ AS ty1 ON re1.id_type_organ = ty1.id "
+					+ "JOIN examines AS e1 ON r1.dni = e1.receptor_id "
+					+ "WHERE dni = ?" + dni;
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
 				Date dob = rs.getDate("dob");

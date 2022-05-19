@@ -51,7 +51,10 @@ public class JDBCOrganManager implements OrganManager {
 		Organ o = null;
 		try {
 			Statement stmt = manager.getConnection().createStatement();
-			String sql = "SELECT * FROM organ AS o1";
+			String sql = "SELECT * FROM organ AS o1 "
+					+ "JOIN type_of_organ AS t1 "
+					+ "ON o1.id_type_organ = t1.id "
+					+ "WHERE o1.id = " + id;
 			ResultSet rs = stmt.executeQuery(sql);
 			while(rs.next()) {
 				Integer id_type_organ = rs.getInt("id_type_organ");
@@ -69,12 +72,13 @@ public class JDBCOrganManager implements OrganManager {
 		return o;
 	}
 	
+	//este metodo ya no sirve para nada no? si ya hacemos el join que nos da el type of organ?
 	@Override
 	public Type_organ getType_organOfOrgan(Integer id_type_organ) {
 		Type_organ t = null;
 		try {
 			Statement stmt = manager.getConnection().createStatement();
-			String sql = "SELECT * FROM type_of_organ WHERE id="+id_type_organ;
+			String sql = "SELECT * FROM type_of_organ WHERE id = "+id_type_organ;
 			ResultSet rs = stmt.executeQuery(sql);
 			while(rs.next()) {
 				String name = rs.getString("name");

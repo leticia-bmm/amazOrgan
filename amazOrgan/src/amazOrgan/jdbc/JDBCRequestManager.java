@@ -1,7 +1,9 @@
 package amazOrgan.jdbc;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import amazOrgan.ifaces.RequestManager;
 import amazOrgan.pojos.Organ;
@@ -41,8 +43,24 @@ public class JDBCRequestManager implements RequestManager {
 
 	@Override
 	public Request getRequest(Integer id) {
-		//TODO all method
-		return null;
+		Request r = null;
+		try {
+			Statement stmt = manager.getConnection().createStatement();
+			String sql = "SELECT * FROM request AS r1 "
+					+ "JOIN type_of_organ AS t1 ON r1.id_type_organ = t1.id "
+					+ "JOIN organ AS o1 ON r1.organ_id = o1.id "
+					+ "WHERE r1.id = " + id;
+			ResultSet rs = stmt.executeQuery(sql);
+			while(rs.next()) {
+				
+				
+			}
+			rs.close();
+			stmt.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return r;
 	}
 
 }
