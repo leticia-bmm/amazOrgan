@@ -13,7 +13,12 @@ import amazOrgan.ifaces.ReceptorManager;
 import amazOrgan.pojos.Antibody;
 import amazOrgan.pojos.Antigen;
 import amazOrgan.pojos.Doctor;
+import amazOrgan.pojos.Donor;
+import amazOrgan.pojos.Location;
+import amazOrgan.pojos.Organ;
 import amazOrgan.pojos.Receptor;
+import amazOrgan.pojos.Request;
+import amazOrgan.pojos.Type_organ;
 import amazOrgan.jdbc.JDBCAntigenManager;
 
 public class JDBCReceptorManager implements ReceptorManager {
@@ -67,33 +72,68 @@ public class JDBCReceptorManager implements ReceptorManager {
 
 	@Override
 	public Receptor getReceptor(Integer dni) {
-		Receptor r = new Receptor();
+		Receptor r = null;
+		Antigen antigen = null;
+		Antibody antibody = null;
+		Location location = null;
+		Request request = null;
+		Organ organ_donated = null;
+		Donor donor = null;
+		Type_organ type_organ = null;
+		// List <Doctor> doctors = null;
 		try {
 			Statement stmt = manager.getConnection().createStatement();
-			String sql = "SELECT * FROM receptor AS r1 "
-					+ "JOIN antigen AS ag1 ON r1.id_antigen = ag1.id "
+			String sql = "SELECT * FROM receptor AS r1 " + "JOIN antigen AS ag1 ON r1.id_antigen = ag1.id "
 					+ "JOIN antibody AS ab1 ON r1.id_antibody = ab1.id "
 					+ "JOIN location AS l1 ON r1.id_location = l1.id "
 					+ "JOIN request AS re1 ON r1.id_request = re1.id "
-					+ "JOIN type_of_organ AS ty1 ON re1.id_type_organ = ty1.id "
-					+ "JOIN examines AS e1 ON r1.dni = e1.receptor_id "
-					+ "WHERE dni = ?" + dni;
+					+ "JOIN type_of_organ AS ty1 ON re1.id_type_organ = ty1.id " 
+					+ "WHERE r1.dni = ?" + dni;
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
 				Date dob = rs.getDate("dob");
 				String status = rs.getString("status");
 				String blood_type = rs.getString("blood_type");
-				Integer urgency = rs.getInt("urgency");
-				Integer antigen_id = rs.getInt("id_antigen");
 				Boolean alive = rs.getBoolean("alive");
-				Antigen antigen = JDBCAntigenManager.getAntigen(antigen_id);
-				Integer antibody_id = rs.getInt("id_antibody");
-				Antibody antibody = JDBCAntibodyManager.getAntibody(antibody_id);
-				Integer location_id = rs.getInt("id_location");
-				Location location = JDBCLocationManager.getLocation(location_id);
-				Integer request_id = rs.getInt("id_request");
-				Request request = JDBCRequestManager.getRequest(request_id);
-				r = new Receptor(dni, dob, status, blood_type, urgency, antigen, antibody, location, request, alive);
+				Integer urgency = rs.getInt("urgency");
+				// getting the info of the antigen
+				Boolean a = rs.getBoolean("a");
+				Boolean b = rs.getBoolean("b");
+				Boolean c = rs.getBoolean("c");
+				Boolean dp = rs.getBoolean("dp");
+				Boolean dq = rs.getBoolean("dq");
+				Boolean dr = rs.getBoolean("dr");
+				antigen = new Antigen(a, b, c, dp, dq, dr);
+				// getting the info of the antibody
+				Boolean class_I = rs.getBoolean("class_I");
+				Boolean class_II = rs.getBoolean("class_II");
+				antibody = new Antibody(class_I, class_II);
+				// getting the info of the location
+				Float latitude = rs.getFloat("latitude");
+				Float longitude = rs.getFloat("longitude");
+				location = new Location(latitude, longitude);
+				// getting the info of the request
+				// first the simple attributes
+				Boolean received = rs.getBoolean("received");
+				Float size_request = rs.getFloat(28);
+				// now the foreign keys
+				// getting the type of organ
+				String name = rs.getString("name");
+				Integer lifespan = rs.getInt("lifespan");
+				type_organ = new Type_organ(name, lifespan);
+				// getting the info of the organ IF THERE IS ONE
+				Integer organ_id = rs.getInt("organ_id");
+				if (organ_id != null) {
+					// we are going to reuse the type of organ since it is the same
+					Float size_organ = rs.getFloat(34);
+					Boolean available = rs.getBoolean("available");
+					Integer donor_dni = rs.getInt("donor_dni");
+					donor = new Donor(donor_dni);
+					organ_donated = new Organ();
+				}
+				request = new Request(type_organ, size_request, received, organ_donated);
+
+				r = new Receptor(dni, dob, status, blood_type, alive, urgency, antigen, antibody, location, request);
 			}
 			rs.close();
 			stmt.close();
@@ -131,7 +171,7 @@ public class JDBCReceptorManager implements ReceptorManager {
 
 	@Override
 	public List<Receptor> showReceptorsByBloodType(String bloodtype) {
-		List <Receptor> receptors = new LinkedList();
+		List<Receptor> receptors = new LinkedList();
 		try {
 			Statement stmt = manager.getConnection().createStatement();
 			String sql = "SELECT * FROM receptor WHERE blood_type = ?" + bloodtype;
@@ -151,7 +191,7 @@ public class JDBCReceptorManager implements ReceptorManager {
 				Location location = JDBCLocationManager.getLocation(location_id);
 				Integer request_id = rs.getInt("id_request");
 				Request request = JDBCRequestManager.getRequest(request_id);
-				Receptor r = new Receptor(dni, dob, status, blood_type, urgency, antigen, antibody, location, request, alive);
+				Receptor r = new Receptor(dni, dob, status, blood_type, urgency, antigen, antibody, location, requestalive);
 				receptors.add(r);
 			}
 			rs.close();
@@ -164,7 +204,7 @@ public class JDBCReceptorManager implements ReceptorManager {
 
 	@Override
 	public List<Receptor> showReceptorsByUrgency() {
-		List <Receptor> receptors = new LinkedList();
+		List<Receptor> receptors = new LinkedList();
 		try {
 			Statement stmt = manager.getConnection().createStatement();
 			String sql = "SELECT * FROM receptor ORDER BY urgency ";
@@ -184,7 +224,8 @@ public class JDBCReceptorManager implements ReceptorManager {
 				Location location = JDBCLocationManager.getLocation(location_id);
 				Integer request_id = rs.getInt("id_request");
 				Request request = JDBCRequestManager.getRequest(request_id);
-				Receptor r = new Receptor(dni, dob, status, blood_type, urgency, antigen, antibody, location, request, alive);
+				Receptor r = new Receptor(dni, dob, status, blood_type, urgency, antigen, antibody, location, request,
+						alive);
 				receptors.add(r);
 			}
 			rs.close();

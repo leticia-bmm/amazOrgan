@@ -26,6 +26,15 @@ public class Receptor implements Serializable{
 		super();
 	}
 	
+	public Receptor(Integer dni, Date dob, String status, String blood_type, Boolean alive, Integer urgency,
+			Antigen antigen, Antibody antibody, Location location, Request request) {
+		super();
+		this.dni = dni;
+		this.dob = dob;
+		this.status = status;
+		
+	}
+
 	public Boolean getAlive() {
 		return alive;
 	}
