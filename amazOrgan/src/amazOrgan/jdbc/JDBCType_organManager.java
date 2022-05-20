@@ -16,23 +16,6 @@ public class JDBCType_organManager implements Type_organManager {
 		this.manager = m;
 	}
 
-	//TODO test methods
-	@Override
-	public void addTypeOfOrgan(Type_organ o) {
-		try {
-			String sql = "INSERT INTO type_of_organ (id, name, lifespan) VALUES (?,?,?)";
-			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
-			prep.setInt(1, o.getId());
-			prep.setString(2, o.getName());
-			prep.setInt(3, o.getLifespan());
-			prep.executeUpdate();
-			
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-
 	@Override
 	public Type_organ getTypeOfOrgan(Integer id) {
 		Type_organ t = null;
