@@ -105,7 +105,7 @@ public class JDBCDonorManager implements DonorManager {
 		Location location = null;
 		Doctor doctor_charge = null;
 		Organ organ = null;
-		List<Organ> organs = null;
+		List<Organ> organs = new LinkedList();
 
 		try {
 			// TODO query join
@@ -182,9 +182,11 @@ public class JDBCDonorManager implements DonorManager {
 				Boolean available = rs.getBoolean("available");
 				// ??????? id del donor
 				
-				organ = new Organ(id, t, size, available, );
+				organ = new Organ(id, t, size, available, donor);
 				organs.add(organ);
 			}
+			
+			donor.setOrgans(organs);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -256,32 +258,24 @@ public class JDBCDonorManager implements DonorManager {
 	@Override
 	public List<Donor> showDonorsByBloodType(String bloodType) {
 		// TODO
-		List<Donor> donors = new LinkedList<Donor>();
-		try {
-			String sql = "SELECT * FROM donor WHERE blood_type = \"?\"";
-			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
-			prep.setString(1, bloodType);
-			ResultSet rs = prep.executeQuery();
-			while (rs.next()) {
-				Integer dni = rs.getInt("dni");
-				Date dob = rs.getDate("dob");
-				// ????????????????????
-				String bloodType = rs.getString("blood_type");
-				boolean alive = rs.getBoolean("alive");
-				// TODO
-				Integer antigen_id = rs.getInt("id_antigen");
-				Antigen ag = JDBCAntigenManager.getAntigen(antigen_id);
-				Integer antibody_id = rs.getInt("id_antibody");
-				Antibody ab = JDBCAntibodyManager.getAntibody(antibody_id);
-				Integer id_doctor_charge = rs.getInt("id_doctor_charge");
+				List<Donor> donors = new LinkedList<Donor>();
+				try {
+					String sql = "SELECT dni, alive FROM donor WHERE blood_type = ?" ;
+					PreparedStatement prep = manager.getConnection().prepareStatement(sql);
+					prep.setString(1, bloodType);
+					ResultSet rs = prep.executeQuery();
+					while (rs.next()) {
+						Integer dni = rs.getInt("dni");
+						Boolean alive = rs.getBoolean("alive");
+						
 
-			}
+					}
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 
-		return null;
+				return donors;
 	}
 
 }
