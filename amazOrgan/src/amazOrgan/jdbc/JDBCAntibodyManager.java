@@ -54,7 +54,7 @@ public class JDBCAntibodyManager implements AntibodyManager {
 			while (rs.next()) {
 				Boolean classI = rs.getBoolean("class_I");
 				Boolean classII = rs.getBoolean("class_II");
-				a= new Antibody(classI, classII);
+				a= new Antibody(classI, classII, id);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

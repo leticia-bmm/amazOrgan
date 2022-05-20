@@ -20,9 +20,10 @@ public class Antibody implements Serializable {
 	}
 
 	
-	public Antibody(Boolean classI, Boolean classII) {
+	public Antibody(Boolean classI, Boolean classII, Integer id) {
 		this.class_I= classI;
 		this.class_II= classII;
+		this.id=id;
 	}
 
 

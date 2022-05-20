@@ -12,6 +12,7 @@ import amazOrgan.ifaces.DoctorManager;
 import amazOrgan.pojos.Antibody;
 import amazOrgan.pojos.Antigen;
 import amazOrgan.pojos.Doctor;
+import amazOrgan.pojos.Donor;
 import amazOrgan.pojos.Location;
 import amazOrgan.pojos.Receptor;
 import amazOrgan.pojos.Request;
@@ -71,11 +72,11 @@ public class JDBCDoctorManager implements DoctorManager {
 		Receptor r = new Receptor();
 		try {
 			Statement stmt = manager.getConnection().createStatement();
-			String sql = "SELECT * FROM examines WHERE medical_id=" + medical_id;
+			String sql = "SELECT r1.dni, r1.status, r1.alive, r1.urgency FROM examines AS e1 LEFT JOIN receptor AS r1 ON e1.receptor_id = r1.dni WHERE e1.medical_id = medical_id" + medical_id;
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
 				Integer receptor_id = rs.getInt("receptor_id");
-				r = getReceptor(receptor_id);
+				r = getReceptor(receptor_id);// por qué da mal???????
 				receptors.add(r);
 
 			}
@@ -87,6 +88,44 @@ public class JDBCDoctorManager implements DoctorManager {
 
 		return receptors;
 
+	}
+	
+	public List<Donor> listMyDonors(Integer medical_id){
+		
+		List<Donor>  donors= new ArrayList<Donor>();
+		Donor d = null;
+		try {
+			
+			Statement stmt = manager.getConnection().createStatement();
+			String sql = "SELECT dni, alive FROM donor WHERE id_doctor_charge=" + medical_id;
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				Integer donor_id = rs.getInt("donor_id");
+				d = getDonor(donor_id);// sigo ahí
+				donors.add(d);
+			}
+			stmt.close();
+			rs.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return donors;
+			
+			
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 
 	@Override
