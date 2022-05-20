@@ -1,28 +1,14 @@
 package amazOrgan.jdbc;
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
 import amazOrgan.ifaces.DoctorManager;
-import amazOrgan.pojos.Antibody;
-import amazOrgan.pojos.Antigen;
 import amazOrgan.pojos.Doctor;
-import amazOrgan.pojos.Donor;
-import amazOrgan.pojos.Location;
-import amazOrgan.pojos.Receptor;
-import amazOrgan.pojos.Request;
 
 public class JDBCDoctorManager implements DoctorManager {
 
-	// TODO
-	// listMyDonors(medical_id)
-	// select de la tabla donor que devuelva todos los donors que tienen
-	// id_doctorincharge = medical_id
 
 	private JDBCManager manager;
 
@@ -75,6 +61,7 @@ public class JDBCDoctorManager implements DoctorManager {
 			while (rs.next()) {
 				Integer phone_number = rs.getInt("phone_number");
 				String name = rs.getString("name");
+				//TODO finish the method
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
