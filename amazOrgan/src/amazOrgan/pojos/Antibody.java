@@ -10,8 +10,8 @@ public class Antibody implements Serializable {
 	
 	
 	private Integer id;
-	private boolean class_I;
-	private boolean class_II;
+	private Boolean class_I;
+	private Boolean class_II;
 	
 	
 	//Empty constructor
@@ -20,10 +20,10 @@ public class Antibody implements Serializable {
 	}
 
 	
-	public Antibody(Boolean classI, Boolean classII, Integer id) {
+	public Antibody(Integer id, Boolean classI, Boolean classII) {
+		this.id=id;
 		this.class_I= classI;
 		this.class_II= classII;
-		this.id=id;
 	}
 
 

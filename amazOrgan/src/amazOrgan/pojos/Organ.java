@@ -38,6 +38,11 @@ public class Organ implements Serializable{
 		
 	}
 
+	public Organ(Type_organ t) {
+		super();
+		this.type_organ = t;
+	}
+
 	//getters and setters
 	public Integer getID() {
 		return id;

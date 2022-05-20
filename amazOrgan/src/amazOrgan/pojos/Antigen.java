@@ -9,12 +9,12 @@ public class Antigen implements Serializable {
 	private static final long serialVersionUID = -228773951826510194L;
 	
 	private Integer id;
-	private boolean a;
-	private boolean b;
-	private boolean c;
-	private boolean dp;
-	private boolean dq;
-	private boolean dr;
+	private Boolean a;
+	private Boolean b;
+	private Boolean c;
+	private Boolean dp;
+	private Boolean dq;
+	private Boolean dr;
 	
 	
 	
@@ -25,15 +25,15 @@ public class Antigen implements Serializable {
 
 
 
-	public Antigen(Boolean a2, Boolean b2, Boolean c2, Boolean dp2, Boolean dq2, Boolean dr2, Integer id) {
+	public Antigen(Integer id, Boolean a2, Boolean b2, Boolean c2, Boolean dp2, Boolean dq2, Boolean dr2) {
 		super();
+		this.id= id;
 		this.a = a2;
 		this.b = b2;
 		this.c = c2;
 		this.dp = dp2;
 		this.dq = dq2;
 		this.dr = dr2;
-		this.id= id;
 	}
 
 

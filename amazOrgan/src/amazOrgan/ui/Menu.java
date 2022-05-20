@@ -2,6 +2,9 @@ package amazOrgan.ui;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 import amazOrgan.ifaces.AntibodyManager;
 import amazOrgan.ifaces.AntigenManager;
@@ -18,9 +21,20 @@ import amazOrgan.jdbc.JDBCAntigenManager;
 import amazOrgan.jdbc.JDBCDoctorManager;
 import amazOrgan.jdbc.JDBCDonorManager;
 import amazOrgan.jdbc.JDBCLocationManager;
+<<<<<<< HEAD
+=======
+import amazOrgan.pojos.Antibody;
+import amazOrgan.pojos.Antigen;
+import amazOrgan.pojos.Doctor;
+>>>>>>> branch 'master' of https://github.com/leticia-bmm/amazOrgan
 import amazOrgan.pojos.Donor;
 import amazOrgan.pojos.Location;
+<<<<<<< HEAD
 import amazOrgan.pojos.Receptor;
+=======
+import amazOrgan.pojos.Organ;
+import amazOrgan.pojos.Type_organ;
+>>>>>>> branch 'master' of https://github.com/leticia-bmm/amazOrgan
 import amazOrgan.jdbc.JDBCManager;
 import amazOrgan.jdbc.JDBCOrganManager;
 import amazOrgan.jdbc.JDBCReceptorManager;
@@ -79,12 +93,12 @@ public class Menu {
 
 				case 3:
 					// call donor menu
-					doc_donor_menu();
+					doc_donor_menu(medical_id);
 					break;
 
 				case 4:
 					// call receptor menu
-					doc_receptor_menu();
+					doc_receptor_menu(medical_id);
 					break;
 
 				case 0:
@@ -105,7 +119,7 @@ public class Menu {
 	}
 
 	// TODO tiene que recibir el medical_id???????????
-	public static void doc_donor_menu() {
+	public static void doc_donor_menu(int medical_id) {
 
 		try {
 			int option;
@@ -123,14 +137,30 @@ public class Menu {
 				case 1:
 	//+				// Register donor 
 					System.out.println("REGISTER DONOR");// ONLY DEAD DONORS
+					
 					// steps:
 					// Hay que llamar a addDonor con toda la info
 					// dob, blood type, alive
+<<<<<<< HEAD
 					//llamar a los add:
+=======
+					// llamar a los add:
+>>>>>>> branch 'master' of https://github.com/leticia-bmm/amazOrgan
 					// Antigen, Antibody, Location y Organs (dentro de un for), Doctor in charge NO
 					// porque es el mismo --> hacer un get doctor con el id //
 					// PREGUNTA DE PRATS de donde cojo el medical id si no lo tengo pasado por nada
 					// introduce the organs in a list
+					
+					Antigen antigen;
+					Antibody antibody;
+					Location location;
+					Doctor doctor_charge;
+					List<Organ> organs;
+					
+					Donor d = new Donor(...);
+					donorManager.addDonor(d);
+
+					
 					// call the constructor
 
 					// 3) call match function
@@ -205,7 +235,7 @@ public class Menu {
 					break;
 				}
 			}
- 
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -213,7 +243,7 @@ public class Menu {
 	}
 
 	// TODO tiene que recibir el medical_id???????????
-	public static void doc_receptor_menu() {
+	public static void doc_receptor_menu(int medical_id) {
 
 		try {
 			int option;
@@ -428,18 +458,27 @@ public class Menu {
 
 				option = Integer.parseInt(reader.readLine());
 				switch (option) {
+				
 				case 1:
+<<<<<<< HEAD
 					System.out.println("INSERT DATA");
 					// Llamar al método add donor
 					// al insertar alive es by default true
 					// en los organs available es by default false
+=======
+					System.out.println("INSERT DATA");					
+					insertMyselfAsDonor(DNI);					
+>>>>>>> branch 'master' of https://github.com/leticia-bmm/amazOrgan
 					break;
 
 				case 2:
 					System.out.println("SEE MY DATA");
+					Donor donor = donorManager.getDonor(DNI);
+					System.out.println(donor);
 					break;
 
 				case 0:
+					//Exit
 					System.out.println("Thanks for choosing amazOrgan");
 					return;
 				}
@@ -473,4 +512,50 @@ public class Menu {
 
 	// IF ALGUIEN TIENE DUDAS SOBRE JPA (USER-ROLE): VER CLASE 27/04
 
+	
+	public static void insertMyselfAsDonor(int DNI) {
+		
+		// can only insert insert his dni, dob and organs (type of organ)
+		// al insertar alive es by default true
+		// en los organs available es by default false
+		
+		System.out.println("Introduce your DNI:");
+		Integer dni = Integer.parseInt(reader.readLine());
+		System.out.println("Introduce your Date of birth:");
+		Date dob;//??????????????????????
+		
+		System.out.println("How many organs do you want to donate?");
+		int number = Integer.parseInt(reader.readLine());
+		List<Organ> organs = new LinkedList<Organ>();
+		Organ o;
+		Type_organ t;
+		String name;
+		
+		for (int i = 0; i<number; i++) {
+			System.out.println("Introduce the organ:");
+			name = reader.readLine();
+			t = new Type_organ(name);
+			o = new Organ(t, false);
+			organs.add(o);
+		}
+		
+		Donor d = new Donor(dni, dob, true, null, null, null, null, null, organs);
+		donorManager.addDonor(d);
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

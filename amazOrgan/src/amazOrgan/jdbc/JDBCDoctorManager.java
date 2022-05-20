@@ -36,9 +36,9 @@ public class JDBCDoctorManager implements DoctorManager {
 		try {
 			String sql = "INSERT INTO doctor (medical_id, phone_number, name) VALUES (?,?,?)";
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
-			prep.setInt(1, d.getmedical_id());
-			prep.setInt(2, d.getphone_number());
-			prep.setString(3, d.getname());
+			prep.setInt(1, d.getMedical_id());
+			prep.setInt(2, d.getPhone_number());
+			prep.setString(3, d.getName());
 			prep.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -56,76 +56,12 @@ public class JDBCDoctorManager implements DoctorManager {
 		try {
 			String sql = "UPDATE Doctor " + " phone_number=? " + " name=? WHERE medical_id=?";
 			PreparedStatement p = manager.getConnection().prepareStatement(sql);
-			p.setInt(1, d.getphone_number());
-			p.setString(2, d.getname());
+			p.setInt(1, d.getPhone_number());
+			p.setString(2, d.getName());
 			p.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	// list of receptors
-	// TODO hay que añadir lo del join
-	public List<Receptor> listMyReceptors(Integer medical_id) {
-		//
-		List<Receptor> receptors = new ArrayList<Receptor>();
-		Receptor r = new Receptor();
-		try {
-			Statement stmt = manager.getConnection().createStatement();
-			String sql = "SELECT r1.dni, r1.status, r1.alive, r1.urgency FROM examines AS e1 LEFT JOIN receptor AS r1 ON e1.receptor_id = r1.dni WHERE e1.medical_id = medical_id" + medical_id;
-			ResultSet rs = stmt.executeQuery(sql);
-			while (rs.next()) {
-				Integer receptor_id = rs.getInt("receptor_id");
-				r = getReceptor(receptor_id);// por qué da mal???????
-				receptors.add(r);
-
-			}
-			stmt.close();
-			rs.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return receptors;
-
-	}
-	
-	public List<Donor> listMyDonors(Integer medical_id){
-		
-		List<Donor>  donors= new ArrayList<Donor>();
-		Donor d = null;
-		try {
-			
-			Statement stmt = manager.getConnection().createStatement();
-			String sql = "SELECT dni, alive FROM donor WHERE id_doctor_charge=" + medical_id;
-			ResultSet rs = stmt.executeQuery(sql);
-			while (rs.next()) {
-				Integer donor_id = rs.getInt("donor_id");
-				d = getDonor(donor_id);// sigo ahí
-				donors.add(d);
-			}
-			stmt.close();
-			rs.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return donors;
-			
-			
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 	}
 
 	@Override

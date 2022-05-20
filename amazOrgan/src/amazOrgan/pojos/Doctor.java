@@ -14,8 +14,7 @@ public class Doctor implements Serializable {
 	private String name;
 	private List<Donor> donors;
 	private List <Receptor> receptors;
-	//TODO getters and setter of donors and add them into string
-	//elimination of the table 
+	//TODO elimination of the table 
 	
 	//empty constructor
 	public Doctor() {
@@ -23,32 +22,80 @@ public class Doctor implements Serializable {
 	}
 	
 	
-	//getters and setters
-	public Integer getmedical_id() {
+	public Doctor(Integer medical_id, Integer phone, String name2) {
+		super();
+		this.medical_id = medical_id;
+		this.phone_number = phone;
+		this.name = name2;
+	}
+	
+	public Doctor(Integer medical_id, Integer phone, String name2, List <Receptor> r, List <Donor> d) {
+		super();
+		this.medical_id = medical_id;
+		this.phone_number = phone;
+		this.name = name2;
+		this.donors = d;
+		this.receptors = r;
+	}
+
+
+	public Integer getMedical_id() {
 		return medical_id;
 	}
-	public void setmedical_id(Integer medical_id) {
-		this.medical_id  = medical_id;
+
+
+	public void setMedical_id(Integer medical_id) {
+		this.medical_id = medical_id;
 	}
-	public Integer getphone_number() {
+
+
+	public Integer getPhone_number() {
 		return phone_number;
 	}
-	public void setphone_number(Integer phone_number) {
+
+
+	public void setPhone_number(Integer phone_number) {
 		this.phone_number = phone_number;
 	}
-	public String getname() {
+
+
+	public String getName() {
 		return name;
 	}
-	public void setname(String name) {
+
+
+	public void setName(String name) {
 		this.name = name;
 	}
+
+
+	public List<Donor> getDonors() {
+		return donors;
+	}
+
+
+	public void setDonors(List<Donor> donors) {
+		this.donors = donors;
+	}
+
+
+	public List<Receptor> getReceptors() {
+		return receptors;
+	}
+
+
+	public void setReceptors(List<Receptor> receptors) {
+		this.receptors = receptors;
+	}
+	
 	
 
-	
 	@Override
 	public String toString() {
-		return "Doctor [medical_id=" + medical_id + ", phone_number=" + phone_number + ", name=" + name + "]";
+		return "Doctor [medical_id=" + medical_id + ", phone_number=" + phone_number + ", name=" + name + ", donors="
+				+ donors + ", receptors=" + receptors + "]";
 	}
+
 
 	//hashcode
 	@Override
