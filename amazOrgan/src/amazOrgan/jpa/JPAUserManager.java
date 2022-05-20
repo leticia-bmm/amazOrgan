@@ -30,6 +30,8 @@ public class JPAUserManager implements UserManager {
 		em.getTransaction().commit();
 
 		// Insert the roles needed only if they are not there already
+		//These roles just need to be inserted the first time that we create the database
+		//not every time that i connect to the database (is empty)
 		if (this.getRoles().isEmpty()) {
 			Role doctor = new Role("doctor");
 			Role donor = new Role("donor");
@@ -52,6 +54,7 @@ public class JPAUserManager implements UserManager {
 
 	// private because it is only called from connect (because we only want the
 	// roles that are defined)
+	// remove it from the interface
 	private void newRole(Role r) { // insert a new role into the database
 		em.getTransaction().begin();
 		em.persist(r);
@@ -76,8 +79,10 @@ public class JPAUserManager implements UserManager {
 
 	@Override
 	public User checkPassword(Integer id, String passwd) {
+
 		// PASSWORDS ARE NEVER STORED INTO THE DATABASE
 		// null user if match not found
+
 		User u = null;
 		Query q = em.createNativeQuery("SELECT * FROM users WHERE id = ? AND password = ?", User.class);
 		// from users because it is where the password is stored
@@ -85,6 +90,10 @@ public class JPAUserManager implements UserManager {
 		q.setParameter(1, id); // the first ? is going to be the id
 
 		// we have to create the digest to store it (cannot insert the password!!)
+		// the digest is the result of applying a hash function to the password
+		// if I have the password i can create the digest and prove that i have the
+		// password
+		// but if I have the digest I cannot get the password to supplant that user
 		try {
 			MessageDigest md = MessageDigest.getInstance("MD5"); // MD5: most common algorithm
 			md.update(passwd.getBytes());
@@ -97,8 +106,10 @@ public class JPAUserManager implements UserManager {
 		}
 		try {
 			u = (User) q.getSingleResult(); // the user that is going to be received
+			
 		} catch (NoResultException e) {
 		}
+
 		return u;
 	}
 
