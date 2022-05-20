@@ -169,8 +169,12 @@ public class Menu {
 					System.out.println("Insert DNI:");
 					Integer donoDNI = Integer.parseInt(reader.readLine());
 					d= donorManager.getDonor(donoDNI);
+					while(d=null) {
+						System.out.println("DNI incorrect");
+						System.out.println("Insert DNI:")
+						Integer donoDNI = Integer.					}
 					System.out.println(d);
-					
+					donorManager.updateDonor(d);
 					
 					// 1) ask for: DNI // DONE
 					// 2) select del donor con el dni: (getDonor)// DONE
@@ -247,6 +251,9 @@ public class Menu {
 					// since it is a may to many relationship
 					// we are then asking
 					System.out.println("REGISTER RECEPTOR");
+					System.out.println("Insert the next value: "
+							+ "D "
+							+ " ");
 					// when we register a patient, we have to
 					// call the methods add
 					// and all the objects to addthem individually un the database
