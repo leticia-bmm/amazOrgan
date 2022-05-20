@@ -66,7 +66,7 @@ public class JDBCAntigenManager implements AntigenManager {
 				Boolean dp = rs.getBoolean("dp");
 				Boolean dq = rs.getBoolean("dq");
 				Boolean dr = rs.getBoolean("dr");
-				ant = new Antigen(a, b, c, dp, dq, dr, id);
+				ant = new Antigen(id, a, b, c, dp, dq, dr);
 				
 			}
 		} catch (Exception e) {

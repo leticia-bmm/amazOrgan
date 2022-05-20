@@ -28,6 +28,11 @@ public class Type_organ implements Serializable {
 	}
 
 
+	public Type_organ(String organ_name) {
+		super();
+		this.name = organ_name;
+	}
+
 	public Integer getId() {
 		return id;
 	}

@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -37,7 +38,7 @@ public class JDBCDonorManager implements DonorManager {
 			prep.setInt(5, d.getAntigen().getId());
 			prep.setInt(6, d.getAntibody().getID());
 			prep.setInt(7, d.getLocation().getId());
-			prep.setInt(8, d.getDoctor_charge().getmedical_id());
+			prep.setInt(8, d.getDoctor_charge().getMedical_id());
 			prep.executeUpdate();
 
 		} catch (Exception e) {
@@ -111,10 +112,12 @@ public class JDBCDonorManager implements DonorManager {
 		try {
 			// TODO query join
 			// this query returns all the information from the donor except the organs
-			String sql = "SELECT * FROM donor AS d1 \r\n" + "JOIN antigen AS ag1 ON d1.id_antigen = ag1.id \r\n"
-					+ "JOIN antibody AS ab1 ON d1.id_antibody = ab1.id \r\n"
-					+ "JOIN location AS l1 ON d1.id_location = l1.id\r\n"
-					+ "JOIN doctor AS doc1 ON d1.id_doctor_charge = doc1.medical_id\r\n" + "WHERE d1.dni = 1";
+			String sql = "SELECT * FROM donor AS d1 " 
+					+ "JOIN antigen AS ag1 ON d1.id_antigen = ag1.id "
+					+ "JOIN antibody AS ab1 ON d1.id_antibody = ab1.id "
+					+ "JOIN location AS l1 ON d1.id_location = l1.id "
+					+ "JOIN doctor AS doc1 ON d1.id_doctor_charge = doc1.medical_id " 
+					+ "WHERE d1.dni = 1";
 
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setInt(1, DNI);
@@ -129,12 +132,12 @@ public class JDBCDonorManager implements DonorManager {
 
 				// get the antigen
 				Integer id_antigen = rs.getInt("id_antigen");
-				boolean a = rs.getBoolean("a");
-				boolean b = rs.getBoolean("b");
-				boolean c = rs.getBoolean("c");
-				boolean dp = rs.getBoolean("dp");
-				boolean dq = rs.getBoolean("dq");
-				boolean dr = rs.getBoolean("dr");
+				Boolean a = rs.getBoolean("a");
+				Boolean b = rs.getBoolean("b");
+				Boolean c = rs.getBoolean("c");
+				Boolean dp = rs.getBoolean("dp");
+				Boolean dq = rs.getBoolean("dq");
+				Boolean dr = rs.getBoolean("dr");
 				antigen = new Antigen(id_antigen, a, b, c, dp, dq, dr);
 
 				// get the antibody
@@ -176,8 +179,9 @@ public class JDBCDonorManager implements DonorManager {
 
 				// we get the organ
 				Float size = rs.getFloat("size_organ");
-				boolean available = rs.getBoolean("available");
+				Boolean available = rs.getBoolean("available");
 				// ??????? id del donor
+				
 				o = new Organ(id, t, size, available);
 				organs.add(o);
 			}
@@ -202,12 +206,37 @@ public class JDBCDonorManager implements DonorManager {
 			prep.setInt(5, d.getAntigen().getId());
 			prep.setInt(6, d.getAntibody().getID());
 			prep.setInt(7, d.getLocation().getId());
-			prep.setInt(8, d.getDoctor_charge().getmedical_id());
+			prep.setInt(8, d.getDoctor_charge().getMedical_id());
 			prep.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
+	}
+	
+	
+	
+	public List<Donor> listMyDonors(Integer medical_id){
+		List<Donor> donors = new LinkedList<Donor>();
+		Donor d = null;
+		try {
+			Statement stmt = manager.getConnection().createStatement();
+			String sql = "SELECT dni, alive FROM donor WHERE id_doctor_charge=" + medical_id;
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				Integer donor_id = rs.getInt("donor_id");
+				Boolean alive = rs.getBoolean("alive");
+				d = new Donor(donor_id, alive);
+				donors.add(d);
+			}
+			stmt.close();
+			rs.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return donors;
+		
 	}
 
 	@Override

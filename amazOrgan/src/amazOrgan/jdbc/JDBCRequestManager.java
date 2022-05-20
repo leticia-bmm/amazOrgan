@@ -18,8 +18,8 @@ public class JDBCRequestManager implements RequestManager {
 	public JDBCRequestManager(JDBCManager m) {
 		this.manager = m;
 	}
-	
-	//TODO test methods
+
+	// TODO test methods
 
 	@Override
 	public void addRequest(Request r) {
@@ -57,8 +57,10 @@ public class JDBCRequestManager implements RequestManager {
 		Donor d = null;
 		try {
 			Statement stmt = manager.getConnection().createStatement();
-			String sql = "SELECT * FROM request AS r1 " + "LEFT JOIN type_of_organ AS t1 ON r1.id_type_organ = t1.id "
-					+ "LEFT JOIN organ AS o1 ON r1.organ_id = o1.id " + "WHERE r1.id = " + id;
+			String sql = "SELECT * FROM request AS r1 " 
+					+ "LEFT JOIN type_of_organ AS t1 ON r1.id_type_organ = t1.id "
+					+ "LEFT JOIN organ AS o1 ON r1.organ_id = o1.id " 
+					+ "WHERE r1.id = " + id;
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
 				Boolean received = rs.getBoolean("received");

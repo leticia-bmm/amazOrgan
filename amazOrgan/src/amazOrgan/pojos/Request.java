@@ -27,6 +27,11 @@ public class Request implements Serializable{
 	}
 	
 	
+	public Request(Type_organ type_organ) {
+		super();
+		this.type_organ = type_organ;
+	}
+
 	//getters and setters
 	public Integer getId() {
 		return id;

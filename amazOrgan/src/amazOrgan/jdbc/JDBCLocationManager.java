@@ -55,7 +55,7 @@ public class JDBCLocationManager implements LocationManager {
 			while (rs.next()) {
 				Float latitude = rs.getFloat("latitude");
 				Float longitude = rs.getFloat("longitude");
-				l = new Location(latitude, longitude);
+				l = new Location(id, latitude, longitude);
 			}
 			rs.close();
 			prep.close();
