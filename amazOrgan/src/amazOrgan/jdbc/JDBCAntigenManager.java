@@ -57,7 +57,7 @@ public class JDBCAntigenManager implements AntigenManager {
 		Antigen ant = null;
 		try {
 			Statement stmt = manager.getConnection().createStatement();
-			String sql = "SELECT * FROM antigen WHERE id = ?" + id;
+			String sql = "SELECT * FROM antigen WHERE id = " + id;
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
 				Boolean a = rs.getBoolean("a");

@@ -29,6 +29,7 @@ public class JDBCDonorManager implements DonorManager {
 	@Override
 	public void addDonor(Donor d) {
 		try {
+			System.out.println(d);
 			String sql = "INSERT INTO donor (dni, dob, blood_type, alive, id_antigen, id_antibody, id_location, id_doctor_charge) VALUES (?,?,?,?,?,?,?,?)";
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setInt(1, d.getdni());
@@ -40,6 +41,7 @@ public class JDBCDonorManager implements DonorManager {
 			prep.setInt(7, d.getLocation().getId());
 			prep.setInt(8, d.getDoctor_charge().getMedical_id());
 			prep.executeUpdate();
+			System.out.println("donor added");
 
 		} catch (Exception e) {
 			e.printStackTrace();
