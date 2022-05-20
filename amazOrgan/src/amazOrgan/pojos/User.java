@@ -26,12 +26,13 @@ public class User implements Serializable {
 	private Integer id; // can be medical_id if the user is a doctor or the DNI if the user is a donor
 
 	@Lob // to indicate that it is an array of bytes
-	private byte[] password;
+	private byte[] password; //this is the digest not the password
 
 	@ManyToOne // the other side of the relationship
 	@JoinColumn(name = "role_id")
 	private Role role;
 
+	
 	public User() {
 		super();
 	}
@@ -42,6 +43,7 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
+	
 	public Integer getId() {
 		return id;
 	}
