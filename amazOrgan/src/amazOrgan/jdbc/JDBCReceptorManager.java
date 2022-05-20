@@ -209,14 +209,14 @@ public class JDBCReceptorManager implements ReceptorManager {
 
 	@Override
 	public List<Receptor> showReceptorsByBloodType(String bloodtype) {
-		//Blood type
+		//shows dni, status, bloodtype, urgency and the name of the organ
 		Receptor r = null;
 		Request request = null;
 		Type_organ type_organ = null;
 		List<Receptor> receptors = new LinkedList();
 		try {
 			Statement stmt = manager.getConnection().createStatement();
-			String sql = "SELECT r1.dni, ty1.name, r1.urgency, r1.status, r1.blood_type FROM receptor AS r1 "
+			String sql = "SELECT r1.dni, ty1.name, r1.urgency, r1.status FROM receptor AS r1 "
 					+ "LEFT JOIN request AS re1 ON r1.id_request = re1.id "
 					+ "LEFT JOIN type_of_organ AS ty1 ON re1.id_type_organ = ty1.id "
 					+ "WHERE blood_type = ? "
@@ -229,7 +229,7 @@ public class JDBCReceptorManager implements ReceptorManager {
 				String status = rs.getString("status");
 				type_organ = new Type_organ(organ_name);
 				request = new Request(type_organ);
-				r = new Receptor(dni, organ);
+				r = new Receptor(dni, status, urgency, request);
 				receptors.add(r);
 			}
 			rs.close();
@@ -242,14 +242,27 @@ public class JDBCReceptorManager implements ReceptorManager {
 
 	@Override
 	public List<Receptor> showReceptorsByUrgency() {
+		//shows dni, status, urgency and the name of the organ
 		List<Receptor> receptors = new LinkedList();
+		Receptor r = null;
+		Request request = null;
+		Type_organ type_organ = null;
 		try {
 			Statement stmt = manager.getConnection().createStatement();
-			String sql = "SELECT dni FROM receptor ORDER BY urgency ";
+			String sql = "SELECT r1.dni, ty1.name, r1.urgency, r1.status FROM receptor AS r1 "
+					+ "LEFT JOIN request AS re1 ON r1.id_request = re1.id "
+					+ "LEFT JOIN type_of_organ AS ty1 ON re1.id_type_organ = ty1.id "
+					+ "WHERE R1.alive = TRUE "
+					+ "ORDER BY r1.urgency DESC";
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
 				Integer dni = rs.getInt("dni");
-				Receptor r = getReceptor(dni);
+				String organ_name = rs.getString("name");
+				Integer urgency = rs.getInt("urgency");
+				String status = rs.getString("status");
+				type_organ = new Type_organ(organ_name);
+				request = new Request(type_organ);
+				r = new Receptor(dni, status, urgency, request);
 				receptors.add(r);
 			}
 			rs.close();
