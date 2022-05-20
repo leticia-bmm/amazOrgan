@@ -43,6 +43,14 @@ public class Receptor implements Serializable{
 		this.alive = alive;
 	}
 
+	public Receptor(Integer dni, String status, Integer urgency, Request request) {
+		super();
+		this.dni = dni;
+		this.status = status;
+		this.urgency = urgency;
+		this.request = request;		
+	}
+
 	public Boolean getAlive() {
 		return alive;
 	}

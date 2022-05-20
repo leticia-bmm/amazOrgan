@@ -23,15 +23,9 @@ import amazOrgan.jdbc.JDBCAntigenManager;
 import amazOrgan.jdbc.JDBCDoctorManager;
 import amazOrgan.jdbc.JDBCDonorManager;
 import amazOrgan.jdbc.JDBCLocationManager;
-import amazOrgan.pojos.Antibody;
-import amazOrgan.pojos.Antigen;
-import amazOrgan.pojos.Doctor;
 import amazOrgan.pojos.Donor;
 import amazOrgan.pojos.Location;
-import amazOrgan.pojos.Organ;
 import amazOrgan.pojos.Receptor;
-import amazOrgan.pojos.Role;
-import amazOrgan.pojos.Type_organ;
 import amazOrgan.jdbc.JDBCManager;
 import amazOrgan.jdbc.JDBCOrganManager;
 import amazOrgan.jdbc.JDBCReceptorManager;
@@ -74,8 +68,10 @@ public class Menu {
 				case 1:
 					// See my patients
 					System.out.println("SEE MY PATIENTS");
-					// list donors from JDBCDoctorManager
-					// list receptors from JDBCDoctorManager (join with examines)
+					System.out.println(doctorManager.listMyReceptors(medical_id));
+					System.out.println(doctorManager.listMyDonors(medical_id));
+					// list donors from JDBCDonorManager
+					// list receptors from JDBCReceptorManager (join with examines)
 
 					break;
 
@@ -130,15 +126,16 @@ public class Menu {
 
 				switch (option) {
 				case 1:
-					// Register donor
+	//+				// Register donor 
 					System.out.println("REGISTER DONOR");// ONLY DEAD DONORS
 					
 					// steps:
 					// Hay que llamar a addDonor con toda la info
 					// dob, blood type, alive
-					// llamar a los add:
+					//llamar a los add:
 					// Antigen, Antibody, Location y Organs (dentro de un for), Doctor in charge NO
-					// porque es el mismo --> hacer un get doctor con el id
+					// porque es el mismo --> hacer un get doctor con el id //
+					// PREGUNTA DE PRATS de donde cojo el medical id si no lo tengo pasado por nada
 					// introduce the organs in a list
 					
 					Antigen antigen;
@@ -158,7 +155,7 @@ public class Menu {
 					break;
 
 				case 2:
-					// Show donors
+	//+				// Show donors
 					System.out.println("SHOW ALL AVAILABLE DONORS");
 					// list all the donors (JDBCDonorManager)
 					// solo de los donors que son alive y whose organs are available
@@ -172,10 +169,17 @@ public class Menu {
 					break;
 
 				case 3:
-					// Update alive
+	//+				// Update alive
+					Donor d = null;
 					System.out.println("UPDATE EXISTING DONOR");
-					// 1) ask for: DNI
-					// 2) select del donor con el dni: (getDonor)
+					System.out.println("INSERT DNI:");
+					Integer donoDNI = Integer.parseInt(reader.readLine());
+					d= donorManager.getDonor(donoDNI);
+					System.out.println(d);
+					
+					
+					// 1) ask for: DNI // DONE
+					// 2) select del donor con el dni: (getDonor)// DONE
 					// si el donor estaba en la database:
 					// llamar a updateDonor (con la info que se ha leido + la que falta por pedir)
 					// call the constructor
@@ -189,14 +193,23 @@ public class Menu {
 
 				case 4:
 					// Delete donor
-					System.out.println("DELETE DONOR"); // hay que tener en cuenta on cascade
+					System.out.println("DELETE DONOR");
+					System.out.println("INSERT DNI");
+					Integer dono_DNI = Integer.parseInt(reader.readLine());
+					donorManager.deleteDonor(dono_DNI);
+					// hay que tener en cuenta on cascade 
+					// ES DECIR TENEMOS QUE BORRAR TAMBIÉN EN LA TABLA ORGAN.
 					// deleteDonor();
 					break;
 
 				case 5:
 					// Get donor
-					System.out.println("GET DONOR"); // BY DNI
+					System.out.println("GET DONOR");// BY DNI
+					System.out.println("INSERT DNI");
+					Integer donorDNI = Integer.parseInt(reader.readLine());
+					donorManager.getDonor(donorDNI);
 					// getDonor();
+					// DONE
 
 					break;
 
@@ -233,7 +246,7 @@ public class Menu {
 
 				switch (option) {
 				case 1:
-					// Register receptor
+	//+				// Register receptor
 					// we are going to register an entire receptor
 					// all the atribites that te recepotr has
 					// except for the doctor in charge
@@ -248,21 +261,55 @@ public class Menu {
 
 				case 2:
 					// Show receptors
-					System.out.println("SHOW RECEPTORS");
 					// list receptors (JDBCReceptorManager)
 					// another menu for: by bloodType, by Urgency
-
+					System.out.println("SHOW RECEPTORS");
+					System.out.println("Please, choose an option:");
+					System.out.println("1) By bloodtype");
+					System.out.println("2) By urgency");
+					
+					int choice = Integer.parseInt(reader.readLine());
+					switch(choice) {
+					case 1:
+						String bt = askBT();
+						System.out.println(receptorManager.showReceptorsByBloodType(bt));
+						
+						break;
+					
+					
+					case 2:
+						System.out.println(receptorManager.showReceptorsByUrgency());
+					
+					break;
+					
+					default:
+						System.out.println("The selected option is not correct.");
+						break;
+					}
 					break;
 
 				case 3:
 					// Search receptor
 					System.out.println("SEARCH RECEPTOR");
+					System.out.println("INSERT DNI");
+					Integer receptorDNI = Integer.parseInt(reader.readLine());
+					receptorManager.getReceptor(receptorDNI);
 					// getReceptor();
+					// DONE 
 					break;
 
 				case 4:
-					// Update data
+	//+ 			// Update data
+					Receptor r = new Receptor();
+					
 					System.out.println("UPDATE DATA");
+					System.out.println("INSERT DNI");
+					Integer receptor_DNI = Integer.parseInt(reader.readLine());
+					r = receptorManager.getReceptor(receptor_DNI);
+					System.out.println(r);
+					
+					// TENDRÍA QUE HACER UN SWITCH  CON LAS OPCIONES QUE TENDRÍA QUE HACER??
+					// NO LO CREO, PERO SINO COMO CAMBIO SOLO LAS QUE QUIERO
 					// updateReceptor();
 					// we can change alive, urgency and status
 					// we call match function when changing urgency and status(only when waiting)
@@ -398,6 +445,7 @@ public class Menu {
 					System.out.println("ADD ORGANS");
 					// al insertar los organs available es by default false
 					addOrgans(DNI);
+
 					break;
 
 				case 2:
@@ -577,7 +625,7 @@ public class Menu {
 		List<Organ> organs = new LinkedList<Organ>();
 		Organ o;
 		Type_organ t;
-		String name;
+		String name; 
 
 		for (int i = 0; i < number; i++) {
 			System.out.println("Introduce the organ:");
