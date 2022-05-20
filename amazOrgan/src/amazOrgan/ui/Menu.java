@@ -70,15 +70,16 @@ public class Menu {
 					System.out.println("SEE MY PATIENTS");
 					System.out.println(doctorManager.listMyReceptors(medical_id));
 					System.out.println(doctorManager.listMyDonors(medical_id));
-					// list donors from JDBCDonorManager
-					// list receptors from JDBCReceptorManager (join with examines)
-
+					
 					break;
 
 				case 2:
 					// Change my data
 					System.out.println("CHANGE MY DATA");
-					// doctorManager.changeMyData(null);
+					// getDoctor to show the info
+					//ask for changes
+					//create the new doctor by calling the constructor
+					// doctorManager.changeMyData(doctor);
 					// hecho
 					break;
 
@@ -138,16 +139,7 @@ public class Menu {
 					// PREGUNTA DE PRATS de donde cojo el medical id si no lo tengo pasado por nada
 					// introduce the organs in a list
 					
-					Antigen antigen;
-					Antibody antibody;
-					Location location;
-					Doctor doctor_charge;
-					List<Organ> organs;
-					
-					Donor d = new Donor(...);
-					donorManager.addDonor(d);
-
-					
+										
 					// call the constructor
 
 					// 3) call match function
@@ -155,7 +147,7 @@ public class Menu {
 					break;
 
 				case 2:
-	//+				// Show donors
+					// Show donors
 					System.out.println("SHOW ALL AVAILABLE DONORS");
 					// list all the donors (JDBCDonorManager)
 					// solo de los donors que son alive y whose organs are available
@@ -169,10 +161,10 @@ public class Menu {
 					break;
 
 				case 3:
-	//+				// Update alive
+					// Update alive
 					Donor d = null;
 					System.out.println("UPDATE EXISTING DONOR");
-					System.out.println("INSERT DNI:");
+					System.out.println("Insert DNI:");
 					Integer donoDNI = Integer.parseInt(reader.readLine());
 					d= donorManager.getDonor(donoDNI);
 					System.out.println(d);
