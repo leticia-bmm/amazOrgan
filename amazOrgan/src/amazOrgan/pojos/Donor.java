@@ -69,6 +69,13 @@ public class Donor implements Serializable {
 	}
 
 
+	public Donor(Integer dni2, Date dob2, Boolean b) {
+		this.dni = dni;
+		this.dob = dob;
+		this.alive = b;
+	}
+
+
 	public Integer getdni() {
 		return dni;
 	}

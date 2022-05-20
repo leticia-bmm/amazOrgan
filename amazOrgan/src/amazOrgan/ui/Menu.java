@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Date;
+import java.sql.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -23,9 +23,11 @@ import amazOrgan.jdbc.JDBCAntigenManager;
 import amazOrgan.jdbc.JDBCDoctorManager;
 import amazOrgan.jdbc.JDBCDonorManager;
 import amazOrgan.jdbc.JDBCLocationManager;
+import amazOrgan.pojos.Doctor;
 import amazOrgan.pojos.Donor;
 import amazOrgan.pojos.Location;
 import amazOrgan.pojos.Receptor;
+import amazOrgan.pojos.Role;
 import amazOrgan.jdbc.JDBCManager;
 import amazOrgan.jdbc.JDBCOrganManager;
 import amazOrgan.jdbc.JDBCReceptorManager;
@@ -322,7 +324,7 @@ public class Menu {
 
 	}
 
-	public static void main(String[] ars) {
+	/*public static void main(String[] ars) {
 
 		System.out.println("Welcome to amazOrgan!");
 
@@ -410,15 +412,8 @@ public class Menu {
 			e.printStackTrace();
 		}
 
-		/*
-		 * public static void main(String[] ars) { JDBCManager jdbcManager = new
-		 * JDBCManager(); System.out.println("Welcome to amazOrgan!");
-		 * 
-		 * 
-		 * jdbcManager.disconnect(); System.exit(0); }
-		 */
-
-	}
+		
+	}*/
 
 	// TODO: menu del donor pero desde el donor pasandole su DNI
 	public static void donor_menu(int DNI) {
@@ -610,7 +605,7 @@ public class Menu {
 	// if salen excepciones mirar la first class que hayamos creado nosotros
 	
 
-	public static void addOrgans(int DNI) {
+	/*public static void addOrgans(int DNI) {
 
 		System.out.println("How many organs do you want to donate?");
 		int number = Integer.parseInt(reader.readLine());
@@ -630,6 +625,18 @@ public class Menu {
 		Donor d = new Donor(dni, dob, true, null, null, null, null, null, organs);
 		donorManager.addDonor(d);
 
-	}
+	}*/
 
+	
+	/*
+	 * public static void main(String[] ars) { JDBCManager jdbcManager = new
+	 * JDBCManager(); System.out.println("Welcome to amazOrgan!");
+	 * 
+	 * 
+	 * jdbcManager.disconnect(); System.exit(0); }
+	 */
+
+	
+	
+	
 }
