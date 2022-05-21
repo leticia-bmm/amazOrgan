@@ -49,7 +49,7 @@ public class JDBCAntibodyManager implements AntibodyManager {
 		Antibody a = null;
 		try {
 			Statement stmt = manager.getConnection().createStatement();
-			String sql = "SELECT * FROM antibody WHERE id = ?" + id;
+			String sql = "SELECT * FROM antibody WHERE id =" + id;
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
 				Boolean classI = rs.getBoolean("class_I");

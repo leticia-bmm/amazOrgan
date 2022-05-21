@@ -53,15 +53,16 @@ public class JDBCDoctorManager implements DoctorManager {
 	@Override
 	public Doctor getDoctor(Integer medical_id) {
 
-		Doctor d = new Doctor();
+		Doctor d = null;
 		try {
 			Statement stmt = manager.getConnection().createStatement();
-			String sql = "SELECT * FROM doctor WHERE medical_id = ?" + medical_id;
+			String sql = "SELECT * FROM doctor WHERE medical_id = " + medical_id;
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
 				Integer phone_number = rs.getInt("phone_number");
 				String name = rs.getString("name");
 				//TODO finish the method
+				d = new Doctor (medical_id, phone_number, name);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

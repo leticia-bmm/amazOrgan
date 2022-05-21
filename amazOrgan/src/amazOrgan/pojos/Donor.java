@@ -169,6 +169,6 @@ public class Donor implements Serializable {
 	// this string has to be adapted with the foreign keys
 	@Override
 	public String toString() {
-		return "Donor [dni=" + dni + ", dob=" + dob + ", alive=" + alive + ", bloodType=" + bloodType + "]";
+		return "Donor [dni=" + dni + ", dob=" + dob + ", alive=" + alive + ", bloodType=" + bloodType + this.antigen.toString() + this.antibody.toString() + this.location.toString() + this.doctor_charge.toString() + "]";
 	}
 }
