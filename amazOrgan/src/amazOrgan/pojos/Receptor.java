@@ -12,13 +12,14 @@ public class Receptor implements Serializable{
 	  private Date dob;
 	  private String status;
 	  private String blood_type;
+	  private Boolean alive;
 	  private Integer urgency;
 	  private Antigen antigen;
 	  private Antibody antibody;
 	  private Location location;
 	  private Request request;
 	  private List <Doctor> doctors;
-	  private Boolean alive;
+
 	 
 	  
 	//empty Constructor
@@ -42,7 +43,7 @@ public class Receptor implements Serializable{
 		
 	}
 
-	public Receptor(Integer receptor_id, String status, Integer urgency, Boolean alive) {
+	public Receptor(Integer receptor_id, String status, Boolean alive, Integer urgency) {
 		super();
 		this.dni = receptor_id;
 		this.status = status;

@@ -94,6 +94,7 @@ public class JDBCReceptorManager implements ReceptorManager {
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
 				Date dob = rs.getDate("dob");
+				System.out.println(dob);
 				String status = rs.getString("status");
 				String blood_type = rs.getString("blood_type");
 				System.out.println(blood_type);

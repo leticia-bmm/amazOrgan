@@ -43,26 +43,39 @@ public class JDBCManager {
 
 			// antibody
 			Statement stmt = c.createStatement();
-			String sql = "CREATE TABLE \"antibody\" ( " + "	\"id\"	INTEGER PRIMARY KEY AUTOINCREMENT, "
-					+ "	\"class_I\"	BOOLEAN NOT NULL, " + "	\"class_II\"	BOOLEAN NOT NULL " + ")";
+			String sql = "CREATE TABLE \"antibody\" ( " 
+					+ "	\"id\"	INTEGER PRIMARY KEY AUTOINCREMENT, "
+					+ "	\"class_I\"	BOOLEAN NOT NULL, " 
+					+ "	\"class_II\"BOOLEAN NOT NULL " + ")";
 			stmt.executeUpdate(sql);
 
 			// antigen
-			sql = "CREATE TABLE \"antigen\" ( " + "	\"id\"	INTEGER PRIMARY KEY AUTOINCREMENT, "
-					+ "	\"a\"	BOOLEAN NOT NULL, " + "	\"b\"	BOOLEAN NOT NULL, " + "	\"c\"	BOOLEAN NOT NULL, "
-					+ "	\"dp\"	BOOLEAN NOT NULL, " + "	\"dq\"	BOOLEAN NOT NULL, " + "	\"dr\"	BOOLEAN NOT NULL "
+			sql = "CREATE TABLE \"antigen\" ( " 
+					+ "	\"id\"	INTEGER PRIMARY KEY AUTOINCREMENT, "
+					+ "	\"a\"	BOOLEAN NOT NULL, " 
+					+ "	\"b\"	BOOLEAN NOT NULL, " 
+					+ "	\"c\"	BOOLEAN NOT NULL, "
+					+ "	\"dp\"	BOOLEAN NOT NULL, " 
+					+ "	\"dq\"	BOOLEAN NOT NULL, " 
+					+ "	\"dr\"	BOOLEAN NOT NULL "
 					+ ")";
 			stmt.executeUpdate(sql);
 
 			// doctor
-			sql = "CREATE TABLE \"doctor\" (" + "	\"medical_id\"	INTEGER,"
-					+ "	\"phone_number\"	INTEGER NOT NULL," + "	\"name\"	TEXT NOT NULL,"
+			sql = "CREATE TABLE \"doctor\" (" 
+					+ "	\"medical_id\"	INTEGER,"
+					+ "	\"phone_number\"	INTEGER NOT NULL," 
+					+ "	\"name\"	TEXT NOT NULL,"
 					+ "	PRIMARY KEY(\"medical_id\")" + ")";
 			stmt.executeUpdate(sql);
 
 			// donor
-			sql = "CREATE TABLE donor(" + "dni INTEGER PRIMARY KEY," + "dob date, " + "blood_type TEXT,"
-					+ "alive BOOLEAN," + "id_antigen INTEGER REFERENCES \"antigen\"(id),"
+			sql = "CREATE TABLE donor(" 
+					+ "dni INTEGER PRIMARY KEY," 
+					+ "dob date, " 
+					+ "blood_type TEXT,"
+					+ "alive BOOLEAN," 
+					+ "id_antigen INTEGER REFERENCES \"antigen\"(id),"
 					+ "id_antibody INTEGER REFERENCES \"antibody\"(id),"
 					+ "id_location INTEGER REFERENCES location(id),"
 					+ "id_doctor_charge INTEGER REFERENCES doctor(medical_id),"
@@ -70,31 +83,45 @@ public class JDBCManager {
 			stmt.executeUpdate(sql);
 
 			// examines
-			sql = "CREATE TABLE examines( " + " " + "\"medical_id\" INTEGER, " + "\"receptor_id\" INTEGER, "
+			sql = "CREATE TABLE examines( "
+					+ "\"medical_id\" INTEGER, " 
+					+ "\"receptor_id\" INTEGER, "
 					+ "FOREIGN KEY (\"medical_id\") REFERENCES doctor, "
 					+ "FOREIGN KEY (\"receptor_id\") REFERENCES receptor, "
 					+ "PRIMARY KEY (\"medical_id\", \"receptor_id\") " + ")";
 			stmt.executeUpdate(sql);
 
 			// location
-			sql = "CREATE TABLE location ( " + "	\"id\"	INTEGER PRIMARY KEY AUTOINCREMENT, "
-					+ "	\"latitude\"	FLOAT NOT NULL, " + "	\"longitude\"	FLOAT NOT NULL " + ")";
+			sql = "CREATE TABLE location ( " 
+					+ "	\"id\"	INTEGER PRIMARY KEY AUTOINCREMENT, "
+					+ "	\"latitude\"	FLOAT NOT NULL, " 
+					+ "	\"longitude\"	FLOAT NOT NULL " + ")";
 			stmt.executeUpdate(sql);
 
 			// organ
-			sql = "CREATE TABLE \"organ\" ( " + "	\"id\"	INTEGER PRIMARY KEY AUTOINCREMENT, "
-					+ "	\"id_type_organ\"	INTEGER, " + "	\"size_organ\"	FLOAT, " + " \"donor_dni\"  INTEGER,"
+			sql = "CREATE TABLE \"organ\" ( " 
+					+ "	\"id\"	INTEGER PRIMARY KEY AUTOINCREMENT, "
+					+ "	\"id_type_organ\"	INTEGER, " 
+					+ "	\"size_organ\"	FLOAT, " 
+					+ " \"donor_dni\"  INTEGER,"
 					+ "	\"available\"	BOOLEAN, "
 					+ "	FOREIGN KEY(\"id_type_organ\") REFERENCES \"type_of_organ\"(\"id\"), "
 					+ " FOREIGN KEY (\"donor_dni\") REFERENCES \"donor\" " + ")";
 			stmt.executeUpdate(sql);
 
 			// receptor
-			sql = "CREATE TABLE \"receptor\" ( " + "	\"dni\"	INTEGER, " + "	\"dob\"	date NOT NULL, "
-					+ "	\"status\"	TEXT NOT NULL, " + "	\"blood_type\"	TEXT NOT NULL, "
-					+ "	\"alive\"	BOOLEAN NOT NULL, " + "	\"urgency\" INTEGER NOT NULL, "
-					+ "	\"id_antigen\"	INTEGER, " + "	\"id_antibody\"	INTEGER, " + "	\"id_location\"	INTEGER, "
-					+ "	\"id_request\"	INTEGER, " + "	PRIMARY KEY(\"dni\"), "
+			sql = "CREATE TABLE \"receptor\" ( " 
+					+ "	\"dni\"	INTEGER, " 
+					+ "	\"dob\"	date, "
+					+ "	\"status\"	TEXT NOT NULL, " 
+					+ "	\"blood_type\"	TEXT NOT NULL, "
+					+ "	\"alive\"	BOOLEAN NOT NULL, " 
+					+ "	\"urgency\" INTEGER NOT NULL, "
+					+ "	\"id_antigen\"	INTEGER, " 
+					+ "	\"id_antibody\"	INTEGER, " 
+					+ "	\"id_location\"	INTEGER, "
+					+ "	\"id_request\"	INTEGER, " 
+					+ "	PRIMARY KEY(\"dni\"), "
 					+ "	CHECK(status IN ('Waiting','Accepted','Rejected','Operating')), "
 					+ "	CHECK(blood_type IN ('A+','B+','AB+','O+','A-','B-','AB-','O-')), "
 					+ "	FOREIGN KEY(\"id_antigen\") REFERENCES \"antigen\"(\"id\"), "
@@ -104,13 +131,19 @@ public class JDBCManager {
 			stmt.executeUpdate(sql);
 
 			// request
-			sql = "CREATE TABLE request( " + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-					+ "id_type_organ INTEGER REFERENCES type_of_organ (id), " + "received BOOLEAN, "
-					+ "id_organ INTEGER DEFAULT NULL, " + "size_organ FLOAT " + ")";
+			sql = "CREATE TABLE request( " 
+			        + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+					+ "id_type_organ INTEGER REFERENCES type_of_organ (id), " 
+			        + "received BOOLEAN, "
+					+ "id_organ INTEGER DEFAULT NULL, " 
+			        + "size_organ FLOAT " + ")";
 			stmt.executeUpdate(sql);
 
 			// type of organ
-			sql = "CREATE TABLE type_of_organ ( " + "id INTEGER PRIMARY KEY, " + "name TEXT, " + "lifespan INTEGER "
+			sql = "CREATE TABLE type_of_organ ( " 
+					+ "id INTEGER PRIMARY KEY, " 
+					+ "name TEXT, " 
+					+ "lifespan INTEGER "
 					+ ")";
 			stmt.executeUpdate(sql);
 
