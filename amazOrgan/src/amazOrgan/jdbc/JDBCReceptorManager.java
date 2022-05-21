@@ -84,19 +84,22 @@ public class JDBCReceptorManager implements ReceptorManager {
 		// List <Doctor> doctors = null;
 		try {
 			Statement stmt = manager.getConnection().createStatement();
-			String sql = "SELECT * FROM receptor AS r1 " + "JOIN antigen AS ag1 ON r1.id_antigen = ag1.id "
-					+ "JOIN antibody AS ab1 ON r1.id_antibody = ab1.id "
-					+ "JOIN location AS l1 ON r1.id_location = l1.id "
-					+ "JOIN request AS re1 ON r1.id_request = re1.id "
-					+ "JOIN type_of_organ AS ty1 ON re1.id_type_organ = ty1.id " 
-					+ "WHERE r1.dni = ?" + dni;
+			String sql = "SELECT * FROM receptor AS r1 " 
+			        + "LEFT JOIN antigen AS ag1 ON r1.id_antigen = ag1.id "
+					+ "LEFT JOIN antibody AS ab1 ON r1.id_antibody = ab1.id "
+					+ "LEFT JOIN location AS l1 ON r1.id_location = l1.id "
+					+ "LEFT JOIN request AS re1 ON r1.id_request = re1.id "
+					+ "LEFT JOIN type_of_organ AS ty1 ON re1.id_type_organ = ty1.id " 
+					+ "WHERE r1.dni=" + dni;
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
 				Date dob = rs.getDate("dob");
 				String status = rs.getString("status");
 				String blood_type = rs.getString("blood_type");
+				System.out.println(blood_type);
 				Boolean alive = rs.getBoolean("alive");
 				Integer urgency = rs.getInt("urgency");
+				r = new Receptor(dni, dob, status, blood_type, alive, urgency);
 				// getting the info of the antigen
 				Integer id_antigen = rs.getInt("id_antigen");
 				Boolean a = rs.getBoolean("a");
@@ -127,8 +130,9 @@ public class JDBCReceptorManager implements ReceptorManager {
 				Integer lifespan = rs.getInt("lifespan");
 				type_organ = new Type_organ(id_type_organ, name, lifespan);
 				// getting the info of the organ IF THERE IS ONE
-				Integer organ_id = rs.getInt("organ_id");
-				if (organ_id != null) {
+				Integer organ_id = rs.getInt("id_organ");
+				System.out.println(organ_id);
+				if (organ_id == null) {
 					// we are going to reuse the type of organ since it is the same
 					Float size_organ = rs.getFloat(34);
 					Boolean available = rs.getBoolean("available");

@@ -32,6 +32,13 @@ public class Receptor implements Serializable{
 		this.dni = dni;
 		this.dob = dob;
 		this.status = status;
+		this.blood_type = blood_type;
+		this.alive = alive;
+		this.urgency = urgency;
+		this.antigen = antigen;
+		this.antibody = antibody;
+		this.location = location;
+		this.request = request;
 		
 	}
 
@@ -49,6 +56,16 @@ public class Receptor implements Serializable{
 		this.status = status;
 		this.urgency = urgency;
 		this.request = request;		
+	}
+
+	public Receptor(Integer dni, Date dob, String status, String blood_type, Boolean alive, Integer urgency) {
+		super();
+		this.dni = dni;
+		this.dob = dob;
+		this.status = status;
+		this.blood_type = blood_type;
+		this.alive = alive;
+		this.urgency = urgency;
 	}
 
 	public Boolean getAlive() {

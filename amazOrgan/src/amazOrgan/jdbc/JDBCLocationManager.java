@@ -6,9 +6,7 @@ import java.sql.ResultSet;
 import amazOrgan.ifaces.LocationManager;
 import amazOrgan.pojos.Location;
 
-//public void addLocation (Location l);
-//public void deleteLocation (Integer ID);
-
+//this class WORKS!
 public class JDBCLocationManager implements LocationManager {
 
 	private JDBCManager manager;
@@ -17,6 +15,7 @@ public class JDBCLocationManager implements LocationManager {
 		this.manager = m;
 	}
 
+	//this method works
 	@Override
 	public void addLocation(Location l) {
 		try {
@@ -31,6 +30,7 @@ public class JDBCLocationManager implements LocationManager {
 		}
 	}
 
+	//this method works
 	@Override
 	public void deleteLocation(Integer ID) {
 		try {
@@ -44,6 +44,7 @@ public class JDBCLocationManager implements LocationManager {
 
 	}
 
+	//this method works
 	@Override
 	public Location getLocation(Integer id) {
 		Location l = null;
