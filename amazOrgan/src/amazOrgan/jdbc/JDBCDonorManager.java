@@ -117,7 +117,7 @@ public class JDBCDonorManager implements DonorManager {
 		List<Organ> organs = null;
 
 		try {
-			// TODO query join
+			
 			// this query returns all the information from the donor except the organs
 			String sql = "SELECT * FROM donor AS d1 " 
 					+ "JOIN antigen AS ag1 ON d1.id_antigen = ag1.id "
@@ -204,30 +204,54 @@ public class JDBCDonorManager implements DonorManager {
 	}
 
 	@Override
-	public void updateDonor(Donor d, Doctor doc) {
-		// TODO
+	//this method receives the donor that has to be updated
+	// and also the doctor that is in charge of him, who in fact is the doctor that is updating this information
+	
+	public void updateDonor(Donor d, int medicalId) {
+		
 		try {
 			//the donor inserted has a dni, a bloodtype and the organs
-			// we have to update the rest of the info which is null
-			String sql = "UPDATE donor SET blood_type = ?, alive = FALSE WHERE dni = ?";
+			// we have to update the rest of the info which has an id but its c
+			String sql = "UPDATE donor SET blood_type = ?, alive = FALSE, id_doctor_charge = ? WHERE dni = ?";
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setString(1, d.getBloodType());
-			prep.setInt(2, d.getdni());
+			
+			//Update the doctor in charge (it had the id 0 and name unassigned)
+			prep.setInt(2, medicalId);
+			
+			prep.setInt(3, d.getdni());
 			
 			//update the antigen
 			int idAntigen = d.getAntigen().getId();
-			sql = "UPDATE antigen SET ";
+			sql = "UPDATE antigen SET a  = ?, b = ?, c = ?, dp = ?, dq = ?, dr = ? WHERE id = ?";
+			prep = manager.getConnection().prepareStatement(sql);
+			prep.setBoolean(1, d.getAntigen().isA());
+			prep.setBoolean(2, d.getAntigen().isB());
+			prep.setBoolean(3, d.getAntigen().isC());
+			prep.setBoolean(4, d.getAntigen().isDp());
+			prep.setBoolean(5, d.getAntigen().isDq());
+			prep.setBoolean(6, d.getAntigen().isDr());
+			prep.setInt(7, idAntigen);
 			
 			//Update the antibody
 			int idAntibody = d.getAntibody().getID();
+			sql = "UPDATE antibody SET class_I = ?, class_II = ? WHERE id = ?";
+			prep = manager.getConnection().prepareStatement(sql);
+			prep.setBoolean(1, d.getAntibody().isClass_I());
+			prep.setBoolean(2, d.getAntibody().isClass_II());
+			prep.setInt(3, idAntibody);
 			
 			//Update the location
 			int idLocation = d.getLocation().getId();
-			
-			//Update the doctor in charge (tenia el id 0)
-			Doctor 
+			sql = "UPDATE location SET latitude = ?, longitude = ? WHERE id = ?";
+			prep = manager.getConnection().prepareStatement(sql);
+			prep.setFloat(1, d.getLocation().getLatitude());
+			prep.setFloat(2, d.getLocation().getLongitude());
+			prep.setInt(3, idLocation);		
 			
 			prep.executeUpdate();
+			System.out.println("donor updated");
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
