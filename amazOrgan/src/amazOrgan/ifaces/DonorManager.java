@@ -23,6 +23,7 @@ public interface DonorManager {
 	public List <Donor> showDonorsByBloodType (String bloodType);
 	public void updateDonor (Donor d);
 	public List <Donor> listAllDonors();
+	public List <Donor> listMyDonors(Integer medical_id);
 	
 	
 	

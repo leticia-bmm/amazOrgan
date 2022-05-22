@@ -31,6 +31,7 @@ public class JDBCReceptorManager implements ReceptorManager {
 	
 	
 
+	//TODO insert EVERYTHING into the database
 	@Override
 	public void addReceptor(Receptor r) {
 		try {
@@ -58,8 +59,9 @@ public class JDBCReceptorManager implements ReceptorManager {
 	// TODO write the java function for the JDBCs
 	@Override
 	public void updateReceptor(Receptor r) {
+		//this method works
 		try {
-			String sql = "UPDATE receptor " + "SET alive = ? " + "status = ? " + "urgency = ? " + "WHERE dni = ?";
+			String sql = "UPDATE receptor SET alive=?, status =?, urgency=? WHERE dni=?";
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setBoolean(1, r.getAlive());
 			prep.setString(2, r.getStatus());
@@ -71,6 +73,7 @@ public class JDBCReceptorManager implements ReceptorManager {
 		}
 	}
 
+	//this method works
 	@Override
 	public Receptor getReceptor(Integer dni) {
 		Receptor r = null;
@@ -133,7 +136,7 @@ public class JDBCReceptorManager implements ReceptorManager {
 				// getting the info of the organ IF THERE IS ONE
 				Integer organ_id = rs.getInt("id_organ");
 				System.out.println(organ_id);
-				if (organ_id == null) {
+				if (organ_id != null) {
 					// we are going to reuse the type of organ since it is the same
 					Float size_organ = rs.getFloat(34);
 					Boolean available = rs.getBoolean("available");
@@ -168,8 +171,9 @@ public class JDBCReceptorManager implements ReceptorManager {
 	}
 
 	// list of receptors 
+	@Override
 	public List<Receptor> listMyReceptors(Integer medical_id) {
-		List<Receptor> receptors = new ArrayList<Receptor>();
+		List<Receptor> receptors = new LinkedList<Receptor>();
 		Receptor r = new Receptor();
 		try {
 			Statement stmt = manager.getConnection().createStatement();
@@ -192,7 +196,6 @@ public class JDBCReceptorManager implements ReceptorManager {
 		}
 
 		return receptors;
-
 	}
 	
 	

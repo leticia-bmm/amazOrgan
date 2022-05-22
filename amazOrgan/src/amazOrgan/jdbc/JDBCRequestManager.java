@@ -39,7 +39,7 @@ public class JDBCRequestManager implements RequestManager {
 	@Override
 	public void updateOrganId(Request r) {
 		try {
-			String sql = "UPDATE request SET received=?" + " organ_id=?";
+			String sql = "UPDATE request SET received=? WHERE organ_id=?";
 			PreparedStatement p = manager.getConnection().prepareStatement(sql);
 			p.setBoolean(1, r.isReceived());
 			p.setInt(2, r.getOrgan().getID());
