@@ -198,10 +198,6 @@ public class JDBCReceptorManager implements ReceptorManager {
 		return receptors;
 	}
 	
-	
-	
-	
-	
 	@Override
 	public void unassignDoctor(Receptor r, Doctor d) {
 		try {
@@ -260,7 +256,7 @@ public class JDBCReceptorManager implements ReceptorManager {
 			String sql = "SELECT r1.dni, ty1.name, r1.urgency, r1.status FROM receptor AS r1 "
 					+ "LEFT JOIN request AS re1 ON r1.id_request = re1.id "
 					+ "LEFT JOIN type_of_organ AS ty1 ON re1.id_type_organ = ty1.id "
-					+ "WHERE R1.alive = TRUE "
+					+ "WHERE r1.alive = TRUE "
 					+ "ORDER BY r1.urgency DESC";
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
@@ -280,5 +276,23 @@ public class JDBCReceptorManager implements ReceptorManager {
 		}
 		return receptors;
 	}
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

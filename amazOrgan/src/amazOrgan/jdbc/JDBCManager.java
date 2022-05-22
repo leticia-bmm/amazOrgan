@@ -45,25 +45,25 @@ public class JDBCManager {
 			Statement stmt = c.createStatement();
 			String sql = "CREATE TABLE \"antibody\" ( " 
 					+ "	\"id\"	INTEGER PRIMARY KEY AUTOINCREMENT, "
-					+ "	\"class_I\"	BOOLEAN NOT NULL, " 
-					+ "	\"class_II\"BOOLEAN NOT NULL " + ")";
+					+ "	\"class_I\"	BOOLEAN , " 
+					+ "	\"class_II\"BOOLEAN  " + ")";
 			stmt.executeUpdate(sql);
 
 			// antigen
 			sql = "CREATE TABLE \"antigen\" ( " 
 					+ "	\"id\"	INTEGER PRIMARY KEY AUTOINCREMENT, "
-					+ "	\"a\"	BOOLEAN NOT NULL, " 
-					+ "	\"b\"	BOOLEAN NOT NULL, " 
-					+ "	\"c\"	BOOLEAN NOT NULL, "
-					+ "	\"dp\"	BOOLEAN NOT NULL, " 
-					+ "	\"dq\"	BOOLEAN NOT NULL, " 
-					+ "	\"dr\"	BOOLEAN NOT NULL "
+					+ "	\"a\"	BOOLEAN, " 
+					+ "	\"b\"	BOOLEAN, " 
+					+ "	\"c\"	BOOLEAN, "
+					+ "	\"dp\"	BOOLEAN, " 
+					+ "	\"dq\"	BOOLEAN, " 
+					+ "	\"dr\"	BOOLEAN "
 					+ ")";
 			stmt.executeUpdate(sql);
 
 			// doctor
 			sql = "CREATE TABLE \"doctor\" (" 
-					+ "	\"medical_id\"	INTEGER,"
+					+ "	\"medical_id\"	INTEGER NOT NULL,"
 					+ "	\"phone_number\"	INTEGER NOT NULL," 
 					+ "	\"name\"	TEXT NOT NULL,"
 					+ "	PRIMARY KEY(\"medical_id\")" + ")";
@@ -94,17 +94,17 @@ public class JDBCManager {
 			// location
 			sql = "CREATE TABLE location ( " 
 					+ "	\"id\"	INTEGER PRIMARY KEY AUTOINCREMENT, "
-					+ "	\"latitude\"	FLOAT NOT NULL, " 
-					+ "	\"longitude\"	FLOAT NOT NULL " + ")";
+					+ "	\"latitude\"	FLOAT, " 
+					+ "	\"longitude\"	FLOAT" + ")";
 			stmt.executeUpdate(sql);
 
 			// organ
 			sql = "CREATE TABLE \"organ\" ( " 
 					+ "	\"id\"	INTEGER PRIMARY KEY AUTOINCREMENT, "
-					+ "	\"id_type_organ\"	INTEGER, " 
+					+ "	\"id_type_organ\"	INTEGER NOT NULL, " 
 					+ "	\"size_organ\"	FLOAT, " 
-					+ " \"donor_dni\"  INTEGER,"
-					+ "	\"available\"	BOOLEAN, "
+					+ " \"donor_dni\"  INTEGER NOT NULL,"
+					+ "	\"available\"	BOOLEAN NOT NULL, "
 					+ "	FOREIGN KEY(\"id_type_organ\") REFERENCES \"type_of_organ\"(\"id\"), "
 					+ " FOREIGN KEY (\"donor_dni\") REFERENCES \"donor\" " + ")";
 			stmt.executeUpdate(sql);
@@ -112,7 +112,7 @@ public class JDBCManager {
 			// receptor
 			sql = "CREATE TABLE \"receptor\" ( " 
 					+ "	\"dni\"	INTEGER, " 
-					+ "	\"dob\"	date, "
+					+ "	\"dob\"	DATE, "
 					+ "	\"status\"	TEXT NOT NULL, " 
 					+ "	\"blood_type\"	TEXT NOT NULL, "
 					+ "	\"alive\"	BOOLEAN NOT NULL, " 
@@ -142,8 +142,8 @@ public class JDBCManager {
 			// type of organ
 			sql = "CREATE TABLE type_of_organ ( " 
 					+ "id INTEGER PRIMARY KEY, " 
-					+ "name TEXT, " 
-					+ "lifespan INTEGER "
+					+ "name TEXT NOT NULL, " 
+					+ "lifespan INTEGER NOT NULL"
 					+ ")";
 			stmt.executeUpdate(sql);
 
