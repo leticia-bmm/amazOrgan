@@ -43,8 +43,22 @@ public class JDBCReceptorManager implements ReceptorManager {
 			prep.setString(4, r.getBlood_type());
 			prep.setBoolean(5, r.getAlive());
 			prep.setInt(6, r.getUrgency());
+			//inserting the antigen into the database
+			//Antigen antigen = r.getAntigen();
 			prep.setInt(7, r.getAntigen().getId());
-			prep.setInt(8, r.getAntibody().getID());
+			
+			//inserting the antibody into the database
+			Antibody antibody = r.getAntibody();
+			String sql1 = "INSERT INTO antibody (class_I, class_II) VALUES (?,?)";
+			PreparedStatement prep1 = manager.getConnection().prepareStatement(sql1);
+			prep1.setBoolean(1, antibody.isClass_I());
+			prep1.setBoolean(2, antibody.isClass_II());
+			prep1.executeUpdate();
+			Statement stmt = manager.getConnection().createStatement();
+			sql1 = "SELECT last_insert_rowid";
+			ResultSet rs = stmt.executeQuery(sql1);
+			System.out.println(rs.getInt(1));
+			
 			prep.setInt(9, r.getLocation().getId());
 			prep.setInt(10, r.getRequest().getId());
 			prep.executeUpdate();
