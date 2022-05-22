@@ -204,20 +204,29 @@ public class JDBCDonorManager implements DonorManager {
 	}
 
 	@Override
-	public void updateDonor(Donor d) {
+	public void updateDonor(Donor d, Doctor doc) {
 		// TODO
 		try {
 			//the donor inserted has a dni, a bloodtype and the organs
-			String sql = "UPDATE donor SET blood_type = ?, SET id_antigen = ?, ";
+			// we have to update the rest of the info which is null
+			String sql = "UPDATE donor SET blood_type = ?, alive = FALSE WHERE dni = ?";
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
-			prep.setInt(1, d.getdni());
-			prep.setDate(2, d.getdob());
-			prep.setString(3, d.getBloodType());
-			prep.setBoolean(4, d.isAlive());
-			prep.setInt(5, d.getAntigen().getId());
-			prep.setInt(6, d.getAntibody().getID());
-			prep.setInt(7, d.getLocation().getId());
-			prep.setInt(8, d.getDoctor_charge().getMedical_id());
+			prep.setString(1, d.getBloodType());
+			prep.setInt(2, d.getdni());
+			
+			//update the antigen
+			int idAntigen = d.getAntigen().getId();
+			sql = "UPDATE antigen SET ";
+			
+			//Update the antibody
+			int idAntibody = d.getAntibody().getID();
+			
+			//Update the location
+			int idLocation = d.getLocation().getId();
+			
+			//Update the doctor in charge (tenia el id 0)
+			Doctor 
+			
 			prep.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
