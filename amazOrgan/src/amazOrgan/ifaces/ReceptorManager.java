@@ -13,6 +13,8 @@ public interface ReceptorManager {
 	public void updateReceptor (Receptor r); 
 	//get receptor
 	public Receptor getReceptor (Integer dni);
+	//list the patients of the doctor
+	public List<Receptor> listMyReceptors(Integer medical_id);
 	// Show by bloodtype
 	public List <Receptor> showReceptorsByBloodType (String bloodtype);
 	//Show by urgency
