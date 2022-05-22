@@ -26,6 +26,7 @@ public class JDBCDonorManager implements DonorManager {
 	}
 
 	@Override
+	//TODO
 	public void addDonor(Donor d) {
 		try {
 			System.out.println(d);
@@ -48,6 +49,7 @@ public class JDBCDonorManager implements DonorManager {
 	}
 
 	@Override
+	//this method works
 	public List<Donor> listAllDonors() {
 		// this methods returns a list of donors that are dead and whose organs are available
 		// they only have:
@@ -63,17 +65,21 @@ public class JDBCDonorManager implements DonorManager {
 			// available
 			String sql = "SELECT d1.dni, d1.blood_type FROM donor AS d1 "
 					+ "JOIN organ AS o1 ON d1.dni = o1.donor_dni "
-					+ "WHERE d1.alive = FALSE AND o1.available = TRUE " 
+					+ "WHERE d1.alive = 0 AND o1.available = 1 " 
 					+ "GROUP BY d1.dni";
 			ResultSet rs = stmt.executeQuery(sql);
 
 			while (rs.next()) {
 				Integer dni = rs.getInt("dni");
+				System.out.println(dni);
 				String bloodType = rs.getString("blood_type");
+				System.out.println(bloodType);
+				
 				// this query returns the name of the organs
 				String sql2 = "SELECT ty1.name FROM organ AS o1 "
 						+ "JOIN type_of_organ AS ty1 ON ty1.id = o1.id_type_organ " 
 						+ "WHERE o1.donor_dni = ?";
+				
 				PreparedStatement prep = manager.getConnection().prepareStatement(sql2);
 				prep.setInt(1, dni);
 				ResultSet rs2 = prep.executeQuery();
@@ -85,6 +91,7 @@ public class JDBCDonorManager implements DonorManager {
 				}
 
 				Donor d = new Donor(dni, bloodType, organs);
+				System.out.println(d);
 				deadDonors.add(d);
 			}
 
@@ -98,6 +105,7 @@ public class JDBCDonorManager implements DonorManager {
 	
 	
 	@Override
+	//this method works
 	public Donor getDonor(Integer dni) {
 		
 		Donor donor = null;
@@ -106,7 +114,7 @@ public class JDBCDonorManager implements DonorManager {
 		Location location = null;
 		Doctor doctor_charge = null;
 		Organ organ = null;
-		List<Organ> organs = new LinkedList();
+		List<Organ> organs = null;
 
 		try {
 			// TODO query join
@@ -158,7 +166,7 @@ public class JDBCDonorManager implements DonorManager {
 
 				donor = new Donor(dni, dob, alive, bloodType, antigen, antibody, location, doctor_charge);
 			}
-			
+			 
 
 			// this query returns all the info from the organs
 			sql = "SELECT * FROM  organ AS o1 " 
@@ -181,7 +189,7 @@ public class JDBCDonorManager implements DonorManager {
 				// we get the organ
 				Float size = rs.getFloat("size_organ");
 				Boolean available = rs.getBoolean("available");
-				// ??????? id del donor
+				
 				
 				organ = new Organ(id, t, size, available, donor);
 				organs.add(organ);
@@ -199,7 +207,8 @@ public class JDBCDonorManager implements DonorManager {
 	public void updateDonor(Donor d) {
 		// TODO
 		try {
-			String sql = "UPDATE donor" + " SET =?" + " =?.............";
+			//the donor inserted has a dni, a bloodtype and the organs
+			String sql = "UPDATE donor SET blood_type = ?, SET id_antigen = ?, ";
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setInt(1, d.getdni());
 			prep.setDate(2, d.getdob());

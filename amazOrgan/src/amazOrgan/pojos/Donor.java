@@ -12,7 +12,7 @@ public class Donor implements Serializable {
 	private Date dob;
 	private boolean alive;
 	private String bloodType;
-	private Antigen antigen;
+	private Antigen antigen; 
 	private Antibody antibody;
 	private Location location;
 	private Doctor doctor_charge;
@@ -166,9 +166,13 @@ public class Donor implements Serializable {
 		return Objects.equals(dni, other.dni);
 	}
 
-	// this string has to be adapted with the foreign keys
+
 	@Override
 	public String toString() {
-		return "Donor [dni=" + dni + ", dob=" + dob + ", alive=" + alive + ", bloodType=" + bloodType + this.antigen.toString() + this.antibody.toString() + this.location.toString() + this.doctor_charge.toString() + "]";
+		return "Donor [dni=" + dni + ", dob=" + dob + ", alive=" + alive + ", bloodType=" + bloodType + ", antigen="
+				+ antigen + ", antibody=" + antibody + ", location=" + location + ", doctor_charge=" + doctor_charge
+				+ ", organs=" + organs + "]";
 	}
+
+		
 }
