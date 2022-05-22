@@ -59,22 +59,23 @@ public class JDBCRequestManager implements RequestManager {
 			Statement stmt = manager.getConnection().createStatement();
 			String sql = "SELECT * FROM request AS r1 " 
 					+ "LEFT JOIN type_of_organ AS t1 ON r1.id_type_organ = t1.id "
-					+ "LEFT JOIN organ AS o1 ON r1.organ_id = o1.id " 
+					+ "LEFT JOIN organ AS o1 ON r1.id = o1.id " 
 					+ "WHERE r1.id = " + id;
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
 				Boolean received = rs.getBoolean("received");
-				Float size_organ_request = rs.getFloat("size_organ");
+				Float size_organ_request = rs.getFloat(5);
 
-				Integer id_type_organ = rs.getInt("id_type_organ");
+				Integer id_type_organ = rs.getInt(2);
 				String name = rs.getString("name");
 				Integer lifespan = rs.getInt("lifespan");
 				t = new Type_organ(id_type_organ, name, lifespan);
 
-				Integer organ_id = rs.getInt("organ_id");
+				Integer organ_id = rs.getInt("id_organ");
+				System.out.println("THE ORGAN ID OF A NULL THING IS SOMEHOW " + organ_id);
 
 				if (organ_id != null) {
-					Float size_organ = rs.getFloat("size_organ");
+					Float size_organ = rs.getFloat(11);
 					Boolean available = rs.getBoolean("available");
 					Integer donor_dni = rs.getInt("donor_dni");
 					d = new Donor(donor_dni);

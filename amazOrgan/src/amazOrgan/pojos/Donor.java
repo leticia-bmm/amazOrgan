@@ -10,7 +10,7 @@ public class Donor implements Serializable {
 	private static final long serialVersionUID = 7891925133827348336L;
 	private Integer dni;
 	private Date dob;
-	private boolean alive;
+	private Boolean alive;
 	private String bloodType;
 	private Antigen antigen; 
 	private Antibody antibody;
@@ -69,10 +69,24 @@ public class Donor implements Serializable {
 	}
 
 
-	public Donor(Integer dni2, Date dob2, Boolean b) {
+	public Donor(Integer dni, Date dob, Boolean b) {
 		this.dni = dni;
 		this.dob = dob;
 		this.alive = b;
+	}
+
+
+	public Donor(Integer dni, Date dob, Boolean alive, String bloodtype, Antigen antigen, Antibody antibody,
+			Location location) {
+		super();
+		this.dni = dni;
+		this.dob = dob;
+		this.alive = alive;
+		this.bloodType = bloodtype;
+		this.antigen = antigen;
+		this.antibody = antibody;
+		this.location = location;
+		this.doctor_charge = null;
 	}
 
 

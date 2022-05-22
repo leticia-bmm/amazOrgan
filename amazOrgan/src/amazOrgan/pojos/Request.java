@@ -97,7 +97,7 @@ public class Request implements Serializable{
 	@Override
 	public String toString() {
 		return "Request [id=" + id + ", type_organ=" + type_organ + ", size=" + size + ", received=" + received
-				+ ", donor=" + organ_received + "]";
+				+ ", organ=" + organ_received + "]";
 	}
 
 	

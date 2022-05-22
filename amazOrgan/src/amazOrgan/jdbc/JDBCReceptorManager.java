@@ -31,36 +31,69 @@ public class JDBCReceptorManager implements ReceptorManager {
 	
 	
 
-	//TODO insert EVERYTHING into the database
+	//this method works
 	@Override
 	public void addReceptor(Receptor r) {
 		try {
 			String sql = "INSERT INTO receptor (dni, dob, status, blood_type, alive, urgency, id_antigen, id_antibody, id_location, id_request) VALUES (?,?,?,?,?,?,?,?,?,?)";
-			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
+			PreparedStatement prep = manager.getConnection().prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 			prep.setInt(1, r.getDni());
 			prep.setDate(2, r.getDob());
 			prep.setString(3, r.getStatus());
 			prep.setString(4, r.getBlood_type());
 			prep.setBoolean(5, r.getAlive());
 			prep.setInt(6, r.getUrgency());
+			
 			//inserting the antigen into the database
-			//Antigen antigen = r.getAntigen();
-			prep.setInt(7, r.getAntigen().getId());
+			Antigen antigen = r.getAntigen();
+			String sql1 = "INSERT INTO antigen (a, b, c, dp, dq, dr) VALUES (?,?,?,?,?,?)";
+			PreparedStatement prep1 = manager.getConnection().prepareStatement(sql1);
+			prep1.setBoolean(1, antigen.isA());
+			prep1.setBoolean(2, antigen.isB());
+			prep1.setBoolean(3, antigen.isC());
+			prep1.setBoolean(4, antigen.isDp());
+			prep1.setBoolean(5, antigen.isDq());
+			prep1.setBoolean(6, antigen.isDr());
+			prep1.executeUpdate();
+			ResultSet rs = prep1.getGeneratedKeys();
+			Integer id_antibody = rs.getInt(1);
 			
 			//inserting the antibody into the database
 			Antibody antibody = r.getAntibody();
-			String sql1 = "INSERT INTO antibody (class_I, class_II) VALUES (?,?)";
-			PreparedStatement prep1 = manager.getConnection().prepareStatement(sql1);
+			sql1 = "INSERT INTO antibody (class_I, class_II) VALUES (?,?)";
+			prep1 = manager.getConnection().prepareStatement(sql1);
 			prep1.setBoolean(1, antibody.isClass_I());
 			prep1.setBoolean(2, antibody.isClass_II());
 			prep1.executeUpdate();
-			Statement stmt = manager.getConnection().createStatement();
-			sql1 = "SELECT last_insert_rowid";
-			ResultSet rs = stmt.executeQuery(sql1);
-			System.out.println(rs.getInt(1));
+			rs = prep1.getGeneratedKeys();
+			Integer id_antigen = rs.getInt(1);
 			
-			prep.setInt(9, r.getLocation().getId());
-			prep.setInt(10, r.getRequest().getId());
+			//inserting the location into the database
+			Location location = r.getLocation();
+			sql1 = "INSERT INTO location (latitude, longitude) VALUES (?, ?)";
+			prep1 = manager.getConnection().prepareStatement(sql1);
+			prep1.setFloat(1, location.getLatitude());
+			prep1.setFloat(2, location.getLongitude());
+			prep1.executeUpdate();
+			rs = prep1.getGeneratedKeys();
+			Integer id_location = rs.getInt(1);
+			
+			//inserting request into the database
+			Request request = r.getRequest();
+			sql1 = "INSERT INTO request (id_type_organ, received, size_organ) VALUES (?,?,?)";
+			//ya está creado en la database, siempre tiene el mismo id
+			prep1 = manager.getConnection().prepareStatement(sql1);
+		    prep1.setInt(1, request.getType_organ().getId());
+			prep1.setBoolean(2, request.isReceived());
+			prep1.setFloat(3, request.getSize());
+			prep1.executeUpdate();
+			rs = prep1.getGeneratedKeys();
+			Integer id_request = rs.getInt(1);
+			
+			prep.setInt(7, id_antibody);
+			prep.setInt(8, id_antigen);
+			prep.setInt(9, id_location);
+			prep.setInt(10, id_request);
 			prep.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -106,18 +139,18 @@ public class JDBCReceptorManager implements ReceptorManager {
 					+ "LEFT JOIN antibody AS ab1 ON r1.id_antibody = ab1.id "
 					+ "LEFT JOIN location AS l1 ON r1.id_location = l1.id "
 					+ "LEFT JOIN request AS re1 ON r1.id_request = re1.id "
-					+ "LEFT JOIN type_of_organ AS ty1 ON re1.id_type_organ = ty1.id " 
+					+ "LEFT JOIN type_of_organ AS ty1 ON re1.id_type_organ = ty1.id "
+					+ "LEFT JOIN organ AS o1 ON re1.id_organ = o1.id " 
 					+ "WHERE r1.dni=" + dni;
 			ResultSet rs = stmt.executeQuery(sql);
+			
 			while (rs.next()) {
 				Date dob = rs.getDate("dob");
-				System.out.println(dob);
 				String status = rs.getString("status");
 				String blood_type = rs.getString("blood_type");
-				System.out.println(blood_type);
 				Boolean alive = rs.getBoolean("alive");
 				Integer urgency = rs.getInt("urgency");
-				r = new Receptor(dni, dob, status, blood_type, alive, urgency);
+				
 				// getting the info of the antigen
 				Integer id_antigen = rs.getInt("id_antigen");
 				Boolean a = rs.getBoolean("a");
@@ -127,29 +160,33 @@ public class JDBCReceptorManager implements ReceptorManager {
 				Boolean dq = rs.getBoolean("dq");
 				Boolean dr = rs.getBoolean("dr");
 				antigen = new Antigen(id_antigen, a, b, c, dp, dq, dr);
+				
 				// getting the info of the antibody
 				Integer id_antibody = rs.getInt("id_antibody");
 				Boolean class_I = rs.getBoolean("class_I");
 				Boolean class_II = rs.getBoolean("class_II");
 				antibody = new Antibody(id_antibody, class_I, class_II);
+				
 				// getting the info of the location
 				Integer id_location = rs.getInt("id_location");
 				Float latitude = rs.getFloat("latitude");
 				Float longitude = rs.getFloat("longitude");
 				location = new Location(id_location, latitude, longitude);
+				
 				// getting the info of the request
 				// first the simple attributes
 				Boolean received = rs.getBoolean("received");
 				Float size_request = rs.getFloat(28);
 				// now the foreign keys
 				// getting the type of organ
-				Integer id_type_organ = rs.getInt("id_type_organ");
+				Integer id_type_organ = rs.getInt(33);
 				String name = rs.getString("name");
 				Integer lifespan = rs.getInt("lifespan");
 				type_organ = new Type_organ(id_type_organ, name, lifespan);
 				// getting the info of the organ IF THERE IS ONE
 				Integer organ_id = rs.getInt("id_organ");
-				System.out.println(organ_id);
+				System.out.println("THE ORGAN ID: " + organ_id);
+				
 				if (organ_id != null) {
 					// we are going to reuse the type of organ since it is the same
 					Float size_organ = rs.getFloat(34);
@@ -179,6 +216,7 @@ public class JDBCReceptorManager implements ReceptorManager {
 			p.setInt(1, r.getDni());
 			p.setInt(2, d.getMedical_id());
 			p.executeUpdate();
+			System.out.println("DOCTOR ASSIGNED");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

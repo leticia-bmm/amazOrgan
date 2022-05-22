@@ -18,7 +18,7 @@ public interface DonorManager {
 	showDonorsByBloodType (bloodtype: text): void 
 */
 	
-	public void addDonor(Donor d);
+	public void addDonor(Donor d, Integer medical_id);
 	public void deleteDonor(Integer DNI);
 	public Donor getDonor(Integer DNI);
 	public List <Donor> showDonorsByBloodType (String bloodType);

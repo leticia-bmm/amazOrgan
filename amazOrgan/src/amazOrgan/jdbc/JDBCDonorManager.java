@@ -27,21 +27,57 @@ public class JDBCDonorManager implements DonorManager {
 
 	@Override
 	//TODO
-	public void addDonor(Donor d) {
+	//this method works if the medical id stays
+	//necesito al menos un medical id para que se me junten el donor y el doctor
+	public void addDonor(Donor d, Integer medical_id) {
 		try {
 			System.out.println(d);
 			String sql = "INSERT INTO donor (dni, dob, blood_type, alive, id_antigen, id_antibody, id_location, id_doctor_charge) VALUES (?,?,?,?,?,?,?,?)";
-			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
+			PreparedStatement prep = manager.getConnection().prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 			prep.setInt(1, d.getdni());
 			prep.setDate(2, d.getdob());
 			prep.setString(3, d.getBloodType());
 			prep.setBoolean(4, d.isAlive());
-			prep.setInt(5, d.getAntigen().getId());
-			prep.setInt(6, d.getAntibody().getID());
-			prep.setInt(7, d.getLocation().getId());
-			prep.setInt(8, d.getDoctor_charge().getMedical_id());
+			
+			//inserting the antigen into the database
+			Antigen antigen = d.getAntigen();
+			String sql1 = "INSERT INTO antigen (a, b, c, dp, dq, dr) VALUES (?,?,?,?,?,?)";
+			PreparedStatement prep1 = manager.getConnection().prepareStatement(sql1);
+			prep1.setBoolean(1, antigen.isA());
+			prep1.setBoolean(2, antigen.isB());
+			prep1.setBoolean(3, antigen.isC());
+			prep1.setBoolean(4, antigen.isDp());
+			prep1.setBoolean(5, antigen.isDq());
+			prep1.setBoolean(6, antigen.isDr());
+			prep1.executeUpdate();
+			ResultSet rs = prep1.getGeneratedKeys();
+			Integer id_antibody = rs.getInt(1);
+			
+			//inserting the antibody into the database
+			Antibody antibody = d.getAntibody();
+			sql1 = "INSERT INTO antibody (class_I, class_II) VALUES (?,?)";
+			prep1 = manager.getConnection().prepareStatement(sql1);
+			prep1.setBoolean(1, antibody.isClass_I());
+			prep1.setBoolean(2, antibody.isClass_II());
+			prep1.executeUpdate();
+			rs = prep1.getGeneratedKeys();
+			Integer id_antigen = rs.getInt(1);
+			
+			//inserting the location into the database
+			Location location = d.getLocation();
+			sql1 = "INSERT INTO location (latitude, longitude) VALUES (?, ?)";
+			prep1 = manager.getConnection().prepareStatement(sql1);
+			prep1.setFloat(1, location.getLatitude());
+			prep1.setFloat(2, location.getLongitude());
+			prep1.executeUpdate();
+			rs = prep1.getGeneratedKeys();
+			Integer id_location = rs.getInt(1);
+			
+			prep.setInt(5, id_antibody);
+			prep.setInt(6, id_antigen);
+			prep.setInt(7, id_location);
+			prep.setInt(8, medical_id);
 			prep.executeUpdate();
-			System.out.println("donor added");
 
 		} catch (Exception e) {
 			e.printStackTrace();
