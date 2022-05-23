@@ -72,7 +72,6 @@ public class JDBCOrganManager implements OrganManager {
 		return o;
 	}
 	
-	//este metodo ya no sirve para nada no? si ya hacemos el join que nos da el type of organ?
 	@Override
 	public Type_organ getType_organOfOrgan(Integer id_type_organ) {
 		Type_organ t = null;
