@@ -29,7 +29,9 @@ import amazOrgan.pojos.Doctor;
 import amazOrgan.pojos.Donor;
 import amazOrgan.pojos.Location;
 import amazOrgan.pojos.Receptor;
+import amazOrgan.pojos.Request;
 import amazOrgan.pojos.Role;
+import amazOrgan.pojos.Type_organ;
 import amazOrgan.jdbc.JDBCManager;
 import amazOrgan.jdbc.JDBCOrganManager;
 import amazOrgan.jdbc.JDBCReceptorManager;
@@ -55,7 +57,6 @@ public class Menu {
 	private static UserManager userManager;
 
 	public static void doctor_menu(int medical_id) {
-		// TODO hacer un get del doctor y pasarselo a los otros menus
 
 		try {
 			int option;
@@ -175,8 +176,8 @@ public class Menu {
 					d = donorManager.getDonor(donoDNI);
 					while(d=null) {
 						System.out.println("DNI incorrect");
-						System.out.println("Insert DNI:")
-						Integer donoDNI = Integer.					}
+						System.out.println("Insert DNI:");
+						Integer donoDNI = Integer.				}
 					System.out.println(d);
 					donorManager.updateDonor(d);
 					
@@ -250,7 +251,7 @@ public class Menu {
 				case 1:
 					// + // Register receptor
 					// we are going to register an entire receptor
-					// all the atribites that te recepotr has
+					// all the atribites that te receptor has
 					// except for the doctor in charge
 					// since it is a may to many relationship
 					// we are then asking
@@ -359,7 +360,7 @@ public class Menu {
 
 		// Menu loop
 		try {
-			int option;
+			Integer option;
 			while (true) {
 				System.out.println("Please, choose an option: ");
 				System.out.println("1) Login as a Doctor");
@@ -425,7 +426,10 @@ public class Menu {
 			e.printStackTrace();
 		}
 	}
+	
 
+
+	
 	// TODO: menu del donor pero desde el donor pasandole su DNI
 	public static void donor_menu(int DNI) {
 		try {
@@ -612,6 +616,68 @@ public class Menu {
 		donor_menu(d.getdni());
 
 	}
+	
+	
+	
+	private static String askBT() {
+		try {
+			Integer option;
+			while (true) {
+		String a = "A+";
+		String b = "B+";
+		String o = "O+";
+		String ab= "AB+";
+		String x = "A-";
+		String y = "B-";
+		String z = "O-";
+		String xy ="AB-";
+		System.out.println("INSERT THE NUMBER OF THE BLOODTYPE YOU WANT");
+		System.out.println("A+    1");
+		System.out.println("B+    2");
+		System.out.println("AB+   3");
+		System.out.println("O+    4");
+		System.out.println("A-    5");
+		System.out.println("B-    6");
+		System.out.println("AB-   7");
+		System.out.println("O-    8");
+		
+		option  = Integer.parseInt(reader.readLine());
+		switch(option) {
+	 
+		case 1:
+			return a;
+			
+		case 2: 
+			return b;
+			
+		case 3:
+			return o;
+		
+		case 4:
+			return ab;
+				
+		case 5:
+			return x;
+		case 6:
+			return y;
+		
+		case 7:
+			return z;
+		
+		case 8:
+			return xy;
+		
+		default:
+			System.out.println("The option is not correct");
+			
+				}
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		
+		}
+	}
+	
 
 	// IF ALGUIEN TIENE DUDAS SOBRE JPA (USER-ROLE): VER CLASE 27/04
 	// if salen excepciones mirar la first class que hayamos creado nosotros

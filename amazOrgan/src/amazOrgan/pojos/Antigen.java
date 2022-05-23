@@ -56,67 +56,67 @@ public class Antigen implements Serializable {
 
 
 
-	public void setA(boolean a) {
+	public void setA(Boolean a) {
 		this.a = a;
 	}
 
 
 
-	public boolean isB() {
+	public Boolean isB() {
 		return b;
 	}
 
 
 
-	public void setB(boolean b) {
+	public void setB(Boolean b) {
 		this.b = b;
 	}
 
 
 
-	public boolean isC() {
+	public Boolean isC() {
 		return c;
 	}
 
 
 
-	public void setC(boolean c) {
+	public void setC(Boolean c) {
 		this.c = c;
 	}
 
 
 
-	public boolean isDp() {
+	public Boolean isDp() {
 		return dp;
 	}
 
 
 
-	public void setDp(boolean dp) {
+	public void setDp(Boolean dp) {
 		this.dp = dp;
 	}
 
 
 
-	public boolean isDq() {
+	public Boolean isDq() {
 		return dq;
 	}
 
 
 
-	public void setDq(boolean dq) {
+	public void setDq(Boolean dq) {
 		this.dq = dq;
 	}
 
 
 
-	public boolean isDr() {
+	public Boolean isDr() {
 		return dr;
 	}
 
 
 
-	public void setDr(boolean dr) {
+	public void setDr(Boolean dr) {
 		this.dr = dr;
 	}
 

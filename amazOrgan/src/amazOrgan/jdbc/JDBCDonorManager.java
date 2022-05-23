@@ -33,8 +33,10 @@ public class JDBCDonorManager implements DonorManager {
 		try {
 			System.out.println(d);
 			String sql = "INSERT INTO donor (dni, dob, blood_type, alive, id_antigen, id_antibody, id_location, id_doctor_charge) VALUES (?,?,?,?,?,?,?,?)";
-			PreparedStatement prep = manager.getConnection().prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setInt(1, d.getdni());
+			
+			//TODO trasformation date local date
 			prep.setDate(2, d.getdob());
 			prep.setString(3, d.getBloodType());
 			prep.setBoolean(4, d.isAlive());
