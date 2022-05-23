@@ -50,7 +50,7 @@ public class Antigen implements Serializable {
 
 
 
-	public boolean isA() {
+	public Boolean isA() {
 		return a;
 	}
 
