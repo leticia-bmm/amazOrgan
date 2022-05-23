@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -36,9 +37,9 @@ public class JDBCReceptorManager implements ReceptorManager {
 	public void addReceptor(Receptor r) {
 		try {
 			String sql = "INSERT INTO receptor (dni, dob, status, blood_type, alive, urgency, id_antigen, id_antibody, id_location, id_request) VALUES (?,?,?,?,?,?,?,?,?,?)";
-			PreparedStatement prep = manager.getConnection().prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setInt(1, r.getDni());
-			prep.setDate(2, r.getDob());
+			prep.setDate(2, Date.valueOf(r.getDob()));
 			prep.setString(3, r.getStatus());
 			prep.setString(4, r.getBlood_type());
 			prep.setBoolean(5, r.getAlive());
@@ -146,6 +147,7 @@ public class JDBCReceptorManager implements ReceptorManager {
 			
 			while (rs.next()) {
 				Date dob = rs.getDate("dob");
+				LocalDate dob_java = dob.toLocalDate();
 				String status = rs.getString("status");
 				String blood_type = rs.getString("blood_type");
 				Boolean alive = rs.getBoolean("alive");
@@ -179,15 +181,15 @@ public class JDBCReceptorManager implements ReceptorManager {
 				Float size_request = rs.getFloat(28);
 				// now the foreign keys
 				// getting the type of organ
-				Integer id_type_organ = rs.getInt(33);
+				Integer id_type_organ = rs.getInt(29);
 				String name = rs.getString("name");
 				Integer lifespan = rs.getInt("lifespan");
 				type_organ = new Type_organ(id_type_organ, name, lifespan);
 				// getting the info of the organ IF THERE IS ONE
 				Integer organ_id = rs.getInt("id_organ");
-				System.out.println("THE ORGAN ID: " + organ_id);
 				
-				if (organ_id != null) {
+				//the id_organ cant be read as a null, it returns 0
+				if (organ_id != 0) {
 					// we are going to reuse the type of organ since it is the same
 					Float size_organ = rs.getFloat(34);
 					Boolean available = rs.getBoolean("available");
@@ -198,7 +200,7 @@ public class JDBCReceptorManager implements ReceptorManager {
 				Integer id_request = rs.getInt("id_request");
 				request = new Request(id_request, type_organ, size_request, received, organ_donated);
 
-				r = new Receptor(dni, dob, status, blood_type, alive, urgency, antigen, antibody, location, request);
+				r = new Receptor(dni, dob_java, status, blood_type, alive, urgency, antigen, antibody, location, request);
 			}
 			rs.close();
 			stmt.close();
@@ -209,14 +211,29 @@ public class JDBCReceptorManager implements ReceptorManager {
 	}
 
 	@Override
+	public void unassignDoctor(Receptor r, Doctor d) {
+		//this method works
+		try {
+			String sql = "DELETE FROM examines WHERE receptor_id=? AND medical_id=?";
+			PreparedStatement p = manager.getConnection().prepareStatement(sql);
+			p.setInt(1, r.getDni());
+			p.setInt(2, d.getMedical_id());
+			p.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	@Override
 	public void assignDoctor(Receptor r, Doctor d) {
+		//this method works
 		try {
 			String sql = "INSERT INTO examines (receptor_id, medical_id) VALUES (?,?)";
 			PreparedStatement p = manager.getConnection().prepareStatement(sql);
 			p.setInt(1, r.getDni());
 			p.setInt(2, d.getMedical_id());
 			p.executeUpdate();
-			System.out.println("DOCTOR ASSIGNED");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -250,18 +267,7 @@ public class JDBCReceptorManager implements ReceptorManager {
 		return receptors;
 	}
 	
-	@Override
-	public void unassignDoctor(Receptor r, Doctor d) {
-		try {
-			String sql = "DELETE FROM examines WHERE receptor_id=? AND medical_id=?";
-			PreparedStatement p = manager.getConnection().prepareStatement(sql);
-			p.setInt(1, r.getDni());
-			p.setInt(2, d.getMedical_id());
-			p.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
+
 
 	@Override
 	public List<Receptor> showReceptorsByBloodType(String bloodtype) {

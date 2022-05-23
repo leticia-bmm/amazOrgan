@@ -1,7 +1,7 @@
 package amazOrgan.pojos;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
@@ -9,7 +9,7 @@ public class Receptor implements Serializable{
 
 	  private static final long serialVersionUID = -4194855458607458480L;
 	  private Integer dni;
-	  private Date dob;
+	  private LocalDate dob;
 	  private String status;
 	  private String blood_type;
 	  private Boolean alive;
@@ -27,7 +27,7 @@ public class Receptor implements Serializable{
 		super();
 	}
 	
-	public Receptor(Integer dni, Date dob, String status, String blood_type, Boolean alive, Integer urgency,
+	public Receptor(Integer dni, LocalDate dob, String status, String blood_type, Boolean alive, Integer urgency,
 			Antigen antigen, Antibody antibody, Location location, Request request) {
 		super();
 		this.dni = dni;
@@ -59,7 +59,7 @@ public class Receptor implements Serializable{
 		this.request = request;		
 	}
 
-	public Receptor(Integer dni, Date dob, String status, String blood_type, Boolean alive, Integer urgency) {
+	public Receptor(Integer dni, LocalDate dob, String status, String blood_type, Boolean alive, Integer urgency) {
 		super();
 		this.dni = dni;
 		this.dob = dob;
@@ -96,12 +96,12 @@ public class Receptor implements Serializable{
 	}
 
 
-	public Date getDob() {
+	public LocalDate getDob() {
 		return dob;
 	}
 
 
-	public void setDob(Date dob) {
+	public void setDob(LocalDate dob) {
 		this.dob = dob;
 	}
 

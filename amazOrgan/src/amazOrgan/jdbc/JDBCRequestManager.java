@@ -19,10 +19,12 @@ public class JDBCRequestManager implements RequestManager {
 		this.manager = m;
 	}
 
+	// TODO test methods
+
 	@Override
 	public void addRequest(Request r) {
 		try {
-			String sql = "INSERT INTO request (id_type_organ, received, id_organ, size_organ) VALUES (?,?,?,?)";
+			String sql = "INSERT INTO request (id_type_organ, received, organ_id, size_organ) VALUES (?,?,?,?)";
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setInt(1, r.getType_organ().getId());
 			prep.setBoolean(2, r.isReceived());
@@ -37,7 +39,7 @@ public class JDBCRequestManager implements RequestManager {
 	@Override
 	public void updateOrganId(Request r) {
 		try {
-			String sql = "UPDATE request SET received=? WHERE id_organ=?";
+			String sql = "UPDATE request SET received=? WHERE organ_id=?";
 			PreparedStatement p = manager.getConnection().prepareStatement(sql);
 			p.setBoolean(1, r.isReceived());
 			p.setInt(2, r.getOrgan().getID());
@@ -70,9 +72,10 @@ public class JDBCRequestManager implements RequestManager {
 				t = new Type_organ(id_type_organ, name, lifespan);
 
 				Integer organ_id = rs.getInt("id_organ");
-				System.out.println("THE ORGAN ID OF A NULL THING IS SOMEHOW " + organ_id);
+				//id_organ is read as a 0 when the integer is null
+				//it is not out fault, but we read it as a 0 
 
-				if (organ_id != null) {
+				if (organ_id != 0) {
 					Float size_organ = rs.getFloat(11);
 					Boolean available = rs.getBoolean("available");
 					Integer donor_dni = rs.getInt("donor_dni");
