@@ -19,12 +19,10 @@ public class JDBCRequestManager implements RequestManager {
 		this.manager = m;
 	}
 
-	// TODO test methods
-
 	@Override
 	public void addRequest(Request r) {
 		try {
-			String sql = "INSERT INTO request (id_type_organ, received, organ_id, size_organ) VALUES (?,?,?,?)";
+			String sql = "INSERT INTO request (id_type_organ, received, id_organ, size_organ) VALUES (?,?,?,?)";
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setInt(1, r.getType_organ().getId());
 			prep.setBoolean(2, r.isReceived());
@@ -39,7 +37,7 @@ public class JDBCRequestManager implements RequestManager {
 	@Override
 	public void updateOrganId(Request r) {
 		try {
-			String sql = "UPDATE request SET received=? WHERE organ_id=?";
+			String sql = "UPDATE request SET received=? WHERE id_organ=?";
 			PreparedStatement p = manager.getConnection().prepareStatement(sql);
 			p.setBoolean(1, r.isReceived());
 			p.setInt(2, r.getOrgan().getID());
