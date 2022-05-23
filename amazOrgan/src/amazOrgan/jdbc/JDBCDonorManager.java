@@ -26,8 +26,7 @@ public class JDBCDonorManager implements DonorManager {
 	}
 
 	@Override
-	//TODO
-	
+	//this method works	
 	//necesito al menos un medical id para que se me junten el donor y el doctor
 	public void addDonor(Donor d) {
 		try {
@@ -36,7 +35,7 @@ public class JDBCDonorManager implements DonorManager {
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setInt(1, d.getdni());
 			
-			//TODO trasformation date local date
+			
 			prep.setDate(2, (Date.valueOf(d.getdob())));
 			prep.setString(3, d.getBloodType());
 			prep.setBoolean(4, d.isAlive());
@@ -86,6 +85,64 @@ public class JDBCDonorManager implements DonorManager {
 		}
 	}
 
+
+	
+	@Override
+	//this method works	
+	public void addAliveDonor(Donor d) {
+		
+		//the Donor received only has a dni, dob, is alive and its doctor is unassigned
+		
+		try {
+			System.out.println(d);
+			String sql = "INSERT INTO donor (dni, dob, blood_type, alive, id_antigen, id_antibody, id_location, id_doctor_charge) VALUES (?,?,?,?,?,?,?,?)";
+			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
+			prep.setInt(1, d.getdni());
+						
+			prep.setDate(2, (Date.valueOf(d.getdob())));
+			prep.setString(3, d.getBloodType());
+			prep.setBoolean(4, d.isAlive());
+			
+			//inserting the antigen into the database (everything is null)
+			Antigen antigen = d.getAntigen();
+			Statement stmt = manager.getConnection().createStatement();
+			String sql1 = "INSERT INTO antigen (a, b, c, dp, dq, dr) VALUES (null, null, null, null, null, null)";
+			stmt.executeUpdate(sql1);
+			ResultSet rs = stmt.getGeneratedKeys();
+			Integer id_antibody = rs.getInt(1);
+			
+			//inserting the antibody into the database
+			Antibody antibody = d.getAntibody();
+			stmt = manager.getConnection().createStatement();
+			sql1 = "INSERT INTO antibody (class_I, class_II) VALUES (null, null)";
+			stmt.executeUpdate(sql1);
+			rs = stmt.getGeneratedKeys();
+			Integer id_antigen = rs.getInt(1);
+			
+			//inserting the location into the database
+			Location location = d.getLocation();
+			stmt = manager.getConnection().createStatement();
+			sql1 = "INSERT INTO location (latitude, longitude) VALUES (null, null)";
+			stmt.executeUpdate(sql1);
+			rs = stmt.getGeneratedKeys();
+			Integer id_location = rs.getInt(1);
+			
+			prep.setInt(5, id_antibody);
+			prep.setInt(6, id_antigen);
+			prep.setInt(7, id_location);
+			
+			//when the donor is registered into the database, the id of its doctor in charge is 0 (unassigned)
+			prep.setInt(8, 0);
+			
+			prep.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
 	@Override
 	//this method works
 	public List<Donor> listAllDonors() {
