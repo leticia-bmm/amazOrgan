@@ -36,19 +36,19 @@ public class Antibody implements Serializable {
 		this.id = iD;
 	}
 
-	public boolean isClass_I() {
+	public Boolean isClass_I() {
 		return class_I;
 	}
 
-	public void setClass_I(boolean class_I) {
+	public void setClass_I(Boolean class_I) {
 		this.class_I = class_I;
 	}
 
-	public boolean isClass_II() {
+	public Boolean isClass_II() {
 		return class_II;
 	}
 
-	public void setClass_II(boolean class_II) {
+	public void setClass_II(Boolean class_II) {
 		this.class_II = class_II;
 	}
 
