@@ -23,11 +23,15 @@ import amazOrgan.jdbc.JDBCAntigenManager;
 import amazOrgan.jdbc.JDBCDoctorManager;
 import amazOrgan.jdbc.JDBCDonorManager;
 import amazOrgan.jdbc.JDBCLocationManager;
+import amazOrgan.pojos.Antibody;
+import amazOrgan.pojos.Antigen;
 import amazOrgan.pojos.Doctor;
 import amazOrgan.pojos.Donor;
 import amazOrgan.pojos.Location;
 import amazOrgan.pojos.Receptor;
+import amazOrgan.pojos.Request;
 import amazOrgan.pojos.Role;
+import amazOrgan.pojos.Type_organ;
 import amazOrgan.jdbc.JDBCManager;
 import amazOrgan.jdbc.JDBCOrganManager;
 import amazOrgan.jdbc.JDBCReceptorManager;
@@ -635,13 +639,40 @@ public class Menu {
 	}*/
 
 	
-	/*
-	 * public static void main(String[] ars) { JDBCManager jdbcManager = new
-	 * JDBCManager(); System.out.println("Welcome to amazOrgan!");
-	 * 
-	 * 
-	 * jdbcManager.disconnect(); System.exit(0); }
-	 */
+
+	  public static void main(String[] ars) { 
+		  JDBCManager jdbcManager = new JDBCManager(); 
+		  locationManager = new JDBCLocationManager(jdbcManager);
+		  System.out.println("Welcome to amazOrgan!");
+		  receptorManager = new JDBCReceptorManager(jdbcManager);
+		  antibodyManager = new JDBCAntibodyManager(jdbcManager);
+		  antigenManager = new JDBCAntigenManager(jdbcManager);
+		  doctorManager = new JDBCDoctorManager(jdbcManager);
+		  donorManager = new JDBCDonorManager(jdbcManager);
+		  organManager = new JDBCOrganManager(jdbcManager);
+		  requestManager = new JDBCRequestManager(jdbcManager);
+		  
+		  try {
+
+			  //Receptor r = receptorManager.getReceptor(45);
+			  Doctor d = doctorManager.getDoctor(1);
+			  
+			  Request request = requestManager.getRequest(3);
+			  
+			  System.out.println(request);
+			  //receptorManager.assignDoctor(r, d);
+			  
+			  
+			  
+		  }catch(Exception e) {
+			  e.printStackTrace();
+		  }		  
+		  
+		  jdbcManager.disconnect(); 
+		  System.exit(0); 
+	  
+	  
+	  }
 
 	
 	
