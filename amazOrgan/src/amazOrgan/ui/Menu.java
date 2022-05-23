@@ -25,6 +25,7 @@ import amazOrgan.jdbc.JDBCDonorManager;
 import amazOrgan.jdbc.JDBCLocationManager;
 import amazOrgan.pojos.Antibody;
 import amazOrgan.pojos.Antigen;
+import amazOrgan.pojos.Antigen;
 import amazOrgan.pojos.Doctor;
 import amazOrgan.pojos.Donor;
 import amazOrgan.pojos.Location;
@@ -74,17 +75,17 @@ public class Menu {
 				case 1:
 					// See my patients
 					System.out.println("SEE MY PATIENTS");
-					System.out.println(doctorManager.listMyReceptors(medical_id));
-					System.out.println(doctorManager.listMyDonors(medical_id));
-					
+					System.out.println(receptorManager.listMyReceptors(medical_id));
+					System.out.println(donorManager.listMyDonors(medical_id));
+
 					break;
 
 				case 2:
 					// Change my data
 					System.out.println("CHANGE MY DATA");
 					// getDoctor to show the info
-					//ask for changes
-					//create the new doctor by calling the constructor
+					// ask for changes
+					// create the new doctor by calling the constructor
 					// doctorManager.changeMyData(doctor);
 					// hecho
 					break;
@@ -175,8 +176,8 @@ public class Menu {
 					d= donorManager.getDonor(donoDNI);
 					while(d=null) {
 						System.out.println("DNI incorrect");
-						System.out.println("Insert DNI:")
-						Integer donoDNI = Integer.					}
+						System.out.println("Insert DNI:");
+						Integer donoDNI = Integer.				}
 					System.out.println(d);
 					donorManager.updateDonor(d);
 					
@@ -248,16 +249,14 @@ public class Menu {
 
 				switch (option) {
 				case 1:
-	//+				// Register receptor
+					// + // Register receptor
 					// we are going to register an entire receptor
 					// all the atribites that te recepotr has
 					// except for the doctor in charge
 					// since it is a may to many relationship
 					// we are then asking
 					System.out.println("REGISTER RECEPTOR");
-					System.out.println("Insert the next value: "
-							+ "D "
-							+ " ");
+					System.out.println("Insert the next value: " + "D " + " ");
 					// when we register a patient, we have to
 					// call the methods add
 					// and all the objects to addthem individually un the database
@@ -272,21 +271,20 @@ public class Menu {
 					System.out.println("Please, choose an option:");
 					System.out.println("1) By bloodtype");
 					System.out.println("2) By urgency");
-					
+
 					int choice = Integer.parseInt(reader.readLine());
-					switch(choice) {
+					switch (choice) {
 					case 1:
 						String bt = askBT();
 						System.out.println(receptorManager.showReceptorsByBloodType(bt));
-						
+
 						break;
-					
-					
+
 					case 2:
 						System.out.println(receptorManager.showReceptorsByUrgency());
-					
-					break;
-					
+
+						break;
+
 					default:
 						System.out.println("The selected option is not correct.");
 						break;
@@ -300,20 +298,20 @@ public class Menu {
 					Integer receptorDNI = Integer.parseInt(reader.readLine());
 					receptorManager.getReceptor(receptorDNI);
 					// getReceptor();
-					// DONE 
+					// DONE
 					break;
 
 				case 4:
-	//+ 			// Update data
+					// + // Update data
 					Receptor r = new Receptor();
-					
+
 					System.out.println("UPDATE DATA");
 					System.out.println("INSERT DNI");
 					Integer receptor_DNI = Integer.parseInt(reader.readLine());
 					r = receptorManager.getReceptor(receptor_DNI);
 					System.out.println(r);
-					
-					// TENDRÍA QUE HACER UN SWITCH  CON LAS OPCIONES QUE TENDRÍA QUE HACER??
+
+					// TENDRÍA QUE HACER UN SWITCH CON LAS OPCIONES QUE TENDRÍA QUE HACER??
 					// NO LO CREO, PERO SINO COMO CAMBIO SOLO LAS QUE QUIERO
 					// updateReceptor();
 					// we can change alive, urgency and status
@@ -335,97 +333,131 @@ public class Menu {
 
 	}
 
-	/*public static void main(String[] ars) {
-
-		System.out.println("Welcome to amazOrgan!");
-
-		// TODO
-		// Initialize database for JDBC
-		// -----------------------------
-		JDBCManager jdbcManager = new JDBCManager();
-		antibodyManager = new JDBCAntibodyManager(jdbcManager);
-		antigenManager = new JDBCAntigenManager(jdbcManager);
-		doctorManager = new JDBCDoctorManager(jdbcManager);
-		donorManager = new JDBCDonorManager(jdbcManager);
-		locationManager = new JDBCLocationManager(jdbcManager);
-		organManager = new JDBCOrganManager(jdbcManager);
-		receptorManager = new JDBCReceptorManager(jdbcManager);
-		requestManager = new JDBCRequestManager(jdbcManager);
-		type_organManager = new JDBCType_organManager(jdbcManager);
-
-		// = new ...Manager()
-
-		// TODO
-		// Initialize database for JPA
-		// ----------------------------
-		userManager = new JPAUserManager();
-
-		// Menu loop
+	private static String askBT() {
 		try {
-			int option;
+			Integer option;
 			while (true) {
-				System.out.println("Please, choose an option: ");
-				System.out.println("1) Login as a Doctor");
-				System.out.println("2) Register as a Doctor");
-				System.out.println("3) Login as a Donor");
-				System.out.println("4) Register as a Donor");
-
-				option = Integer.parseInt(reader.readLine());
-
-				switch (option) {
-				case 1:
-					// Login as a Doctor
-					System.out.println("LOGIN AS A DOCTOR");
-					loginDoctor(); // ask here for the id and the password
-					break;
-
-				case 2:
-					// Register as a Doctor
-					System.out.println("REGISTER AS A DOCTOR");
-					registerDoctor();
-					break;
-
-				case 3:
-					// Login as a Donor
-					System.out.println("LOGIN AS A DONOR");
-					// login_donor() ask here for the id and the password
-					int dni = 1;
-					donor_menu(dni); // this method is called from the login
-					// you can only insert info or see your data
-
-					break;
-
-				case 4:
-					// Register as a Donor
-					System.out.println("Register AS A DONOR");
-					// register_donor() ask here for the id and the password
-					int DNI = 3;
-					donor_menu(DNI); // this method is called from the register
-					// you can only insert info or see your data
-
-					break;
-
-				default:
-					System.out.println("The selected option is not correct.");
-					break;
-				}
-
-				break; // to exit the loop
-			}
-
-			// if we reach this point, it is because the user wants to exit the program
-
-			// Close the connection with the database
-			jdbcManager.disconnect();
-			System.exit(0);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
+		String a = "A+";
+		String b = "B+";
+		String o = "O+";
+		String ab= "AB+";
+		String x = "A-";
+		String y = "B-";
+		String z = "O-";
+		String xy ="AB-";
+		System.out.println("INSERT THE NUMBER OF THE BLOODTYPE YOU WANT");
+		System.out.println("A+    1");
+		System.out.println("B+    2");
+		System.out.println("AB+   3");
+		System.out.println("O+    4");
+		System.out.println("A-    5");
+		System.out.println("B-    6");
+		System.out.println("AB-   7");
+		System.out.println("O-    8");
 		
-	}*/
+		option  = Integer.parseInt(reader.readLine());
+		switch(option) {
+	 
+		case 1:
+			return a;
+			
+		case 2: 
+			return b;
+			
+		case 3:
+			return o;
+		
+		case 4:
+			return ab;
+				
+		case 5:
+			return x;
+		case 6:
+			return y;
+		
+		case 7:
+			return z;
+		
+		case 8:
+			return xy;
+		
+		default:
+			System.out.println("The option is not correct");
+			
+				}
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		
+		}
+	}
 
+	/*
+	 * public static void main(String[] ars) {
+	 * 
+	 * System.out.println("Welcome to amazOrgan!");
+	 * 
+	 * // TODO // Initialize database for JDBC // -----------------------------
+	 * JDBCManager jdbcManager = new JDBCManager(); antibodyManager = new
+	 * JDBCAntibodyManager(jdbcManager); antigenManager = new
+	 * JDBCAntigenManager(jdbcManager); doctorManager = new
+	 * JDBCDoctorManager(jdbcManager); donorManager = new
+	 * JDBCDonorManager(jdbcManager); locationManager = new
+	 * JDBCLocationManager(jdbcManager); organManager = new
+	 * JDBCOrganManager(jdbcManager); receptorManager = new
+	 * JDBCReceptorManager(jdbcManager); requestManager = new
+	 * JDBCRequestManager(jdbcManager); type_organManager = new
+	 * JDBCType_organManager(jdbcManager);
+	 * 
+	 * // = new ...Manager()
+	 * 
+	 * // TODO // Initialize database for JPA // ----------------------------
+	 * userManager = new JPAUserManager();
+	 * 
+	 * // Menu loop try { int option; while (true) {
+	 * System.out.println("Please, choose an option: ");
+	 * System.out.println("1) Login as a Doctor");
+	 * System.out.println("2) Register as a Doctor");
+	 * System.out.println("3) Login as a Donor");
+	 * System.out.println("4) Register as a Donor");
+	 * 
+	 * option = Integer.parseInt(reader.readLine());
+	 * 
+	 * switch (option) { case 1: // Login as a Doctor
+	 * System.out.println("LOGIN AS A DOCTOR"); loginDoctor(); // ask here for the
+	 * id and the password break;
+	 * 
+	 * case 2: // Register as a Doctor System.out.println("REGISTER AS A DOCTOR");
+	 * registerDoctor(); break;
+	 * 
+	 * case 3: // Login as a Donor System.out.println("LOGIN AS A DONOR"); //
+	 * login_donor() ask here for the id and the password int dni = 1;
+	 * donor_menu(dni); // this method is called from the login // you can only
+	 * insert info or see your data
+	 * 
+	 * break;
+	 * 
+	 * case 4: // Register as a Donor System.out.println("Register AS A DONOR"); //
+	 * register_donor() ask here for the id and the password int DNI = 3;
+	 * donor_menu(DNI); // this method is called from the register // you can only
+	 * insert info or see your data
+	 * 
+	 * break;
+	 * 
+	 * default: System.out.println("The selected option is not correct."); break; }
+	 * 
+	 * break; // to exit the loop }
+	 * 
+	 * // if we reach this point, it is because the user wants to exit the program
+	 * 
+	 * // Close the connection with the database jdbcManager.disconnect();
+	 * System.exit(0);
+	 * 
+	 * } catch (Exception e) { e.printStackTrace(); }
+	 * 
+	 * 
+	 * }
+	 */
 	// TODO: menu del donor pero desde el donor pasandole su DNI
 	public static void donor_menu(int DNI) {
 		try {
@@ -572,7 +604,6 @@ public class Menu {
 		// ask for all the information
 		// can only insert insert his dni, dob and organs (type of organ)
 		// al insertar alive es by default true
-		
 
 		System.out.println("Introduce your DNI:");
 		Integer dni = Integer.parseInt(reader.readLine());
@@ -614,9 +645,23 @@ public class Menu {
 
 	// IF ALGUIEN TIENE DUDAS SOBRE JPA (USER-ROLE): VER CLASE 27/04
 	// if salen excepciones mirar la first class que hayamos creado nosotros
-	
 
-	/*public static void addOrgans(int DNI) {
+	/*
+	 * public static void addOrgans(int DNI) {
+	 * 
+	 * System.out.println("How many organs do you want to donate?"); int number =
+	 * Integer.parseInt(reader.readLine()); List<Organ> organs = new
+	 * LinkedList<Organ>(); Organ o; Type_organ t; String name;
+	 * 
+	 * for (int i = 0; i < number; i++) {
+	 * System.out.println("Introduce the organ:"); name = reader.readLine(); t = new
+	 * Type_organ(name); o = new Organ(t, false); organs.add(o); }
+	 * 
+	 * Donor d = new Donor(dni, dob, true, null, null, null, null, null, organs);
+	 * donorManager.addDonor(d);
+	 * 
+	 * }
+	 */
 
 		System.out.println("How many organs do you want to donate?");
 		int number = Integer.parseInt(reader.readLine());
@@ -632,6 +677,23 @@ public class Menu {
 			o = new Organ(t, false);
 			organs.add(o);
 		}
+	/*
+	 * public static void addOrgans(int DNI) {
+	 * 
+	 * System.out.println("How many organs do you want to donate?"); int number =
+	 * Integer.parseInt(reader.readLine()); List<Organ> organs = new
+	 * LinkedList<Organ>(); Organ o; Type_organ t; String name;
+	 * 
+	 * for (int i = 0; i < number; i++) {
+	 * System.out.println("Introduce the organ:"); name = reader.readLine(); t = new
+	 * Type_organ(name); o = new Organ(t, false); organs.add(o); }
+	 * 
+	 * Donor d = new Donor(dni, dob, true, null, null, null, null, null, organs);
+	 * donorManager.addDonor(d);
+	 * 
+	 * }
+	 */
+
 
 		Donor d = new Donor(dni, dob, true, null, null, null, null, null, organs);
 		donorManager.addDonor(d);
@@ -639,6 +701,13 @@ public class Menu {
 	}*/
 
 	
+	/*
+	 * public static void main(String[] ars) { JDBCManager jdbcManager = new
+	 * JDBCManager(); System.out.println("Welcome to amazOrgan!");
+	 * 
+	 * 
+	 * jdbcManager.disconnect(); System.exit(0); }
+	 */
 
 	  public static void main(String[] ars) { 
 		  JDBCManager jdbcManager = new JDBCManager(); 
@@ -674,7 +743,4 @@ public class Menu {
 	  
 	  }
 
-	
-	
-	
 }
