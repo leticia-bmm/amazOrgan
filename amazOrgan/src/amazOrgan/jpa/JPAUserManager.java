@@ -33,7 +33,7 @@ public class JPAUserManager implements UserManager {
 		//These roles just need to be inserted the first time that we create the database
 		//not every time that i connect to the database (is empty)
 		if (this.getRoles().isEmpty()) {
-			Role doctor = new Role("doctor");
+			Role doctor = new Role("doctor"); 
 			Role donor = new Role("donor");
 			this.newRole(doctor);
 			this.newRole(donor);

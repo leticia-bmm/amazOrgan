@@ -27,9 +27,9 @@ public class JDBCDonorManager implements DonorManager {
 
 	@Override
 	//TODO
-	//this method works if the medical id stays
+	
 	//necesito al menos un medical id para que se me junten el donor y el doctor
-	public void addDonor(Donor d, Integer medical_id) {
+	public void addDonor(Donor d) {
 		try {
 			System.out.println(d);
 			String sql = "INSERT INTO donor (dni, dob, blood_type, alive, id_antigen, id_antibody, id_location, id_doctor_charge) VALUES (?,?,?,?,?,?,?,?)";
@@ -37,7 +37,7 @@ public class JDBCDonorManager implements DonorManager {
 			prep.setInt(1, d.getdni());
 			
 			//TODO trasformation date local date
-			prep.setDate(2, d.getdob());
+			prep.setDate(2, (Date.valueOf(d.getdob())));
 			prep.setString(3, d.getBloodType());
 			prep.setBoolean(4, d.isAlive());
 			
@@ -78,7 +78,7 @@ public class JDBCDonorManager implements DonorManager {
 			prep.setInt(5, id_antibody);
 			prep.setInt(6, id_antigen);
 			prep.setInt(7, id_location);
-			prep.setInt(8, medical_id);
+			prep.setInt(8, d.getDoctor_charge().getMedical_id());
 			prep.executeUpdate();
 
 		} catch (Exception e) {
@@ -143,7 +143,7 @@ public class JDBCDonorManager implements DonorManager {
 	
 	
 	@Override
-	//this method works
+	
 	public Donor getDonor(Integer dni) {
 		
 		Donor donor = null;
