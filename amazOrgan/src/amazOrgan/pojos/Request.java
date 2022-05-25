@@ -3,14 +3,35 @@ package amazOrgan.pojos;
 import java.io.Serializable;
 import java.util.Objects;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
+@XmlAccessorType(XmlAccessType.FIELD) //annotations in the attributes
+@XmlRootElement(name = "Request") //int his calss the name of the root is going to be Request
+@XmlType(propOrder = { "type_organ", "size", "received", "organ_received" })
+//propr element the order in wicht they apear 
 public class Request implements Serializable{
 
 	private static final long serialVersionUID = 5641142258720418989L;
+	@XmlAttribute
 	private Integer id;
+	@XmlElement
 	private Type_organ type_organ;
+	@XmlAttribute
 	private Float size;
-	private boolean received;
+	@XmlAttribute
+	private Boolean received;
+	@XmlElement
 	private Organ organ_received;
+	
+	//element --> can have other elements and attributes inside 
+	//written as <>
+	//attributes --> cannot have anything inside
+	//written beside the element or root
 	
 	//constructor
 	public Request() {

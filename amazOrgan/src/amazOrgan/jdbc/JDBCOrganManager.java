@@ -4,10 +4,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
+
+import javax.persistence.Query;
 
 import amazOrgan.ifaces.OrganManager;
 import amazOrgan.pojos.Organ;
 import amazOrgan.pojos.Type_organ;
+import amazOrgan.xml.Report;
 
 
 public class JDBCOrganManager implements OrganManager {
@@ -91,5 +95,6 @@ public class JDBCOrganManager implements OrganManager {
 		}
 		return t;
 	}	
+
 	
 }

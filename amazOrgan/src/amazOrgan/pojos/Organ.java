@@ -3,15 +3,36 @@ package amazOrgan.pojos;
 import java.io.Serializable;
 import java.util.Objects;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
+
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "Organ")
+@XmlType(propOrder = { "type_organ", "size", "available"})
 public class Organ implements Serializable{
 
 	
 	private static final long serialVersionUID = 5480172447522775066L;
+	@XmlAttribute
 	private Integer id;
+	@XmlElement
 	private Type_organ type_organ;
+	@XmlAttribute
 	private Float size;
+	@XmlAttribute
 	private Boolean available;
+	@XmlTransient
 	private Donor donor;
+	//donor is an attribute because we are just showing
+	//the dni of the donor
+	
+	//for ommiting infromation to XML
+	//the annotation will be XmlTransient
 	
 	//constructor
 	public Organ() {

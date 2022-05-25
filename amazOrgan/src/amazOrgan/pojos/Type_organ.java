@@ -3,6 +3,8 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
+import javax.xml.bind.annotation.XmlAttribute;
+
 
 public class Type_organ implements Serializable {
 

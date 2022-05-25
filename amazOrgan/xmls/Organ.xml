@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Organ size="45.0" available="true" id="10">
+    <type_organ>
+        <id>7</id>
+        <lifespan>50</lifespan>
+        <name>kidney</name>
+    </type_organ>
+</Organ>
