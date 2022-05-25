@@ -13,8 +13,7 @@ import amazOrgan.pojos.Organ;
 
 public class Xml2JavaOrgan {
 
-	private static final String PERSISTENCE_PROVIDER = "amazOrgan-provider";
-	private static EntityManagerFactory factory;
+
 
 	public static void unmarshallOrgan() throws Exception {
 
@@ -27,28 +26,8 @@ public class Xml2JavaOrgan {
 
 		System.out.println(organ);
 
-		// Store the report in the database
-		// Create entity manager
-		factory = Persistence.createEntityManagerFactory(PERSISTENCE_PROVIDER);
-		EntityManager em = factory.createEntityManager();
-		em.getTransaction().begin();
-		em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
-		em.getTransaction().commit();
-
-		// Create a transaction
-		EntityTransaction tx1 = em.getTransaction();
-
-		// Start transaction
-		tx1.begin();
-
-		// Persist
-		// We assume the authors are not already in the database
-		// In a real world, we should check if they already exist
-		// and update them instead of inserting as new
-		em.persist(organ);
-
-		// End transaction
-		tx1.commit();
+		// Store the organ in the database
+		
 
 	}
 

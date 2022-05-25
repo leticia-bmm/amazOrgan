@@ -11,6 +11,7 @@ import amazOrgan.ifaces.OrganManager;
 import amazOrgan.jdbc.JDBCManager;
 import amazOrgan.jdbc.JDBCOrganManager;
 import amazOrgan.pojos.Organ;
+import amazOrgan.pojos.OrganList;
 
 
 public class Java2XmlOrgan {
@@ -28,14 +29,14 @@ public class Java2XmlOrgan {
 		//print organs
 		//ask for an organ to Xml file
 		
-		Organ organ = organManager.getOrgan(6);
-		System.out.println(organ);
+		OrganList organs = organManager.getOrgans();
+		System.out.println(organs);
 		//do a query to acces the info inside the database
 		File file = new File ("./xmls/Organ.xml");
-		marshaller.marshal(organ, file);
+		marshaller.marshal(organs, file);
 		
 		//print my organ in console
-		marshaller.marshal(organ, System.out);
+		marshaller.marshal(organs, System.out);
 
 	}
 	

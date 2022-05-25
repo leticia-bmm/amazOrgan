@@ -5,17 +5,35 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
+
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(propOrder = {"dni", "bloodType"})
 public class Donor implements Serializable {
 
 	private static final long serialVersionUID = 7891925133827348336L;
+	@XmlAttribute
 	private Integer dni;
+	@XmlTransient
 	private LocalDate dob;
+	@XmlTransient
 	private Boolean alive;
+	@XmlAttribute
 	private String bloodType;
+	@XmlTransient
 	private Antigen antigen; 
+	@XmlTransient
 	private Antibody antibody;
+	@XmlTransient
 	private Location location;
+	@XmlTransient
 	private Doctor doctor_charge;
+	@XmlTransient
 	private List<Organ> organs;
 
 	// constructor

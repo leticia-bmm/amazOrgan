@@ -1,16 +1,37 @@
 package amazOrgan.pojos;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
-public class OrganList {
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlType;
 
+@XmlAccessorType(XmlAccessType.FIELD)  //annotations in the attributes
+@XmlRootElement(name = "Organ-List")//int his calss the name of the root is going to be Organ
+//@XmlSeeAlso({Organ.class})
+@XmlType(propOrder = { "organs"})
+//propr element the order in wicht they apear 
+public class OrganList implements Serializable{
+
+
+	private static final long serialVersionUID = -2837126457259916536L;
+	@XmlElement
 	private List<Organ> organs;
 
 	public OrganList(List<Organ> organs) {
-		super();
+		//super();
 		this.organs = organs;
 	}
+	
+	public OrganList () {
+		
+	}
+
 
 	public List<Organ> getOrgans() {
 		return organs;

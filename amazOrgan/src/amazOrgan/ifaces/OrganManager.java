@@ -1,6 +1,7 @@
 package amazOrgan.ifaces;
 
 import amazOrgan.pojos.Organ;
+import amazOrgan.pojos.OrganList;
 import amazOrgan.pojos.Type_organ;
 
 public interface OrganManager {
@@ -16,6 +17,7 @@ public interface OrganManager {
 	public void deleteOrgan(Integer id);
 	public Organ getOrgan (Integer id);
 	public Type_organ getType_organOfOrgan(Integer id_type_organ);
+	public OrganList getOrgans();
 	
 	
 	

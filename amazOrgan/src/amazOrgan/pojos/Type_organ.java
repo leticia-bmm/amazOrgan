@@ -3,18 +3,28 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
 
 
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(propOrder = {"id", "name", "lifespan"})
 public class Type_organ implements Serializable {
 
 	
 	private static final long serialVersionUID = -60093262058037111L;
-	
+	@XmlAttribute
 	private Integer id;  //same names as in the database
+	@XmlAttribute
 	private String name;
+	@XmlAttribute
 	private Integer lifespan;
+	@XmlTransient
 	private List <Request> requests;
+	@XmlTransient
 	private List <Organ> organs;
 	
 	
