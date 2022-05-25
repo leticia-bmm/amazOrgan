@@ -1,8 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<Organ size="45.0" available="true" id="10">
-    <type_organ>
-        <id>7</id>
-        <lifespan>50</lifespan>
-        <name>kidney</name>
-    </type_organ>
-</Organ>
+<Organ-List>
+    <organs size="23.0" available="true" id="1">
+        <type_organ id="1" name="heart" lifespan="70"/>
+    </organs>
+    <organs size="23.0" available="true" id="2">
+        <type_organ id="1" name="heart" lifespan="70"/>
+    </organs>
+    <organs size="23.0" available="true" id="3">
+        <type_organ id="1" name="heart" lifespan="70"/>
+    </organs>
+    <organs size="23.0" available="true" id="4">
+        <type_organ id="1" name="heart" lifespan="70"/>
+    </organs>
+    <organs size="23.0" available="true" id="5">
+        <type_organ id="1" name="heart" lifespan="70"/>
+    </organs>
+    <organs size="23.0" available="false" id="6">
+        <type_organ id="1" name="heart" lifespan="70"/>
+    </organs>
+</Organ-List>
