@@ -7,13 +7,11 @@ import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.persistence.Query;
 
 import amazOrgan.ifaces.OrganManager;
 import amazOrgan.pojos.Organ;
 import amazOrgan.pojos.OrganList;
 import amazOrgan.pojos.Type_organ;
-import amazOrgan.xml.Report;
 
 
 public class JDBCOrganManager implements OrganManager {
