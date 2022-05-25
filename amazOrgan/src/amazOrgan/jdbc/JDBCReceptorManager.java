@@ -96,6 +96,7 @@ public class JDBCReceptorManager implements ReceptorManager {
 			prep.setInt(9, id_location);
 			prep.setInt(10, id_request);
 			prep.executeUpdate();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

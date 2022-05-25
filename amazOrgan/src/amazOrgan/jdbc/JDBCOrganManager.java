@@ -9,6 +9,7 @@ import java.util.List;
 
 
 import amazOrgan.ifaces.OrganManager;
+import amazOrgan.pojos.Donor;
 import amazOrgan.pojos.Organ;
 import amazOrgan.pojos.OrganList;
 import amazOrgan.pojos.Type_organ;
@@ -63,10 +64,11 @@ public class JDBCOrganManager implements OrganManager {
 			while(rs.next()) {
 				Integer id_type_organ = rs.getInt("id_type_organ");
 				Float size = rs.getFloat("size_organ");
-				boolean available = rs.getBoolean("available");
-				o = new Organ(id, size, available);
+				Boolean available = rs.getBoolean("available");
+				Integer id_donor = rs.getInt("donor_dni");
+				Donor donor = new Donor(id_donor);
+				o = new Organ(id, size, available, donor);
 				o.setType_organ(this.getType_organOfOrgan(id_type_organ));
-				
 			}
 			rs.close();
 			stmt.close();
@@ -84,15 +86,17 @@ public class JDBCOrganManager implements OrganManager {
 		try {
 			Statement stmt = manager.getConnection().createStatement();
 			String sql = "SELECT * FROM organ AS o1 "
-					+ "JOIN type_of_organ AS t1 "
-					+ "ON o1.id_type_organ = t1.id ";
+					+ "LEFT JOIN type_of_organ AS t1 ON o1.id_type_organ = t1.id "
+					+ "LEFT JOIN donor AS d1 ON o1.donor_dni = d1.dni";
 			ResultSet rs = stmt.executeQuery(sql);
 			while(rs.next()) {
 				Integer id = rs.getInt(1);
 				Integer id_type_organ = rs.getInt("id_type_organ");
 				Float size = rs.getFloat("size_organ");
 				Boolean available = rs.getBoolean("available");
-				o = new Organ(id, size, available);
+				Integer id_donor = rs.getInt("donor_dni");
+				Donor donor = new Donor(id_donor);
+				o = new Organ(id, size, available, donor);
 				o.setType_organ(this.getType_organOfOrgan(id_type_organ));
 				organs.add(o);
 			}

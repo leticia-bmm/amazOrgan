@@ -37,6 +37,11 @@ public class Donor implements Serializable {
 	private List<Organ> organs;
 
 	// constructor
+
+	public Donor() {
+		super();
+	}
+	
 	public Donor(Integer dNI, LocalDate dOB, Boolean alive, String bloodType, Antigen antigen, Antibody antibody,
 			Location location, Doctor doctor_charge, List<Organ> organs) {
 		super();
@@ -65,8 +70,6 @@ public class Donor implements Serializable {
 	}
 	
 
-	// getters and setters
-
 	public Donor(Integer donor_id, Boolean alive) {
 		super();
 		this.dni = donor_id;
@@ -88,6 +91,7 @@ public class Donor implements Serializable {
 
 
 	public Donor(Integer dni, LocalDate dob, Boolean b) {
+		super();
 		this.dni = dni;
 		this.dob = dob;
 		this.alive = b;
@@ -112,6 +116,7 @@ public class Donor implements Serializable {
 	}
 
 
+	// getters and setters
 	public Integer getdni() {
 		return dni;
 	}

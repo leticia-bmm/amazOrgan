@@ -24,12 +24,12 @@ public class OrganList implements Serializable{
 	private List<Organ> organs;
 
 	public OrganList(List<Organ> organs) {
-		//super();
+		super();
 		this.organs = organs;
 	}
 	
 	public OrganList () {
-		
+		super();
 	}
 
 

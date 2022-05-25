@@ -2,20 +2,14 @@
 <Organ-List>
     <organs size="23.0" available="true" id="1">
         <type_organ id="1" name="heart" lifespan="70"/>
+        <donor dni="2"/>
     </organs>
-    <organs size="23.0" available="true" id="2">
-        <type_organ id="1" name="heart" lifespan="70"/>
+    <organs size="9.7" available="true" id="8">
+        <type_organ id="8" name="bowel" lifespan="5"/>
+        <donor dni="3"/>
     </organs>
-    <organs size="23.0" available="true" id="3">
-        <type_organ id="1" name="heart" lifespan="70"/>
-    </organs>
-    <organs size="23.0" available="true" id="4">
-        <type_organ id="1" name="heart" lifespan="70"/>
-    </organs>
-    <organs size="23.0" available="true" id="5">
-        <type_organ id="1" name="heart" lifespan="70"/>
-    </organs>
-    <organs size="23.0" available="false" id="6">
-        <type_organ id="1" name="heart" lifespan="70"/>
+    <organs size="4.5" available="false" id="9">
+        <type_organ id="10" name="kidney" lifespan="10"/>
+        <donor dni="1"/>
     </organs>
 </Organ-List>
