@@ -10,10 +10,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlAccessorType(XmlAccessType.FIELD) //annotations in the attributes
-@XmlRootElement(name = "Request") //int his calss the name of the root is going to be Request
-@XmlType(propOrder = { "type_organ", "size", "received", "organ_received" })
-//propr element the order in wicht they apear 
 public class Request implements Serializable{
 
 	private static final long serialVersionUID = 5641142258720418989L;

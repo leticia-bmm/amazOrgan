@@ -8,12 +8,15 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "Organ")
-@XmlType(propOrder = { "type_organ", "size", "available"})
+@XmlAccessorType(XmlAccessType.FIELD)  //annotations in the attributes
+@XmlRootElement(name = "Organ")//int his calss the name of the root is going to be Organ
+@XmlType(propOrder = { "type_organ", "size", "available", "donor"})
+//propr element the order in wicht they apear 
+@XmlSeeAlso({OrganList.class})
 public class Organ implements Serializable{
 
 	
@@ -26,13 +29,18 @@ public class Organ implements Serializable{
 	private Float size;
 	@XmlAttribute
 	private Boolean available;
-	@XmlTransient
+	@XmlElement
 	private Donor donor;
-	//donor is an attribute because we are just showing
-	//the dni of the donor
+	//we have to anotate the class even if we only have to show DNI
 	
 	//for ommiting infromation to XML
 	//the annotation will be XmlTransient
+	
+	//element --> can have other elements and attributes inside 
+	//written as <>
+	//attributes --> cannot have anything inside
+	//written beside the element or root
+	
 	
 	//constructor
 	public Organ() {
@@ -62,6 +70,14 @@ public class Organ implements Serializable{
 	public Organ(Type_organ t) {
 		super();
 		this.type_organ = t;
+	}
+
+	public Organ(Integer id, Float size_organ, Boolean available, Donor donor) {
+		super();
+		this.id = id;
+		this.size = size_organ;
+		this.available = available;
+		this.donor = donor;
 	}
 
 	//getters and setters

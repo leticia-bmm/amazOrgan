@@ -210,6 +210,19 @@ public class Receptor implements Serializable{
 				+ ", urgency=" + urgency + ", antigen=" + antigen + ", antibody=" + antibody + ", location=" + location
 				+ ", request=" + request + ", doctors=" + doctors + "]";
 	}
+	
+	public String toString() {
+		return "-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	\n"
+				+ "\tRECEPTOR:"
+				+ "\nDNI: " + dni
+				+ "\nDate of birth: " + dob
+				+ "\nStatus: " + status
+				+ "\nBlood type: " + blood_type
+				+ "\nUrgency: " + urgency
+				+ "\n" + antigen
+				+ "\n" + antibody
+				+ "\n" + location ;
+	}
 	  
 	
 }
