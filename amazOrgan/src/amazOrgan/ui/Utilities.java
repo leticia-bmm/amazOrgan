@@ -69,49 +69,48 @@ public class Utilities {
 		return location;
 	}
 
-	// LEER UN ENTERO POR CONSOLA
 	public static int readIntFromKeyboard(String question) {
 		System.out.println(question);
-		int numero;
+		int num;
 
 		while (true) {
 			try {
-				String stringLeido = null;
-				BufferedReader consola = new BufferedReader(new InputStreamReader(System.in));
-				stringLeido = consola.readLine();
-				numero = Integer.parseInt(stringLeido);
-				return numero;
+				String s = null;
+				BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+				s = bf.readLine();
+				num = Integer.parseInt(s);
+				return num;
 
 			} catch (IOException ioe) {
-				System.out.println("Error. Vuelva a introducir un número");
+				System.out.println("Error. Re-enter a number");
 			} catch (NumberFormatException nfe) {
-				System.out.println("No ha introducido un número. Introduzca un número entero.");
+				System.out.println("You have not entered a number. Enter an integer number.");
 			}
 		}
 	}
 
-	// LEER UN STRING POR CONSOLA
+
 	public static String readStringFromKeyboard(String question) {
 		System.out.println(question);
 
 		while (true) {
 			try {
-				String stringLeido = null;
-				BufferedReader consola = new BufferedReader(new InputStreamReader(System.in));
-				stringLeido = consola.readLine();
+				String s = null;
+				BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+				s = bf.readLine();
 
-				return stringLeido;
+				return s;
 
 			} catch (IOException ioe) {
-				System.out.println("Error. Introduzca una nueva cadena de texto.");
+				System.out.println("Error. Enter a new text string.");
 			}
 		}
 	}
 
-	// LEER ENTERO POR CONSOLA DENTRO DE UN RANGO
+
 	public static int readIntFromKeyboardInRange(String question, int begin, int end) {
 		System.out.println(question);
-		int numero;
+		int num;
 		if (begin > end) {
 			int temp = begin;
 			begin = end;
@@ -119,40 +118,40 @@ public class Utilities {
 		}
 		while (true) {
 			try {
-				String stringLeido = null;
-				BufferedReader consola = new BufferedReader(new InputStreamReader(System.in));
-				stringLeido = consola.readLine();
-				numero = Integer.parseInt(stringLeido);
-				if (numero >= begin && numero <= end) {
-					return numero;
+				String s = null;
+				BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+				s = bf.readLine();
+				num = Integer.parseInt(s);
+				if (num >= begin && num <= end) {
+					return num;
 				} else {
-					System.out.println("El número debe estar entre " + begin + " y " + end + ".");
+					System.out.println("The number must be between " + begin + " and " + end + ".");
 				}
 			} catch (IOException ioe) {
-				System.out.println("Error. Vuelva a introducir un número.");
+				System.out.println("Error. Re-enter a number");
 			} catch (NumberFormatException nfe) {
-				System.out.println("No ha introducido un número. Introduzca un número entero.");
+				System.out.println("You have not entered a number. Enter an integer number.");
 			}
 		}
 	}
 
-	// LEER UN FLOAT POR CONSOLA
+
 	public static float readFloatFromKeyboard(String question) {
 		System.out.println(question);
-		float numero;
+		float num;
 
 		while (true) {
 			try {
-				String stringLeido = null;
-				BufferedReader consola = new BufferedReader(new InputStreamReader(System.in));
-				stringLeido = consola.readLine();
-				numero = Float.parseFloat(stringLeido);
-				return numero;
+				String s = null;
+				BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+				s = bf.readLine();
+				num = Float.parseFloat(s);
+				return num;
 
 			} catch (IOException ioe) {
-				System.out.println("Ha habido un error. Vuelva a introducir un número");
+				System.out.println("Error. Re-enter a number");
 			} catch (NumberFormatException nfe) {
-				System.out.println("No ha introducido un número. Introduzca un número entero.");
+				System.out.println("You have not entered a number. Enter a number.");
 			}
 		}
 	}
