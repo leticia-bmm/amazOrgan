@@ -25,6 +25,10 @@ public class Antibody implements Serializable {
 		this.class_I= classI;
 		this.class_II= classII;
 	}
+	public Antibody(Boolean classI, Boolean classII) {
+		this.class_I= classI;
+		this.class_II= classII;
+	}
 
 
 	//getters and setters
