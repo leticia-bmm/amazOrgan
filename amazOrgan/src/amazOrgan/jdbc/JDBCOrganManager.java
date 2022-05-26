@@ -11,7 +11,6 @@ import javax.persistence.Query;
 import amazOrgan.ifaces.OrganManager;
 import amazOrgan.pojos.Organ;
 import amazOrgan.pojos.Type_organ;
-import amazOrgan.xml.Report;
 
 
 public class JDBCOrganManager implements OrganManager {
