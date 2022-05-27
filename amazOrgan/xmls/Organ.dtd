@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE Organ-List[
+	<!ELEMENT Organ-List (organs+)>
+	<!ELEMENT organs (type_organ, donor)>
+	<!ATTLIST organs size CDATA #REQUIRED
+					 available CDATA #REQUIRED
+					 id CDATA #REQUIRED>
+    <!ELEMENT type_organ EMPTY>
+	<!ATTLIST type_organ id CDATA #REQUIRED
+						 name CDATA #REQUIRED
+						 lifespan CDATA #REQUIRED>
+    <!ELEMENT donor EMPTY>
+	<!ATTLIST donor dni CDATA #REQUIRED>
+]>
+
+
+

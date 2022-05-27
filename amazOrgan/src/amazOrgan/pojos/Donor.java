@@ -37,7 +37,6 @@ public class Donor implements Serializable {
 	private List<Organ> organs;
 
 	// constructor
-
 	public Donor() {
 		super();
 	}

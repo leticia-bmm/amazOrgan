@@ -5,6 +5,10 @@ import java.io.File;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
 
 import amazOrgan.ifaces.OrganManager;
 import amazOrgan.jdbc.JDBCManager;
@@ -19,7 +23,7 @@ public class XmlManager {
 	// from Java to Xml
 	public static void marshallOrgan() throws Exception {
 
-		//everything that is a null, in the database is read as a 0
+		// everything that is a null, in the database is read as a 0
 		JAXBContext jaxbContext = JAXBContext.newInstance(Organ.class); // has to be the name of the root element
 		Marshaller marshaller = jaxbContext.createMarshaller();
 
@@ -52,14 +56,13 @@ public class XmlManager {
 
 		System.out.println(organs);
 		Organ organ = null;
-		
 
 		// Store the organ in the database
 		for (Organ organ2 : organs.getOrgans()) {
-			
-			//cheking if the organ is in the database
+
+			// cheking if the organ is in the database
 			organ = organManager.getOrgan(organ2.getID());
-			
+
 			if (organ == null) {
 				organManager.addOrgan(organ2);
 			} else {
@@ -70,25 +73,34 @@ public class XmlManager {
 	}
 
 	// from Xml to HTML
-	public void xml2HTML () {
-		
+	/**
+	 * Simple transformation method. You can use it in your project.
+	 * 
+	 * @param sourcePath - Absolute path to source xml file.
+	 * @param xsltPath   - Absolute path to xslt file.
+	 * @param resultDir  - Directory where you want to put resulting files.
+	 */
+	public static void simpleTransform(String sourcePath, String xsltPath, String resultDir) {
+		TransformerFactory tFactory = TransformerFactory.newInstance();
+		try {
+			Transformer transformer = tFactory.newTransformer(new StreamSource(new File(xsltPath)));
+			transformer.transform(new StreamSource(new File(sourcePath)), new StreamResult(new File(resultDir)));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
-	
-	
-	
 
 	public static void main(String[] ars) {
 		JDBCManager jdbcManager = new JDBCManager();
 		organManager = new JDBCOrganManager(jdbcManager);
 		System.out.println("working");
-		try {
-			//marshallOrgan();
-			unmarshallOrgan();
+		/*
+		 * try { //marshallOrgan(); unmarshallOrgan();
+		 * 
+		 * } catch (Exception e) { e.printStackTrace(); }
+		 */
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
+		simpleTransform("./xmls/Organ.xml", "./xmls/Organ.xslt", "./xmls/Organ-super.html");
 
 	}
 

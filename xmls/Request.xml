@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Request size="45.5" received="true" id="6">
+    <type_organ>
+        <id>2</id>
+        <lifespan>70</lifespan>
+        <name>heart</name>
+    </type_organ>
+</Request>

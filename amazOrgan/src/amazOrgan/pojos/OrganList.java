@@ -13,7 +13,6 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)  //annotations in the attributes
 @XmlRootElement(name = "Organ-List")//int his calss the name of the root is going to be Organ
-//@XmlSeeAlso({Organ.class})
 @XmlType(propOrder = { "organs"})
 //propr element the order in wicht they apear 
 public class OrganList implements Serializable{
