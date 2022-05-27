@@ -408,6 +408,7 @@ public class JDBCDonorManager implements DonorManager {
 					+ "AND ab1.class_I = ? "
 					+ "AND ab1.class_II = ? "
 					+ "AND d1.blood_type = ? " 
+					+ "AND ty1.id = ?" 
 					+ "AND o1.available = TRUE";
 			
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
@@ -417,6 +418,7 @@ public class JDBCDonorManager implements DonorManager {
 			prep.setBoolean(4, r.getAntibody().isClass_I());
 			prep.setBoolean(5, r.getAntibody().isClass_II());
 			prep.setString(7, r.getBlood_type());
+			prep.setInt(8, r.getRequest().getType_organ().getId());
 			ResultSet rs = prep.executeQuery();
 			
 			//checking if the is actually a match
