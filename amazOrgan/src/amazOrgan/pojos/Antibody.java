@@ -21,13 +21,21 @@ public class Antibody implements Serializable {
 
 	
 	public Antibody(Integer id, Boolean classI, Boolean classII) {
+		super();
 		this.id=id;
 		this.class_I= classI;
 		this.class_II= classII;
 	}
 	public Antibody(Boolean classI, Boolean classII) {
+		super();
 		this.class_I= classI;
 		this.class_II= classII;
+	}
+
+
+	public Antibody(Integer id_antibody) {
+		super();
+		this.id = id_antibody;
 	}
 
 

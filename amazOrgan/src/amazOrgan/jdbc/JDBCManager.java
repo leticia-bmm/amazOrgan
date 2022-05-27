@@ -162,6 +162,8 @@ public class JDBCManager {
 			stmt.executeUpdate(sql);
 			sql = "INSERT INTO type_of_organ (name, lifespan) VALUES (\"bone marrow\", 8) ";
 			stmt.executeUpdate(sql);
+			
+			//
 
 		} catch (SQLException e) {
 			// Do not complain if tables already exist

@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.sql.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -200,7 +201,6 @@ public class JDBCDonorManager implements DonorManager {
 	
 	
 	@Override
-	
 	public Donor getDonor(Integer dni) {
 		
 		Donor donor = null;
@@ -228,41 +228,55 @@ public class JDBCDonorManager implements DonorManager {
 			while (rs.next()) {
 
 				Date dob = rs.getDate("dob");
+				LocalDate dob_java = dob.toLocalDate();
 				String bloodType = rs.getString("blood_type");
 				Boolean alive = rs.getBoolean("alive");
+				if (alive == false) {
+					// get the antigen
+					Integer id_antigen = rs.getInt("id_antigen");
+					Boolean a = rs.getBoolean("a");
+					Boolean b = rs.getBoolean("b");
+					Boolean c = rs.getBoolean("c");
+					Boolean dp = rs.getBoolean("dp");
+					Boolean dq = rs.getBoolean("dq");
+					Boolean dr = rs.getBoolean("dr");
+					antigen = new Antigen(id_antigen, a, b, c, dp, dq, dr);
 
-				// get the antigen
-				Integer id_antigen = rs.getInt("id_antigen");
-				Boolean a = rs.getBoolean("a");
-				Boolean b = rs.getBoolean("b");
-				Boolean c = rs.getBoolean("c");
-				Boolean dp = rs.getBoolean("dp");
-				Boolean dq = rs.getBoolean("dq");
-				Boolean dr = rs.getBoolean("dr");
-				antigen = new Antigen(id_antigen, a, b, c, dp, dq, dr);
+					// get the antibody
+					Integer id_antibody = rs.getInt("id_antibody");
+					Boolean class_I = rs.getBoolean("class_I");
+					Boolean class_II = rs.getBoolean("class_II");
+					antibody = new Antibody(id_antibody, class_I, class_II);
 
-				// get the antibody
-				Integer id_antibody = rs.getInt("id_antibody");
-				boolean class_I = rs.getBoolean("class_I");
-				boolean class_II = rs.getBoolean("class_II");
-				antibody = new Antibody(id_antibody, class_I, class_II);
+					// get the location
+					Integer id_location = rs.getInt("id_location");
+					Float latitude = rs.getFloat("latitude");
+					Float longitude = rs.getFloat("longitude");
+					location = new Location(id_location, latitude, longitude);
 
-				// get the location
-				Integer id_location = rs.getInt("id_location");
-				Float latitude = rs.getFloat("latitude");
-				Float longitude = rs.getFloat("longitude");
-				location = new Location(id_location, latitude, longitude);
-
+					
+				}else {
+					Integer id_antigen = rs.getInt("id_antigen");
+					antigen = new Antigen(id_antigen);
+					Integer id_antibody = rs.getInt("id_antibody");
+					antibody = new Antibody(id_antibody);
+					Integer id_location = rs.getInt("id_location");
+					location = new Location(id_location);
+					
+				}
+				
 				// get the doctor
+				// it allways has info in it (even the unassigned one)
 				Integer id_doctor_charge = rs.getInt("id_doctor_charge");
 				Integer phone = rs.getInt("phone_number");
 				String name = rs.getString("name");
 				doctor_charge = new Doctor(id_doctor_charge, phone, name);
 
-				donor = new Donor(dni, dob, alive, bloodType, antigen, antibody, location, doctor_charge);
+				donor = new Donor(dni, dob_java, alive, bloodType, antigen, antibody, location, doctor_charge);
 			}
 			 
 
+			//TODO 
 			// this query returns all the info from the organs
 			sql = "SELECT * FROM  organ AS o1 " 
 					+ "JOIN type_of_organ AS ty1 ON o1.id_type_organ = ty1.id "
@@ -289,7 +303,7 @@ public class JDBCDonorManager implements DonorManager {
 				organ = new Organ(id, t, size, available, donor);
 				organs.add(organ);
 			}
-			
+			System.out.println(organs);
 			donor.setOrgans(organs);
 			
 		} catch (Exception e) {

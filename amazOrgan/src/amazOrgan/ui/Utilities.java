@@ -13,8 +13,119 @@ import amazOrgan.pojos.Antigen;
 import amazOrgan.pojos.Donor;
 import amazOrgan.pojos.Location;
 import amazOrgan.pojos.Receptor;
+import amazOrgan.pojos.Request;
 
 public class Utilities {
+	
+public static Receptor addreceptormenu() {
+		
+		
+		Receptor receptor = null;
+	
+		System.out.println("Insert the next value:");
+		Integer dni = readIntFromKeyboard("DNI");
+		String date = readStringFromKeyboard("DOB");
+		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDate dob = LocalDate.parse(date, format);
+//***********		//Date dob= Date.parsedate(reader.readLine());
+		String status = readStringFromKeyboard("Status");
+		String blood_type = readStringFromKeyboard("BLOOD TYPE");
+		Boolean alive = readBooleanFromKeyboard("ALIVE (TRUE FALSE)");
+		Integer urgency = readIntFromKeyboard("URGENCY");
+		Antigen antigen =readAntigenFromKeyboard();
+		Antibody antibody = readAntibodyFromKeyboard();
+		Location location = readLocationFromKeyboard();
+		//Request request = readRequestFromKeyboard("REQUEST");
+		
+		//falta readRequestFromKeyBoard
+		
+		receptor = new Receptor (dni, dob, status, blood_type,alive,urgency, antigen, antibody,location,request);
+
+		return receptor;
+//**********		// call match function
+	}
+	
+	public static Receptor updatereceptormenu(Receptor r) {
+		
+		
+		System.out.println("YOU CAN ONLY CHANGE ALIVE, URGENCY, STATUS");
+
+		String newstatus = 	readStringFromKeyboard("STATUS");	
+		Boolean newalive = readBooleanFromKeyboard("ALIVE");
+		Integer newurgency = readIntFromKeyboard("URGENCY");
+		//IF WE PUT A WORD IN STATUS THAT DOES NOT BELONG????
+	
+		Receptor newreceptor = new Receptor(r.getDni(),r.getDob(),newstatus,r.getBlood_type(),newalive, newurgency,
+				r.getAntigen(),r.getAntibody(),r.getLocation(),r.getRequest());
+		
+		
+		
+		
+		
+		return newreceptor;
+	}
+	
+	static String askBT() {
+		try {
+			Integer option;
+			while (true) {
+				String a = "A+";
+				String b = "B+";
+				String o = "O+";
+				String ab = "AB+";
+				String x = "A-";
+				String y = "B-";
+				String z = "O-";
+				String xy = "AB-";
+				System.out.println("INSERT THE NUMBER OF THE BLOODTYPE YOU WANT");
+				System.out.println("A+    1");
+				System.out.println("B+    2");
+				System.out.println("AB+   3");
+				System.out.println("O+    4");
+				System.out.println("A-    5");
+				System.out.println("B-    6");
+				System.out.println("AB-   7");
+				System.out.println("O-    8");
+
+				option = readIntFromKeyboard("INSERT THE NUMBER");
+				switch (option) {
+
+				case 1:
+					return a;
+
+				case 2:
+					return b;
+
+				case 3:
+					return o;
+
+				case 4:
+					return ab;
+
+				case 5:
+					return x;
+				case 6:
+					return y;
+
+				case 7:
+					return z;
+
+				case 8:
+					return xy;
+
+				default:
+					System.out.println("The option is not correct");
+
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		} return null;
+	}
+
+	
+	
 
 	//TODO test method
 	public static Location readLocationFromKeyboard() {
