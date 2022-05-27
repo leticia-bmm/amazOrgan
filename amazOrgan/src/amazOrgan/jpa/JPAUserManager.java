@@ -13,6 +13,7 @@ import amazOrgan.ifaces.UserManager;
 import amazOrgan.pojos.User;
 import amazOrgan.pojos.Role;
 
+//THIS CLASS WORKS
 public class JPAUserManager implements UserManager {
 
 	private EntityManager em; // create an entity manager to do the connection
@@ -30,10 +31,11 @@ public class JPAUserManager implements UserManager {
 		em.getTransaction().commit();
 
 		// Insert the roles needed only if they are not there already
-		//These roles just need to be inserted the first time that we create the database
-		//not every time that i connect to the database (is empty)
+		// These roles just need to be inserted the first time that we create the
+		// database
+		// not every time that i connect to the database (is empty)
 		if (this.getRoles().isEmpty()) {
-			Role doctor = new Role("doctor"); 
+			Role doctor = new Role("doctor");
 			Role donor = new Role("donor");
 			this.newRole(doctor);
 			this.newRole(donor);
@@ -106,11 +108,47 @@ public class JPAUserManager implements UserManager {
 		}
 		try {
 			u = (User) q.getSingleResult(); // the user that is going to be received
-			
+
 		} catch (NoResultException e) {
 		}
 
 		return u;
+	}
+
+
+	@Override
+	public void deleteUserDonor(Integer dni) {
+		// getting the user to delete it
+		Query q = em.createNativeQuery("SELECT * FROM users WHERE id = ?", User.class);
+		q.setParameter(1, dni);
+		User u = (User) q.getSingleResult();
+
+		em.getTransaction().begin();
+		em.remove(u);
+		em.getTransaction().commit();
+	}
+
+	@Override
+	public void updatePassword(Integer id, String newPassword) {
+		Query q = em.createNativeQuery("SELECT * FROM users WHERE id = ?", User.class);
+		q.setParameter(1, id);
+		User u = (User) q.getSingleResult();
+
+		// to create the digest:
+		try {
+			MessageDigest md = MessageDigest.getInstance("MD5"); // MD5: most common algorithm
+			md.update(newPassword.getBytes());
+			// we get the hash from the digest
+			byte[] digest = md.digest();
+
+			em.getTransaction().begin();
+			u.setPassword(digest);
+			em.getTransaction().commit();
+
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 }
