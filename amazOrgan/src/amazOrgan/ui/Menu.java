@@ -724,8 +724,7 @@ public class Menu {
 		}
 	}
 
-	// IF ALGUIEN TIENE DUDAS SOBRE JPA (USER-ROLE): VER CLASE 27/04
-	// if salen excepciones mirar la first class que hayamos creado nosotros
+
 
 	public static void main(String[] ars) {
 		JDBCManager jdbcManager = new JDBCManager();
