@@ -266,7 +266,7 @@ public class JDBCDonorManager implements DonorManager {
 				}
 				
 				// get the doctor
-				// it allways has info in it (even the unassigned one)
+				// it always has info in it (even the unassigned one)
 				Integer id_doctor_charge = rs.getInt("id_doctor_charge");
 				Integer phone = rs.getInt("phone_number");
 				String name = rs.getString("name");

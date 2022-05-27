@@ -338,20 +338,5 @@ public class JDBCReceptorManager implements ReceptorManager {
 	
 
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 }
