@@ -70,6 +70,12 @@ public class XmlManager {
 	}
 
 	// from Xml to HTML
+	public void xml2HTML () {
+		
+	}
+	
+	
+	
 
 	public static void main(String[] ars) {
 		JDBCManager jdbcManager = new JDBCManager();

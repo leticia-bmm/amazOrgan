@@ -45,6 +45,10 @@ public class Antigen implements Serializable {
 		this.dr = dr2;
 	}
 
+	public Antigen(Integer id_antigen) {
+		super();
+		this.id = id_antigen;
+	}
 
 
 	public Integer getId() {

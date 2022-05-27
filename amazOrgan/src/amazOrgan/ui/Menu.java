@@ -30,6 +30,7 @@ import amazOrgan.pojos.Antigen;
 import amazOrgan.pojos.Doctor;
 import amazOrgan.pojos.Donor;
 import amazOrgan.pojos.Location;
+import amazOrgan.pojos.Organ;
 import amazOrgan.pojos.Receptor;
 import amazOrgan.pojos.Request;
 import amazOrgan.pojos.Role;
@@ -204,11 +205,25 @@ public class Menu {
 					//when the donor is deleted from the databse, we also have to delete him as a user
 					
 					//TODO? first show all the donors
-					System.out.println("INSERT DNI");
-					Integer dono_DNI = Integer.parseInt(reader.readLine());
-					donorManager.deleteDonor(dono_DNI);
-					// hay que tener en cuenta on cascade 
-					// ES DECIR TENEMOS QUE BORRAR TAMBIÉN EN LA TABLA ORGAN.
+					Integer donor_DNI = Utilities.readIntFromKeyboard("Insert the donor dni: ");
+					Donor deleting_donor = donorManager.getDonor(donor_DNI);
+					antigenManager.deleteAntigen(deleting_donor.getAntigen().getId());
+					antibodyManager.deleteAntibody(deleting_donor.getAntibody().getID());
+					locationManager.deleteLocation(deleting_donor.getLocation().getId());
+					
+					List <Organ> deleting_organs = deleting_donor.getOrgans();
+					for(Organ organ : deleting_organs) {
+						organManager.deleteOrgan(organ.getID());
+					} //THIS HAS TO BE CHECKED
+					
+					
+					donorManager.deleteDonor(donor_DNI);
+					// WE HAVE TO CALL ALL THE DELETE OF 
+					// antigen
+					// antibody
+					// location
+					// organs
+					
 					// deleteDonor();
 					
 					try {
@@ -744,8 +759,18 @@ public class Menu {
 			//userManager.updatePassword(397, "ana");
 			//loginDoctor();
 			
-			userManager.deleteUserDonor(621);
+			//userManager.deleteUserDonor(621);
 
+			
+			Donor d1 = donorManager.getDonor(5124);
+			System.out.println("GOOD ONE" + d1);
+			
+			//Donor d = donorManager.getDonor(621);
+			//System.out.println("BAD ONE" + d);
+			
+			
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
