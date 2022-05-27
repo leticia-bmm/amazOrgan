@@ -59,7 +59,9 @@ public class Antibody implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Antibody [ID=" + id + ", class_I=" + class_I + ", class_II=" + class_II + "]";
+		return "ANTIBODY:"
+				+ "\n\tClass I: " + class_I
+				+ "\n\tClass II " + class_II;
 	}
 
 

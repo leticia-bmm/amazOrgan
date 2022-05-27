@@ -208,11 +208,18 @@ public class Donor implements Serializable {
 	}
 
 
-	@Override
+    @Override
 	public String toString() {
-		return "Donor [dni=" + dni + ", dob=" + dob + ", alive=" + alive + ", bloodType=" + bloodType + ", antigen="
-				+ antigen + ", antibody=" + antibody + ", location=" + location + ", doctor_charge=" + doctor_charge
-				+ ", organs=" + organs + "]";
+		return  "-----------DONOR-----------"
+				+ "\nDNI: " + dni
+				+ "\nDate of birth: " + dob
+				+ "\nAlive: " + alive
+				+ "\nBlood type: " + bloodType
+				+ "\n" + antigen
+				+ "\n" + antibody
+				+ "\n" + location
+				+ "\n" + organs
+				+ "\n" + doctor_charge;
 	}
 
 		
