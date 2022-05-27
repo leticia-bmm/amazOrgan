@@ -277,18 +277,23 @@ public class Menu {
 
 				switch (option) {
 				case 1:
-					// + // Register receptor
-					// we are going to register an entire receptor
-					// all the atribites that te receptor has
-					// except for the doctor in charge
-					// since it is a may to many relationship
-					// we are then asking
-					System.out.println("REGISTER RECEPTOR");
-					System.out.println("Insert the next value: " + "D " + " ");
-					// when we register a patient, we have to
-					// call the methods add
-					// and all the objects to addthem individually un the database
-					// call match function
+					
+						//Receptor receptor = null;
+	//YOOOOO			// + // Register receptor
+						// we are going to register an entire receptor
+						// all the atribites that te receptor has
+						// except for the doctor in charge
+						// since it is a may to many relationship
+						// we are then asking
+						
+						System.out.println("REGISTER RECEPTOR");
+						
+						Receptor r= Utilities.addreceptormenu();
+						receptorManager.addReceptor(r);
+						
+						// call match function
+						
+
 					break;
 
 				case 2:
@@ -303,7 +308,7 @@ public class Menu {
 					int choice = Integer.parseInt(reader.readLine());
 					switch (choice) {
 					case 1:
-						String bt = askBT();
+						String bt = Utilities.askBT();
 						System.out.println(receptorManager.showReceptorsByBloodType(bt));
 
 						break;
@@ -331,20 +336,26 @@ public class Menu {
 
 				case 4:
 					// + // Update data
-					Receptor r = new Receptor();
-
+					//YOOOOOOOOOO				// + // Update data
+					Receptor oldreceptor = null;
+					Receptor newreceptor= null;
 					System.out.println("UPDATE DATA");
 					System.out.println("INSERT DNI");
 					Integer receptor_DNI = Integer.parseInt(reader.readLine());
-					r = receptorManager.getReceptor(receptor_DNI);
-					System.out.println(r);
-
-					// TENDRÍA QUE HACER UN SWITCH CON LAS OPCIONES QUE TENDRÍA QUE HACER??
-					// NO LO CREO, PERO SINO COMO CAMBIO SOLO LAS QUE QUIERO
-					// updateReceptor();
-					// we can change alive, urgency and status
-					// we call match function when changing urgency and status(only when waiting)
+					oldreceptor = receptorManager.getReceptor(receptor_DNI);
+					if (oldreceptor== null) {
+					System.out.println("DNI incorrect");
+					}
+					else{
+					System.out.println(oldreceptor);
+					newreceptor = Utilities.updatereceptormenu(oldreceptor);
+					
+					
+					receptorManager.updateReceptor(newreceptor);
+					}
+				
 					break;
+					// we call match function when changing urgency and status(only when waiting)
 
 				case 0:
 					// Back
@@ -680,64 +691,6 @@ public class Menu {
 
 	}
 
-	private static String askBT() {
-		try {
-			Integer option;
-			while (true) {
-				String a = "A+";
-				String b = "B+";
-				String o = "O+";
-				String ab = "AB+";
-				String x = "A-";
-				String y = "B-";
-				String z = "O-";
-				String xy = "AB-";
-				System.out.println("INSERT THE NUMBER OF THE BLOODTYPE YOU WANT");
-				System.out.println("A+    1");
-				System.out.println("B+    2");
-				System.out.println("AB+   3");
-				System.out.println("O+    4");
-				System.out.println("A-    5");
-				System.out.println("B-    6");
-				System.out.println("AB-   7");
-				System.out.println("O-    8");
-
-				option = Integer.parseInt(reader.readLine());
-				switch (option) {
-
-				case 1:
-					return a;
-
-				case 2:
-					return b;
-
-				case 3:
-					return o;
-
-				case 4:
-					return ab;
-
-				case 5:
-					return x;
-				case 6:
-					return y;
-
-				case 7:
-					return z;
-
-				case 8:
-					return xy;
-
-				default:
-					System.out.println("The option is not correct");
-
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-
-		}
-	}
 
 
 
