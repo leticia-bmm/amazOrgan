@@ -45,7 +45,6 @@ public static Receptor addreceptormenu() {
 	
 	public static Receptor updatereceptormenu(Receptor r) {
 		
-		Receptor newreceptor= r;
 		
 		System.out.println("YOU CAN ONLY CHANGE ALIVE, URGENCY, STATUS");
 
@@ -53,9 +52,10 @@ public static Receptor addreceptormenu() {
 		Boolean newalive = readBooleanFromKeyboard("ALIVE");
 		Integer newurgency = readIntFromKeyboard("URGENCY");
 		//IF WE PUT A WORD IN STATUS THAT DOES NOT BELONG????
-		
-		newreceptor(r.getDni(),r.getDob(),newstatus,r.getBlood_type(),newalive, newurgency,
+	
+		Receptor newreceptor = new Receptor(r.getDni(),r.getDob(),newstatus,r.getBlood_type(),newalive, newurgency,
 				r.getAntigen(),r.getAntibody(),r.getLocation(),r.getRequest());
+		
 		
 		
 		
