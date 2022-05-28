@@ -353,7 +353,10 @@ public class JDBCDonorManager implements DonorManager {
 		}
 
 	}
-
+	
+	
+	//this method works
+    @Override
 	public List<Donor> listMyDonors(Integer medical_id) {
 		List<Donor> donors = new LinkedList<Donor>();
 		Donor d = null;
@@ -362,7 +365,7 @@ public class JDBCDonorManager implements DonorManager {
 			String sql = "SELECT dni, alive FROM donor WHERE id_doctor_charge=" + medical_id;
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
-				Integer donor_id = rs.getInt("donor_id");
+				Integer donor_id = rs.getInt("dni");
 				Boolean alive = rs.getBoolean("alive");
 				d = new Donor(donor_id, alive);
 				donors.add(d);
@@ -376,6 +379,7 @@ public class JDBCDonorManager implements DonorManager {
 		return donors;
 
 	}
+    
 
 	@Override
 	public void deleteDonor(Integer dni) {
@@ -392,6 +396,7 @@ public class JDBCDonorManager implements DonorManager {
 	}
 
 
+	@Override
 	public Donor matchWithDonor(Receptor r) {
 		Donor d = null;		
 		try {
