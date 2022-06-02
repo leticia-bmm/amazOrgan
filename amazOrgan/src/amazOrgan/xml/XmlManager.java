@@ -56,15 +56,21 @@ public class XmlManager {
 
 		System.out.println(organs);
 		Organ organ = null;
+		Integer donor_dni = null;
 
 		// Store the organ in the database
 		for (Organ organ2 : organs.getOrgans()) {
 
 			// cheking if the organ is in the database
 			organ = organManager.getOrgan(organ2.getID());
-
+			
 			if (organ == null) {
-				organManager.addOrgan(organ2);
+				//checking if the donor is in the database
+				donor_dni = organ2.getDonor().getdni();
+				if (donor_dni != null) {
+					organManager.addOrgan(organ2);
+				}
+				
 			} else {
 				System.out.println("this organ is already in the database");
 			}
@@ -94,12 +100,15 @@ public class XmlManager {
 		JDBCManager jdbcManager = new JDBCManager();
 		organManager = new JDBCOrganManager(jdbcManager);
 		System.out.println("working");
-		/*
-		 * try { //marshallOrgan(); unmarshallOrgan();
-		 * 
-		 * } catch (Exception e) { e.printStackTrace(); }
-		 */
-
+		
+		 /*try { 
+			 marshallOrgan(); 
+			 //unmarshallOrgan();
+		 
+		 } catch (Exception e) { e.printStackTrace(); }
+		 
+*/
+		
 		simpleTransform("./xmls/Organ.xml", "./xmls/Organ.xslt", "./xmls/Organ-super.html");
 
 	}

@@ -381,7 +381,7 @@ public class JDBCReceptorManager implements ReceptorManager {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				d = getDonor(rs.getInt("dni"));
+				r = getReceptor(rs.getInt("dni"));
 			}else {
 				System.out.println("There is no match");
 				return null;

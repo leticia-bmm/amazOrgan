@@ -1,17 +1,47 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Organ-List>
-    <organs size="23.0" available="true" id="1">
-        <type_organ id="1" name="heart" lifespan="70"/>
-        <donor dni="2"/>
+    <organs size="23.0" available="false" id="1">
+        <type_organ id="1" name="kidney" lifespan="50"/>
+        <donor dni="5124"/>
     </organs>
-    <organs size="9.7" available="true" id="8">
-        <type_organ id="8" name="bowel" lifespan="5"/>
-        <donor dni="3"/>
+    <organs size="34.7" available="true" id="2">
+        <type_organ id="2" name="liver" lifespan="30"/>
+        <donor dni="5124"/>
     </organs>
-    <organs size="4.5" available="false" id="9">
-        <type_organ id="10" name="kidney" lifespan="10"/>
-        <donor dni="1"/>
+    <organs size="11.2" available="false" id="3">
+        <type_organ id="3" name="pancreas" lifespan="30"/>
+        <donor dni="5124"/>
+    </organs>
+    <organs size="45.7" available="true" id="4">
+        <type_organ id="4" name="lung" lifespan="8"/>
+        <donor dni="621"/>
+    </organs>
+    <organs size="1.2" available="false" id="5">
+        <type_organ id="5" name="heat" lifespan="8"/>
+        <donor dni="621"/>
+    </organs>
+    <organs size="45.0" available="false" id="6">
+        <type_organ id="6" name="bowel" lifespan="12"/>
+        <donor dni="621"/>
+    </organs>
+    <organs size="45.0" available="false" id="7">
+        <type_organ id="2" name="liver" lifespan="30"/>
+        <donor dni="362"/>
+    </organs>
+    <organs size="43.6" available="false" id="8">
+        <type_organ id="2" name="liver" lifespan="30"/>
+        <donor dni="362"/>
+    </organs>
+    <organs size="43.6" available="false" id="9">
+        <type_organ id="6" name="bowel" lifespan="12"/>
+        <donor dni="362"/>
+    </organs>
+    <organs size="7.6" available="false" id="10">
+        <type_organ id="6" name="bowel" lifespan="12"/>
+        <donor dni="362"/>
+    </organs>
+    <organs size="7.6" available="true" id="11">
+        <type_organ id="4" name="lung" lifespan="8"/>
+        <donor dni="362"/>
     </organs>
 </Organ-List>
-
-
