@@ -46,8 +46,7 @@ import amazOrgan.pojos.User;
 public class Menu {
 
 	private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-	// TODO
-	// private static ....Managers
+	
 	private static AntibodyManager antibodyManager;
 	private static AntigenManager antigenManager;
 	private static DoctorManager doctorManager;
@@ -59,6 +58,8 @@ public class Menu {
 	private static Type_organManager type_organManager;
 	private static UserManager userManager;
 
+	
+	
 	public static void doctor_menu(int medical_id) {
 
 		try {
@@ -70,7 +71,7 @@ public class Menu {
 				System.out.println("2) Change my data");
 				System.out.println("3) Work with donors");
 				System.out.println("4) Work with receptors");
-				//TODO change password
+				System.out.println("5) Change my password");
 				System.out.println("0) Exit");
 				option = Integer.parseInt(reader.readLine());
 
@@ -101,6 +102,12 @@ public class Menu {
 				case 4:
 					// call receptor menu
 					doc_receptor_menu(medical_id);
+					break;
+					
+				case 5:
+					System.out.println("CHANGE MY PASSWORD");
+					String newpass = Utilities.readStringFromKeyboard("Introduce your new password");
+					userManager.updatePassword(medical_id, newpass);					
 					break;
 
 				case 0:
@@ -223,6 +230,7 @@ public class Menu {
 					// antibody
 					// location
 					// organs
+					
 					
 					// deleteDonor();
 					
@@ -372,101 +380,121 @@ public class Menu {
 
 	}
 
-//	public static void main(String[] ars) {
-//
-//		System.out.println("Welcome to amazOrgan!");
-//
-//		// TODO
-//		// Initialize database for JDBC
-//		// -----------------------------
-//		JDBCManager jdbcManager = new JDBCManager();
-//		antibodyManager = new JDBCAntibodyManager(jdbcManager);
-//		antigenManager = new JDBCAntigenManager(jdbcManager);
-//		doctorManager = new JDBCDoctorManager(jdbcManager);
-//		donorManager = new JDBCDonorManager(jdbcManager);
-//		locationManager = new JDBCLocationManager(jdbcManager);
-//		organManager = new JDBCOrganManager(jdbcManager);
-//		receptorManager = new JDBCReceptorManager(jdbcManager);
-//		requestManager = new JDBCRequestManager(jdbcManager);
-//		type_organManager = new JDBCType_organManager(jdbcManager);
-//
-//		// = new ...Manager()
-//
-//		// TODO
-//		// Initialize database for JPA
-//		// ----------------------------
-//		userManager = new JPAUserManager();
-//
-//		// Menu loop
-//		try {
-//			Integer option;
-//			while (true) {
-//				System.out.println("Please, choose an option: ");
-//				System.out.println("1) Login as a Doctor");
-//				System.out.println("2) Register as a Doctor");
-//				System.out.println("3) Login as a Donor");
-//				System.out.println("4) Register as a Donor");
-//
-//				option = Integer.parseInt(reader.readLine());
-//
-//				switch (option) {
-//				case 1:
-//					// Login as a Doctor
-//					System.out.println("LOGIN AS A DOCTOR");
-//					// login_doctor() ask here for the id and the password
-//					int medical_id = 1;
-//					doctor_menu(medical_id); // this method is called from the login
-//
-//					break;
-//
-//				case 2:
-//					// Register as a Doctor
-//					System.out.println("REGISTER AS A DOCTOR");
-//					// register_doctor() ask here for the id and the password
-//					int id = 1;
-//					doctor_menu(id); // this method is called from the register
-//					break;
-//
-//				case 3:
-//					// Login as a Donor
-//					System.out.println("LOGIN AS A DONOR");
-//					// login_donor() ask here for the id and the password
-//					int dni = 1;
-//					donor_menu(dni); // this method is called from the login
-//					// you can only insert info or see your data
-//
-//					break;
-//
-//				case 4:
-//					// Register as a Donor
-//					System.out.println("Register AS A DONOR");
-//					// register_donor() ask here for the id and the password
-//					int DNI = 3;
-//					donor_menu(DNI); // this method is called from the register
-//					// you can only insert info or see your data
-//
-//					break;
-//
-//				default:
-//					System.out.println("The selected option is not correct.");
-//					break;
-//				}
-//
-//				break; // to exit the loop
-//			}
-//
-//			// if we reach this point, it is because the user wants to exit the program
-//
-//			// Close the connection with the database
-//			jdbcManager.disconnect();
-//			System.exit(0);
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//	}
+	public static void main(String[] ars) {
 
-	// TODO: menu del donor pero desde el donor pasandole su DNI
+		System.out.println("Welcome to amazOrgan!");
+
+		// TODO
+		// Initialize database for JDBC
+		// -----------------------------
+		JDBCManager jdbcManager = new JDBCManager();
+		antibodyManager = new JDBCAntibodyManager(jdbcManager);
+		antigenManager = new JDBCAntigenManager(jdbcManager);
+		doctorManager = new JDBCDoctorManager(jdbcManager);
+		donorManager = new JDBCDonorManager(jdbcManager);
+		locationManager = new JDBCLocationManager(jdbcManager);
+		organManager = new JDBCOrganManager(jdbcManager);
+		receptorManager = new JDBCReceptorManager(jdbcManager);
+		requestManager = new JDBCRequestManager(jdbcManager);
+		type_organManager = new JDBCType_organManager(jdbcManager);
+
+		// = new ...Manager()
+
+		// TODO
+		// Initialize database for JPA
+		// ----------------------------
+		userManager = new JPAUserManager();
+
+		// Menu loop
+		try {
+			Integer option;
+			while (true) {
+				System.out.println("Please, choose an option: ");
+				System.out.println("1) Login as a Doctor");
+				System.out.println("2) Register as a Doctor");
+				System.out.println("3) Login as a Donor");
+				System.out.println("4) Register as a Donor");
+				System.out.println("5) See our web page");
+				System.out.println("6) Import an xml");
+				System.out.println("7) Export an xml");
+
+				option = Integer.parseInt(reader.readLine());
+
+				switch (option) {
+				case 1:
+					// Login as a Doctor
+					System.out.println("LOGIN AS A DOCTOR");
+					// login_doctor() ask here for the id and the password
+					int medical_id = 1;
+					doctor_menu(medical_id); // this method is called from the login
+
+					break;
+
+				case 2:
+					// Register as a Doctor
+					System.out.println("REGISTER AS A DOCTOR");
+					// register_doctor() ask here for the id and the password
+					int id = 1;
+					doctor_menu(id); // this method is called from the register
+					break;
+
+				case 3:
+					// Login as a Donor
+					System.out.println("LOGIN AS A DONOR");
+					// login_donor() ask here for the id and the password
+					int dni = 1;
+					donor_menu(dni); // this method is called from the login
+					// you can only insert info or see your data
+
+					break;
+
+				case 4:
+					// Register as a Donor
+					System.out.println("Register AS A DONOR");
+					// register_donor() ask here for the id and the password
+					int DNI = 3;
+					donor_menu(DNI); // this method is called from the register
+					// you can only insert info or see your data
+
+					break;
+	
+				case 5:
+					// See our web page
+					
+				
+					break;
+					
+				case 6:
+					// Import an xml
+					
+				
+					break;
+					
+				case 7:
+					// Export an xml
+				
+					break;
+
+				default:
+					System.out.println("The selected option is not correct.");
+					break;
+				}
+
+				break; // to exit the loop
+			}
+
+			// if we reach this point, it is because the user wants to exit the program
+
+			// Close the connection with the database
+			jdbcManager.disconnect();
+			System.exit(0);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	
 	public static void donor_menu(int DNI) {
 		try {
 			int option;
@@ -474,8 +502,8 @@ public class Menu {
 				System.out.println("Please, choose an option:");
 				System.out.println("1) Add organs");
 				System.out.println("2) See my data");
-				//TODO change password
-				// TODO delete donor
+				System.out.println("3) Delete myself");
+				System.out.println("4) Change my password");
 				System.out.println("0) Exit");
 
 				option = Integer.parseInt(reader.readLine());
@@ -493,6 +521,18 @@ public class Menu {
 					Donor donor = donorManager.getDonor(DNI);
 					System.out.println(donor);
 					break;
+					
+				case 3:
+					System.out.println("DELETE MYSELF");
+					
+				
+					break;
+					
+				case 4:
+					System.out.println("CHANGE MY PASSWORD");
+					String newpass = Utilities.readStringFromKeyboard("Introduce your new password");
+					userManager.updatePassword(DNI, newpass);					
+					break;
 
 				case 0:
 					// Exit
@@ -501,17 +541,17 @@ public class Menu {
 				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.printStackTrace(); 
 		}
 	}
 
+	
+	
 	// this method works
 	public static void loginDoctor() throws Exception {
 		// User needs to provide an id and a password
-		System.out.println("Insert your Medical Id:");
-		Integer id = Integer.parseInt(reader.readLine());
-		System.out.println("Insert your password:");
-		String password = reader.readLine();
+		Integer id = Utilities.readIntFromKeyboard("Insert your Medical Id:");
+		String password = Utilities.readStringFromKeyboard("Insert your password:");
 
 		User u = userManager.checkPassword(id, password); // this method returns a user
 		// the user can be valid or not:
@@ -521,14 +561,13 @@ public class Menu {
 		if (u != null && u.getRole().getName().equals("doctor")) {
 			System.out.println("Login succesful");
 			// enter doctor menu with that user
+			
 			doctor_menu(u.getId());
 		} else {
 
 			System.out.println("Medical Id or Password incorrect. Please insert them again.");
-			System.out.println("Medical Id:");
-			id = Integer.parseInt(reader.readLine());
-			System.out.println("Insert your password:");
-			password = reader.readLine();
+			id = Utilities.readIntFromKeyboard("Medical Id:");
+			password = Utilities.readStringFromKeyboard("Insert your password:");
 			u = userManager.checkPassword(id, password);
 			
 			if (u != null && u.getRole().getName().equals("doctor")) {
@@ -543,10 +582,9 @@ public class Menu {
 
 	//this method works
 	public static void loginDonor() throws Exception {
-		System.out.println("Insert your DNI:");
-		Integer id = Integer.parseInt(reader.readLine());
-		System.out.println("Insert your password:");
-		String password = reader.readLine();
+		
+		Integer id = Utilities.readIntFromKeyboard("Insert your DNI:");
+		String password = Utilities.readStringFromKeyboard("Insert your password:");
 
 		User u = userManager.checkPassword(id, password); // this method returns a user
 		// the user can be valid or not:
@@ -557,16 +595,16 @@ public class Menu {
 			System.out.println("Login succesful");
 			// enter donor menu with that user
 			donor_menu(u.getId());
+			
 		} else {
 			// we are only letting the user introduce the data again once more. If they are
 			// wrong again, we go back
 			// while (u == null || !u.getRole().getName().equals("donor")) {
 
 			System.out.println("DNI or Password incorrect. Please insert them again.");
-			System.out.println("DNI:");
-			id = Integer.parseInt(reader.readLine());
-			System.out.println("Insert your password:");
-			password = reader.readLine();
+			id = Utilities.readIntFromKeyboard("DNI:");
+			password = Utilities.readStringFromKeyboard("Insert your password:");
+			
 			u = userManager.checkPassword(id, password);
 
 			if (u != null && u.getRole().getName().equals("donor")) {
@@ -582,8 +620,8 @@ public class Menu {
 	public static void registerDoctor() throws Exception {
 
 		// ask for all the information
-		System.out.println("Insert your Medical Id:");
-		Integer medical_id = Integer.parseInt(reader.readLine());
+		Integer medical_id = Utilities.readIntFromKeyboard("Insert your Medical Id:");
+		
 		// COMPROBAR QUE NO EXISTE
 		Doctor doc = doctorManager.getDoctor(medical_id);
 		if (doc != null) {
@@ -592,18 +630,15 @@ public class Menu {
 			return;
 		}
 
-		System.out.println("Insert your phone number:");
-		Integer phone_number = Integer.parseInt(reader.readLine());
-		System.out.println("Insert your name:");
-		String name = reader.readLine();
+		Integer phone_number = Utilities.readIntFromKeyboard("Insert your phone number:");
+		String name = Utilities.readStringFromKeyboard("Insert your name:");
 		List<Donor> donors = null;
 		List<Receptor> receptors = null;
 
 		// we have to create a Doctor but also a User
 		Doctor d = new Doctor(medical_id, phone_number, name, receptors, donors);
 
-		System.out.println("Insert your password:");
-		String password = reader.readLine();
+		String password = Utilities.readStringFromKeyboard("Insert your password:");
 
 		// to create the digest:
 		try {
@@ -642,8 +677,8 @@ public class Menu {
 		// alive by default is true
 		// doctor by default would be the unassigned
 
-		System.out.println("Introduce your DNI:");
-		Integer dni = Integer.parseInt(reader.readLine());
+		Integer dni = Utilities.readIntFromKeyboard("Introduce your DNI:");
+		
 		// CHECK IF THE USER EXISITS
 				Donor don = donorManager.getDonor(dni);
 				if (don != null) {
@@ -651,18 +686,13 @@ public class Menu {
 					System.out.println("This DNI is alredy registered in the database. Try to login as a donor.");
 					return;
 				}
-		System.out.println("Introduce your Date of birth (yyyy-MM-dd) :");
 		
-		// TODO ask for date
-		String withoutTime = reader.readLine();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		LocalDate dob = LocalDate.parse(withoutTime, formatter);
+		LocalDate dob = Utilities.readDateFromKeyboard("Introduce your Date of birth (yyyy-MM-dd) :");
 
 		// we have to create a Donor but also a User
 		Donor d = new Donor(dni, dob, true);
 
-		System.out.println("Insert your password:");
-		String password = reader.readLine();
+		String password = Utilities.readStringFromKeyboard("Insert your password:");
 
 		// to create the digest:
 		try {
@@ -693,44 +723,41 @@ public class Menu {
 
 
 
-
-	public static void main(String[] ars) {
-		JDBCManager jdbcManager = new JDBCManager();
-		donorManager = new JDBCDonorManager(jdbcManager);
-		antigenManager = new JDBCAntigenManager(jdbcManager);
-		antibodyManager = new JDBCAntibodyManager(jdbcManager);
-		locationManager = new JDBCLocationManager(jdbcManager);
-		doctorManager = new JDBCDoctorManager(jdbcManager);
-		userManager = new JPAUserManager();
-
-		try {
-			// registerDoctor();
-			// loginDoctor();
-			// registerDonor();
-			//loginDonor();
-			
-			//userManager.updatePassword(397, "ana");
-			//loginDoctor();
-			
-			//userManager.deleteUserDonor(621);
-
-			
-			Donor d1 = donorManager.getDonor(5124);
-			System.out.println("GOOD ONE" + d1);
-			
-			//Donor d = donorManager.getDonor(621);
-			//System.out.println("BAD ONE" + d);
-			
-			
-			
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		jdbcManager.disconnect();
-		userManager.disconnect();
-		System.exit(0);
-	}
+//
+//	public static void main(String[] ars) {
+//		JDBCManager jdbcManager = new JDBCManager();
+//		donorManager = new JDBCDonorManager(jdbcManager);
+//		antigenManager = new JDBCAntigenManager(jdbcManager);
+//		antibodyManager = new JDBCAntibodyManager(jdbcManager);
+//		locationManager = new JDBCLocationManager(jdbcManager);
+//		doctorManager = new JDBCDoctorManager(jdbcManager);
+//		userManager = new JPAUserManager();
+//
+//		try {
+//			
+//			
+//			
+//			Donor don = new Donor ();
+//			donorManager.updateDonor(don, 222);
+//			//userManager.deleteUserDonor(621);
+//
+//			
+//			//Donor d1 = donorManager.getDonor(5124);
+//			//System.out.println("GOOD ONE" + d1);
+//			
+//			//Donor d = donorManager.getDonor(621);
+//			//System.out.println("BAD ONE" + d);
+//			
+//			
+//			
+//			
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//
+//		jdbcManager.disconnect();
+//		userManager.disconnect();
+//		System.exit(0);
+//	}
 
 }
