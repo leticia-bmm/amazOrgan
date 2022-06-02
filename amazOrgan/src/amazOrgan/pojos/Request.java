@@ -42,7 +42,13 @@ public class Request implements Serializable{
 		this.received = received;
 		this.organ_received = o;		
 	}
-	
+	public Request( Type_organ type_organ, Float size, Boolean received, Organ o) {
+		super();
+		this.type_organ = type_organ;
+		this.size = size;
+		this.received = received;
+		this.organ_received = o;		
+	}
 	
 	public Request(Type_organ type_organ) {
 		super();
