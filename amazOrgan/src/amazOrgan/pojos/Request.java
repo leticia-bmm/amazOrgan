@@ -113,9 +113,14 @@ public class Request implements Serializable{
 	//to string method
 	@Override
 	public String toString() {
-		return "Request [id=" + id + ", type_organ=" + type_organ + ", size=" + size + ", received=" + received
-				+ ", organ=" + organ_received + "]";
+		return "REQUEST:"
+				+ "\n\tID: " + id
+				+ "\n" + type_organ
+				+ "\n\tSize: " + size
+				+ "\n\tReceived: " + received
+				+ "\n" + organ_received;
 	}
+
 
 	
 	

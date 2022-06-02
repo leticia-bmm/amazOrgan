@@ -59,7 +59,9 @@ public class Location implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Location [id=" + id + ", latitude=" + latitude + ", longitude=" + longitude + "]";
+		return "LOCATION:"
+				+ "\n\tLatitude: " + latitude
+				+ "\n\tLongitude:  " + longitude;
 	}
 
 	// hash code only with id
