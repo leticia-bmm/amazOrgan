@@ -396,6 +396,8 @@ public class JDBCDonorManager implements DonorManager {
 	}
 
 
+	//this method works
+	//but why do we return a donor?
 	@Override
 	public Donor matchWithDonor(Receptor r) {
 		Donor d = null;		
@@ -406,35 +408,49 @@ public class JDBCDonorManager implements DonorManager {
 					+ "JOIN antibody AS ab1 ON d1.id_antibody = ab1.id "
 					+ "JOIN location AS l1 ON d1.id_location = l1.id "
 					+ "JOIN type_of_organ AS ty1 ON o1.id_type_organ = ty1.id " 
-					+ "WHERE d1.alive = FALSE "
+					+ "WHERE d1.alive = ? "
 					+ "AND ag1.a = ? " 
 					+ "AND ag1.b = ? " 
 					+ "AND ag1.dq = ? " 
 					+ "AND ab1.class_I = ? "
 					+ "AND ab1.class_II = ? "
 					+ "AND d1.blood_type = ? " 
-					+ "AND ty1.id = ?" 
-					+ "AND o1.available = TRUE";
+					+ "AND ty1.id = ? " 
+					+ "AND o1.available = ?";
 			
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
-			prep.setBoolean(1, r.getAntigen().isA());
-			prep.setBoolean(2, r.getAntigen().isB());
-			prep.setBoolean(3, r.getAntigen().isDq());
-			prep.setBoolean(4, r.getAntibody().isClass_I());
-			prep.setBoolean(5, r.getAntibody().isClass_II());
+			prep.setBoolean(1, false);
+			prep.setBoolean(2, r.getAntigen().isA());
+			prep.setBoolean(3, r.getAntigen().isB());
+			prep.setBoolean(4, r.getAntigen().isDq());
+			prep.setBoolean(5, r.getAntibody().isClass_I());
+			prep.setBoolean(6, r.getAntibody().isClass_II());
 			prep.setString(7, r.getBlood_type());
 			prep.setInt(8, r.getRequest().getType_organ().getId());
+			prep.setBoolean(9, true);
 			ResultSet rs = prep.executeQuery();
 			
 			//checking if the is actually a match
 			if(rs.next()) {
 				Integer organ_id = rs.getInt(1);
 				try {
-					String sql1 = "UPDATE request SET received=?, organ_id=? WHERE id=?";
+					String sql1 = "UPDATE request SET received= ?, id_organ=? WHERE id=?";
 					PreparedStatement p = manager.getConnection().prepareStatement(sql1);
 					p.setBoolean(1, true);
 					p.setInt(2, organ_id);
 					p.setInt(3, r.getRequest().getId());
+					p.executeUpdate();
+					
+					sql1 = "UPDATE organ SET available = ? WHERE id = ?";
+					p = manager.getConnection().prepareStatement(sql1);
+					p.setBoolean(1, false);
+					p.setInt(2, organ_id);
+					p.executeUpdate();
+					
+					sql1 = "UPDATE receptor SET status = ? WHERE dni = ?";
+					p = manager.getConnection().prepareStatement(sql1);
+					p.setString(1, "Operating");
+					p.setInt(2, r.getDni());
 					p.executeUpdate();
 					
 				} catch (Exception e) {

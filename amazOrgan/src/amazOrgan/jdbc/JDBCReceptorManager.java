@@ -346,8 +346,8 @@ public class JDBCReceptorManager implements ReceptorManager {
 					+ "JOIN antigen AS ag1 ON r1.id_antigen = ag1.id "
 					+ "JOIN antibody AS ab1 ON r1.id_antibody = ab1.id "
 					+ "JOIN location AS l1 ON r1.id_location = l1.id "
-					+ "WHERE req1.received = FALSE "
-					+ "AND r1.alive = TRUE "
+					+ "WHERE req1.received = ? "
+					+ "AND r1.alive = ? "
 					+ "AND ag1.a = ? "
 					+ "AND ag1.b = ? "
 					+ "AND ag1.dq = ? "
@@ -357,12 +357,14 @@ public class JDBCReceptorManager implements ReceptorManager {
 					+ "AND ty1.id = ? ";
 			
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
-			prep.setBoolean(1, d.getAntigen().isA());
-			prep.setBoolean(2, d.getAntigen().isB());
-			prep.setBoolean(3, d.getAntigen().isDq());
-			prep.setBoolean(4, d.getAntibody().isClass_I());
-			prep.setBoolean(5, d.getAntibody().isClass_II());
-			prep.setString(7, d.getBloodType());
+			prep.setBoolean(1, false);
+			prep.setBoolean(2, true);
+			prep.setBoolean(3, d.getAntigen().isA());
+			prep.setBoolean(4, d.getAntigen().isB());
+			prep.setBoolean(5, d.getAntigen().isDq());
+			prep.setBoolean(6, d.getAntibody().isClass_I());
+			prep.setBoolean(7, d.getAntibody().isClass_II());
+			prep.setString(8, d.getBloodType());
 			//what should we recive here if there is no organ, we have a list no a single organ
 			prep.setInt(8, d.get);
 			ResultSet rs = prep.executeQuery();
@@ -376,6 +378,18 @@ public class JDBCReceptorManager implements ReceptorManager {
 					p.setBoolean(1, true);
 					p.setInt(2, organ_id);
 					p.setInt(3, r.getRequest().getId());
+					p.executeUpdate();
+					
+					sql1 = "UPDATE organ SET available = ? WHERE id = ?";
+					p = manager.getConnection().prepareStatement(sql1);
+					p.setBoolean(1, false);
+					p.setInt(2, organ_id);
+					p.executeUpdate();
+					
+					sql1 = "UPDATE receptor SET status = ? WHERE dni = ?";
+					p = manager.getConnection().prepareStatement(sql1);
+					p.setString(1, "Operating");
+					p.setInt(2, r.getDni());
 					p.executeUpdate();
 					
 				} catch (Exception e) {

@@ -41,25 +41,31 @@ public static Receptor addreceptormenu() {
 
 	return receptor;
 	
-//**********		//TODO call match function
+		//TODO call match function
 }
-//**********		// call match function
+		// call match function
 
 	
 public static Receptor updateReceptorMenu(Receptor r) {
 	// TODO 
-	System.out.println("YOU CAN ONLY CHANGE STATUS, URGENCY, URGENCY");
-	String newstatus = askStatus("UPDATE STATUS");	
-	Boolean newalive = readBooleanFromKeyboard("UPDATE ALIVE");
-	Integer newurgency = readIntFromKeyboardInRange("UPDATE URGENCY", 1, 5);
+	System.out.println("You will only be able to change the status, alive and the urgency: ");
+	String newstatus = askStatus("\nWhat is the status of the receptor? ");	
+	Boolean newalive = readBooleanFromKeyboard("\nIs the receptor alive? ");
+	Integer newurgency = readIntFromKeyboardInRange("\nWhat is the new level of urgency? ", 1, 5);
 
+	
+	//can we do this?
+	/*r.setStatus(newstatus);
+	r.setAlive(newalive);
+	r.setUrgency(newurgency);*/
 	Receptor newreceptor = new Receptor(r.getDni(),r.getDob(),newstatus,r.getBlood_type(),newalive, newurgency,
 			r.getAntigen(),r.getAntibody(),r.getLocation(),r.getRequest());	
 	
+	//return r;
 	return newreceptor;
 }
 	
-	static String askBloodType() {
+	public static String askBloodType() {
 		try {
 			Integer option;
 			while (true) {
@@ -71,17 +77,17 @@ public static Receptor updateReceptorMenu(Receptor r) {
 				String y = "B-";
 				String z = "O-";
 				String xy = "AB-";
-				System.out.println("INSERT THE NUMBER OF THE BLOODTYPE YOU WANT");
-				System.out.println("A+    1");
-				System.out.println("B+    2");
-				System.out.println("AB+   3");
-				System.out.println("O+    4");
-				System.out.println("A-    5");
-				System.out.println("B-    6");
-				System.out.println("AB-   7");
-				System.out.println("O-    8");
+				System.out.println("\nWhat is the blood type of the patient?: ");
+				System.out.println("1. A+");
+				System.out.println("2. B+");
+				System.out.println("3. AB+");
+				System.out.println("4. O+");
+				System.out.println("5. A-");
+				System.out.println("6. B-");
+				System.out.println("7. AB-");
+				System.out.println("8. O-");
 
-				option = readIntFromKeyboard("INSERT THE NUMBER");
+				option = readIntFromKeyboard("\nInsert the number corresponding to the blood type: ");
 				switch (option) {
 
 				case 1:
@@ -98,6 +104,7 @@ public static Receptor updateReceptorMenu(Receptor r) {
 
 				case 5:
 					return x;
+					
 				case 6:
 					return y;
 
@@ -139,16 +146,16 @@ public static Receptor updateReceptorMenu(Receptor r) {
 			String  bowel = "bowel";
 			String  boneMarrow= "bone marrow";
 			
-			System.out.println("INSERT THE ORGAN THE PATIENT NEEDS");
-			System.out.println("KIDNEY       1");
-			System.out.println("LIVER        2");
-			System.out.println("PANCREAS     3");
-			System.out.println("LUNG         4");
-			System.out.println("HEART        5");
-			System.out.println("BOWEL        6");
-			System.out.println("BONE MARROW  7");
+			System.out.println("What is the type of organ? ");
+			System.out.println("1. Kidney");
+			System.out.println("2. Liver");
+			System.out.println("3. Pancreas");
+			System.out.println("4. Lungs");
+			System.out.println("5. Heart");
+			System.out.println("6. Bowel");
+			System.out.println("7. Bone marrow");
 			
-			option = readIntFromKeyboard("INSERT THE NUMBER");
+			option = readIntFromKeyboard("\nInsert the nuber corresponding to the organ: ");
 			switch (option) {
 
 			case 1:
@@ -195,17 +202,17 @@ public static Receptor updateReceptorMenu(Receptor r) {
 				String  rejected = "Rejected";
 				String  waiting  = "Waiting";
 				String  operating = "Operating";
-				System.out.println("CHOOSE STATUS");
-				System.out.println("(YOU CAN ONLY CHOOSE: ACCEPTED, REJECTED, WAITING, OPERATING)");
-				System.out.println("OPTION 1: ACCEPTED ");
-				System.out.println("OPTION 2: REJECTED");
-				System.out.println("OPTION 3: WAITING");
-				System.out.println("OPTION 4: OPERATING");
+				System.out.println("What is the status of the patient? ");
+				System.out.println("1. The patient is wating for an organ");
+				System.out.println("2. The patien is being operated on");
+				System.out.println("3. The patient has survived the donation");
+				//TODO is rejected an option?
+				System.out.println("4. The patien has rejected");
 				option = readIntFromKeyboard("INSERT THE NUMBER");
 				switch (option) {
 				
 				case 1:
-					return accepted;
+					return waiting;
 
 				case 2:
 					return rejected;
@@ -454,9 +461,9 @@ public static Receptor updateReceptorMenu(Receptor r) {
 			}
 		}
 	}
-	// Read a death donor
+	// Read a dead donor
 	// TODO method
-	public static Donor readDonorFromKeyboard(Doctor doctor, String question) {
+	public static Donor readDeadDonorFromKeyboard(Doctor doctor, String question) {
 		System.out.println(question);
 
 		Donor donor = null;
@@ -475,8 +482,9 @@ public static Receptor updateReceptorMenu(Receptor r) {
 	}
 
 	// Update a donor
+	//this otption is only used when a donor was already in the database
 	// TODO test method
-	public static Donor readDonortoUpdate(Donor d) {
+	public static Donor readDonorToUpdate(Donor d) {
 	
 		Donor donor = null;
 		Integer dni = d.getdni();
@@ -494,13 +502,19 @@ public static Receptor updateReceptorMenu(Receptor r) {
 	}
 	
 	public static void main(String[] ars) {
-		LocalDate date = readDateFromKeyboard("Enter a date");
+		//LocalDate date = readDateFromKeyboard("Enter a date");
+		String hello = askBloodType();
+		System.out.println(hello);
+		
 	}
 	
 	//TODO readListOrgansFromKeyboard()
-	public static List readListOrgansFromKeyboard() {try {
+/*	public static List readListOrgansFromKeyboard() {
+		try {
 		Integer option = -1;
-	}
-		}}
+	}catch (Exception e){
+		
+	}}*/
+		}
 
 

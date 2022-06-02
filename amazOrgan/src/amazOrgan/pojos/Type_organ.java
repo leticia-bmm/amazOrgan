@@ -105,12 +105,10 @@ public class Type_organ implements Serializable {
 
 	@Override
 	public String toString() {
-		return "TYPE OF ORGAN:"
+		return "type of organ:"
 				+ "\n\tID: " + id
 				+ "\n\tName: " + name
-				+ "\n\tLifespan: " + lifespan
-				+ "\nRequests with this type of organ: " + requests
-				+ "\nOrgans with this type of organ: " + organs;
+				+ "\n\tLifespan: " + lifespan;
 	}
 
 
