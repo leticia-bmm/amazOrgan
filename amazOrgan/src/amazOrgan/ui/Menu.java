@@ -173,22 +173,12 @@ public class Menu {
 
 				case 3:
 					// Update alive
-					Donor d = null;
-					System.out.println("UPDATE EXISTING DONOR");
-					System.out.println("Insert DNI:");
-					Integer donoDNI = Integer.parseInt(reader.readLine());
-					d = donorManager.getDonor(donoDNI);
-					while(d=null) {
-						System.out.println("DNI incorrect");
-						System.out.println("Insert DNI:");
-						Integer donoDNI = Integer.				}
-					System.out.println(d);
-					donorManager.updateDonor(d);
 					
-					// 1) ask for: DNI // DONE
-					// 2) select del donor con el dni: (getDonor)// DONE
+					// 1) ask for: DNI 
+					// 2) select del donor con el dni: (getDonor)
 					// si el donor estaba en la database:
 					// llamar a updateDonor (con la info que se ha leido + la que falta por pedir)
+					//info que se ha leido -> dni, 
 					// call the constructor
 					//
 					// para pasar de alive = true a alive = false
