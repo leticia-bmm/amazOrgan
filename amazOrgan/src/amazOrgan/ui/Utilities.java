@@ -69,14 +69,14 @@ public static Receptor updateReceptorMenu(Receptor r) {
 		try {
 			Integer option;
 			while (true) {
-				String a = "A+";
-				String b = "B+";
-				String o = "O+";
-				String ab = "AB+";
-				String x = "A-";
-				String y = "B-";
-				String z = "O-";
-				String xy = "AB-";
+				String aPositive = "A+";
+				String bPositive = "B+";
+				String oPositive = "O+";
+				String abPositive = "AB+";
+				String aNegative = "A-";
+				String bNegative = "B-";
+				String oNegative = "O-";
+				String abNegative = "AB-";
 				System.out.println("\nWhat is the blood type of the patient?: ");
 				System.out.println("1. A+");
 				System.out.println("2. B+");
@@ -88,31 +88,32 @@ public static Receptor updateReceptorMenu(Receptor r) {
 				System.out.println("8. O-");
 
 				option = readIntFromKeyboard("\nInsert the number corresponding to the blood type: ");
+				
 				switch (option) {
 
 				case 1:
-					return a;
+					return aPositive;
 
 				case 2:
-					return b;
+					return bPositive;
 
 				case 3:
-					return o;
+					return abPositive;
 
 				case 4:
-					return ab;
+					return oPositive;
 
 				case 5:
-					return x;
+					return aNegative;
 					
 				case 6:
-					return y;
+					return bNegative;
 
 				case 7:
-					return z;
+					return abNegative;
 
 				case 8:
-					return xy;
+					return oNegative;
 
 				default:
 					System.out.println("The option is not correct");
@@ -205,7 +206,7 @@ public static Receptor updateReceptorMenu(Receptor r) {
 				System.out.println("What is the status of the patient? ");
 				System.out.println("1. The patient is wating for an organ");
 				System.out.println("2. The patien is being operated on");
-				System.out.println("3. The patient has survived the donation");
+				System.out.println("3. The patient has accapted the organ");
 				//TODO is rejected an option?
 				System.out.println("4. The patien has rejected");
 				option = readIntFromKeyboard("INSERT THE NUMBER");
@@ -215,10 +216,10 @@ public static Receptor updateReceptorMenu(Receptor r) {
 					return waiting;
 
 				case 2:
-					return rejected;
+					return operating;
 
 				case 3:
-					return waiting;
+					return accepted;
 
 				case 4:
 					return operating;
