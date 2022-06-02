@@ -206,14 +206,7 @@ public class Receptor implements Serializable{
 	//to string
 	@Override
 	public String toString() {
-		return "Receptor [dni=" + dni + ", dob=" + dob + ", status=" + status + ", blood_type=" + blood_type
-				+ ", urgency=" + urgency + ", antigen=" + antigen + ", antibody=" + antibody + ", location=" + location
-				+ ", request=" + request + ", doctors=" + doctors + "]";
-	}
-	
-	public String toString() {
-		return "-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	\n"
-				+ "\tRECEPTOR:"
+		return "-----------RECEPTOR-----------"
 				+ "\nDNI: " + dni
 				+ "\nDate of birth: " + dob
 				+ "\nStatus: " + status
@@ -221,7 +214,9 @@ public class Receptor implements Serializable{
 				+ "\nUrgency: " + urgency
 				+ "\n" + antigen
 				+ "\n" + antibody
-				+ "\n" + location ;
+				+ "\n" + location
+				+ "\n" + request
+				+ "\n" + doctors;
 	}
 	  
 	

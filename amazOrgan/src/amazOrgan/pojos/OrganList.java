@@ -59,7 +59,8 @@ public class OrganList implements Serializable{
 
 	@Override
 	public String toString() {
-		return "OrganList [organs=" + organs + "]";
+		return "List of organs: "
+				+ "\n" + organs;
 	}
 	
 	
