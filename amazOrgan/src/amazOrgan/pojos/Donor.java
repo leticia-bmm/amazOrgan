@@ -115,6 +115,8 @@ public class Donor implements Serializable {
 	}
 
 
+	
+
 	// getters and setters
 	public Integer getdni() {
 		return dni;

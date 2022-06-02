@@ -337,21 +337,64 @@ public class JDBCReceptorManager implements ReceptorManager {
 	}
 	
 
+	public Receptor matchWithReceptor(Donor d) {
+		Receptor r = null;		
+		try {
+			String sql = "SELECT * FROM receptor AS r1 "
+					+ "JOIN request AS req1 ON r1.id_request = req1.id "
+					+ "JOIN type_of_organ AS ty1 ON req1.id_type_organ = ty1.id "
+					+ "JOIN antigen AS ag1 ON r1.id_antigen = ag1.id "
+					+ "JOIN antibody AS ab1 ON r1.id_antibody = ab1.id "
+					+ "JOIN location AS l1 ON r1.id_location = l1.id "
+					+ "WHERE req1.received = FALSE "
+					+ "AND r1.alive = TRUE "
+					+ "AND ag1.a = ? "
+					+ "AND ag1.b = ? "
+					+ "AND ag1.dq = ? "
+					+ "AND ab1.class_I = ? "
+					+ "AND ab1.class_II = ? "
+					+ "AND r1.blood_type = ? "
+					+ "AND ty1.id = ? ";
+			
+			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
+			prep.setBoolean(1, d.getAntigen().isA());
+			prep.setBoolean(2, d.getAntigen().isB());
+			prep.setBoolean(3, d.getAntigen().isDq());
+			prep.setBoolean(4, d.getAntibody().isClass_I());
+			prep.setBoolean(5, d.getAntibody().isClass_II());
+			prep.setString(7, d.getBloodType());
+			//what should we recive here if there is no organ, we have a list no a single organ
+			prep.setInt(8, d.get);
+			ResultSet rs = prep.executeQuery();
+			
+			//checking if the is actually a match
+			if(rs.next()) {
+				Integer organ_id = rs.getInt(1);
+				try {
+					String sql1 = "UPDATE request SET received=?, organ_id=? WHERE id=?";
+					PreparedStatement p = manager.getConnection().prepareStatement(sql1);
+					p.setBoolean(1, true);
+					p.setInt(2, organ_id);
+					p.setInt(3, r.getRequest().getId());
+					p.executeUpdate();
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				r = getReceptor(rs.getInt("dni"));
+			}else {
+				System.out.println("There is no match");
+				return null;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return d;
+	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 
 }
