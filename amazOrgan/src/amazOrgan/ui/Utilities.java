@@ -7,11 +7,14 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.List;
 
 import amazOrgan.pojos.Antibody;
 import amazOrgan.pojos.Antigen;
+import amazOrgan.pojos.Doctor;
 import amazOrgan.pojos.Donor;
 import amazOrgan.pojos.Location;
+import amazOrgan.pojos.Organ;
 import amazOrgan.pojos.Receptor;
 import amazOrgan.pojos.Request;
 
@@ -330,36 +333,53 @@ public static Receptor addreceptormenu() {
 		return location;
 	}
 
-	// Read a donor
+	// Read a death donor
 	// TODO method
-	public static Donor readAliveDonorFromKeyboard(String question) {
+	public static Donor readDonorFromKeyboard(Doctor doctor, String question) {
 		System.out.println(question);
 
 		Donor donor = null;
 		Integer dni = readPositiveIntFromKeyboard("Enter the dni.");
 		LocalDate dob = readDateFromKeyboard("Enter the date of birth.");
 		Boolean alive = false;
-		// String bloodType = ;
+		String bloodType = askBT();
 		Antigen antigen = readAntigenFromKeyboard();
 		Antibody antibody = readAntibodyFromKeyboard();
 		Location location = readLocationFromKeyboard("Enter the location.");
-		// Doctor doctor_charge
-		// List<Organ> organs
+		Doctor doctor_charge = doctor;
+		// List<Organ> organs = readListOrgansFromKeyboard();
 
-		// which constructor?
 		donor = new Donor(dni, dob, alive, bloodType, antigen, antibody, location, doctor_charge, organs);
 		return donor;
 	}
 
 	// Update a donor
-	// TODO method
-	public static Donor readDonortoUpdate() {
+	// TODO test method
+	public static Donor readDonortoUpdate(Donor d) {
+	
 		Donor donor = null;
-
+		Integer dni = d.getdni();
+		LocalDate dob = d.getdob();
+		Boolean alive = false;
+		String bloodType = askBT();
+		Antigen antigen = readAntigenFromKeyboard();
+		Antibody antibody = readAntibodyFromKeyboard();
+		Location location = readLocationFromKeyboard("Enter the location.");
+		Doctor doctor_charge = d.getDoctor_charge();
+		List<Organ> listOrgans = d.getOrgans();
+		
+		donor = new Donor(dni, dob, alive, bloodType, antigen, antibody, location, doctor_charge, listOrgans);
 		return donor;
 	}
 
 	public static void main(String[] ars) {
 		LocalDate date = readDateFromKeyboard("Enter a date");
 	}
-}
+	
+	//TODO readListOrgansFromKeyboard()
+	public static List readListOrgansFromKeyboard() {try {
+		Integer option = -1;
+	}
+		}}
+
+
