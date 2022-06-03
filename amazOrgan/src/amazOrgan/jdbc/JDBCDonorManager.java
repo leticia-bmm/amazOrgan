@@ -263,35 +263,34 @@ public class JDBCDonorManager implements DonorManager {
 				doctor_charge = new Doctor(id_doctor_charge, phone, name);
 
 				donor = new Donor(dni, dob_java, alive, bloodType, antigen, antibody, location, doctor_charge);
+
+				// getting all the organs from the database
+				String sqlorgan = "SELECT * FROM organ AS o1 "
+						+ "JOIN type_of_organ AS ty1 ON o1.id_type_organ = ty1.id " + "WHERE o1.donor_dni = ?";
+
+				PreparedStatement prep1 = manager.getConnection().prepareStatement(sqlorgan);
+				prep1.setInt(1, dni);
+				ResultSet rs1 = prep1.executeQuery();
+
+				while (rs1.next()) {
+
+					Integer id = rs.getInt(1);
+
+					// we get the type of organ
+					Integer id_type_organ = rs.getInt("id_type_organ");
+					String nameorgan = rs.getString("name");
+					Integer lifespan = rs.getInt("lifespan");
+					Type_organ t = new Type_organ(id_type_organ, nameorgan, lifespan);
+
+					// we get the organ
+					Float size = rs.getFloat("size_organ");
+					Boolean available = rs.getBoolean("available");
+
+					organ = new Organ(id, t, size, available, donor);
+					organs.add(organ);
+				}
+				donor.setOrgans(organs);
 			}
-
-			//getting all the organs from the database
-			sql = "SELECT * FROM organ AS o1 " 
-					+ "JOIN type_of_organ AS ty1 ON o1.id_type_organ = ty1.id "
-					+ "WHERE o1.donor_dni = ?";
-
-			prep = manager.getConnection().prepareStatement(sql);
-			prep.setInt(1, dni);
-			rs = prep.executeQuery();
-			
-			while (rs.next()) {
-
-				Integer id = rs.getInt(1);
-				
-				// we get the type of organ
-				Integer id_type_organ = rs.getInt("id_type_organ");
-				String name = rs.getString("name");
-				Integer lifespan = rs.getInt("lifespan");
-				Type_organ t = new Type_organ(id_type_organ, name, lifespan);
-
-				// we get the organ
-				Float size = rs.getFloat("size_organ");
-				Boolean available = rs.getBoolean("available");
-
-				organ = new Organ(id, t, size, available, donor);
-				organs.add(organ);
-			}
-			donor.setOrgans(organs);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -353,10 +352,9 @@ public class JDBCDonorManager implements DonorManager {
 		}
 
 	}
-	
-	
-	//this method works
-    @Override
+
+	// this method works
+	@Override
 	public List<Donor> listMyDonors(Integer medical_id) {
 		List<Donor> donors = new LinkedList<Donor>();
 		Donor d = null;
@@ -366,6 +364,7 @@ public class JDBCDonorManager implements DonorManager {
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
 				Integer donor_id = rs.getInt("dni");
+				System.out.println(donor_id);
 				Boolean alive = rs.getBoolean("alive");
 				d = new Donor(donor_id, alive);
 				donors.add(d);
@@ -379,7 +378,6 @@ public class JDBCDonorManager implements DonorManager {
 		return donors;
 
 	}
-    
 
 	@Override
 	public void deleteDonor(Integer dni) {
@@ -395,26 +393,20 @@ public class JDBCDonorManager implements DonorManager {
 		}
 	}
 
+	// this method works
+	// but why do we return a donor?
 	@Override
 	public Donor matchWithDonor(Receptor r) {
-		Donor d = null;		
+		Donor d = null;
 		try {
-			String sql = "SELECT * FROM organ AS o1 " 
-					+ "JOIN donor AS d1 ON d1.dni = o1.donor_dni "
+			String sql = "SELECT * FROM organ AS o1 " + "JOIN donor AS d1 ON d1.dni = o1.donor_dni "
 					+ "JOIN antigen AS ag1 ON d1.id_antigen = ag1.id "
 					+ "JOIN antibody AS ab1 ON d1.id_antibody = ab1.id "
 					+ "JOIN location AS l1 ON d1.id_location = l1.id "
-					+ "JOIN type_of_organ AS ty1 ON o1.id_type_organ = ty1.id " 
-					+ "WHERE d1.alive = ? "
-					+ "AND ag1.a = ? " 
-					+ "AND ag1.b = ? " 
-					+ "AND ag1.dq = ? " 
-					+ "AND ab1.class_I = ? "
-					+ "AND ab1.class_II = ? "
-					+ "AND d1.blood_type = ? " 
-					+ "AND ty1.id = ? " 
-					+ "AND o1.available = ?";
-			
+					+ "JOIN type_of_organ AS ty1 ON o1.id_type_organ = ty1.id " + "WHERE d1.alive = ? "
+					+ "AND ag1.a = ? " + "AND ag1.b = ? " + "AND ag1.dq = ? " + "AND ab1.class_I = ? "
+					+ "AND ab1.class_II = ? " + "AND d1.blood_type = ? " + "AND ty1.id = ? " + "AND o1.available = ?";
+
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setBoolean(1, false);
 			prep.setBoolean(2, r.getAntigen().isA());
@@ -426,9 +418,9 @@ public class JDBCDonorManager implements DonorManager {
 			prep.setInt(8, r.getRequest().getType_organ().getId());
 			prep.setBoolean(9, true);
 			ResultSet rs = prep.executeQuery();
-			
-			//checking if the is actually a match
-			if(rs.next()) {
+
+			// checking if the is actually a match
+			if (rs.next()) {
 				Integer organ_id = rs.getInt(1);
 				try {
 					String sql1 = "UPDATE request SET received= ?, id_organ=? WHERE id=?";
@@ -437,28 +429,28 @@ public class JDBCDonorManager implements DonorManager {
 					p.setInt(2, organ_id);
 					p.setInt(3, r.getRequest().getId());
 					p.executeUpdate();
-					
+
 					sql1 = "UPDATE organ SET available = ? WHERE id = ?";
 					p = manager.getConnection().prepareStatement(sql1);
 					p.setBoolean(1, false);
 					p.setInt(2, organ_id);
 					p.executeUpdate();
-					
+
 					sql1 = "UPDATE receptor SET status = ? WHERE dni = ?";
 					p = manager.getConnection().prepareStatement(sql1);
 					p.setString(1, "Operating");
 					p.setInt(2, r.getDni());
 					p.executeUpdate();
-					
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 				d = getDonor(rs.getInt("dni"));
-			}else {
+			} else {
 				System.out.println("There is no match");
 				return null;
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

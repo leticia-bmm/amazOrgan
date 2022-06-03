@@ -247,7 +247,7 @@ public class JDBCReceptorManager implements ReceptorManager {
 					+ "LEFT JOIN receptor AS r1 ON e1.receptor_id = r1.dni " + "WHERE e1.medical_id = " + medical_id;
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
-				Integer receptor_id = rs.getInt("receptor_id");
+				Integer receptor_id = rs.getInt("dni");
 				String status = rs.getString("status");
 				Boolean alive = rs.getBoolean("alive");
 				Integer urgency = rs.getInt("urgency");
