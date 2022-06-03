@@ -7,6 +7,7 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.LinkedList;
 import java.util.List;
 
 import amazOrgan.pojos.Antibody;
@@ -26,8 +27,8 @@ public class Utilities {
 		Receptor receptor = null;
 
 		Integer dni = readPositiveIntFromKeyboard("Insert the dni.");
-		LocalDate dob = readDateFromKeyboard("Insert the date of birth (yyyy-MM-dd).");
-		String status = askStatus("Insert the status.");
+		LocalDate dob = readDateFromKeyboard();
+		String status = askStatus();
 		String blood_type = askBloodType();
 		Boolean alive = readBooleanFromKeyboard("Is the receptor alive?");
 		Integer urgency = readIntFromKeyboardInRange("What is the level of urgency?", 1, 5);
@@ -49,7 +50,7 @@ public class Utilities {
 
 
 	System.out.println("You will only be able to change the status, alive and the urgency: ");
-	String newstatus = askStatus("\nWhat is the status of the receptor? ");	
+	String newstatus = askStatus();	
 	Boolean newalive = readBooleanFromKeyboard("\nIs the receptor alive? ");
 	Integer newurgency = readIntFromKeyboardInRange("\nWhat is the new level of urgency? ", 1, 5);
 
@@ -125,49 +126,50 @@ public class Utilities {
 
 	public static Request readRequestFromKeyboard(String question) {
 		// TODO test method
-		System.out.println(question + "");
-		Type_organ typeOfOrgan = new Type_organ(askTypeOfOrgan("ORGAN"));
-		Float organSize = readPositiveFloatFromKeyboard("organ size of the organ needed");
-		Boolean received = readBooleanFromKeyboard("organ received");
+		System.out.println(question);
+		Type_organ typeOfOrgan = askTypeOfOrgan();
+		Float organSize = readPositiveFloatFromKeyboard("Insert the size of the organ needed");
+		Boolean received = readBooleanFromKeyboard("Is the organ received?");
 		Request request = new Request(typeOfOrgan, organSize, received , null);
 		return request;
 	}
 
-	public static String askTypeOfOrgan(String question) {
+	public static Type_organ askTypeOfOrgan() {
 		// works
 		try {
-		Integer option;
-		while (true) {
-			String  kidney= "kidney";
-			String  liver = "liver";
-			String  pancreas = "pancreas";
-			String  lung = "lung";
-			String  heart= "heart";
-			String  bowel = "bowel";
-			String  boneMarrow= "bone marrow";
-			
-			System.out.println("What is the type of organ? ");
-			System.out.println("1. Kidney");
-			System.out.println("2. Liver");
-			System.out.println("3. Pancreas");
-			System.out.println("4. Lungs");
-			System.out.println("5. Heart");
-			System.out.println("6. Bowel");
-			System.out.println("7. Bone marrow");
-			
-			option = readIntFromKeyboard("\nInsert the number corresponding to the organ: ");
-			switch (option) {
-			case 1:
-				return kidney;
+			Integer option;
+			while (true) {
+				Type_organ kidney = new Type_organ(1, "kidney", 50);
+				Type_organ liver = new Type_organ(2, "liver", 30);
+				Type_organ pancreas = new Type_organ(3, "pancreas", 30);
+				Type_organ lungs = new Type_organ(4, "lung", 8);
+				Type_organ heart = new Type_organ(5, "heart", 8);
+				Type_organ bowel = new Type_organ(6, "bowel", 12);
+				Type_organ boneMarrow = new Type_organ(7, "bone marrow", null);
 
-			case 2:
-				return liver;
+				System.out.println("What is the type of organ? ");
+				System.out.println("1. Kidney");
+				System.out.println("2. Liver");
+				System.out.println("3. Pancreas");
+				System.out.println("4. Lungs");
+				System.out.println("5. Heart");
+				System.out.println("6. Bowel");
+				System.out.println("7. Bone marrow");
 
-			case 3:
-				return pancreas;
+				option = readIntFromKeyboard("\nInsert the number corresponding to the organ: ");
+				switch (option) {
+				case 1:
 
-			case 4:
-				return lung;
+					return kidney;
+
+				case 2:
+					return liver;
+
+				case 3:
+					return pancreas;
+
+				case 4:
+					return lungs;
 			
 				case 5:
 					return heart;
@@ -189,7 +191,7 @@ public class Utilities {
 		return null;
 	}
 
-	public static String askStatus(String question) {
+	public static String askStatus() {
 		// WORKS
 		try {
 			Integer option;
@@ -199,26 +201,25 @@ public class Utilities {
 				String rejected = "Rejected";
 				String waiting = "Waiting";
 				String operating = "Operating";
-				System.out.println("CHOOSE STATUS");
-				System.out.println("(YOU CAN ONLY CHOOSE: ACCEPTED, REJECTED, WAITING, OPERATING)");
-				System.out.println("OPTION 1: ACCEPTED ");
-				System.out.println("OPTION 2: REJECTED");
-				System.out.println("OPTION 3: WAITING");
-				System.out.println("OPTION 4: OPERATING");
-				option = readIntFromKeyboard("INSERT THE NUMBER");
+				System.out.println("In what status is the patient? ");
+				System.out.println("1. The patient is waiting for an organ ");
+				System.out.println("2. The patient has accepted the organ");
+				System.out.println("3. The patient has rejected the organ");
+				System.out.println("4. The patien is being operated");
+				option = readIntFromKeyboard("Choose an option: ");
 				switch (option) {
 
 				case 1:
 					return waiting;
 
 				case 2:
-					return operating;
-
-				case 3:
 					return accepted;
 
-				case 4:
+				case 3:
 					return rejected;
+
+				case 4:
+					return operating;
 
 				default:
 					System.out.println("The option is not correct");
@@ -236,8 +237,8 @@ public class Utilities {
 	// TODO test method
 	public static Location readLocationFromKeyboard() {
 
-		Float latitude = readFloatFromKeyboard("Introduce the latitude.");
-		Float longitude = readFloatFromKeyboard("Introduce the longitude.");
+		Float latitude = readFloatFromKeyboard("Introduce the latitude: ");
+		Float longitude = readFloatFromKeyboard("Introduce the longitude: ");
 
 		Location location = new Location(latitude, longitude);
 		return location;
@@ -424,16 +425,6 @@ public class Utilities {
 		return antibody;
 	}
 
-	// Read location
-	public static Location readLocationFromKeyboard(String question) {
-
-		System.out.println(question);
-		Float latitude = readFloatFromKeyboard("Introduce the latitude.");
-		Float longitude = readFloatFromKeyboard("Introduce the longitude.");
-
-		Location location = new Location(latitude, longitude);
-		return location;
-	}
 
 	public static Float readPositiveFloatFromKeyboard(String question) {
 		System.out.println(question);
@@ -466,20 +457,33 @@ public class Utilities {
 		System.out.println(question);
 
 		Donor donor = null;
-<<<<<<< HEAD
 		Integer dni = readPositiveIntFromKeyboard("Enter the dni: ");
 		LocalDate dob = readDateFromKeyboard();
-=======
-		Integer dni = readPositiveIntFromKeyboard("Enter the dni.");
-		LocalDate dob = readDateFromKeyboard("Enter the date of birth.");
->>>>>>> branch 'master' of https://github.com/leticia-bmm/amazOrgan
 		Boolean alive = false;
 		String bloodType = askBloodType();
 		Antigen antigen = readAntigenFromKeyboard();
 		Antibody antibody = readAntibodyFromKeyboard();
-		Location location = readLocationFromKeyboard("Enter the location.");
+		Location location = readLocationFromKeyboard();
 		Doctor doctor_charge = new Doctor(medical_id);
 		// List<Organ> organs = readListOrgansFromKeyboard();
+		Organ organ = null;
+		List<Organ> organs = new LinkedList<>();
+
+		donor = new Donor(dni, dob, alive, bloodType, antigen, antibody, location, doctor_charge);
+
+		while (true) {
+			Boolean cont = readBooleanFromKeyboard("Would you like to introduce an organ? ");
+			if (cont) {
+				Type_organ type_organ = askTypeOfOrgan();
+				Float size = readPositiveFloatFromKeyboard("Insert the size of the organ: ");
+				Boolean available = true;
+				organ = new Organ(type_organ, size, available, donor);
+				organs.add(organ);
+			} else {
+				break;
+			}
+		}
+		donor.setOrgans(organs);
 
 		donor = new Donor(dni, dob, alive, bloodType, antigen, antibody, location, doctor_charge, organs);
 		return donor;
@@ -497,7 +501,7 @@ public class Utilities {
 		String bloodType = askBloodType();
 		Antigen antigen = readAntigenFromKeyboard();
 		Antibody antibody = readAntibodyFromKeyboard();
-		Location location = readLocationFromKeyboard("Enter the location.");
+		Location location = readLocationFromKeyboard();
 		Doctor doctor_charge = d.getDoctor_charge();
 		List<Organ> listOrgans = d.getOrgans();
 
@@ -547,9 +551,4 @@ public class Utilities {
 		
 	}
 
-	// TODO readListOrgansFromKeyboard()
-	public static List readListOrgansFromKeyboard() {try {
-		Integer option = -1;
-	}
-		}
 }
