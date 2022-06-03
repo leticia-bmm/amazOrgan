@@ -47,7 +47,6 @@ public class Organ implements Serializable{
 		super();
 	}
 	
-	//Another constructor
 	public Organ(Integer id, Float size, boolean available) {
 		super();
 		this.id = id;
@@ -56,7 +55,6 @@ public class Organ implements Serializable{
 		
 	}
 	
-	//TODO preguntar lo del super
 	public Organ(Integer organ_id, Type_organ t, Float size_organ, Boolean available, Donor d) {
 		super();
 		this.id = organ_id;
@@ -80,6 +78,24 @@ public class Organ implements Serializable{
 		this.donor = donor;
 	}
 
+<<<<<<< HEAD
+	public Organ(Type_organ type_organ, Float size, Boolean available, Donor donor) {
+		super();
+		this.type_organ = type_organ;
+		this.size = size;
+		this.available = available;
+		this.donor = donor;
+	}
+
+	public Organ(Type_organ type_organ, Boolean available, Donor donor) {
+		super();
+		this.type_organ = type_organ;
+		this.available = available;
+		this.donor = donor;
+	}
+
+=======
+>>>>>>> branch 'master' of https://github.com/leticia-bmm/amazOrgan
 	//getters and setters
 	public Integer getID() {
 		return id;
