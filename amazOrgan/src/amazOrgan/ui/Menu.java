@@ -87,7 +87,9 @@ public class Menu {
 				case 2:
 					// Change my data
 					System.out.println("CHANGE MY DATA");
-					// getDoctor to show the info
+					// first show the info of the donor
+					doctorManager.getDoctor(medical_id);
+					//TODO
 					// ask for changes
 					// create the new doctor by calling the constructor
 					// doctorManager.changeMyData(doctor);
@@ -127,7 +129,7 @@ public class Menu {
 
 	}
 
-	// TODO tiene que recibir el medical_id???????????
+	
 	public static void doc_donor_menu(int medical_id) {
 
 		try {
@@ -146,6 +148,8 @@ public class Menu {
 				case 1:
 					// Register donor 
 					System.out.println("ADD DONOR");// ONLY DEAD DONORS
+					Donor d = Utilities.readDonorFromKeyboard(medical_id, "Introduce the data of the donor");
+					donorManager.addDonor(d);
 					
 					// steps:
 					// Hay que llamar a addDonor con toda la info
@@ -374,7 +378,7 @@ public class Menu {
 
 		System.out.println("Welcome to amazOrgan!");
 
-		// TODO
+		
 		// Initialize database for JDBC
 		// -----------------------------
 		JDBCManager jdbcManager = new JDBCManager();
@@ -388,13 +392,11 @@ public class Menu {
 		requestManager = new JDBCRequestManager(jdbcManager);
 		type_organManager = new JDBCType_organManager(jdbcManager);
 
-		// = new ...Manager()
-
-		// TODO
 		// Initialize database for JPA
 		// ----------------------------
 		userManager = new JPAUserManager();
-
+		
+		
 		// Menu loop
 		try {
 			Integer option;
@@ -414,54 +416,46 @@ public class Menu {
 				case 1:
 					// Login as a Doctor
 					System.out.println("LOGIN AS A DOCTOR");
-					// login_doctor() ask here for the id and the password
-					int medical_id = 1;
-					doctor_menu(medical_id); // this method is called from the login
-
+					loginDoctor(); // this method calls the doctor menu
 					break;
 
 				case 2:
 					// Register as a Doctor
 					System.out.println("REGISTER AS A DOCTOR");
-					// register_doctor() ask here for the id and the password
-					int id = 1;
-					doctor_menu(id); // this method is called from the register
+					registerDoctor();
 					break;
 
 				case 3:
 					// Login as a Donor
 					System.out.println("LOGIN AS A DONOR");
-					// login_donor() ask here for the id and the password
-					int dni = 1;
-					donor_menu(dni); // this method is called from the login
-					// you can only insert info or see your data
-
+					loginDonor();
 					break;
 
 				case 4:
 					// Register as a Donor
 					System.out.println("Register AS A DONOR");
-					// register_donor() ask here for the id and the password
-					int DNI = 3;
-					donor_menu(DNI); // this method is called from the register
-					// you can only insert info or see your data
-
+					registerDonor();
 					break;
 	
 				case 5:
 					// See our web page
+					
 					
 				
 					break;
 					
 				case 6:
 					// Import an xml
+					//ask for the file
+					//unmarshall
 					
 				
 					break;
 					
 				case 7:
 					// Export an xml
+					//ask for the file
+					//marshall
 				
 					break;
 
