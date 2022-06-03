@@ -373,112 +373,7 @@ public class Menu {
 		}
 
 	}
-<<<<<<< HEAD
 
-	public static void main(String[] ars) {
-
-		System.out.println("Welcome to amazOrgan!");
-
-		
-		// Initialize database for JDBC
-		// -----------------------------
-		JDBCManager jdbcManager = new JDBCManager();
-		antibodyManager = new JDBCAntibodyManager(jdbcManager);
-		antigenManager = new JDBCAntigenManager(jdbcManager);
-		doctorManager = new JDBCDoctorManager(jdbcManager);
-		donorManager = new JDBCDonorManager(jdbcManager);
-		locationManager = new JDBCLocationManager(jdbcManager);
-		organManager = new JDBCOrganManager(jdbcManager);
-		receptorManager = new JDBCReceptorManager(jdbcManager);
-		requestManager = new JDBCRequestManager(jdbcManager);
-		type_organManager = new JDBCType_organManager(jdbcManager);
-
-		// Initialize database for JPA
-		// ----------------------------
-		userManager = new JPAUserManager();
-		
-		
-		// Menu loop
-		try {
-			Integer option;
-			while (true) {
-				System.out.println("Please, choose an option: ");
-				System.out.println("1) Login as a Doctor");
-				System.out.println("2) Register as a Doctor");
-				System.out.println("3) Login as a Donor");
-				System.out.println("4) Register as a Donor");
-				System.out.println("5) See our web page");
-				System.out.println("6) Import an xml");
-				System.out.println("7) Export an xml");
-
-				option = Integer.parseInt(reader.readLine());
-
-				switch (option) {
-				case 1:
-					// Login as a Doctor
-					System.out.println("LOGIN AS A DOCTOR");
-					loginDoctor(); // this method calls the doctor menu
-					break;
-
-				case 2:
-					// Register as a Doctor
-					System.out.println("REGISTER AS A DOCTOR");
-					registerDoctor();
-					break;
-
-				case 3:
-					// Login as a Donor
-					System.out.println("LOGIN AS A DONOR");
-					loginDonor();
-					break;
-
-				case 4:
-					// Register as a Donor
-					System.out.println("Register AS A DONOR");
-					registerDonor();
-					break;
-	
-				case 5:
-					// See our web page
-					
-					
-				
-					break;
-					
-				case 6:
-					// Import an xml
-					//ask for the file
-					//unmarshall
-					
-				
-					break;
-					
-				case 7:
-					// Export an xml
-					//ask for the file
-					//marshall
-				
-					break;
-
-				default:
-					System.out.println("The selected option is not correct.");
-					break;
-				}
-
-				break; // to exit the loop
-			}
-
-			// if we reach this point, it is because the user wants to exit the program
-
-			// Close the connection with the database
-			jdbcManager.disconnect();
-			System.exit(0);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-=======
 //
 //	public static void main(String[] ars) {
 //
@@ -593,7 +488,7 @@ public class Menu {
 //			e.printStackTrace();
 //		}
 //	}
->>>>>>> branch 'master' of https://github.com/leticia-bmm/amazOrgan
+	
 
 	
 	public static void donor_menu(int DNI) {
@@ -840,8 +735,8 @@ public class Menu {
 			
 			
 			
-			Donor don = donorManager.getDonor(5124);
-		    Receptor rec = receptorManager.getReceptor(5);
+			//Donor don = donorManager.getDonor(5124);
+		    //Receptor rec = receptorManager.getReceptor(5);
 			
 			//Organ o = organManager.getOrgan(1);
 			
@@ -852,10 +747,10 @@ public class Menu {
 			//don.setOrgans(organs);
 			
 			//System.out.println(don);
-			System.out.println(rec.getRequest());
+			System.out.println("hello");
 			
-			Receptor new_receptor = receptorManager.matchWithReceptor(don);
-			System.out.println(new_receptor);
+			//Receptor new_receptor = receptorManager.matchWithReceptor(don);
+			//System.out.println(new_receptor);
 			
 			//Donor new_donor = donorManager.matchWithDonor(rec);
 			
