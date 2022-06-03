@@ -128,14 +128,13 @@ public class Utilities {
 		// TODO test method
 		System.out.println(question);
 		Type_organ typeOfOrgan = askTypeOfOrgan();
-		Float organSize = readPositiveFloatFromKeyboard("Insert the size of the organ needed");
-		Boolean received = readBooleanFromKeyboard("Is the organ received?");
+		Float organSize = readPositiveFloatFromKeyboard("Insert the size of the organ needed: ");
+		Boolean received = false;
 		Request request = new Request(typeOfOrgan, organSize, received , null);
 		return request;
 	}
 
 	public static Type_organ askTypeOfOrgan() {
-		// works
 		try {
 			Integer option;
 			while (true) {
@@ -385,7 +384,7 @@ public class Utilities {
 
 	// Read a date
 	public static LocalDate readDateFromKeyboard() {
-		System.out.println("Insert the date of Birth: ");
+		System.out.println("Insert the date of Birth enter a date in this format (yyyy-mm-dd)");
 		String dateString = null;
 
 		while (true) {
@@ -546,6 +545,9 @@ public class Utilities {
 	}
 
 	public static void main(String[] ars) {
+		System.out.println("HELLO");
+		Receptor r = addreceptormenu();
+		System.out.println(r);
 		Type_organ to = new 
 		Donor donor = new Donor(12,bt,organs);
 		String hello = askBloodType();
