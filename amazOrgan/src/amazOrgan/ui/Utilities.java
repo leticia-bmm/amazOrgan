@@ -3,10 +3,8 @@ package amazOrgan.ui;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -125,17 +123,16 @@ public class Utilities {
 	}
 
 	public static Request readRequestFromKeyboard(String question) {
-		// TODO test method
+
 		System.out.println(question);
 		Type_organ typeOfOrgan = askTypeOfOrgan();
-		Float organSize = readPositiveFloatFromKeyboard("Insert the size of the organ needed");
-		Boolean received = readBooleanFromKeyboard("Is the organ received?");
+		Float organSize = readPositiveFloatFromKeyboard("Insert the size of the organ needed: ");
+		Boolean received = false;
 		Request request = new Request(typeOfOrgan, organSize, received , null);
 		return request;
 	}
 
 	public static Type_organ askTypeOfOrgan() {
-		// works
 		try {
 			Integer option;
 			while (true) {
@@ -385,7 +382,7 @@ public class Utilities {
 
 	// Read a date
 	public static LocalDate readDateFromKeyboard() {
-		System.out.println("Insert the date of Birth: ");
+		System.out.println("Insert the date of Birth enter a date in this format (yyyy-mm-dd)");
 		String dateString = null;
 
 		while (true) {
@@ -455,7 +452,6 @@ public class Utilities {
 	// TODO method
 	public static Donor readDeadDonorFromKeyboard(Integer medical_id, String question) {
 		System.out.println(question);
-
 		Donor donor = null;
 		Integer dni = readPositiveIntFromKeyboard("Enter the dni: ");
 		LocalDate dob = readDateFromKeyboard();
@@ -465,7 +461,6 @@ public class Utilities {
 		Antibody antibody = readAntibodyFromKeyboard();
 		Location location = readLocationFromKeyboard();
 		Doctor doctor_charge = new Doctor(medical_id);
-		// List<Organ> organs = readListOrgansFromKeyboard();
 		Organ organ = null;
 		List<Organ> organs = new LinkedList<>();
 
@@ -500,8 +495,11 @@ public class Utilities {
 		Boolean alive = false;
 		String bloodType = askBloodType();
 		Antigen antigen = readAntigenFromKeyboard();
+		antigen.setId(d.getAntigen().getId());
 		Antibody antibody = readAntibodyFromKeyboard();
+		antibody.setID(d.getAntibody().getID());
 		Location location = readLocationFromKeyboard();
+		location.setId(d.getLocation().getId());
 		Doctor doctor_charge = d.getDoctor_charge();
 		List<Organ> listOrgans = d.getOrgans();
 
@@ -545,14 +543,8 @@ public class Utilities {
 		return organs;
 	}
 
-	public static void main(String[] ars) {
-		Donor donor = readDeadDonorFromKeyboard(12,"");
-		System.out.println(donor);
-		Donor donor1 = readDonortoUpdate(donor);
-		System.out.println(donor1);
-		String hello = askBloodType();
-		System.out.println(hello);
-		
+	public static void main(String[] ars) {		
+		System.out.println("HELLO");
 	}
 
 }

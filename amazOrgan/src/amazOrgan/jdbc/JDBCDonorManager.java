@@ -207,10 +207,12 @@ public class JDBCDonorManager implements DonorManager {
 		try {
 
 			// this query returns all the information from the donor except the organs
-			String sql = "SELECT * FROM donor AS d1 " + "JOIN antigen AS ag1 ON d1.id_antigen = ag1.id "
+			String sql = "SELECT * FROM donor AS d1 " 
+					+ "JOIN antigen AS ag1 ON d1.id_antigen = ag1.id "
 					+ "JOIN antibody AS ab1 ON d1.id_antibody = ab1.id "
 					+ "JOIN location AS l1 ON d1.id_location = l1.id "
-					+ "JOIN doctor AS doc1 ON d1.id_doctor_charge = doc1.medical_id " + "WHERE d1.dni = ?";
+					+ "JOIN doctor AS doc1 ON d1.id_doctor_charge = doc1.medical_id " 
+					+ "WHERE d1.dni = ?";
 
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setInt(1, dni);
@@ -307,14 +309,15 @@ public class JDBCDonorManager implements DonorManager {
 		try {
 			// the donor inserted has a dni, a bloodtype and the organs
 			// we have to update the rest of the info which has an id but its c
-			String sql = "UPDATE donor SET blood_type = ?, alive = FALSE, id_doctor_charge = ? WHERE dni = ?";
+			String sql = "UPDATE donor SET blood_type = ?, alive = ?, id_doctor_charge = ? WHERE dni = ?";
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setString(1, d.getBloodType());
+			prep.setBoolean(2, false);
 
 			// Update the doctor in charge (it had the id 0 and name unassigned)
-			prep.setInt(2, medicalId);
+			prep.setInt(3, medicalId);
 
-			prep.setInt(3, d.getdni());
+			prep.setInt(4, d.getdni());
 
 			// update the antigen
 			int idAntigen = d.getAntigen().getId();
@@ -399,13 +402,21 @@ public class JDBCDonorManager implements DonorManager {
 	public Donor matchWithDonor(Receptor r) {
 		Donor d = null;
 		try {
-			String sql = "SELECT * FROM organ AS o1 " + "JOIN donor AS d1 ON d1.dni = o1.donor_dni "
+			String sql = "SELECT * FROM organ AS o1 " 
+					+ "JOIN donor AS d1 ON d1.dni = o1.donor_dni "
 					+ "JOIN antigen AS ag1 ON d1.id_antigen = ag1.id "
 					+ "JOIN antibody AS ab1 ON d1.id_antibody = ab1.id "
 					+ "JOIN location AS l1 ON d1.id_location = l1.id "
-					+ "JOIN type_of_organ AS ty1 ON o1.id_type_organ = ty1.id " + "WHERE d1.alive = ? "
-					+ "AND ag1.a = ? " + "AND ag1.b = ? " + "AND ag1.dq = ? " + "AND ab1.class_I = ? "
-					+ "AND ab1.class_II = ? " + "AND d1.blood_type = ? " + "AND ty1.id = ? " + "AND o1.available = ?";
+					+ "JOIN type_of_organ AS ty1 ON o1.id_type_organ = ty1.id " 
+					+ "WHERE d1.alive = ? "
+					+ "AND ag1.a = ? " 
+					+ "AND ag1.b = ? " 
+					+ "AND ag1.dq = ? " 
+					+ "AND ab1.class_I = ? "
+					+ "AND ab1.class_II = ? " 
+					+ "AND d1.blood_type = ? " 
+					+ "AND ty1.id = ? " 
+					+ "AND o1.available = ?";
 
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setBoolean(1, false);
