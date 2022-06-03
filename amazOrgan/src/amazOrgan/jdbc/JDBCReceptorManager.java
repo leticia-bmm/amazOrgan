@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -20,7 +19,6 @@ import amazOrgan.pojos.Organ;
 import amazOrgan.pojos.Receptor;
 import amazOrgan.pojos.Request;
 import amazOrgan.pojos.Type_organ;
-import amazOrgan.jdbc.JDBCAntigenManager;
 
 public class JDBCReceptorManager implements ReceptorManager {
 
