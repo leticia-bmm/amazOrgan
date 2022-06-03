@@ -41,6 +41,7 @@ public class Doctor implements Serializable {
 		this.medical_id = medical_id;
 	}
 
+
 	public Doctor(int medical_id, Integer number) {
 		super();
 		this.medical_id = medical_id;

@@ -380,9 +380,8 @@ public class Utilities {
 	}
 
 	// Read a date
-	public static LocalDate readDateFromKeyboard(String question) {
-		System.out.println(question);
-		// Enter a date -> String
+	public static LocalDate readDateFromKeyboard() {
+		System.out.println("Insert the date of Birth: ");
 		String dateString = null;
 
 		while (true) {
@@ -454,7 +453,7 @@ public class Utilities {
 		System.out.println("Insert the donor's information: ");
 		Donor donor = null;
 		Integer dni = readPositiveIntFromKeyboard("Enter the dni: ");
-		LocalDate dob = readDateFromKeyboard("Enter the date of birth:");
+		LocalDate dob = readDateFromKeyboard();
 		Boolean alive = false;
 		String bloodType = askBloodType();
 		Antigen antigen = readAntigenFromKeyboard();
@@ -499,8 +498,43 @@ public class Utilities {
 		Doctor doctor_charge = d.getDoctor_charge();
 		List<Organ> listOrgans = d.getOrgans();
 
+		for (Organ o : listOrgans) {
+			Float size = readPositiveFloatFromKeyboard("Insert the size of the organ: ");
+			o.setSize(size);
+		}
+
 		donor = new Donor(dni, dob, alive, bloodType, antigen, antibody, location, doctor_charge, listOrgans);
 		return donor;
+	}
+
+	public static Donor readAliveDonor() {
+		Donor donor = null;
+
+		Integer dni = readPositiveIntFromKeyboard("Insert your DNI: ");
+		LocalDate dob = readDateFromKeyboard();
+		Boolean alive = true;
+
+		donor = new Donor(dni, dob, alive);
+		return donor;
+	}
+
+	public static List<Organ> readOrgansAliveDonorFromKeyboard(Donor donor) {
+		List<Organ> organs = new LinkedList<>();
+		Organ organ;
+
+		while (true) {
+			Boolean cont = readBooleanFromKeyboard("Would you like to introduce an organ? ");
+			if (cont) {
+				Type_organ type_organ = askTypeOfOrgan();
+				Boolean available = false;
+				organ = new Organ(type_organ, available, donor);
+				organs.add(organ);
+			} else {
+				break;
+			}
+		}
+
+		return organs;
 	}
 
 	public static void main(String[] ars) {
