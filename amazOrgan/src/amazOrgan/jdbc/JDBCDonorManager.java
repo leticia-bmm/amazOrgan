@@ -202,7 +202,7 @@ public class JDBCDonorManager implements DonorManager {
 		Location location = null;
 		Doctor doctor_charge = null;
 		Organ organ = null;
-		List<Organ> organs = null;
+		List<Organ> organs = new LinkedList();
 
 		try {
 
@@ -265,18 +265,19 @@ public class JDBCDonorManager implements DonorManager {
 				donor = new Donor(dni, dob_java, alive, bloodType, antigen, antibody, location, doctor_charge);
 			}
 
-			// TODO
-			// this query returns all the info from the organs
-			sql = "SELECT * FROM  organ AS o1 " + "JOIN type_of_organ AS ty1 ON o1.id_type_organ = ty1.id "
+			//getting all the organs from the database
+			sql = "SELECT * FROM organ AS o1 " 
+					+ "JOIN type_of_organ AS ty1 ON o1.id_type_organ = ty1.id "
 					+ "WHERE o1.donor_dni = ?";
 
 			prep = manager.getConnection().prepareStatement(sql);
 			prep.setInt(1, dni);
-
+			rs = prep.executeQuery();
+			
 			while (rs.next()) {
 
-				Integer id = rs.getInt("id");
-
+				Integer id = rs.getInt(1);
+				
 				// we get the type of organ
 				Integer id_type_organ = rs.getInt("id_type_organ");
 				String name = rs.getString("name");
@@ -290,7 +291,6 @@ public class JDBCDonorManager implements DonorManager {
 				organ = new Organ(id, t, size, available, donor);
 				organs.add(organ);
 			}
-			System.out.println(organs);
 			donor.setOrgans(organs);
 
 		} catch (Exception e) {
@@ -303,7 +303,7 @@ public class JDBCDonorManager implements DonorManager {
 	// this method receives the donor that has to be updated
 	// and also the doctor that is in charge of him, who in fact is the doctor that
 	// is updating this information
-	public void updateDonor(Donor d, int medicalId) {
+	public void updateDonor(Donor d, Integer medicalId) {
 
 		try {
 			// the donor inserted has a dni, a bloodtype and the organs

@@ -729,22 +729,26 @@ public class Menu {
 			
 			
 			
-			Donor don = donorManager.getDonor(1);
-			Receptor rec = receptorManager.getReceptor(2);
+			Donor don = donorManager.getDonor(5124);
+		    Receptor rec = receptorManager.getReceptor(5);
 			
-			Organ o = organManager.getOrgan(1);
+			//Organ o = organManager.getOrgan(1);
 			
-			List <Organ> organs = new LinkedList();
-			organs.add(o);
+			//List <Organ> organs = new LinkedList();
+			//organs.add(o);
 			
-			don.setOrgans(organs);
+			
+			//don.setOrgans(organs);
 			
 			//System.out.println(don);
-			//System.out.println(rec);
+			System.out.println(rec.getRequest());
 			
-			Donor new_donor = donorManager.matchWithDonor(rec);
+			Receptor new_receptor = receptorManager.matchWithReceptor(don);
+			System.out.println(new_receptor);
 			
-			System.out.println("\n NEW DONOR: \n" + new_donor);
+			//Donor new_donor = donorManager.matchWithDonor(rec);
+			
+			//System.out.println("\n NEW DONOR: \n" + new_donor);
 			
 			//userManager.deleteUserDonor(621);
 

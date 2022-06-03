@@ -47,22 +47,18 @@ public static Receptor addreceptormenu() {
 
 	
 public static Receptor updateReceptorMenu(Receptor r) {
-	// TODO 
+
 	System.out.println("You will only be able to change the status, alive and the urgency: ");
 	String newstatus = askStatus("\nWhat is the status of the receptor? ");	
 	Boolean newalive = readBooleanFromKeyboard("\nIs the receptor alive? ");
 	Integer newurgency = readIntFromKeyboardInRange("\nWhat is the new level of urgency? ", 1, 5);
 
-	
-	//can we do this?
-	/*r.setStatus(newstatus);
+	r.setStatus(newstatus);
 	r.setAlive(newalive);
-	r.setUrgency(newurgency);*/
-	Receptor newreceptor = new Receptor(r.getDni(),r.getDob(),newstatus,r.getBlood_type(),newalive, newurgency,
-			r.getAntigen(),r.getAntibody(),r.getLocation(),r.getRequest());	
+	r.setUrgency(newurgency);
+
 	
-	//return r;
-	return newreceptor;
+	return r;
 }
 	
 	public static String askBloodType() {
@@ -206,10 +202,9 @@ public static Receptor updateReceptorMenu(Receptor r) {
 				System.out.println("What is the status of the patient? ");
 				System.out.println("1. The patient is wating for an organ");
 				System.out.println("2. The patien is being operated on");
-				System.out.println("3. The patient has accapted the organ");
-				//TODO is rejected an option?
-				System.out.println("4. The patien has rejected");
-				option = readIntFromKeyboard("INSERT THE NUMBER");
+				System.out.println("3. The patient has accepted the organ");
+				System.out.println("4. The patien has rejected the organ");
+				option = readIntFromKeyboard("Option: ");
 				switch (option) {
 				
 				case 1:
@@ -222,7 +217,7 @@ public static Receptor updateReceptorMenu(Receptor r) {
 					return accepted;
 
 				case 4:
-					return operating;
+					return rejected;
 
 				default:
 					System.out.println("The option is not correct");

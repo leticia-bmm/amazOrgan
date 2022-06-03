@@ -117,7 +117,7 @@ public class Organ implements Serializable{
 	//tostring
 	@Override
 	public String toString() {
-		return "ORGAN:"
+		return "\nORGAN:"
 				+ "\n\tID: " + id
 				+ "\n" + type_organ
 				+ "\n\tSize: " + size
