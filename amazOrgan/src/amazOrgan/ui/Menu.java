@@ -61,7 +61,7 @@ public class Menu {
 	// ---------------------------------------------------------------------------------------------------------------------------
 	// MENUS
 
-	public static void doctor_menu(int medical_id) {
+	public static void doctor_menu(int medical_id) {	//this works
 
 		try {
 			int option;
@@ -106,7 +106,7 @@ public class Menu {
 
 				case 2:
 					// Change my data
-					System.out.println("CHANGE MY DATA");
+					System.out.println("CHANGE MY DATA");	//ok
 					// first show the info of the doctor
 					doctorManager.getDoctor(medical_id);
 
@@ -128,8 +128,8 @@ public class Menu {
 					break;
 
 				case 5:
-					System.out.println("CHANGE MY PASSWORD");
-					String newpass = Utilities.readStringFromKeyboard("Introduce your new password");
+					System.out.println("CHANGE MY PASSWORD");	//ok
+					String newpass = Utilities.readStringFromKeyboard("Introduce your new password: ");
 					userManager.updatePassword(medical_id, newpass);
 					break;
 
@@ -569,7 +569,7 @@ public class Menu {
 			return;
 		}
 
-		LocalDate dob = Utilities.readDateFromKeyboard("Introduce your Date of birth (yyyy-MM-dd) :");
+		LocalDate dob = Utilities.readDateFromKeyboard();
 
 		// we have to create a Donor but also a User
 		Donor d = new Donor(dni, dob, true);
@@ -710,36 +710,36 @@ public class Menu {
 			}
 		}
 
-	public static void main(String[] ars) {
-		JDBCManager jdbcManager = new JDBCManager();
-		donorManager = new JDBCDonorManager(jdbcManager);
-		antigenManager = new JDBCAntigenManager(jdbcManager);
-		antibodyManager = new JDBCAntibodyManager(jdbcManager);
-		locationManager = new JDBCLocationManager(jdbcManager);
-		doctorManager = new JDBCDoctorManager(jdbcManager);
-		receptorManager = new JDBCReceptorManager(jdbcManager);
-		organManager = new JDBCOrganManager(jdbcManager);
-		userManager = new JPAUserManager();
-
-		try {
-
-			Donor deleting_donor = donorManager.getDonor(15);
-			
-			List<Organ> deleting_organs = deleting_donor.getOrgans();
-			for (Organ organ : deleting_organs) {
-				organManager.deleteOrgan(organ.getID());
-			}
-
-			donorManager.deleteDonor(15);
-			userManager.deleteUserDonor(15);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		jdbcManager.disconnect();
-		userManager.disconnect();
-		System.exit(0);
-	}
+//	public static void main(String[] ars) {
+//		JDBCManager jdbcManager = new JDBCManager();
+//		donorManager = new JDBCDonorManager(jdbcManager);
+//		antigenManager = new JDBCAntigenManager(jdbcManager);
+//		antibodyManager = new JDBCAntibodyManager(jdbcManager);
+//		locationManager = new JDBCLocationManager(jdbcManager);
+//		doctorManager = new JDBCDoctorManager(jdbcManager);
+//		receptorManager = new JDBCReceptorManager(jdbcManager);
+//		organManager = new JDBCOrganManager(jdbcManager);
+//		userManager = new JPAUserManager();
+//
+//		try {
+//
+//			Donor deleting_donor = donorManager.getDonor(15);
+//			
+//			List<Organ> deleting_organs = deleting_donor.getOrgans();
+//			for (Organ organ : deleting_organs) {
+//				organManager.deleteOrgan(organ.getID());
+//			}
+//
+//			donorManager.deleteDonor(15);
+//			userManager.deleteUserDonor(15);
+//
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//
+//		jdbcManager.disconnect();
+//		userManager.disconnect();
+//		System.exit(0);
+//	}
 
 }

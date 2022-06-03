@@ -38,7 +38,7 @@ public class JDBCDoctorManager implements DoctorManager {
 			String sql = "UPDATE Doctor set phone_number=?  WHERE medical_id=?";
 			PreparedStatement p = manager.getConnection().prepareStatement(sql);
 			p.setInt(1, d.getPhone_number());
-			p.setString(2, d.getName());
+			p.setInt(2, d.getMedical_id());
 			p.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
