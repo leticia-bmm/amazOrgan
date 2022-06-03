@@ -505,6 +505,7 @@ public class Utilities {
 		List<Organ> listOrgans = d.getOrgans();
 
 		for (Organ o : listOrgans) {
+			System.out.println("Insert the info of the " + o.getType_organ().getName());
 			Float size = readPositiveFloatFromKeyboard("Insert the size of the organ: ");
 			o.setSize(size);
 		}
@@ -547,6 +548,10 @@ public class Utilities {
 		System.out.println("HELLO");
 		Receptor r = addreceptormenu();
 		System.out.println(r);
+		Type_organ to = new 
+		Donor donor = new Donor(12,bt,organs);
+		String hello = askBloodType();
+		System.out.println(hello);
 		
 	}
 
