@@ -19,6 +19,10 @@ public class JDBCOrganManager implements OrganManager {
 
 	private JDBCManager manager;
 	
+	//create a method to have charge all the info for an organ list
+	// pass a dni and returns a list of organs of that donor
+	//to have the organs in the donor
+	
 	public JDBCOrganManager(JDBCManager m) {
 		this.manager = m;
 	}

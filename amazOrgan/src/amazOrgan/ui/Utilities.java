@@ -46,65 +46,71 @@ public class Utilities {
 //**********		// call match function
 
 	public static Receptor updateReceptorMenu(Receptor r) {
-		// TODO
-		System.out.println("YOU CAN ONLY CHANGE STATUS, URGENCY, URGENCY");
-		String newstatus = askStatus("UPDATE STATUS");
-		Boolean newalive = readBooleanFromKeyboard("UPDATE ALIVE");
-		Integer newurgency = readIntFromKeyboardInRange("UPDATE URGENCY", 1, 5);
+		
 
-		Receptor newreceptor = new Receptor(r.getDni(), r.getDob(), newstatus, r.getBlood_type(), newalive, newurgency,
-				r.getAntigen(), r.getAntibody(), r.getLocation(), r.getRequest());
 
-		return newreceptor;
-	}
+	System.out.println("You will only be able to change the status, alive and the urgency: ");
+	String newstatus = askStatus("\nWhat is the status of the receptor? ");	
+	Boolean newalive = readBooleanFromKeyboard("\nIs the receptor alive? ");
+	Integer newurgency = readIntFromKeyboardInRange("\nWhat is the new level of urgency? ", 1, 5);
 
+	r.setStatus(newstatus);
+	r.setAlive(newalive);
+	r.setUrgency(newurgency);
+
+	
+	return r;
+}
+	
 	static String askBloodType() {
 		try {
 			Integer option;
 			while (true) {
-				String a = "A+";
-				String b = "B+";
-				String o = "O+";
-				String ab = "AB+";
-				String x = "A-";
-				String y = "B-";
-				String z = "O-";
-				String xy = "AB-";
-				System.out.println("INSERT THE NUMBER OF THE BLOODTYPE YOU WANT");
-				System.out.println("A+    1");
-				System.out.println("B+    2");
-				System.out.println("AB+   3");
-				System.out.println("O+    4");
-				System.out.println("A-    5");
-				System.out.println("B-    6");
-				System.out.println("AB-   7");
-				System.out.println("O-    8");
+				String aPositive = "A+";
+				String bPositive = "B+";
+				String oPositive = "O+";
+				String abPositive = "AB+";
+				String aNegative = "A-";
+				String bNegative = "B-";
+				String oNegative = "O-";
+				String abNegative = "AB-";
+				System.out.println("\nWhat is the blood type of the patient?: ");
+				System.out.println("1. A+");
+				System.out.println("2. B+");
+				System.out.println("3. AB+");
+				System.out.println("4. O+");
+				System.out.println("5. A-");
+				System.out.println("6. B-");
+				System.out.println("7. AB-");
+				System.out.println("8. O-");
 
-				option = readIntFromKeyboard("INSERT THE NUMBER");
+				option = readIntFromKeyboard("\nInsert the number corresponding to the blood type: ");
+				
 				switch (option) {
 
 				case 1:
-					return a;
+					return aPositive;
 
 				case 2:
-					return b;
+					return bPositive;
 
 				case 3:
-					return o;
+					return abPositive;
 
 				case 4:
-					return ab;
+					return oPositive;
 
 				case 5:
-					return x;
+					return aNegative;
+					
 				case 6:
-					return y;
+					return bNegative;
 
 				case 7:
-					return z;
+					return abNegative;
 
 				case 8:
-					return xy;
+					return oNegative;
 
 				default:
 					System.out.println("The option is not correct");
@@ -130,40 +136,39 @@ public class Utilities {
 	public static String askTypeOfOrgan(String question) {
 		// works
 		try {
-			Integer option;
-			while (true) {
-				String kidney = "kidney";
-				String liver = "liver";
-				String pancreas = "pancreas";
-				String lung = "lung";
-				String heart = "heart";
-				String bowel = "bowel";
-				String boneMarrow = "bone marrow";
+		Integer option;
+		while (true) {
+			String  kidney= "kidney";
+			String  liver = "liver";
+			String  pancreas = "pancreas";
+			String  lung = "lung";
+			String  heart= "heart";
+			String  bowel = "bowel";
+			String  boneMarrow= "bone marrow";
+			
+			System.out.println("What is the type of organ? ");
+			System.out.println("1. Kidney");
+			System.out.println("2. Liver");
+			System.out.println("3. Pancreas");
+			System.out.println("4. Lungs");
+			System.out.println("5. Heart");
+			System.out.println("6. Bowel");
+			System.out.println("7. Bone marrow");
+			
+			option = readIntFromKeyboard("\nInsert the number corresponding to the organ: ");
+			switch (option) {
+			case 1:
+				return kidney;
 
-				System.out.println("INSERT THE ORGAN THE PATIENT NEEDS");
-				System.out.println("KIDNEY       1");
-				System.out.println("LIVER        2");
-				System.out.println("PANCREAS     3");
-				System.out.println("LUNG         4");
-				System.out.println("HEART        5");
-				System.out.println("BOWEL        6");
-				System.out.println("BONE MARROW  7");
+			case 2:
+				return liver;
 
-				option = readIntFromKeyboard("INSERT THE NUMBER");
-				switch (option) {
+			case 3:
+				return pancreas;
 
-				case 1:
-					return kidney;
-
-				case 2:
-					return liver;
-
-				case 3:
-					return pancreas;
-
-				case 4:
-					return lung;
-
+			case 4:
+				return lung;
+			
 				case 5:
 					return heart;
 
@@ -204,16 +209,16 @@ public class Utilities {
 				switch (option) {
 
 				case 1:
-					return accepted;
-
-				case 2:
-					return rejected;
-
-				case 3:
 					return waiting;
 
-				case 4:
+				case 2:
 					return operating;
+
+				case 3:
+					return accepted;
+
+				case 4:
+					return rejected;
 
 				default:
 					System.out.println("The option is not correct");
@@ -458,7 +463,7 @@ public class Utilities {
 
 	// Read a death donor
 	// TODO method
-	public static Donor readDonorFromKeyboard(Doctor doctor, String question) {
+	public static Donor readDeadDonorFromKeyboard(Doctor doctor, String question) {
 		System.out.println(question);
 
 		Donor donor = null;
@@ -477,6 +482,7 @@ public class Utilities {
 	}
 
 	// Update a donor
+	//this otption is only used when a donor was already in the database
 	// TODO test method
 	public static Donor readDonortoUpdate(Donor d) {
 
@@ -496,7 +502,10 @@ public class Utilities {
 	}
 
 	public static void main(String[] ars) {
-		LocalDate date = readDateFromKeyboard("Enter a date");
+		//LocalDate date = readDateFromKeyboard("Enter a date");
+		String hello = askBloodType();
+		System.out.println(hello);
+		
 	}
 
 	// TODO readListOrgansFromKeyboard()

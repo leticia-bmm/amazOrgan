@@ -124,7 +124,7 @@ public class Request implements Serializable{
 				+ "\n" + type_organ
 				+ "\n\tSize: " + size
 				+ "\n\tReceived: " + received
-				+ "\n" + organ_received;
+				+ "\n\t" + organ_received;
 	}
 
 

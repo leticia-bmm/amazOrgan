@@ -109,7 +109,7 @@ public class XmlManager {
 		 
 */
 		
-		simpleTransform("./xmls/Organ.xml", "./xmls/Organ.xslt", "./xmls/Organ-super.html");
+		simpleTransform("./xmls/Organ.xml", "./xmls/Organ.xslt", "C:/Users/letib/OneDrive/Bureau/Organ-super.html");
 
 	}
 

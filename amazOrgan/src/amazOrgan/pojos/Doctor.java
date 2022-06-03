@@ -92,12 +92,10 @@ public class Doctor implements Serializable {
 
 	@Override
 	public String toString() {
-		return "-----------DOCTOR-----------"
+		return "DOCTOR:"
 				+ "\n\tMedical ID: " + medical_id
 				+ "\n\tName: " + name
-				+ "\n\tPhone Number: " + phone_number 
-				+ "\nList of donors: " + donors 
-				+ "\nList of receptors: " + receptors;
+				+ "\n\tPhone Number: " + phone_number;
 	}
 
 

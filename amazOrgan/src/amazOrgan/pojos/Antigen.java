@@ -138,7 +138,7 @@ public class Antigen implements Serializable {
 
 	@Override
 	public String toString() {
-		return  "\nANTIGENS:"
+		return  "\nAntigen:"
 				+ "\n\tA: " + a
 				+ "\n\tB: " + b
 				+ "\n\tC: " + c
