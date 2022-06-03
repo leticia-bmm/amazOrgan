@@ -139,7 +139,8 @@ public class JDBCReceptorManager implements ReceptorManager {
 					+ "LEFT JOIN location AS l1 ON r1.id_location = l1.id "
 					+ "LEFT JOIN request AS re1 ON r1.id_request = re1.id "
 					+ "LEFT JOIN type_of_organ AS ty1 ON re1.id_type_organ = ty1.id "
-					+ "LEFT JOIN organ AS o1 ON re1.id_organ = o1.id " + "WHERE r1.dni=" + dni;
+					+ "LEFT JOIN organ AS o1 ON re1.id_organ = o1.id " 
+					+ "WHERE r1.dni=" + dni;
 			ResultSet rs = stmt.executeQuery(sql);
 
 			while (rs.next()) {
@@ -244,7 +245,8 @@ public class JDBCReceptorManager implements ReceptorManager {
 		try {
 			Statement stmt = manager.getConnection().createStatement();
 			String sql = "SELECT r1.dni, r1.status, r1.alive, r1.urgency FROM examines AS e1 "
-					+ "LEFT JOIN receptor AS r1 ON e1.receptor_id = r1.dni " + "WHERE e1.medical_id = " + medical_id;
+					+ "LEFT JOIN receptor AS r1 ON e1.receptor_id = r1.dni " 
+					+ "WHERE e1.medical_id = " + medical_id;
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
 				Integer receptor_id = rs.getInt("dni");
@@ -269,14 +271,17 @@ public class JDBCReceptorManager implements ReceptorManager {
 		Receptor r = null;
 		Request request = null;
 		Type_organ type_organ = null;
-		List<Receptor> receptors = new LinkedList();
+		List<Receptor> receptors = new LinkedList<>();
 		try {
-			Statement stmt = manager.getConnection().createStatement();
 			String sql = "SELECT r1.dni, ty1.name, r1.urgency, r1.status FROM receptor AS r1 "
 					+ "LEFT JOIN request AS re1 ON r1.id_request = re1.id "
-					+ "LEFT JOIN type_of_organ AS ty1 ON re1.id_type_organ = ty1.id " + "WHERE blood_type = ? "
-					+ "AND r1.alive = TRUE";
-			ResultSet rs = stmt.executeQuery(sql);
+					+ "LEFT JOIN type_of_organ AS ty1 ON re1.id_type_organ = ty1.id " 
+					+ "WHERE blood_type = ? "
+					+ "AND r1.alive = ?";
+			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
+			prep.setString(1, bloodtype);
+			prep.setBoolean(2, true);
+			ResultSet rs = prep.executeQuery(sql);
 			while (rs.next()) {
 				Integer dni = rs.getInt("dni");
 				String organ_name = rs.getString("name");
@@ -288,7 +293,7 @@ public class JDBCReceptorManager implements ReceptorManager {
 				receptors.add(r);
 			}
 			rs.close();
-			stmt.close();
+			prep.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -298,17 +303,19 @@ public class JDBCReceptorManager implements ReceptorManager {
 	@Override
 	public List<Receptor> showReceptorsByUrgency() {
 		// shows dni, status, urgency and the name of the organ
-		List<Receptor> receptors = new LinkedList();
+		List<Receptor> receptors = new LinkedList<>();
 		Receptor r = null;
 		Request request = null;
 		Type_organ type_organ = null;
 		try {
-			Statement stmt = manager.getConnection().createStatement();
 			String sql = "SELECT r1.dni, ty1.name, r1.urgency, r1.status FROM receptor AS r1 "
 					+ "LEFT JOIN request AS re1 ON r1.id_request = re1.id "
-					+ "LEFT JOIN type_of_organ AS ty1 ON re1.id_type_organ = ty1.id " + "WHERE r1.alive = TRUE "
+					+ "LEFT JOIN type_of_organ AS ty1 ON re1.id_type_organ = ty1.id " 
+					+ "WHERE r1.alive = ? "
 					+ "ORDER BY r1.urgency DESC";
-			ResultSet rs = stmt.executeQuery(sql);
+			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
+			prep.setBoolean(1, true);
+			ResultSet rs = prep.executeQuery(sql);
 			while (rs.next()) {
 				Integer dni = rs.getInt("dni");
 				String organ_name = rs.getString("name");
@@ -320,7 +327,7 @@ public class JDBCReceptorManager implements ReceptorManager {
 				receptors.add(r);
 			}
 			rs.close();
-			stmt.close();
+			prep.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

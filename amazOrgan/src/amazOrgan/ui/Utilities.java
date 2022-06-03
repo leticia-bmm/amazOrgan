@@ -3,10 +3,8 @@ package amazOrgan.ui;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -125,7 +123,7 @@ public class Utilities {
 	}
 
 	public static Request readRequestFromKeyboard(String question) {
-		// TODO test method
+
 		System.out.println(question);
 		Type_organ typeOfOrgan = askTypeOfOrgan();
 		Float organSize = readPositiveFloatFromKeyboard("Insert the size of the organ needed: ");
@@ -454,7 +452,6 @@ public class Utilities {
 	// TODO method
 	public static Donor readDeadDonorFromKeyboard(Integer medical_id, String question) {
 		System.out.println(question);
-
 		Donor donor = null;
 		Integer dni = readPositiveIntFromKeyboard("Enter the dni: ");
 		LocalDate dob = readDateFromKeyboard();
@@ -464,7 +461,6 @@ public class Utilities {
 		Antibody antibody = readAntibodyFromKeyboard();
 		Location location = readLocationFromKeyboard();
 		Doctor doctor_charge = new Doctor(medical_id);
-		// List<Organ> organs = readListOrgansFromKeyboard();
 		Organ organ = null;
 		List<Organ> organs = new LinkedList<>();
 
@@ -499,8 +495,11 @@ public class Utilities {
 		Boolean alive = false;
 		String bloodType = askBloodType();
 		Antigen antigen = readAntigenFromKeyboard();
+		antigen.setId(d.getAntigen().getId());
 		Antibody antibody = readAntibodyFromKeyboard();
+		antibody.setID(d.getAntibody().getID());
 		Location location = readLocationFromKeyboard();
+		location.setId(d.getLocation().getId());
 		Doctor doctor_charge = d.getDoctor_charge();
 		List<Organ> listOrgans = d.getOrgans();
 
@@ -546,13 +545,6 @@ public class Utilities {
 
 	public static void main(String[] ars) {
 		System.out.println("HELLO");
-		Receptor r = addreceptormenu();
-		System.out.println(r);
-		Type_organ to = new 
-		Donor donor = new Donor(12,bt,organs);
-		String hello = askBloodType();
-		System.out.println(hello);
-		
 	}
 
 }
