@@ -546,8 +546,10 @@ public class Utilities {
 	}
 
 	public static void main(String[] ars) {
-		Type_organ to = new 
-		Donor donor = new Donor(12,bt,organs);
+		Donor donor = readDeadDonorFromKeyboard(12,"");
+		System.out.println(donor);
+		Donor donor1 = readDonortoUpdate(donor);
+		System.out.println(donor1);
 		String hello = askBloodType();
 		System.out.println(hello);
 		
