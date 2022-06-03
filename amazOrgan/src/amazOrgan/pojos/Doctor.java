@@ -39,6 +39,13 @@ public class Doctor implements Serializable {
 	}
 
 
+	public Doctor(int medical_id2, Integer number) {
+		super();
+		this.medical_id = medical_id;
+		this.phone_number = number;
+	}
+
+
 	public Integer getMedical_id() {
 		return medical_id;
 	}

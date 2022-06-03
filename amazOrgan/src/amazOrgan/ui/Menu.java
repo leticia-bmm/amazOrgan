@@ -73,9 +73,10 @@ public class Menu {
 				System.out.println("4) Work with receptors");
 				System.out.println("5) Change my password");
 				System.out.println("0) Exit");
-				option = Integer.parseInt(reader.readLine());
+				option = Utilities.readIntFromKeyboardInRange("Option", 0, 5);
 
 				switch (option) {
+				
 				case 1:
 					// See my patients
 					System.out.println("SEE MY PATIENTS");
@@ -87,13 +88,14 @@ public class Menu {
 				case 2:
 					// Change my data
 					System.out.println("CHANGE MY DATA");
-					// first show the info of the donor
+					// first show the info of the doctor
 					doctorManager.getDoctor(medical_id);
-					//TODO
+					
 					// ask for changes
-					// create the new doctor by calling the constructor
-					// doctorManager.changeMyData(doctor);
-					// hecho
+					Integer number = Utilities.readIntFromKeyboard("Introduce your new phone number: ");
+					Doctor d = new Doctor(medical_id, number);
+					doctorManager.changeMyData(d);
+					
 					break;
 
 				case 3:
@@ -139,111 +141,68 @@ public class Menu {
 				System.out.println("1) Add donor");
 				System.out.println("2) Show all available donors");
 				System.out.println("3) Update existing donor");
-				System.out.println("4) Delete donor");//TODO eliminar esta opcion
-				System.out.println("5) Get donor");	
+				System.out.println("4) Get donor");	
 				System.out.println("0) Back");
-				option = Integer.parseInt(reader.readLine());
+				option = Utilities.readIntFromKeyboardInRange("Option", 0, 4);
 
 				switch (option) {
 				case 1:
-					// Register donor 
-					System.out.println("ADD DONOR");// ONLY DEAD DONORS
+					// Add donor 
+					System.out.println("ADD DONOR"); // ONLY DEAD DONORS (when they are alive, they register themselves)
 					Donor d = Utilities.readDonorFromKeyboard(medical_id, "Introduce the data of the donor");
-					donorManager.addDonor(d);
-					
-					// steps:
-					// Hay que llamar a addDonor con toda la info
-					// dob, blood type, alive
-					//llamar a los add:
-					// Antigen, Antibody, Location y Organs (dentro de un for), Doctor in charge NO
-					// porque es el mismo --> hacer un get doctor con el id //
-					// PREGUNTA DE PRATS de donde cojo el medical id si no lo tengo pasado por nada
+					donorManager.addDonor(d);					
 					// introduce the organs in a list
 					
-										
-					// call the constructor
-
-					// 3) call match function
+					//CALL THE MATCH FUNCTION
+					Receptor rMatched = receptorManager.matchWithReceptor(d);
+					if(rMatched != null) {
+						System.out.println("Match found !!");
+						System.out.println("This is the receptor matched with your donor: ");
+						System.out.println(rMatched);
+					}
 
 					break;
 
 				case 2:
 					// Show donors
 					System.out.println("SHOW ALL AVAILABLE DONORS");
-					// list all the donors (JDBCDonorManager)
-					// solo de los donors que son alive y whose organs are available
-					// cosas que queremos del donor: dni, blood type y de la lista de organos
-					// donados solo el type of organ
-					// desde este metodo habria que llamar a los constructores correspondientes pero
-					// pasandoles solo pocas cosas
-					// vamos a tener dos queries: una que devuleve los dnis de los donors que estan
-					// dead y sus organs available y otra que devuelve el nombre de los organs
-					//create a method that only reads from the list the dni, bloodType and organs
-
+					
+					//these donors are alive and their organs are available
+					List<Donor> list = donorManager.listAllDonors();
+					System.out.println(list);
+					
 					break;
 
 				case 3:
-					// Update alive
+					// Update existing donor
+					System.out.println("UPDATE EXISTING DONOR");
+					//this option is selected when a donor that was registered in the database but now has died and the doctor
+					//is adding the organs that are available to donate
+					//to go from alive = true a alive = false and available = false to available = true
 					
-					// 1) ask for: DNI 
-					// 2) select del donor con el dni: (getDonor)
-					// si el donor estaba en la database:
-					// llamar a updateDonor (con la info que se ha leido + la que falta por pedir)
-					//info que se ha leido -> dni, 
-					// call the constructor
-					//
-					// para pasar de alive = true a alive = false
-					// lo que hace que tambien se pase de available = false a available = true
-
-					// call match function
+					Integer donor_dni = Utilities.readIntFromKeyboard("Introduce the DNI of the donor you want to update: ");
+					Donor don = donorManager.getDonor(donor_dni);
+					Donor newd = Utilities.readDonortoUpdate(don);
+					donorManager.updateDonor(newd, medical_id);
+					
+					//CALL THE MATCH FUNCTION
+					Receptor recMatched = receptorManager.matchWithReceptor(d);
+					if(recMatched != null) {
+						System.out.println("Match found !!");
+						System.out.println("This is the receptor matched with your donor: ");
+						System.out.println(recMatched);
+					}
 
 					break;
+
+				
 
 				case 4:
-					// Delete donor
-					System.out.println("DELETE DONOR");
-					//this method is called when a dono has died but is unavailable to donate.
-					//when the donor is deleted from the databse, we also have to delete him as a user
-					
-					//TODO? first show all the donors
-					Integer donor_DNI = Utilities.readIntFromKeyboard("Insert the donor dni: ");
-					Donor deleting_donor = donorManager.getDonor(donor_DNI);
-					antigenManager.deleteAntigen(deleting_donor.getAntigen().getId());
-					antibodyManager.deleteAntibody(deleting_donor.getAntibody().getID());
-					locationManager.deleteLocation(deleting_donor.getLocation().getId());
-					
-					List <Organ> deleting_organs = deleting_donor.getOrgans();
-					for(Organ organ : deleting_organs) {
-						organManager.deleteOrgan(organ.getID());
-					} //THIS HAS TO BE CHECKED
-					
-					
-					donorManager.deleteDonor(donor_DNI);
-					// WE HAVE TO CALL ALL THE DELETE OF 
-					// antigen
-					// antibody
-					// location
-					// organs
-					
-					
-					// deleteDonor();
-					
-					try {
-						//deleteUser()
-					}catch(Exception e) {
-						//the donor was not registered as a user
-					}
-					break;
-
-				case 5:
 					// Get donor
-					System.out.println("GET DONOR");// BY DNI
-					System.out.println("INSERT DNI");
-					Integer donorDNI = Integer.parseInt(reader.readLine());
+					System.out.println("GET DONOR");
+					Integer donorDNI = Utilities.readPositiveIntFromKeyboard("Introduce the DNI of the donor");
 					donorManager.getDonor(donorDNI);
-					// getDonor();
-					// DONE
-
+					
 					break;
 
 				case 0:
@@ -262,7 +221,7 @@ public class Menu {
 
 	}
 
-	// TODO tiene que recibir el medical_id???????????
+	
 	public static void doc_receptor_menu(int medical_id) {
 
 		try {
@@ -373,7 +332,7 @@ public class Menu {
 		}
 
 	}
-<<<<<<< HEAD
+
 
 	public static void main(String[] ars) {
 
@@ -478,122 +437,7 @@ public class Menu {
 			e.printStackTrace();
 		}
 	}
-=======
-//
-//	public static void main(String[] ars) {
-//
-//		System.out.println("Welcome to amazOrgan!");
-//
-//		// TODO
-//		// Initialize database for JDBC
-//		// -----------------------------
-//		JDBCManager jdbcManager = new JDBCManager();
-//		antibodyManager = new JDBCAntibodyManager(jdbcManager);
-//		antigenManager = new JDBCAntigenManager(jdbcManager);
-//		doctorManager = new JDBCDoctorManager(jdbcManager);
-//		donorManager = new JDBCDonorManager(jdbcManager);
-//		locationManager = new JDBCLocationManager(jdbcManager);
-//		organManager = new JDBCOrganManager(jdbcManager);
-//		receptorManager = new JDBCReceptorManager(jdbcManager);
-//		requestManager = new JDBCRequestManager(jdbcManager);
-//		type_organManager = new JDBCType_organManager(jdbcManager);
-//
-//		// = new ...Manager()
-//
-//		// TODO
-//		// Initialize database for JPA
-//		// ----------------------------
-//		userManager = new JPAUserManager();
-//
-//		// Menu loop
-//		try {
-//			Integer option;
-//			while (true) {
-//				System.out.println("Please, choose an option: ");
-//				System.out.println("1) Login as a Doctor");
-//				System.out.println("2) Register as a Doctor");
-//				System.out.println("3) Login as a Donor");
-//				System.out.println("4) Register as a Donor");
-//				System.out.println("5) See our web page");
-//				System.out.println("6) Import an xml");
-//				System.out.println("7) Export an xml");
-//
-//				option = Integer.parseInt(reader.readLine());
-//
-//				switch (option) {
-//				case 1:
-//					// Login as a Doctor
-//					System.out.println("LOGIN AS A DOCTOR");
-//					// login_doctor() ask here for the id and the password
-//					int medical_id = 1;
-//					doctor_menu(medical_id); // this method is called from the login
-//
-//					break;
-//
-//				case 2:
-//					// Register as a Doctor
-//					System.out.println("REGISTER AS A DOCTOR");
-//					// register_doctor() ask here for the id and the password
-//					int id = 1;
-//					doctor_menu(id); // this method is called from the register
-//					break;
-//
-//				case 3:
-//					// Login as a Donor
-//					System.out.println("LOGIN AS A DONOR");
-//					// login_donor() ask here for the id and the password
-//					int dni = 1;
-//					donor_menu(dni); // this method is called from the login
-//					// you can only insert info or see your data
-//
-//					break;
-//
-//				case 4:
-//					// Register as a Donor
-//					System.out.println("Register AS A DONOR");
-//					// register_donor() ask here for the id and the password
-//					int DNI = 3;
-//					donor_menu(DNI); // this method is called from the register
-//					// you can only insert info or see your data
-//
-//					break;
-//	
-//				case 5:
-//					// See our web page
-//					
-//				
-//					break;
-//					
-//				case 6:
-//					// Import an xml
-//					
-//				
-//					break;
-//					
-//				case 7:
-//					// Export an xml
-//				
-//					break;
-//
-//				default:
-//					System.out.println("The selected option is not correct.");
-//					break;
-//				}
-//
-//				break; // to exit the loop
-//			}
-//
-//			// if we reach this point, it is because the user wants to exit the program
-//
-//			// Close the connection with the database
-//			jdbcManager.disconnect();
-//			System.exit(0);
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//	}
->>>>>>> branch 'master' of https://github.com/leticia-bmm/amazOrgan
+
 
 	
 	public static void donor_menu(int DNI) {
