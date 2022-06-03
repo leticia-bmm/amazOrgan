@@ -83,8 +83,26 @@ public class Menu {
 				case 1:
 					// See my patients
 					System.out.println("SEE MY PATIENTS");
-					System.out.println(receptorManager.listMyReceptors(medical_id));
-					System.out.println(donorManager.listMyDonors(medical_id));
+					
+					//see the receptors
+					System.out.println("Receptors: \n");
+					List<Receptor> list1 = receptorManager.listMyReceptors(medical_id);
+					for (Receptor r : list1) {
+						System.out.println("DNI: " + r.getDni());
+						System.out.println("Status: " + r.getStatus());
+						System.out.println("Alive: " + r.getAlive());
+						System.out.println("Urgency: " + r.getUrgency() + "\n");
+					
+					}
+					
+					//see the donors
+					System.out.println("Donors: \n");
+					List<Donor> list2 = donorManager.listMyDonors(medical_id);
+					for (Donor d : list2) {
+						System.out.println("DNI: " + d.getdni());
+						System.out.println("Alive: " + d.isAlive() + "\n");
+						
+					}
 
 					break;
 
@@ -630,7 +648,7 @@ public class Menu {
 				System.out.println("6) Import an xml");
 				System.out.println("7) Export an xml");
 
-				option = Utilities.readIntFromKeyboardInRange("Option", 1, 7);
+				option = Utilities.readIntFromKeyboardInRange("Option: ", 1, 7);
 
 				switch (option) {
 				case 1:
@@ -711,33 +729,15 @@ public class Menu {
 //
 //		try {
 //
-//			Donor don = donorManager.getDonor(5124);
-//			Receptor rec = receptorManager.getReceptor(5);
+//			List<Receptor> list = receptorManager.listMyReceptors(524);
+//			for (Receptor r : list) {
+//				System.out.println("DNI: " + r.getDni());
+//				System.out.println("Status: " + r.getStatus());
+//				System.out.println("Alive: " + r.getAlive());
+//				System.out.println("Urgency: " + r.getUrgency() + "\n");
 //
-//			// Organ o = organManager.getOrgan(1);
-//
-//			// List <Organ> organs = new LinkedList();
-//			// organs.add(o);
-//
-//			// don.setOrgans(organs);
-//
-//			// System.out.println(don);
-//			System.out.println(rec.getRequest());
-//
-//			Receptor new_receptor = receptorManager.matchWithReceptor(don);
-//			System.out.println(new_receptor);
-//
-//			// Donor new_donor = donorManager.matchWithDonor(rec);
-//
-//			// System.out.println("\n NEW DONOR: \n" + new_donor);
-//
-//			// userManager.deleteUserDonor(621);
-//
-//			// Donor d1 = donorManager.getDonor(5124);
-//			// System.out.println("GOOD ONE" + d1);
-//
-//			// Donor d = donorManager.getDonor(621);
-//			// System.out.println("BAD ONE" + d);
+//				
+//			}
 //
 //		} catch (Exception e) {
 //			e.printStackTrace();
