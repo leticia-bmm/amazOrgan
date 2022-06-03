@@ -61,7 +61,7 @@ public class Menu {
 	// ---------------------------------------------------------------------------------------------------------------------------
 	// MENUS
 
-	public static void doctor_menu(int medical_id) {	//this works
+	public static void doctor_menu(int medical_id) { // this works
 
 		try {
 			int option;
@@ -106,7 +106,7 @@ public class Menu {
 
 				case 2:
 					// Change my data
-					System.out.println("CHANGE MY DATA");	//ok
+					System.out.println("CHANGE MY DATA"); // ok
 					// first show the info of the doctor
 					doctorManager.getDoctor(medical_id);
 
@@ -128,7 +128,7 @@ public class Menu {
 					break;
 
 				case 5:
-					System.out.println("CHANGE MY PASSWORD");	//ok
+					System.out.println("CHANGE MY PASSWORD"); // ok
 					String newpass = Utilities.readStringFromKeyboard("Introduce your new password: ");
 					userManager.updatePassword(medical_id, newpass);
 					break;
@@ -167,7 +167,8 @@ public class Menu {
 				case 1:
 					// Add donor
 					System.out.println("ADD DONOR"); // ONLY DEAD DONORS (when they are alive, they register themselves)
-					Donor d = Utilities.readDeadDonorFromKeyboard(medical_id, "Introduce the data of the donor");
+					Doctor doc = doctorManager.getDoctor(medical_id)
+					Donor d = Utilities.readDeadDonorFromKeyboard(doc, "Introduce the data of the donor");
 					donorManager.addDonor(d);
 					// this method also adds the organs
 
@@ -208,8 +209,8 @@ public class Menu {
 						System.out.println("This donor is not in the database.");
 						break;
 					}
-
-					Donor newd = Utilities.readDonortoUpdate(don);
+					Doctor doctor = doctorManager.getDoctor(medical_id);
+					Donor newd = Utilities.readDonortoUpdate(don, doctor);
 					donorManager.updateDonor(newd, medical_id);
 					// this also updates the organs
 
@@ -378,10 +379,11 @@ public class Menu {
 
 				case 1:
 					System.out.println("ADD ORGANS");
-					// TODO
-					// check that he does not have organs
-					// al insertar los organs available es by default false
-					// addOrgans(DNI);
+					Donor d1 = donorManager.getDonor(DNI);
+					List<Organ> organs = Utilities.readOrgansAliveDonorFromKeyboard(d1);
+					for(Organ o : organs) {
+						organManager.addOrgan(o);
+					}
 
 					break;
 
@@ -393,11 +395,10 @@ public class Menu {
 
 				case 3:
 					System.out.println("DELETE MYSELF");
-					// TODO check this option
 					// when the donor is deleted from the database, we also have to delete him as a
-					// user					
+					// user
 					Donor deleting_donor = donorManager.getDonor(DNI);
-					
+
 					List<Organ> deleting_organs = deleting_donor.getOrgans();
 					for (Organ organ : deleting_organs) {
 						organManager.deleteOrgan(organ.getID());
@@ -405,8 +406,9 @@ public class Menu {
 
 					donorManager.deleteDonor(DNI);
 					userManager.deleteUserDonor(DNI);
+					System.out.println("Thanks for choosing amazOrgan.");
 
-					break;
+					return;
 
 				case 4:
 					System.out.println("CHANGE MY PASSWORD");
@@ -607,139 +609,141 @@ public class Menu {
 
 //MAIN
 
-		public static void main(String[] ars) {
-
-			System.out.println("Welcome to amazOrgan!");
-
-			// Initialize database for JDBC
-			// -----------------------------
-			JDBCManager jdbcManager = new JDBCManager();
-			antibodyManager = new JDBCAntibodyManager(jdbcManager);
-			antigenManager = new JDBCAntigenManager(jdbcManager);
-			doctorManager = new JDBCDoctorManager(jdbcManager);
-			donorManager = new JDBCDonorManager(jdbcManager);
-			locationManager = new JDBCLocationManager(jdbcManager);
-			organManager = new JDBCOrganManager(jdbcManager);
-			receptorManager = new JDBCReceptorManager(jdbcManager);
-			requestManager = new JDBCRequestManager(jdbcManager);
-			type_organManager = new JDBCType_organManager(jdbcManager);
-
-			// Initialize database for JPA
-			// ----------------------------
-			userManager = new JPAUserManager();
-
-			// Menu loop
-			try {
-
-				Integer option;
-				while (true) {
-					System.out.println("Please, choose an option: ");
-					System.out.println("1) Login as a Doctor");
-					System.out.println("2) Register as a Doctor");
-					System.out.println("3) Login as a Donor");
-					System.out.println("4) Register as a Donor");
-					System.out.println("5) See our web page");
-					System.out.println("6) Import an xml");
-					System.out.println("7) Export an xml");
-
-					option = Utilities.readIntFromKeyboardInRange("Option: ", 1, 7);
-
-					switch (option) {
-					case 1:
-						// Login as a Doctor
-						System.out.println("LOGIN AS A DOCTOR");
-						loginDoctor(); // this method calls the doctor menu
-						break;
-
-					case 2:
-						// Register as a Doctor
-						System.out.println("REGISTER AS A DOCTOR");
-						registerDoctor();
-						break;
-
-					case 3:
-						// Login as a Donor
-						System.out.println("LOGIN AS A DONOR");
-						loginDonor();
-						break;
-
-					case 4:
-						// Register as a Donor
-						System.out.println("REGISTER AS A DONOR");
-						registerDonor();
-						break;
-
-					case 5:
-						// See our web page
-						//TODO
-
-						break;
-
-					case 6:
-						// Import an xml
-						//TODO
-						// ask for the file
-						// unmarshall
-
-						break;
-
-					case 7:
-						// Export an xml
-						//TODO
-						// ask for the file
-						// marshall
-
-						break;
-
-					default:
-						System.out.println("The selected option is not correct.");
-						break;
-					}
-
-					break; // to exit the loop
-				}
-
-				// if we reach this point, it is because the user wants to exit the program
-
-				// Close the connection with the database
-				jdbcManager.disconnect();
-				System.exit(0);
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-
 //	public static void main(String[] ars) {
+//
+//		System.out.println("Welcome to amazOrgan!");
+//
+//		// Initialize database for JDBC
+//		// -----------------------------
 //		JDBCManager jdbcManager = new JDBCManager();
-//		donorManager = new JDBCDonorManager(jdbcManager);
-//		antigenManager = new JDBCAntigenManager(jdbcManager);
 //		antibodyManager = new JDBCAntibodyManager(jdbcManager);
-//		locationManager = new JDBCLocationManager(jdbcManager);
+//		antigenManager = new JDBCAntigenManager(jdbcManager);
 //		doctorManager = new JDBCDoctorManager(jdbcManager);
-//		receptorManager = new JDBCReceptorManager(jdbcManager);
+//		donorManager = new JDBCDonorManager(jdbcManager);
+//		locationManager = new JDBCLocationManager(jdbcManager);
 //		organManager = new JDBCOrganManager(jdbcManager);
+//		receptorManager = new JDBCReceptorManager(jdbcManager);
+//		requestManager = new JDBCRequestManager(jdbcManager);
+//		type_organManager = new JDBCType_organManager(jdbcManager);
+//
+//		// Initialize database for JPA
+//		// ----------------------------
 //		userManager = new JPAUserManager();
 //
+//		// Menu loop
 //		try {
 //
-//			Donor deleting_donor = donorManager.getDonor(15);
-//			
-//			List<Organ> deleting_organs = deleting_donor.getOrgans();
-//			for (Organ organ : deleting_organs) {
-//				organManager.deleteOrgan(organ.getID());
+//			Integer option;
+//			while (true) {
+//				System.out.println("Please, choose an option: ");
+//				System.out.println("1) Login as a Doctor");
+//				System.out.println("2) Register as a Doctor");
+//				System.out.println("3) Login as a Donor");
+//				System.out.println("4) Register as a Donor");
+//				System.out.println("5) See our web page");
+//				System.out.println("6) Import an xml");
+//				System.out.println("7) Export an xml");
+//
+//				option = Utilities.readIntFromKeyboardInRange("Option: ", 1, 7);
+//
+//				switch (option) {
+//				case 1:
+//					// Login as a Doctor
+//					System.out.println("LOGIN AS A DOCTOR");
+//					loginDoctor(); // this method calls the doctor menu
+//					break;
+//
+//				case 2:
+//					// Register as a Doctor
+//					System.out.println("REGISTER AS A DOCTOR");
+//					registerDoctor();
+//					break;
+//
+//				case 3:
+//					// Login as a Donor
+//					System.out.println("LOGIN AS A DONOR");
+//					loginDonor();
+//					break;
+//
+//				case 4:
+//					// Register as a Donor
+//					System.out.println("REGISTER AS A DONOR");
+//					registerDonor();
+//					break;
+//
+//				case 5:
+//					// See our web page
+//					// TODO
+//
+//					break;
+//
+//				case 6:
+//					// Import an xml
+//					// TODO
+//					// ask for the file
+//					// unmarshall
+//
+//					break;
+//
+//				case 7:
+//					// Export an xml
+//					// TODO
+//					// ask for the file
+//					// marshall
+//
+//					break;
+//
+//				default:
+//					System.out.println("The selected option is not correct.");
+//					break;
+//				}
+//
+//				break; // to exit the loop
 //			}
 //
-//			donorManager.deleteDonor(15);
-//			userManager.deleteUserDonor(15);
+//			// if we reach this point, it is because the user wants to exit the program
+//
+//			// Close the connection with the database
+//			jdbcManager.disconnect();
+//			System.exit(0);
 //
 //		} catch (Exception e) {
 //			e.printStackTrace();
 //		}
-//
-//		jdbcManager.disconnect();
-//		userManager.disconnect();
-//		System.exit(0);
 //	}
+
+	public static void main(String[] ars) {
+		JDBCManager jdbcManager = new JDBCManager();
+		donorManager = new JDBCDonorManager(jdbcManager);
+		antigenManager = new JDBCAntigenManager(jdbcManager);
+		antibodyManager = new JDBCAntibodyManager(jdbcManager);
+		locationManager = new JDBCLocationManager(jdbcManager);
+		doctorManager = new JDBCDoctorManager(jdbcManager);
+		receptorManager = new JDBCReceptorManager(jdbcManager);
+		organManager = new JDBCOrganManager(jdbcManager);
+		userManager = new JPAUserManager();
+
+		try {
+
+			Integer donor_dni = Utilities.readIntFromKeyboard("Introduce the DNI of the donor you want to update: ");
+			Donor don = donorManager.getDonor(donor_dni);
+			if (don == null) {
+				// if the donor is not in the database we cannot update him
+				System.out.println("This donor is not in the database.");
+				System.exit(0);
+			}
+
+			Donor newd = Utilities.readDonortoUpdate(don);
+			System.out.println(newd.getAntigen().getId());
+			donorManager.updateDonor(newd, 524);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		jdbcManager.disconnect();
+		userManager.disconnect();
+		System.exit(0);
+	}
 
 }
