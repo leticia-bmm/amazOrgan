@@ -395,9 +395,6 @@ public class JDBCDonorManager implements DonorManager {
 		}
 	}
 
-
-	//this method works
-	//but why do we return a donor?
 	@Override
 	public Donor matchWithDonor(Receptor r) {
 		Donor d = null;		

@@ -618,6 +618,7 @@ public class Menu {
 
 		// Menu loop
 		try {
+<<<<<<< HEAD
 			Integer option;
 			while (true) {
 				System.out.println("Please, choose an option: ");
