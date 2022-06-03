@@ -20,45 +20,44 @@ import amazOrgan.pojos.Request;
 import amazOrgan.pojos.Type_organ;
 
 public class Utilities {
-	
-public static Receptor addreceptormenu() {
-		
-	Receptor receptor = null;
-	
-	System.out.println("Insert the next value:");
-	Integer dni = readPositiveIntFromKeyboard("DNI");
-	LocalDate dob = readDateFromKeyboard("DOB: yyyy-MM-dd");
-	String status = askStatus("STATUS");
-	String blood_type = askBloodType();
-	Boolean alive = readBooleanFromKeyboard("ALIVE");
-	Integer urgency = readIntFromKeyboardInRange("URGENCY", 1, 5);
-	Antigen antigen =readAntigenFromKeyboard();
-	Antibody antibody = readAntibodyFromKeyboard();
-	Location location = readLocationFromKeyboard();
-	Request request = readRequestFromKeyboard("REQUEST:");
-	
-	receptor = new Receptor (dni, dob, status, blood_type,alive,urgency, antigen, antibody,location,request);
 
-	return receptor;
-	
+	public static Receptor addreceptormenu() {
+
+		Receptor receptor = null;
+
+		System.out.println("Insert the next value:");
+		Integer dni = readPositiveIntFromKeyboard("DNI");
+		LocalDate dob = readDateFromKeyboard("DOB: yyyy-MM-dd");
+		String status = askStatus("STATUS");
+		String blood_type = askBloodType();
+		Boolean alive = readBooleanFromKeyboard("ALIVE");
+		Integer urgency = readIntFromKeyboardInRange("URGENCY", 1, 5);
+		Antigen antigen = readAntigenFromKeyboard();
+		Antibody antibody = readAntibodyFromKeyboard();
+		Location location = readLocationFromKeyboard();
+		Request request = readRequestFromKeyboard("REQUEST:");
+
+		receptor = new Receptor(dni, dob, status, blood_type, alive, urgency, antigen, antibody, location, request);
+
+		return receptor;
+
 //**********		//TODO call match function
-}
+	}
 //**********		// call match function
 
-	
-public static Receptor updateReceptorMenu(Receptor r) {
-	// TODO 
-	System.out.println("YOU CAN ONLY CHANGE STATUS, URGENCY, URGENCY");
-	String newstatus = askStatus("UPDATE STATUS");	
-	Boolean newalive = readBooleanFromKeyboard("UPDATE ALIVE");
-	Integer newurgency = readIntFromKeyboardInRange("UPDATE URGENCY", 1, 5);
+	public static Receptor updateReceptorMenu(Receptor r) {
+		// TODO
+		System.out.println("YOU CAN ONLY CHANGE STATUS, URGENCY, URGENCY");
+		String newstatus = askStatus("UPDATE STATUS");
+		Boolean newalive = readBooleanFromKeyboard("UPDATE ALIVE");
+		Integer newurgency = readIntFromKeyboardInRange("UPDATE URGENCY", 1, 5);
 
-	Receptor newreceptor = new Receptor(r.getDni(),r.getDob(),newstatus,r.getBlood_type(),newalive, newurgency,
-			r.getAntigen(),r.getAntibody(),r.getLocation(),r.getRequest());	
-	
-	return newreceptor;
-}
-	
+		Receptor newreceptor = new Receptor(r.getDni(), r.getDob(), newstatus, r.getBlood_type(), newalive, newurgency,
+				r.getAntigen(), r.getAntibody(), r.getLocation(), r.getRequest());
+
+		return newreceptor;
+	}
+
 	static String askBloodType() {
 		try {
 			Integer option;
@@ -115,86 +114,86 @@ public static Receptor updateReceptorMenu(Receptor r) {
 		} catch (Exception e) {
 			e.printStackTrace();
 
-		} return null;
+		}
+		return null;
 	}
 
 	public static Request readRequestFromKeyboard(String question) {
-		//TODO test method
+		// TODO test method
 		System.out.println(question + "");
 		Type_organ typeOfOrgan = new Type_organ(askTypeOfOrgan("ORGANS"));
-		Request request = new Request(typeOfOrgan, readPositiveFloatFromKeyboard("organ size of the organ needed2"), readBooleanFromKeyboard("organ received"), null);
+		Request request = new Request(typeOfOrgan, readPositiveFloatFromKeyboard("organ size of the organ needed2"),
+				readBooleanFromKeyboard("organ received"), null);
 		return request;
 	}
-	
+
 	public static String askTypeOfOrgan(String question) {
-		//works
-		try {
-		Integer option;
-		while (true) {
-			String  kidney= "kidney";
-			String  liver = "liver";
-			String  pancreas = "pancreas";
-			String  lung = "lung";
-			String  heart= "heart";
-			String  bowel = "bowel";
-			String  boneMarrow= "bone marrow";
-			
-			System.out.println("INSERT THE ORGAN THE PATIENT NEEDS");
-			System.out.println("KIDNEY       1");
-			System.out.println("LIVER        2");
-			System.out.println("PANCREAS     3");
-			System.out.println("LUNG         4");
-			System.out.println("HEART        5");
-			System.out.println("BOWEL        6");
-			System.out.println("BONE MARROW  7");
-			
-			option = readIntFromKeyboard("INSERT THE NUMBER");
-			switch (option) {
-
-			case 1:
-				return kidney;
-
-			case 2:
-				return liver;
-
-			case 3:
-				return pancreas;
-
-			case 4:
-				return lung;
-				
-			case 5:
-				return heart;
-				
-			case 6:
-				return bowel;
-				
-			case 7:
-				return boneMarrow;
-				
-			default:
-				System.out.println("The option is not correct");
-			}
-		}
-	} catch (Exception e) {
-		e.printStackTrace();
-
-	} return null;
-}
-
-		
-		
-	
-	public static String askStatus(String question) {
-			//WORKS
+		// works
 		try {
 			Integer option;
-			
 			while (true) {
-				String  accepted = "Accepted";
-				String  rejected = "Rejected";
-				String  waiting  = "Waiting";
-				String  operating = "Operating";
+				String kidney = "kidney";
+				String liver = "liver";
+				String pancreas = "pancreas";
+				String lung = "lung";
+				String heart = "heart";
+				String bowel = "bowel";
+				String boneMarrow = "bone marrow";
+
+				System.out.println("INSERT THE ORGAN THE PATIENT NEEDS");
+				System.out.println("KIDNEY       1");
+				System.out.println("LIVER        2");
+				System.out.println("PANCREAS     3");
+				System.out.println("LUNG         4");
+				System.out.println("HEART        5");
+				System.out.println("BOWEL        6");
+				System.out.println("BONE MARROW  7");
+
+				option = readIntFromKeyboard("INSERT THE NUMBER");
+				switch (option) {
+
+				case 1:
+					return kidney;
+
+				case 2:
+					return liver;
+
+				case 3:
+					return pancreas;
+
+				case 4:
+					return lung;
+
+				case 5:
+					return heart;
+
+				case 6:
+					return bowel;
+
+				case 7:
+					return boneMarrow;
+
+				default:
+					System.out.println("The option is not correct");
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+		return null;
+	}
+
+	public static String askStatus(String question) {
+		// WORKS
+		try {
+			Integer option;
+
+			while (true) {
+				String accepted = "Accepted";
+				String rejected = "Rejected";
+				String waiting = "Waiting";
+				String operating = "Operating";
 				System.out.println("CHOOSE STATUS");
 				System.out.println("(YOU CAN ONLY CHOOSE: ACCEPTED, REJECTED, WAITING, OPERATING)");
 				System.out.println("OPTION 1: ACCEPTED ");
@@ -203,7 +202,7 @@ public static Receptor updateReceptorMenu(Receptor r) {
 				System.out.println("OPTION 4: OPERATING");
 				option = readIntFromKeyboard("INSERT THE NUMBER");
 				switch (option) {
-				
+
 				case 1:
 					return accepted;
 
@@ -218,16 +217,18 @@ public static Receptor updateReceptorMenu(Receptor r) {
 
 				default:
 					System.out.println("The option is not correct");
-					
+
 				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 
-		} return null;
-	
+		}
+		return null;
+
 	}
-	//TODO test method
+
+	// TODO test method
 	public static Location readLocationFromKeyboard() {
 
 		Float latitude = readFloatFromKeyboard("Introduce the latitude.");
@@ -236,7 +237,6 @@ public static Receptor updateReceptorMenu(Receptor r) {
 		Location location = new Location(latitude, longitude);
 		return location;
 	}
-
 
 	public static int readIntFromKeyboard(String question) {
 		System.out.println(question);
@@ -430,6 +430,7 @@ public static Receptor updateReceptorMenu(Receptor r) {
 		Location location = new Location(latitude, longitude);
 		return location;
 	}
+
 	public static Float readPositiveFloatFromKeyboard(String question) {
 		System.out.println(question);
 		Float num;
@@ -454,6 +455,7 @@ public static Receptor updateReceptorMenu(Receptor r) {
 			}
 		}
 	}
+
 	// Read a death donor
 	// TODO method
 	public static Donor readDonorFromKeyboard(Doctor doctor, String question) {
@@ -477,7 +479,7 @@ public static Receptor updateReceptorMenu(Receptor r) {
 	// Update a donor
 	// TODO test method
 	public static Donor readDonortoUpdate(Donor d) {
-	
+
 		Donor donor = null;
 		Integer dni = d.getdni();
 		LocalDate dob = d.getdob();
@@ -488,19 +490,18 @@ public static Receptor updateReceptorMenu(Receptor r) {
 		Location location = readLocationFromKeyboard("Enter the location.");
 		Doctor doctor_charge = d.getDoctor_charge();
 		List<Organ> listOrgans = d.getOrgans();
-		
+
 		donor = new Donor(dni, dob, alive, bloodType, antigen, antibody, location, doctor_charge, listOrgans);
 		return donor;
 	}
-	
+
 	public static void main(String[] ars) {
 		LocalDate date = readDateFromKeyboard("Enter a date");
 	}
-	
-	//TODO readListOrgansFromKeyboard()
+
+	// TODO readListOrgansFromKeyboard()
 	public static List readListOrgansFromKeyboard() {try {
 		Integer option = -1;
 	}
-		}}
-
-
+		}
+}
