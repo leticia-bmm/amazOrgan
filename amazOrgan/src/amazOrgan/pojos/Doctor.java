@@ -39,6 +39,19 @@ public class Doctor implements Serializable {
 	}
 
 
+<<<<<<< HEAD
+	public Doctor(Integer medical_id) {
+		super();
+		this.medical_id = medical_id;
+=======
+	public Doctor(int medical_id2, Integer number) {
+		super();
+		this.medical_id = medical_id;
+		this.phone_number = number;
+>>>>>>> branch 'master' of https://github.com/leticia-bmm/amazOrgan
+	}
+
+
 	public Integer getMedical_id() {
 		return medical_id;
 	}

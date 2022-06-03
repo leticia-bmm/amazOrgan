@@ -32,15 +32,10 @@ public class JDBCDoctorManager implements DoctorManager {
 
 	}
 
-	// change my data
-	// here we should give the doctor directly
-	// or do a new method called searchDoctor
-	// this is so that we can work with the doctors method
-	// TODO
-	// we have to do a method to change the doctor
+	@Override
 	public void changeMyData(Doctor d) {
 		try {
-			String sql = "UPDATE Doctor " + " phone_number=? " + " name=? WHERE medical_id=?";
+			String sql = "UPDATE Doctor set phone_number=?  WHERE medical_id=?";
 			PreparedStatement p = manager.getConnection().prepareStatement(sql);
 			p.setInt(1, d.getPhone_number());
 			p.setString(2, d.getName());

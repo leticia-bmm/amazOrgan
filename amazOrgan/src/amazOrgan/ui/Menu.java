@@ -46,7 +46,7 @@ import amazOrgan.pojos.User;
 public class Menu {
 
 	private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-	
+
 	private static AntibodyManager antibodyManager;
 	private static AntigenManager antigenManager;
 	private static DoctorManager doctorManager;
@@ -58,8 +58,6 @@ public class Menu {
 	private static Type_organManager type_organManager;
 	private static UserManager userManager;
 
-	
-	
 	public static void doctor_menu(int medical_id) {
 
 		try {
@@ -73,9 +71,10 @@ public class Menu {
 				System.out.println("4) Work with receptors");
 				System.out.println("5) Change my password");
 				System.out.println("0) Exit");
-				option = Integer.parseInt(reader.readLine());
+				option = Utilities.readIntFromKeyboardInRange("Option", 0, 5);
 
 				switch (option) {
+
 				case 1:
 					// See my patients
 					System.out.println("SEE MY PATIENTS");
@@ -87,13 +86,14 @@ public class Menu {
 				case 2:
 					// Change my data
 					System.out.println("CHANGE MY DATA");
-					// first show the info of the donor
+					// first show the info of the doctor
 					doctorManager.getDoctor(medical_id);
-					//TODO
+
 					// ask for changes
-					// create the new doctor by calling the constructor
-					// doctorManager.changeMyData(doctor);
-					// hecho
+					Integer number = Utilities.readIntFromKeyboard("Introduce your new phone number: ");
+					Doctor d = new Doctor(medical_id, number);
+					doctorManager.changeMyData(d);
+
 					break;
 
 				case 3:
@@ -105,11 +105,11 @@ public class Menu {
 					// call receptor menu
 					doc_receptor_menu(medical_id);
 					break;
-					
+
 				case 5:
 					System.out.println("CHANGE MY PASSWORD");
 					String newpass = Utilities.readStringFromKeyboard("Introduce your new password");
-					userManager.updatePassword(medical_id, newpass);					
+					userManager.updatePassword(medical_id, newpass);
 					break;
 
 				case 0:
@@ -129,7 +129,6 @@ public class Menu {
 
 	}
 
-	
 	public static void doc_donor_menu(int medical_id) {
 
 		try {
@@ -139,110 +138,73 @@ public class Menu {
 				System.out.println("1) Add donor");
 				System.out.println("2) Show all available donors");
 				System.out.println("3) Update existing donor");
-				System.out.println("4) Delete donor");//TODO eliminar esta opcion
-				System.out.println("5) Get donor");	
+				System.out.println("4) Get donor");
 				System.out.println("0) Back");
-				option = Integer.parseInt(reader.readLine());
+				option = Utilities.readIntFromKeyboardInRange("Option", 0, 4);
 
 				switch (option) {
 				case 1:
-					// Register donor 
-					System.out.println("ADD DONOR");// ONLY DEAD DONORS
+					// Add donor
+					System.out.println("ADD DONOR"); // ONLY DEAD DONORS (when they are alive, they register themselves)
 					Donor d = Utilities.readDonorFromKeyboard(medical_id, "Introduce the data of the donor");
 					donorManager.addDonor(d);
-					
-					// steps:
-					// Hay que llamar a addDonor con toda la info
-					// dob, blood type, alive
-					//llamar a los add:
-					// Antigen, Antibody, Location y Organs (dentro de un for), Doctor in charge NO
-					// porque es el mismo --> hacer un get doctor con el id //
-					// PREGUNTA DE PRATS de donde cojo el medical id si no lo tengo pasado por nada
 					// introduce the organs in a list
-					
-										
-					// call the constructor
 
-					// 3) call match function
+					// CALL THE MATCH FUNCTION
+					Receptor rMatched = receptorManager.matchWithReceptor(d);
+					if (rMatched != null) {
+						System.out.println("Match found !!");
+						System.out.println("This is the receptor matched with your donor: ");
+						System.out.println(rMatched);
+					}
 
 					break;
 
 				case 2:
 					// Show donors
 					System.out.println("SHOW ALL AVAILABLE DONORS");
-					// list all the donors (JDBCDonorManager)
-					// solo de los donors que son alive y whose organs are available
-					// cosas que queremos del donor: dni, blood type y de la lista de organos
-					// donados solo el type of organ
-					// desde este metodo habria que llamar a los constructores correspondientes pero
-					// pasandoles solo pocas cosas
-					// vamos a tener dos queries: una que devuleve los dnis de los donors que estan
-					// dead y sus organs available y otra que devuelve el nombre de los organs
-					//create a method that only reads from the list the dni, bloodType and organs
+
+					// these donors are alive and their organs are available
+					List<Donor> list = donorManager.listAllDonors();
+					System.out.println(list);
 
 					break;
 
 				case 3:
-					// Update alive
-					
-					// 1) ask for: DNI 
-					// 2) select del donor con el dni: (getDonor)
-					// si el donor estaba en la database:
-					// llamar a updateDonor (con la info que se ha leido + la que falta por pedir)
-					//info que se ha leido -> dni, 
-					// call the constructor
-					//
-					// para pasar de alive = true a alive = false
-					// lo que hace que tambien se pase de available = false a available = true
+					// Update existing donor
+					System.out.println("UPDATE EXISTING DONOR");
+					// this option is selected when a donor that was registered in the database but
+					// now has died and the doctor
+					// is adding the organs that are available to donate
+					// to go from alive = true a alive = false and available = false to available =
+					// true
 
-					// call match function
+					Integer donor_dni = Utilities.readIntFromKeyboard("Introduce the DNI of the donor you want to update: ");
+					Donor don = donorManager.getDonor(donor_dni);
+					if (don == null) {
+						//if the donor is not in the database we cannot update him
+						System.out.println("This donor is not in the database.");
+						break;
+					}
+					
+					Donor newd = Utilities.readDonortoUpdate(don);
+					donorManager.updateDonor(newd, medical_id);
+
+					// CALL THE MATCH FUNCTION
+					Receptor recMatched = receptorManager.matchWithReceptor(d);
+					if (recMatched != null) {
+						System.out.println("Match found !!");
+						System.out.println("This is the receptor matched with your donor: ");
+						System.out.println(recMatched);
+					}
 
 					break;
 
 				case 4:
-					// Delete donor
-					System.out.println("DELETE DONOR");
-					//this method is called when a dono has died but is unavailable to donate.
-					//when the donor is deleted from the databse, we also have to delete him as a user
-					
-					//TODO? first show all the donors
-					Integer donor_DNI = Utilities.readIntFromKeyboard("Insert the donor dni: ");
-					Donor deleting_donor = donorManager.getDonor(donor_DNI);
-					antigenManager.deleteAntigen(deleting_donor.getAntigen().getId());
-					antibodyManager.deleteAntibody(deleting_donor.getAntibody().getID());
-					locationManager.deleteLocation(deleting_donor.getLocation().getId());
-					
-					List <Organ> deleting_organs = deleting_donor.getOrgans();
-					for(Organ organ : deleting_organs) {
-						organManager.deleteOrgan(organ.getID());
-					} //THIS HAS TO BE CHECKED
-					
-					
-					donorManager.deleteDonor(donor_DNI);
-					// WE HAVE TO CALL ALL THE DELETE OF 
-					// antigen
-					// antibody
-					// location
-					// organs
-					
-					
-					// deleteDonor();
-					
-					try {
-						//deleteUser()
-					}catch(Exception e) {
-						//the donor was not registered as a user
-					}
-					break;
-
-				case 5:
 					// Get donor
-					System.out.println("GET DONOR");// BY DNI
-					System.out.println("INSERT DNI");
-					Integer donorDNI = Integer.parseInt(reader.readLine());
+					System.out.println("GET DONOR");
+					Integer donorDNI = Utilities.readPositiveIntFromKeyboard("Introduce the DNI of the donor");
 					donorManager.getDonor(donorDNI);
-					// getDonor();
-					// DONE
 
 					break;
 
@@ -262,7 +224,6 @@ public class Menu {
 
 	}
 
-	// TODO tiene que recibir el medical_id???????????
 	public static void doc_receptor_menu(int medical_id) {
 
 		try {
@@ -275,26 +236,17 @@ public class Menu {
 				System.out.println("4) Update data");
 				System.out.println("0) Back");
 
-				option = Integer.parseInt(reader.readLine());
+				option = Utilities.readIntFromKeyboardInRange("Option", 0, 4);
 
 				switch (option) {
+
 				case 1:
-					
-						//Receptor receptor = null;
-	//YOOOOO			// + // Register receptor
-						// we are going to register an entire receptor
-						// all the atribites that te receptor has
-						// except for the doctor in charge
-						// since it is a may to many relationship
-						// we are then asking
-						
-						System.out.println("REGISTER RECEPTOR");
-						
-						Receptor r= Utilities.addreceptormenu();
-						receptorManager.addReceptor(r);
-						
-						// call match function
-						
+					System.out.println("REGISTER RECEPTOR");
+					//ask for all the information
+					Receptor r = Utilities.addreceptormenu();
+					receptorManager.addReceptor(r);
+
+					// CALL THE MATCH FUNCTION
 
 					break;
 
@@ -338,26 +290,24 @@ public class Menu {
 
 				case 4:
 					// + // Update data
-					//YOOOOOOOOOO				// + // Update data
+					// YOOOOOOOOOO // + // Update data
 					Receptor oldreceptor = null;
-					Receptor newreceptor= null;
+					Receptor newreceptor = null;
 					System.out.println("UPDATE DATA");
 					System.out.println("INSERT DNI");
 					Integer receptor_DNI = Integer.parseInt(reader.readLine());
 					oldreceptor = receptorManager.getReceptor(receptor_DNI);
-					if (oldreceptor== null) {
-					System.out.println("DNI incorrect");
+					if (oldreceptor == null) {
+						System.out.println("DNI incorrect");
+					} else {
+						System.out.println(oldreceptor);
+						newreceptor = Utilities.updatereceptormenu(oldreceptor);
+
+						receptorManager.updateReceptor(newreceptor);
 					}
-					else{
-					System.out.println(oldreceptor);
-					newreceptor = Utilities.updatereceptormenu(oldreceptor);
-					
-					
-					receptorManager.updateReceptor(newreceptor);
-					}
-				
+
 					break;
-					// we call match function when changing urgency and status(only when waiting)
+				// we call match function when changing urgency and status(only when waiting)
 
 				case 0:
 					// Back
@@ -489,8 +439,11 @@ public class Menu {
 //		}
 //	}
 	
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
-	
 	public static void donor_menu(int DNI) {
 		try {
 			int option;
@@ -517,17 +470,16 @@ public class Menu {
 					Donor donor = donorManager.getDonor(DNI);
 					System.out.println(donor);
 					break;
-					
+
 				case 3:
 					System.out.println("DELETE MYSELF");
-					
-				
+
 					break;
-					
+
 				case 4:
 					System.out.println("CHANGE MY PASSWORD");
 					String newpass = Utilities.readStringFromKeyboard("Introduce your new password");
-					userManager.updatePassword(DNI, newpass);					
+					userManager.updatePassword(DNI, newpass);
 					break;
 
 				case 0:
@@ -537,12 +489,10 @@ public class Menu {
 				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace(); 
+			e.printStackTrace();
 		}
 	}
 
-	
-	
 	// this method works
 	public static void loginDoctor() throws Exception {
 		// User needs to provide an id and a password
@@ -557,7 +507,7 @@ public class Menu {
 		if (u != null && u.getRole().getName().equals("doctor")) {
 			System.out.println("Login succesful");
 			// enter doctor menu with that user
-			
+
 			doctor_menu(u.getId());
 		} else {
 
@@ -565,7 +515,7 @@ public class Menu {
 			id = Utilities.readIntFromKeyboard("Medical Id:");
 			password = Utilities.readStringFromKeyboard("Insert your password:");
 			u = userManager.checkPassword(id, password);
-			
+
 			if (u != null && u.getRole().getName().equals("doctor")) {
 				System.out.println("Login succesful");
 				doctor_menu(u.getId());
@@ -576,9 +526,9 @@ public class Menu {
 
 	}
 
-	//this method works
+	// this method works
 	public static void loginDonor() throws Exception {
-		
+
 		Integer id = Utilities.readIntFromKeyboard("Insert your DNI:");
 		String password = Utilities.readStringFromKeyboard("Insert your password:");
 
@@ -591,7 +541,7 @@ public class Menu {
 			System.out.println("Login succesful");
 			// enter donor menu with that user
 			donor_menu(u.getId());
-			
+
 		} else {
 			// we are only letting the user introduce the data again once more. If they are
 			// wrong again, we go back
@@ -600,7 +550,7 @@ public class Menu {
 			System.out.println("DNI or Password incorrect. Please insert them again.");
 			id = Utilities.readIntFromKeyboard("DNI:");
 			password = Utilities.readStringFromKeyboard("Insert your password:");
-			
+
 			u = userManager.checkPassword(id, password);
 
 			if (u != null && u.getRole().getName().equals("donor")) {
@@ -617,7 +567,7 @@ public class Menu {
 
 		// ask for all the information
 		Integer medical_id = Utilities.readIntFromKeyboard("Insert your Medical Id:");
-		
+
 		// COMPROBAR QUE NO EXISTE
 		Doctor doc = doctorManager.getDoctor(medical_id);
 		if (doc != null) {
@@ -665,7 +615,7 @@ public class Menu {
 
 	}
 
-	//this method works
+	// this method works
 	public static void registerDonor() throws Exception {
 
 		// ask for all the information
@@ -674,15 +624,15 @@ public class Menu {
 		// doctor by default would be the unassigned
 
 		Integer dni = Utilities.readIntFromKeyboard("Introduce your DNI:");
-		
+
 		// CHECK IF THE USER EXISITS
-				Donor don = donorManager.getDonor(dni);
-				if (don != null) {
-					//if it exisits, return
-					System.out.println("This DNI is alredy registered in the database. Try to login as a donor.");
-					return;
-				}
-		
+		Donor don = donorManager.getDonor(dni);
+		if (don != null) {
+			// if it exisits, return
+			System.out.println("This DNI is alredy registered in the database. Try to login as a donor.");
+			return;
+		}
+
 		LocalDate dob = Utilities.readDateFromKeyboard("Introduce your Date of birth (yyyy-MM-dd) :");
 
 		// we have to create a Donor but also a User
@@ -717,9 +667,6 @@ public class Menu {
 
 	}
 
-
-
-
 	public static void main(String[] ars) {
 		JDBCManager jdbcManager = new JDBCManager();
 		donorManager = new JDBCDonorManager(jdbcManager);
@@ -729,7 +676,7 @@ public class Menu {
 		doctorManager = new JDBCDoctorManager(jdbcManager);
 		receptorManager = new JDBCReceptorManager(jdbcManager);
 		organManager = new JDBCOrganManager(jdbcManager);
-		//userManager = new JPAUserManager();
+		// userManager = new JPAUserManager();
 
 		try {
 			
@@ -758,22 +705,24 @@ public class Menu {
 			
 			//userManager.deleteUserDonor(621);
 
-			
-			//Donor d1 = donorManager.getDonor(5124);
-			//System.out.println("GOOD ONE" + d1);
-			
-			//Donor d = donorManager.getDonor(621);
-			//System.out.println("BAD ONE" + d);
-			
-			
-			
-			
+			// Donor new_donor = donorManager.matchWithDonor(rec);
+
+			// System.out.println("\n NEW DONOR: \n" + new_donor);
+
+			// userManager.deleteUserDonor(621);
+
+			// Donor d1 = donorManager.getDonor(5124);
+			// System.out.println("GOOD ONE" + d1);
+
+			// Donor d = donorManager.getDonor(621);
+			// System.out.println("BAD ONE" + d);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		jdbcManager.disconnect();
-		//userManager.disconnect();
+		// userManager.disconnect();
 		System.exit(0);
 	}
 

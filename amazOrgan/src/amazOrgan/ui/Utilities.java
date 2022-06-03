@@ -26,17 +26,16 @@ public class Utilities {
 
 		Receptor receptor = null;
 
-		System.out.println("Insert the next value:");
-		Integer dni = readPositiveIntFromKeyboard("DNI");
-		LocalDate dob = readDateFromKeyboard("DOB: yyyy-MM-dd");
-		String status = askStatus("STATUS");
+		Integer dni = readPositiveIntFromKeyboard("Insert the dni.");
+		LocalDate dob = readDateFromKeyboard("Insert the date of birth (yyyy-MM-dd).");
+		String status = askStatus("Insert the status.");
 		String blood_type = askBloodType();
-		Boolean alive = readBooleanFromKeyboard("ALIVE");
-		Integer urgency = readIntFromKeyboardInRange("URGENCY", 1, 5);
+		Boolean alive = readBooleanFromKeyboard("Is the receptor alive?");
+		Integer urgency = readIntFromKeyboardInRange("What is the level of urgency?", 1, 5);
 		Antigen antigen = readAntigenFromKeyboard();
 		Antibody antibody = readAntibodyFromKeyboard();
 		Location location = readLocationFromKeyboard();
-		Request request = readRequestFromKeyboard("REQUEST:");
+		Request request = readRequestFromKeyboard("Introduce the organ needed.");
 
 		receptor = new Receptor(dni, dob, status, blood_type, alive, urgency, antigen, antibody, location, request);
 
@@ -128,8 +127,12 @@ public class Utilities {
 	public static Request readRequestFromKeyboard(String question) {
 		// TODO test method
 		System.out.println(question + "");
+<<<<<<< HEAD
 		Type_organ typeOfOrgan = new Type_organ(askTypeOfOrgan("ORGANS"));
 
+=======
+		Type_organ typeOfOrgan = new Type_organ(askTypeOfOrgan("ORGAN"));
+>>>>>>> branch 'master' of https://github.com/leticia-bmm/amazOrgan
 		Float organSize = readPositiveFloatFromKeyboard("organ size of the organ needed");
 		Boolean received = readBooleanFromKeyboard("organ received");
 		Request request = new Request(typeOfOrgan, organSize, received , null);
@@ -466,7 +469,7 @@ public class Utilities {
 
 	// Read a death donor
 	// TODO method
-	public static Donor readDeadDonorFromKeyboard(Doctor doctor, String question) {
+	public static Donor readDeadDonorFromKeyboard(Integer medical_id, String question) {
 		System.out.println(question);
 
 		Donor donor = null;
@@ -477,7 +480,7 @@ public class Utilities {
 		Antigen antigen = readAntigenFromKeyboard();
 		Antibody antibody = readAntibodyFromKeyboard();
 		Location location = readLocationFromKeyboard("Enter the location.");
-		Doctor doctor_charge = doctor;
+		Doctor doctor_charge = new Doctor(medical_id);
 		// List<Organ> organs = readListOrgansFromKeyboard();
 
 		donor = new Donor(dni, dob, alive, bloodType, antigen, antibody, location, doctor_charge, organs);
