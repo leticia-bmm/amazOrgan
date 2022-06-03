@@ -162,8 +162,6 @@ public class JDBCManager {
 			stmt.executeUpdate(sql);
 			sql = "INSERT INTO type_of_organ (name, lifespan) VALUES (\"bone marrow\", 8) ";
 			stmt.executeUpdate(sql);
-			sql = "INSERT INTO doctor (medical_id, name, phone_number) VALUES (0, 'Unassigned', 0) ";
-			stmt.executeUpdate(sql);
 			
 			//
 

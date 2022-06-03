@@ -78,6 +78,7 @@ public class Organ implements Serializable{
 		this.donor = donor;
 	}
 
+<<<<<<< HEAD
 	public Organ(Type_organ type_organ, Float size, Boolean available, Donor donor) {
 		super();
 		this.type_organ = type_organ;
@@ -93,6 +94,8 @@ public class Organ implements Serializable{
 		this.donor = donor;
 	}
 
+=======
+>>>>>>> branch 'master' of https://github.com/leticia-bmm/amazOrgan
 	//getters and setters
 	public Integer getID() {
 		return id;
