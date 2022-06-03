@@ -128,8 +128,14 @@ public class Utilities {
 		// TODO test method
 		System.out.println(question + "");
 		Type_organ typeOfOrgan = new Type_organ(askTypeOfOrgan("ORGANS"));
+<<<<<<< HEAD
 		Request request = new Request(typeOfOrgan, readPositiveFloatFromKeyboard("organ size of the organ needed2"),
 				readBooleanFromKeyboard("organ received"), null);
+=======
+		Float organSize = readPositiveFloatFromKeyboard("organ size of the organ needed");
+		Boolean received = readBooleanFromKeyboard("organ received");
+		Request request = new Request(typeOfOrgan, organSize, received , null);
+>>>>>>> branch 'master' of https://github.com/leticia-bmm/amazOrgan
 		return request;
 	}
 
