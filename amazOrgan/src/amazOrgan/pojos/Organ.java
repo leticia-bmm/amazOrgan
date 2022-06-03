@@ -80,6 +80,14 @@ public class Organ implements Serializable{
 		this.donor = donor;
 	}
 
+	public Organ(Type_organ type_organ, Float size, Boolean available, Donor donor) {
+		super();
+		this.type_organ = type_organ;
+		this.size = size;
+		this.available = available;
+		this.donor = donor;
+	}
+
 	//getters and setters
 	public Integer getID() {
 		return id;
