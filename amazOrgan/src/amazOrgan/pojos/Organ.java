@@ -117,12 +117,12 @@ public class Organ implements Serializable{
 	//tostring
 	@Override
 	public String toString() {
-		return "ORGAN:"
+		return "\nORGAN:"
 				+ "\n\tID: " + id
 				+ "\n" + type_organ
 				+ "\n\tSize: " + size
-				+ "\n\tAvailable: " + available
-				+ "\n" + donor;
+				+ "\n\tAvailable: " + available;
+		//not printing the donor because it will become a infinite loop
 	}
 
 	

@@ -5,6 +5,7 @@ import amazOrgan.pojos.Receptor;
 import java.util.List;
 
 import amazOrgan.pojos.Doctor;
+import amazOrgan.pojos.Donor;
 
 public interface ReceptorManager {
 	// Insert a Receptor
@@ -23,4 +24,6 @@ public interface ReceptorManager {
 	public void assignDoctor (Receptor r, Doctor d);
 	//Unassign doctor an receptor 
 	public void unassignDoctor (Receptor r, Doctor d);
+	//the match function that matches a donor with some receptor
+	public Receptor matchWithReceptor(Donor d);
 }
