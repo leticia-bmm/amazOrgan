@@ -10,6 +10,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.xml.bind.JAXBException;
+
 import amazOrgan.ifaces.AntibodyManager;
 import amazOrgan.ifaces.AntigenManager;
 import amazOrgan.ifaces.DoctorManager;
@@ -42,10 +44,10 @@ import amazOrgan.jdbc.JDBCRequestManager;
 import amazOrgan.jdbc.JDBCType_organManager;
 import amazOrgan.jpa.JPAUserManager;
 import amazOrgan.pojos.User;
+import amazOrgan.xml.XmlManager;
 
 public class Menu {
 
-	private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
 	private static AntibodyManager antibodyManager;
 	private static AntigenManager antigenManager;
@@ -57,6 +59,7 @@ public class Menu {
 	private static RequestManager requestManager;
 	private static Type_organManager type_organManager;
 	private static UserManager userManager;
+	private static XmlManager xmlManager;
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 	// MENUS
@@ -165,7 +168,7 @@ public class Menu {
 
 				switch (option) {
 				case 1:
-					// Add donor
+					// Add donor ok
 					System.out.println("ADD DONOR"); // ONLY DEAD DONORS (when they are alive, they register themselves)
 					Doctor doc = doctorManager.getDoctor(medical_id);
 					Donor d = Utilities.readDeadDonorFromKeyboard(doc, "Introduce the data of the donor");
@@ -184,12 +187,22 @@ public class Menu {
 
 				case 2:
 					// Show donors
-					System.out.println("SHOW ALL AVAILABLE DONORS");
+					System.out.println("SHOW ALL AVAILABLE DONORS");		//ok
 
-					// these donors are alive and their organs are available
+					// these donors are not alive and their organs are available
 					List<Donor> list = donorManager.listAllDonors();
-					System.out.println(list);
-
+					//for each donor, it only contains: DNI, bloodType and the name of the type of organ
+					for (Donor don : list) {
+						System.out.println("DNI: " + don.getdni());
+						System.out.println("Blood Type: " + don.getBloodType());
+						System.out.println("Organs: ");
+						List<Organ> organs = don.getOrgans();
+						for (Organ o : organs) {
+							System.out.println("\t" + o.getType_organ().getName());
+						}
+						
+						System.out.println();
+					}
 					break;
 
 				case 3:
@@ -215,7 +228,7 @@ public class Menu {
 					// this also updates the organs
 
 					// CALL THE MATCH FUNCTION
-					Receptor recMatched = receptorManager.matchWithReceptor(don);
+					Receptor recMatched = receptorManager.matchWithReceptor(newd);
 					if (recMatched != null) {
 						System.out.println("Match found !!");
 						System.out.println("This is the receptor matched with your donor: ");
@@ -249,7 +262,7 @@ public class Menu {
 
 	}
 
-	public static void doc_receptor_menu(int medical_id) {
+	public static void doc_receptor_menu(Integer medical_id) {
 
 		try {
 			int option;
@@ -293,12 +306,24 @@ public class Menu {
 					switch (choice) {
 					case 1:
 						String bt = Utilities.askBloodType();
-						System.out.println(receptorManager.showReceptorsByBloodType(bt));
+						List <Receptor> receptorsbloodType = receptorManager.showReceptorsByBloodType(bt);
+						for(Receptor receptor1 : receptorsbloodType) {
+							System.out.println("\nDNI: " + receptor1.getDni()
+									+ "\nType of Organ: " + receptor1.getRequest().getType_organ().getName()
+									+ "\nStatus: " + receptor1.getStatus()
+									+ "\nUrgency: " + receptor1.getUrgency());
+						}
 
 						break;
 
 					case 2:
-						System.out.println(receptorManager.showReceptorsByUrgency());
+						List <Receptor> receptorsUrgency = receptorManager.showReceptorsByUrgency();
+						for(Receptor receptor1 : receptorsUrgency) {
+							System.out.println("\nDNI: " + receptor1.getDni()
+									+ "\nType of Organ: " + receptor1.getRequest().getType_organ().getName()
+									+ "\nStatus: " + receptor1.getStatus()
+									+ "\nUrgency: " + receptor1.getUrgency());
+						}
 
 						break;
 
@@ -382,8 +407,13 @@ public class Menu {
 					System.out.println("ADD ORGANS");
 					Donor d1 = donorManager.getDonor(DNI);
 					List<Organ> organs = Utilities.readOrgansAliveDonorFromKeyboard(d1);
+<<<<<<< HEAD
 					for(Organ o : organs) {
 						organManager.addOrganAlive(o);
+=======
+					for (Organ o : organs) {
+						organManager.addOrgan(o);
+>>>>>>> branch 'master' of https://github.com/leticia-bmm/amazOrgan
 					}
 
 					break;
@@ -610,6 +640,7 @@ public class Menu {
 
 //MAIN
 
+
 	public static void main(String[] ars) {
 
 		System.out.println("Welcome to amazOrgan!");
@@ -626,6 +657,7 @@ public class Menu {
 		receptorManager = new JDBCReceptorManager(jdbcManager);
 		requestManager = new JDBCRequestManager(jdbcManager);
 		type_organManager = new JDBCType_organManager(jdbcManager);
+		xmlManager = new XmlManager();
 
 		// Initialize database for JPA
 		// ----------------------------
@@ -675,23 +707,29 @@ public class Menu {
 
 				case 5:
 					// See our web page
-					// TODO
-
+					System.out.println("Our web page will automatically appear in the XMLS folder!"
+							+ "\nRefresh if not!");
+					xmlManager.simpleTransform("./xmls/Organ.xml", "./xmls/Organ.xslt", "./xmls/SuperWebPage.html");
 					break;
 
 				case 6:
-					// Import an xml
-					// TODO
-					// ask for the file
-					// unmarshall
-
+					// Import an Xml (put in the database)
+					try {
+						String path = Utilities.readStringFromKeyboard("Introduce the path of the file you want to import: ");
+						xmlManager.unmarshallOrgan(path);
+					}catch(Exception e) {
+						System.out.println("No file found with that name :(");
+					}
 					break;
 
 				case 7:
-					// Export an xml
-					// TODO
-					// ask for the file
-					// marshall
+					// Export an xml (take out of the database)
+					try {
+						String path = Utilities.readStringFromKeyboard("Introduce the path were you want to export: ");
+						xmlManager.marshallOrgan(path);
+					}catch(Exception e) {
+						System.out.println("Not a valid file");
+					}
 
 					break;
 					
@@ -712,6 +750,86 @@ public class Menu {
 		}
 	}
 
+
+
+//			Integer option;
+//			while (true) {
+//				System.out.println("Please, choose an option: ");
+//				System.out.println("1) Login as a Doctor");
+//				System.out.println("2) Register as a Doctor");
+//				System.out.println("3) Login as a Donor");
+//				System.out.println("4) Register as a Donor");
+//				System.out.println("5) See our web page");
+//				System.out.println("6) Import an xml");
+//				System.out.println("7) Export an xml");
+//				System.out.println("0) Exit");
+//
+//				option = Utilities.readIntFromKeyboardInRange("Option: ", 0, 7);
+//
+//				switch (option) {
+//				case 1:
+//					// Login as a Doctor
+//					System.out.println("LOGIN AS A DOCTOR");
+//					loginDoctor(); // this method calls the doctor menu
+//					break;
+//
+//				case 2:
+//					// Register as a Doctor
+//					System.out.println("REGISTER AS A DOCTOR");
+//					registerDoctor();
+//					break;
+//
+//				case 3:
+//					// Login as a Donor
+//					System.out.println("LOGIN AS A DONOR");
+//					loginDonor();
+//					break;
+//
+//				case 4:
+//					// Register as a Donor
+//					System.out.println("REGISTER AS A DONOR");
+//					registerDonor();
+//					break;
+//
+//				case 5:
+//					// See our web page
+//					// TODO
+//
+//					break;
+//
+//				case 6:
+//					// Import an xml
+//					// TODO
+//					// ask for the file
+//					// unmarshall
+//
+//					break;
+//
+//				case 7:
+//					// Export an xml
+//					// TODO
+//					// ask for the file
+//					// marshall
+//
+//					break;
+//					
+//				case 0:
+//					// Close the connection with the database
+//					jdbcManager.disconnect();
+//					System.exit(0);
+//
+//				default:
+//					System.out.println("The selected option is not correct.");
+//					break;
+//				}
+
+//			}
+//	
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
+
 //	public static void main(String[] ars) {
 //		JDBCManager jdbcManager = new JDBCManager();
 //		donorManager = new JDBCDonorManager(jdbcManager);
@@ -724,18 +842,14 @@ public class Menu {
 //		userManager = new JPAUserManager();
 //
 //		try {
-//
-//			Integer donor_dni = Utilities.readIntFromKeyboard("Introduce the DNI of the donor you want to update: ");
+//			
 //			Donor don = donorManager.getDonor(donor_dni);
-//			if (don == null) {
-//				// if the donor is not in the database we cannot update him
-//				System.out.println("This donor is not in the database.");
-//				System.exit(0);
-//			}
+//			Doctor doctor = doctorManager.getDoctor(222);
+//			Donor newd = Utilities.readDonortoUpdate(don, doctor);
+//			donorManager.updateDonor(newd, 222);
+//			// this also updates the organs
 //
-//			Donor newd = Utilities.readDonortoUpdate(don);
-//			System.out.println(newd.getAntigen().getId());
-//			donorManager.updateDonor(newd, 524);
+//			
 //
 //		} catch (Exception e) {
 //			e.printStackTrace();
@@ -745,5 +859,5 @@ public class Menu {
 //		userManager.disconnect();
 //		System.exit(0);
 //	}
-
-}
+//
+//}
