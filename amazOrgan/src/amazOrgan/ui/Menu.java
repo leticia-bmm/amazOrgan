@@ -276,6 +276,8 @@ public class Menu {
 					// ask for all the information
 					Receptor r = Utilities.addreceptormenu();
 					receptorManager.addReceptor(r);
+					Integer receptor_id = r.getDni();
+					r = receptorManager.getReceptor(receptor_id);
 
 					// CALL THE MATCH FUNCTION
 					Donor donMatched = donorManager.matchWithDonor(r);

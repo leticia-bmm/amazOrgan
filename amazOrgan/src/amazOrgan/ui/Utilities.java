@@ -256,7 +256,7 @@ public class Utilities {
 			} catch (IOException ioe) {
 				System.out.println("Error. Re-enter a number");
 			} catch (NumberFormatException nfe) {
-				System.out.println("You have not entered a number. Enter an integer number.");
+				System.out.println("You have not entered a number. Enter a number.");
 			}
 		}
 	}
