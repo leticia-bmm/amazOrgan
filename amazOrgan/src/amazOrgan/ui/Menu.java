@@ -1,16 +1,10 @@
 package amazOrgan.ui;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.sql.Date;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.LinkedList;
 import java.util.List;
 
-import javax.xml.bind.JAXBException;
 
 import amazOrgan.ifaces.AntibodyManager;
 import amazOrgan.ifaces.AntigenManager;
@@ -47,7 +41,6 @@ import amazOrgan.pojos.User;
 import amazOrgan.xml.XmlManager;
 
 public class Menu {
-
 
 	private static AntibodyManager antibodyManager;
 	private static AntigenManager antigenManager;
@@ -187,11 +180,12 @@ public class Menu {
 
 				case 2:
 					// Show donors
-					System.out.println("SHOW ALL AVAILABLE DONORS");		//ok
+					System.out.println("SHOW ALL AVAILABLE DONORS"); // ok
 
 					// these donors are not alive and their organs are available
 					List<Donor> list = donorManager.listAllDonors();
-					//for each donor, it only contains: DNI, bloodType and the name of the type of organ
+					// for each donor, it only contains: DNI, bloodType and the name of the type of
+					// organ
 					for (Donor don : list) {
 						System.out.println("DNI: " + don.getdni());
 						System.out.println("Blood Type: " + don.getBloodType());
@@ -200,7 +194,7 @@ public class Menu {
 						for (Organ o : organs) {
 							System.out.println("\t" + o.getType_organ().getName());
 						}
-						
+
 						System.out.println();
 					}
 					break;
@@ -306,23 +300,21 @@ public class Menu {
 					switch (choice) {
 					case 1:
 						String bt = Utilities.askBloodType();
-						List <Receptor> receptorsbloodType = receptorManager.showReceptorsByBloodType(bt);
-						for(Receptor receptor1 : receptorsbloodType) {
-							System.out.println("\nDNI: " + receptor1.getDni()
-									+ "\nType of Organ: " + receptor1.getRequest().getType_organ().getName()
-									+ "\nStatus: " + receptor1.getStatus()
-									+ "\nUrgency: " + receptor1.getUrgency());
+						List<Receptor> receptorsbloodType = receptorManager.showReceptorsByBloodType(bt);
+						for (Receptor receptor1 : receptorsbloodType) {
+							System.out.println("\nDNI: " + receptor1.getDni() + "\nType of Organ: "
+									+ receptor1.getRequest().getType_organ().getName() + "\nStatus: "
+									+ receptor1.getStatus() + "\nUrgency: " + receptor1.getUrgency());
 						}
 
 						break;
 
 					case 2:
-						List <Receptor> receptorsUrgency = receptorManager.showReceptorsByUrgency();
-						for(Receptor receptor1 : receptorsUrgency) {
-							System.out.println("\nDNI: " + receptor1.getDni()
-									+ "\nType of Organ: " + receptor1.getRequest().getType_organ().getName()
-									+ "\nStatus: " + receptor1.getStatus()
-									+ "\nUrgency: " + receptor1.getUrgency());
+						List<Receptor> receptorsUrgency = receptorManager.showReceptorsByUrgency();
+						for (Receptor receptor1 : receptorsUrgency) {
+							System.out.println("\nDNI: " + receptor1.getDni() + "\nType of Organ: "
+									+ receptor1.getRequest().getType_organ().getName() + "\nStatus: "
+									+ receptor1.getStatus() + "\nUrgency: " + receptor1.getUrgency());
 						}
 
 						break;
@@ -407,13 +399,8 @@ public class Menu {
 					System.out.println("ADD ORGANS");
 					Donor d1 = donorManager.getDonor(DNI);
 					List<Organ> organs = Utilities.readOrgansAliveDonorFromKeyboard(d1);
-<<<<<<< HEAD
-					for(Organ o : organs) {
-						organManager.addOrganAlive(o);
-=======
 					for (Organ o : organs) {
-						organManager.addOrgan(o);
->>>>>>> branch 'master' of https://github.com/leticia-bmm/amazOrgan
+						organManager.addOrganAlive(o);
 					}
 
 					break;
@@ -640,7 +627,6 @@ public class Menu {
 
 //MAIN
 
-
 	public static void main(String[] ars) {
 
 		System.out.println("Welcome to amazOrgan!");
@@ -749,8 +735,6 @@ public class Menu {
 			e.printStackTrace();
 		}
 	}
-
-
 
 //			Integer option;
 //			while (true) {
@@ -861,3 +845,5 @@ public class Menu {
 //	}
 //
 //}
+
+}
