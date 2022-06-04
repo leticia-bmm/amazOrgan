@@ -163,9 +163,9 @@ public class JDBCDonorManager implements DonorManager {
 
 			while (rs.next()) {
 				Integer dni = rs.getInt("dni");
-				System.out.println(dni);
+				//System.out.println(dni);
 				String bloodType = rs.getString("blood_type");
-				System.out.println(bloodType);
+				//System.out.println(bloodType);
 
 				// this query returns the name of the organs
 				String sql2 = "SELECT ty1.name FROM organ AS o1 "
@@ -182,7 +182,7 @@ public class JDBCDonorManager implements DonorManager {
 				}
 
 				Donor d = new Donor(dni, bloodType, organs);
-				System.out.println(d);
+				//System.out.println(d);
 				deadDonors.add(d);
 			}
 
