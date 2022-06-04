@@ -103,7 +103,6 @@ public class JDBCDonorManager implements DonorManager {
 			prep.setBoolean(4, d.isAlive());
 
 			// inserting the antigen into the database (everything is null)
-			Antigen antigen = d.getAntigen();
 			Statement stmt = manager.getConnection().createStatement();
 			String sql1 = "INSERT INTO antigen (a, b, c, dp, dq, dr) VALUES (null, null, null, null, null, null)";
 			stmt.executeUpdate(sql1);
@@ -111,7 +110,6 @@ public class JDBCDonorManager implements DonorManager {
 			Integer id_antibody = rs.getInt(1);
 
 			// inserting the antibody into the database
-			Antibody antibody = d.getAntibody();
 			stmt = manager.getConnection().createStatement();
 			sql1 = "INSERT INTO antibody (class_I, class_II) VALUES (null, null)";
 			stmt.executeUpdate(sql1);
@@ -119,7 +117,6 @@ public class JDBCDonorManager implements DonorManager {
 			Integer id_antigen = rs.getInt(1);
 
 			// inserting the location into the database
-			Location location = d.getLocation();
 			stmt = manager.getConnection().createStatement();
 			sql1 = "INSERT INTO location (latitude, longitude) VALUES (null, null)";
 			stmt.executeUpdate(sql1);
@@ -157,8 +154,10 @@ public class JDBCDonorManager implements DonorManager {
 
 			// this query returns the DNI of the donors that are dead and whose organs are
 			// available
-			String sql = "SELECT d1.dni, d1.blood_type FROM donor AS d1 " + "JOIN organ AS o1 ON d1.dni = o1.donor_dni "
-					+ "WHERE d1.alive = 0 AND o1.available = 1 " + "GROUP BY d1.dni";
+			String sql = "SELECT d1.dni, d1.blood_type FROM donor AS d1 " 
+					+ "JOIN organ AS o1 ON d1.dni = o1.donor_dni "
+					+ "WHERE d1.alive = 0 AND o1.available = 1 " 
+					+ "GROUP BY d1.dni";
 			ResultSet rs = stmt.executeQuery(sql);
 
 			while (rs.next()) {
@@ -202,7 +201,7 @@ public class JDBCDonorManager implements DonorManager {
 		Location location = null;
 		Doctor doctor_charge = null;
 		Organ organ = null;
-		List<Organ> organs = new LinkedList();
+		List<Organ> organs = new LinkedList<>();
 
 		try {
 
@@ -268,7 +267,8 @@ public class JDBCDonorManager implements DonorManager {
 
 				// getting all the organs from the database
 				String sqlorgan = "SELECT * FROM organ AS o1 "
-						+ "JOIN type_of_organ AS ty1 ON o1.id_type_organ = ty1.id " + "WHERE o1.donor_dni = ?";
+							+ "JOIN type_of_organ AS ty1 ON o1.id_type_organ = ty1.id " 
+							+ "WHERE o1.donor_dni = ?";
 
 				PreparedStatement prep1 = manager.getConnection().prepareStatement(sqlorgan);
 				prep1.setInt(1, dni);
@@ -313,14 +313,12 @@ public class JDBCDonorManager implements DonorManager {
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setString(1, d.getBloodType());
 			prep.setBoolean(2, false);
-
 			// Update the doctor in charge (it had the id 0 and name unassigned)
 			prep.setInt(3, medicalId);
-
 			prep.setInt(4, d.getdni());
 
 			// update the antigen
-			int idAntigen = d.getAntigen().getId();
+			Integer idAntigen = d.getAntigen().getId();
 			sql = "UPDATE antigen SET a  = ?, b = ?, c = ?, dp = ?, dq = ?, dr = ? WHERE id = ?";
 			prep = manager.getConnection().prepareStatement(sql);
 			prep.setBoolean(1, d.getAntigen().isA());
@@ -332,7 +330,7 @@ public class JDBCDonorManager implements DonorManager {
 			prep.setInt(7, idAntigen);
 
 			// Update the antibody
-			int idAntibody = d.getAntibody().getID();
+			Integer idAntibody = d.getAntibody().getID();
 			sql = "UPDATE antibody SET class_I = ?, class_II = ? WHERE id = ?";
 			prep = manager.getConnection().prepareStatement(sql);
 			prep.setBoolean(1, d.getAntibody().isClass_I());
@@ -340,7 +338,7 @@ public class JDBCDonorManager implements DonorManager {
 			prep.setInt(3, idAntibody);
 
 			// Update the location
-			int idLocation = d.getLocation().getId();
+			Integer idLocation = d.getLocation().getId();
 			sql = "UPDATE location SET latitude = ?, longitude = ? WHERE id = ?";
 			prep = manager.getConnection().prepareStatement(sql);
 			prep.setFloat(1, d.getLocation().getLatitude());
@@ -348,7 +346,7 @@ public class JDBCDonorManager implements DonorManager {
 			prep.setInt(3, idLocation);
 
 			prep.executeUpdate();
-			System.out.println("donor updated");
+			//System.out.println("donor updated");
 
 		} catch (Exception e) {
 			e.printStackTrace();
