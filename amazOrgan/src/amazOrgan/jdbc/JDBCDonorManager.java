@@ -349,6 +349,7 @@ public class JDBCDonorManager implements DonorManager {
 			// Update the doctor in charge (it had the id 0 and name unassigned)
 			prep.setInt(3, medicalId);
 			prep.setInt(4, d.getdni());
+			prep.executeUpdate();
 
 			// update the antigen
 			Integer idAntigen = d.getAntigen().getId();
@@ -361,6 +362,7 @@ public class JDBCDonorManager implements DonorManager {
 			prep.setBoolean(5, d.getAntigen().isDq());
 			prep.setBoolean(6, d.getAntigen().isDr());
 			prep.setInt(7, idAntigen);
+			prep.executeUpdate();
 
 			// Update the antibody
 			Integer idAntibody = d.getAntibody().getID();
@@ -369,6 +371,7 @@ public class JDBCDonorManager implements DonorManager {
 			prep.setBoolean(1, d.getAntibody().isClass_I());
 			prep.setBoolean(2, d.getAntibody().isClass_II());
 			prep.setInt(3, idAntibody);
+			prep.executeUpdate();
 
 			// Update the location
 			Integer idLocation = d.getLocation().getId();
@@ -377,7 +380,6 @@ public class JDBCDonorManager implements DonorManager {
 			prep.setFloat(1, d.getLocation().getLatitude());
 			prep.setFloat(2, d.getLocation().getLongitude());
 			prep.setInt(3, idLocation);
-
 			prep.executeUpdate();
 
 			organs = d.getOrgans();
