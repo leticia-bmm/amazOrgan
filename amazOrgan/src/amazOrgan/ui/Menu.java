@@ -167,7 +167,7 @@ public class Menu {
 				case 1:
 					// Add donor
 					System.out.println("ADD DONOR"); // ONLY DEAD DONORS (when they are alive, they register themselves)
-					Doctor doc = doctorManager.getDoctor(medical_id)
+					Doctor doc = doctorManager.getDoctor(medical_id);
 					Donor d = Utilities.readDeadDonorFromKeyboard(doc, "Introduce the data of the donor");
 					donorManager.addDonor(d);
 					// this method also adds the organs

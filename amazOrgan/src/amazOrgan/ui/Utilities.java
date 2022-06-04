@@ -450,7 +450,7 @@ public class Utilities {
 
 	// Read a death donor
 	// TODO method
-	public static Donor readDeadDonorFromKeyboard(Integer medical_id, String question) {
+	public static Donor readDeadDonorFromKeyboard(Doctor d, String question) {
 		System.out.println(question);
 		Donor donor = null;
 		Integer dni = readPositiveIntFromKeyboard("Enter the dni: ");
@@ -460,11 +460,10 @@ public class Utilities {
 		Antigen antigen = readAntigenFromKeyboard();
 		Antibody antibody = readAntibodyFromKeyboard();
 		Location location = readLocationFromKeyboard();
-		Doctor doctor_charge = new Doctor(medical_id);
 		Organ organ = null;
 		List<Organ> organs = new LinkedList<>();
 
-		donor = new Donor(dni, dob, alive, bloodType, antigen, antibody, location, doctor_charge);
+		donor = new Donor(dni, dob, alive, bloodType, antigen, antibody, location, d);
 
 		while (true) {
 			Boolean cont = readBooleanFromKeyboard("Would you like to introduce an organ? ");
@@ -487,7 +486,7 @@ public class Utilities {
 	// Update a donor
 	//this otption is only used when a donor was already in the database
 	// TODO test method
-	public static Donor readDonortoUpdate(Donor d) {
+	public static Donor readDonortoUpdate(Donor d, Doctor doc) {
 
 		Donor donor = null;
 		Integer dni = d.getdni();
@@ -500,7 +499,6 @@ public class Utilities {
 		antibody.setID(d.getAntibody().getID());
 		Location location = readLocationFromKeyboard();
 		location.setId(d.getLocation().getId());
-		Doctor doctor_charge = d.getDoctor_charge();
 		List<Organ> listOrgans = d.getOrgans();
 
 		for (Organ o : listOrgans) {
@@ -509,7 +507,7 @@ public class Utilities {
 			o.setSize(size);
 		}
 
-		donor = new Donor(dni, dob, alive, bloodType, antigen, antibody, location, doctor_charge, listOrgans);
+		donor = new Donor(dni, dob, alive, bloodType, antigen, antibody, location, doc, listOrgans);
 		return donor;
 	}
 
