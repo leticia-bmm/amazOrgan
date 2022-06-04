@@ -381,12 +381,11 @@ public class Utilities {
 
 	// Read a date
 	public static LocalDate readDateFromKeyboard() {
-		System.out.println("Insert the date of Birth enter a date in this format (yyyy-mm-dd)");
 		String dateString = null;
 
 		while (true) {
 			try {
-				dateString = readStringFromKeyboard("");
+				dateString = readStringFromKeyboard("Insert the date of Birth enter a date in this format: (yyyy-mm-dd)");
 				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 				LocalDate date = LocalDate.parse(dateString, formatter);
 				return date;

@@ -210,6 +210,7 @@ public class Receptor implements Serializable{
 				+ "\nDNI: " + dni
 				+ "\nDate of birth: " + dob
 				+ "\nStatus: " + status
+				+ "\nAlive: " + alive
 				+ "\nBlood type: " + blood_type
 				+ "\nUrgency: " + urgency
 				+ "\n" + antigen
