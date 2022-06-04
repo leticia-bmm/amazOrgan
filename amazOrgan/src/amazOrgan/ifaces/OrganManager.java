@@ -18,6 +18,7 @@ public interface OrganManager {
 	public Organ getOrgan (Integer id);
 	public Type_organ getType_organOfOrgan(Integer id_type_organ);
 	public OrganList getOrgans();
+	public void addOrganAlive(Organ o);
 	
 	
 	

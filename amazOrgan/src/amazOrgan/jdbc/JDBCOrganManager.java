@@ -41,6 +41,20 @@ public class JDBCOrganManager implements OrganManager {
 			e.printStackTrace();
 		}
 	}
+	
+	@Override
+	public void addOrganAlive(Organ o) {
+		try {
+			String sql = "INSERT INTO organ(id_type_organ, donor_dni, available) VALUES (?,?,?)";
+			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
+			prep.setInt(1, o.getType_organ().getId());
+			prep.setInt(2, o.getDonor().getdni());
+			prep.setBoolean(3, o.isAvailable());
+			prep.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	@Override
 	public void deleteOrgan(Integer id) {
