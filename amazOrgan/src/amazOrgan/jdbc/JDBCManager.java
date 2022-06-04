@@ -156,7 +156,7 @@ public class JDBCManager {
 			stmt.executeUpdate(sql);
 			sql = "INSERT INTO type_of_organ (name, lifespan) VALUES (\"lung\", 8) ";
 			stmt.executeUpdate(sql);
-			sql = "INSERT INTO type_of_organ (name, lifespan) VALUES (\"heat\", 8) ";
+			sql = "INSERT INTO type_of_organ (name, lifespan) VALUES (\"heart\", 8) ";
 			stmt.executeUpdate(sql);
 			sql = "INSERT INTO type_of_organ (name, lifespan) VALUES (\"bowel\", 12) ";
 			stmt.executeUpdate(sql);
