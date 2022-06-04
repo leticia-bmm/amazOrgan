@@ -278,26 +278,39 @@ public class JDBCDonorManager implements DonorManager {
 
 				while (rs1.next()) {
 					String nameorgan = null;
+					Integer id = null;
+					Integer id_type_organ = null;
+					Integer lifespan = null; 
+					Type_organ t = null;
+					Float size = null;
+					Boolean available = null;
 					
 					if (donor.isAlive() == false) {
-						Integer id = rs1.getInt(1);
+						id = rs1.getInt(1);
 
 						// we get the type of organ
-						Integer id_type_organ = rs1.getInt("id_type_organ");
+						id_type_organ = rs1.getInt("id_type_organ");
 						nameorgan = rs1.getString("name");
-						Integer lifespan = rs1.getInt("lifespan");
-						Type_organ t = new Type_organ(id_type_organ, nameorgan, lifespan);
+						lifespan = rs1.getInt("lifespan");
+						t = new Type_organ(id_type_organ, nameorgan, lifespan);
 
 						// we get the organ
-						Float size = rs1.getFloat("size_organ");
-						Boolean available = rs1.getBoolean("available");
+						size = rs1.getFloat("size_organ");
+						available = rs1.getBoolean("available");
 
 					} else {
-						
+						id = rs1.getInt(1);
 
+						// we get the type of organ
+						id_type_organ = rs1.getInt("id_type_organ");
+						nameorgan = rs1.getString("name");
+						lifespan = rs1.getInt("lifespan");
+						t = new Type_organ(id_type_organ, nameorgan, lifespan);
+
+						// we get the organ
+						size = null;
+						available = false;
 					}
-
-					
 
 					organ = new Organ(id, t, size, available, donor);
 					organs.add(organ);
