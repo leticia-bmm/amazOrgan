@@ -147,35 +147,33 @@ public class JDBCDonorManager implements DonorManager {
 		// a DNI, blood_type and a List <Organ>, each of one has a Type_organ
 
 		List<Donor> deadDonors = new LinkedList<Donor>();
-		
 
 		try {
 			Statement stmt = manager.getConnection().createStatement();
 
 			// this query returns the DNI of the donors that are dead and whose organs are
 			// available
-			String sql = "SELECT d1.dni, d1.blood_type FROM donor AS d1 " 
-					+ "JOIN organ AS o1 ON d1.dni = o1.donor_dni "
-					+ "WHERE d1.alive = 0 AND o1.available = 1 " 
-					+ "GROUP BY d1.dni";
+			String sql = "SELECT d1.dni, d1.blood_type FROM donor AS d1 " + "JOIN organ AS o1 ON d1.dni = o1.donor_dni "
+					+ "WHERE d1.alive = 0 AND o1.available = 1 " + "GROUP BY d1.dni";
 			ResultSet rs = stmt.executeQuery(sql);
 
 			while (rs.next()) {
 				Integer dni = rs.getInt("dni");
-				//System.out.println(dni);
+				// System.out.println(dni);
 				String bloodType = rs.getString("blood_type");
-				//System.out.println(bloodType);
+				// System.out.println(bloodType);
 
 				// this query returns the name of the organs
 				String sql2 = "SELECT ty1.name FROM organ AS o1 "
-						+ "JOIN type_of_organ AS ty1 ON ty1.id = o1.id_type_organ " + "WHERE o1.donor_dni = ? AND o1.available = 1";
+						+ "JOIN type_of_organ AS ty1 ON ty1.id = o1.id_type_organ "
+						+ "WHERE o1.donor_dni = ? AND o1.available = 1";
 
 				PreparedStatement prep = manager.getConnection().prepareStatement(sql2);
 				prep.setInt(1, dni);
 				ResultSet rs2 = prep.executeQuery();
 				List<Organ> organs = new LinkedList<Organ>();
 				while (rs2.next()) {
-					
+
 					String typeOrgan = rs2.getString("name");
 					Type_organ t = new Type_organ(typeOrgan);
 					Organ o = new Organ(t);
@@ -183,7 +181,7 @@ public class JDBCDonorManager implements DonorManager {
 				}
 
 				Donor d = new Donor(dni, bloodType, organs);
-				//System.out.println(d);
+				// System.out.println(d);
 				deadDonors.add(d);
 			}
 
@@ -208,12 +206,10 @@ public class JDBCDonorManager implements DonorManager {
 		try {
 
 			// this query returns all the information from the donor except the organs
-			String sql = "SELECT * FROM donor AS d1 " 
-					+ "JOIN antigen AS ag1 ON d1.id_antigen = ag1.id "
+			String sql = "SELECT * FROM donor AS d1 " + "JOIN antigen AS ag1 ON d1.id_antigen = ag1.id "
 					+ "JOIN antibody AS ab1 ON d1.id_antibody = ab1.id "
 					+ "JOIN location AS l1 ON d1.id_location = l1.id "
-					+ "JOIN doctor AS doc1 ON d1.id_doctor_charge = doc1.medical_id " 
-					+ "WHERE d1.dni = ?";
+					+ "JOIN doctor AS doc1 ON d1.id_doctor_charge = doc1.medical_id " + "WHERE d1.dni = ?";
 
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setInt(1, dni);
@@ -269,8 +265,7 @@ public class JDBCDonorManager implements DonorManager {
 
 				// getting all the organs from the database
 				String sqlorgan = "SELECT * FROM organ AS o1 "
-							+ "JOIN type_of_organ AS ty1 ON o1.id_type_organ = ty1.id " 
-							+ "WHERE o1.donor_dni = ?";
+						+ "JOIN type_of_organ AS ty1 ON o1.id_type_organ = ty1.id " + "WHERE o1.donor_dni = ?";
 
 				PreparedStatement prep1 = manager.getConnection().prepareStatement(sqlorgan);
 				prep1.setInt(1, dni);
@@ -280,11 +275,11 @@ public class JDBCDonorManager implements DonorManager {
 					String nameorgan = null;
 					Integer id = null;
 					Integer id_type_organ = null;
-					Integer lifespan = null; 
+					Integer lifespan = null;
 					Type_organ t = null;
 					Float size = null;
 					Boolean available = null;
-					
+
 					if (donor.isAlive() == false) {
 						id = rs1.getInt(1);
 
@@ -330,7 +325,6 @@ public class JDBCDonorManager implements DonorManager {
 	// is updating this information
 	public void updateDonor(Donor d, Integer medicalId) {
 
-		List<Organ> organs = new LinkedList<>();
 		try {
 			// the donor inserted has a dni, a bloodtype and the organs
 			// we have to update the rest of the info which has an id but its c
@@ -341,7 +335,6 @@ public class JDBCDonorManager implements DonorManager {
 			// Update the doctor in charge (it had the id 0 and name unassigned)
 			prep.setInt(3, medicalId);
 			prep.setInt(4, d.getdni());
-			prep.executeUpdate();
 
 			// update the antigen
 			Integer idAntigen = d.getAntigen().getId();
@@ -354,7 +347,6 @@ public class JDBCDonorManager implements DonorManager {
 			prep.setBoolean(5, d.getAntigen().isDq());
 			prep.setBoolean(6, d.getAntigen().isDr());
 			prep.setInt(7, idAntigen);
-			prep.executeUpdate();
 
 			// Update the antibody
 			Integer idAntibody = d.getAntibody().getID();
@@ -363,7 +355,6 @@ public class JDBCDonorManager implements DonorManager {
 			prep.setBoolean(1, d.getAntibody().isClass_I());
 			prep.setBoolean(2, d.getAntibody().isClass_II());
 			prep.setInt(3, idAntibody);
-			prep.executeUpdate();
 
 			// Update the location
 			Integer idLocation = d.getLocation().getId();
@@ -372,6 +363,7 @@ public class JDBCDonorManager implements DonorManager {
 			prep.setFloat(1, d.getLocation().getLatitude());
 			prep.setFloat(2, d.getLocation().getLongitude());
 			prep.setInt(3, idLocation);
+
 			prep.executeUpdate();
 			
 			organs = d.getOrgans();
@@ -382,9 +374,6 @@ public class JDBCDonorManager implements DonorManager {
 				prep.setFloat(1, o.getSize());
 				prep.setInt(2, o.getID());
 				prep.executeUpdate();
-			}
-			
-			//System.out.println("donor updated");
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -438,21 +427,13 @@ public class JDBCDonorManager implements DonorManager {
 	public Donor matchWithDonor(Receptor r) {
 		Donor d = null;
 		try {
-			String sql = "SELECT * FROM organ AS o1 " 
-					+ "JOIN donor AS d1 ON d1.dni = o1.donor_dni "
+			String sql = "SELECT * FROM organ AS o1 " + "JOIN donor AS d1 ON d1.dni = o1.donor_dni "
 					+ "JOIN antigen AS ag1 ON d1.id_antigen = ag1.id "
 					+ "JOIN antibody AS ab1 ON d1.id_antibody = ab1.id "
 					+ "JOIN location AS l1 ON d1.id_location = l1.id "
-					+ "JOIN type_of_organ AS ty1 ON o1.id_type_organ = ty1.id " 
-					+ "WHERE d1.alive = ? "
-					+ "AND ag1.a = ? " 
-					+ "AND ag1.b = ? " 
-					+ "AND ag1.dq = ? " 
-					+ "AND ab1.class_I = ? "
-					+ "AND ab1.class_II = ? " 
-					+ "AND d1.blood_type = ? " 
-					+ "AND ty1.id = ? " 
-					+ "AND o1.available = ?";
+					+ "JOIN type_of_organ AS ty1 ON o1.id_type_organ = ty1.id " + "WHERE d1.alive = ? "
+					+ "AND ag1.a = ? " + "AND ag1.b = ? " + "AND ag1.dq = ? " + "AND ab1.class_I = ? "
+					+ "AND ab1.class_II = ? " + "AND d1.blood_type = ? " + "AND ty1.id = ? " + "AND o1.available = ?";
 
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setBoolean(1, false);
