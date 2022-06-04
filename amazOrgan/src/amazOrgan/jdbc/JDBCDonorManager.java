@@ -147,7 +147,7 @@ public class JDBCDonorManager implements DonorManager {
 		// a DNI, blood_type and a List <Organ>, each of one has a Type_organ
 
 		List<Donor> deadDonors = new LinkedList<Donor>();
-		List<Organ> organs = new LinkedList<Organ>();
+		
 
 		try {
 			Statement stmt = manager.getConnection().createStatement();
@@ -173,8 +173,9 @@ public class JDBCDonorManager implements DonorManager {
 				PreparedStatement prep = manager.getConnection().prepareStatement(sql2);
 				prep.setInt(1, dni);
 				ResultSet rs2 = prep.executeQuery();
-				organs.removeAll(organs);
+				List<Organ> organs = new LinkedList<Organ>();
 				while (rs2.next()) {
+					
 					String typeOrgan = rs2.getString("name");
 					Type_organ t = new Type_organ(typeOrgan);
 					Organ o = new Organ(t);
