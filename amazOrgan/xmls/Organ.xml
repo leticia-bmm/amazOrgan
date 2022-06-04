@@ -2,7 +2,7 @@
 <Organ-List>
     <organs size="23.0" available="false" id="1">
         <type_organ id="1" name="kidney" lifespan="50"/>
-        <donor dni="5124"/>
+        <donor dni="1"/>
     </organs>
     <organs size="34.7" available="true" id="2">
         <type_organ id="2" name="liver" lifespan="30"/>
@@ -17,7 +17,7 @@
         <donor dni="621"/>
     </organs>
     <organs size="1.2" available="false" id="5">
-        <type_organ id="5" name="heat" lifespan="8"/>
+        <type_organ id="5" name="heart" lifespan="8"/>
         <donor dni="621"/>
     </organs>
     <organs size="45.0" available="false" id="6">
@@ -43,5 +43,17 @@
     <organs size="7.6" available="true" id="11">
         <type_organ id="4" name="lung" lifespan="8"/>
         <donor dni="362"/>
+    </organs>
+    <organs size="43.6" available="false" id="12">
+        <type_organ id="6" name="bowel" lifespan="12"/>
+        <donor dni="1"/>
+    </organs>
+    <organs size="7.6" available="false" id="13">
+        <type_organ id="6" name="bowel" lifespan="12"/>
+        <donor dni="1"/>
+    </organs>
+    <organs size="32.9" available="false" id="14">
+        <type_organ id="4" name="lung" lifespan="8"/>
+        <donor dni="1"/>
     </organs>
 </Organ-List>

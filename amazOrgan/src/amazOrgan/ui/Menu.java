@@ -208,8 +208,7 @@ public class Menu {
 					// to go from alive = true a alive = false and available = false to available =
 					// true
 
-					Integer donor_dni = Utilities
-							.readIntFromKeyboard("Introduce the DNI of the donor you want to update: ");
+					Integer donor_dni = Utilities.readIntFromKeyboard("Introduce the DNI of the donor you want to update: ");
 					Donor don = donorManager.getDonor(donor_dni);
 					if (don == null) {
 						// if the donor is not in the database we cannot update him
@@ -736,83 +735,6 @@ public class Menu {
 		}
 	}
 
-//			Integer option;
-//			while (true) {
-//				System.out.println("Please, choose an option: ");
-//				System.out.println("1) Login as a Doctor");
-//				System.out.println("2) Register as a Doctor");
-//				System.out.println("3) Login as a Donor");
-//				System.out.println("4) Register as a Donor");
-//				System.out.println("5) See our web page");
-//				System.out.println("6) Import an xml");
-//				System.out.println("7) Export an xml");
-//				System.out.println("0) Exit");
-//
-//				option = Utilities.readIntFromKeyboardInRange("Option: ", 0, 7);
-//
-//				switch (option) {
-//				case 1:
-//					// Login as a Doctor
-//					System.out.println("LOGIN AS A DOCTOR");
-//					loginDoctor(); // this method calls the doctor menu
-//					break;
-//
-//				case 2:
-//					// Register as a Doctor
-//					System.out.println("REGISTER AS A DOCTOR");
-//					registerDoctor();
-//					break;
-//
-//				case 3:
-//					// Login as a Donor
-//					System.out.println("LOGIN AS A DONOR");
-//					loginDonor();
-//					break;
-//
-//				case 4:
-//					// Register as a Donor
-//					System.out.println("REGISTER AS A DONOR");
-//					registerDonor();
-//					break;
-//
-//				case 5:
-//					// See our web page
-//					// TODO
-//
-//					break;
-//
-//				case 6:
-//					// Import an xml
-//					// TODO
-//					// ask for the file
-//					// unmarshall
-//
-//					break;
-//
-//				case 7:
-//					// Export an xml
-//					// TODO
-//					// ask for the file
-//					// marshall
-//
-//					break;
-//					
-//				case 0:
-//					// Close the connection with the database
-//					jdbcManager.disconnect();
-//					System.exit(0);
-//
-//				default:
-//					System.out.println("The selected option is not correct.");
-//					break;
-//				}
-
-//			}
-//	
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//	}
 
 //	public static void main(String[] ars) {
 //		JDBCManager jdbcManager = new JDBCManager();
