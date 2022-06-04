@@ -330,6 +330,7 @@ public class JDBCDonorManager implements DonorManager {
 	// is updating this information
 	public void updateDonor(Donor d, Integer medicalId) {
 
+		List<Organ> organs = new LinkedList<>();
 		try {
 			// the donor inserted has a dni, a bloodtype and the organs
 			// we have to update the rest of the info which has an id but its c
@@ -340,6 +341,7 @@ public class JDBCDonorManager implements DonorManager {
 			// Update the doctor in charge (it had the id 0 and name unassigned)
 			prep.setInt(3, medicalId);
 			prep.setInt(4, d.getdni());
+			prep.executeUpdate();
 
 			// update the antigen
 			Integer idAntigen = d.getAntigen().getId();
@@ -352,6 +354,7 @@ public class JDBCDonorManager implements DonorManager {
 			prep.setBoolean(5, d.getAntigen().isDq());
 			prep.setBoolean(6, d.getAntigen().isDr());
 			prep.setInt(7, idAntigen);
+			prep.executeUpdate();
 
 			// Update the antibody
 			Integer idAntibody = d.getAntibody().getID();
@@ -360,6 +363,7 @@ public class JDBCDonorManager implements DonorManager {
 			prep.setBoolean(1, d.getAntibody().isClass_I());
 			prep.setBoolean(2, d.getAntibody().isClass_II());
 			prep.setInt(3, idAntibody);
+			prep.executeUpdate();
 
 			// Update the location
 			Integer idLocation = d.getLocation().getId();
@@ -368,8 +372,18 @@ public class JDBCDonorManager implements DonorManager {
 			prep.setFloat(1, d.getLocation().getLatitude());
 			prep.setFloat(2, d.getLocation().getLongitude());
 			prep.setInt(3, idLocation);
-
 			prep.executeUpdate();
+			
+			organs = d.getOrgans();
+			
+			for(Organ o : organs) {
+				String sql1 = "UPDATE organ SET size_organ = ?, available = 1 WHERE id = ?";
+				prep = manager.getConnection().prepareStatement(sql1);
+				prep.setFloat(1, o.getSize());
+				prep.setInt(2, o.getID());
+				prep.executeUpdate();
+			}
+			
 			//System.out.println("donor updated");
 
 		} catch (Exception e) {

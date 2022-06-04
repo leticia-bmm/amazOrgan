@@ -228,7 +228,8 @@ public class Menu {
 					// Get donor
 					System.out.println("GET DONOR");
 					Integer donorDNI = Utilities.readPositiveIntFromKeyboard("Introduce the DNI of the donor");
-					donorManager.getDonor(donorDNI);
+					Donor donor = donorManager.getDonor(donorDNI);
+					System.out.println(donor);
 
 					break;
 
@@ -382,7 +383,7 @@ public class Menu {
 					Donor d1 = donorManager.getDonor(DNI);
 					List<Organ> organs = Utilities.readOrgansAliveDonorFromKeyboard(d1);
 					for(Organ o : organs) {
-						organManager.addOrgan(o);
+						organManager.addOrganAlive(o);
 					}
 
 					break;
