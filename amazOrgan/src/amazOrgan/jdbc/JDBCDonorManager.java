@@ -173,7 +173,7 @@ public class JDBCDonorManager implements DonorManager {
 				PreparedStatement prep = manager.getConnection().prepareStatement(sql2);
 				prep.setInt(1, dni);
 				ResultSet rs2 = prep.executeQuery();
-				organs = null;
+				organs.removeAll(organs);
 				while (rs2.next()) {
 					String typeOrgan = rs2.getString("name");
 					Type_organ t = new Type_organ(typeOrgan);
