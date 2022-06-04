@@ -26,9 +26,11 @@ public class Utilities {
 
 		Integer dni = readPositiveIntFromKeyboard("Insert the dni.");
 		LocalDate dob = readDateFromKeyboard();
-		String status = askStatus();
+		//there is no receptor entering our database with an organ
+		String status = "Waiting";
 		String blood_type = askBloodType();
-		Boolean alive = readBooleanFromKeyboard("Is the receptor alive?");
+		//the patien is obviusly alive
+		Boolean alive = true;
 		Integer urgency = readIntFromKeyboardInRange("What is the level of urgency?", 1, 5);
 		Antigen antigen = readAntigenFromKeyboard();
 		Antibody antibody = readAntibodyFromKeyboard();
@@ -38,10 +40,7 @@ public class Utilities {
 		receptor = new Receptor(dni, dob, status, blood_type, alive, urgency, antigen, antibody, location, request);
 
 		return receptor;
-
-//**********		//TODO call match function
 	}
-//**********		// call match function
 
 	public static Receptor updateReceptorMenu(Receptor r) {
 		
