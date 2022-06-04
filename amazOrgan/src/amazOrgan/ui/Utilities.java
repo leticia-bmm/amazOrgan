@@ -450,7 +450,7 @@ public class Utilities {
 
 	// Read a death donor
 	// TODO method
-	public static Donor readDeadDonorFromKeyboard(Doctor d, String question) {
+	public static Donor readDeadDonorFromKeyboard(Doctor doctor_charge, String question) {
 		System.out.println(question);
 		Donor donor = null;
 		Integer dni = readPositiveIntFromKeyboard("Enter the dni: ");
@@ -463,7 +463,7 @@ public class Utilities {
 		Organ organ = null;
 		List<Organ> organs = new LinkedList<>();
 
-		donor = new Donor(dni, dob, alive, bloodType, antigen, antibody, location, d);
+		donor = new Donor(dni, dob, alive, bloodType, antigen, antibody, location, doctor_charge);
 
 		while (true) {
 			Boolean cont = readBooleanFromKeyboard("Would you like to introduce an organ? ");
