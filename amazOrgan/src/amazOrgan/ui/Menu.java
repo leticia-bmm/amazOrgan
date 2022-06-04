@@ -634,8 +634,7 @@ public class Menu {
 
 //MAIN
 
-<<<<<<< HEAD
-=======
+
 	public static void main(String[] ars) {
 
 		System.out.println("Welcome to amazOrgan!");
@@ -745,32 +744,8 @@ public class Menu {
 		}
 	}
 
->>>>>>> branch 'master' of https://github.com/leticia-bmm/amazOrgan
-//	public static void main(String[] ars) {
-//
-//		System.out.println("Welcome to amazOrgan!");
-//
-//		// Initialize database for JDBC
-//		// -----------------------------
-//		JDBCManager jdbcManager = new JDBCManager();
-//		antibodyManager = new JDBCAntibodyManager(jdbcManager);
-//		antigenManager = new JDBCAntigenManager(jdbcManager);
-//		doctorManager = new JDBCDoctorManager(jdbcManager);
-//		donorManager = new JDBCDonorManager(jdbcManager);
-//		locationManager = new JDBCLocationManager(jdbcManager);
-//		organManager = new JDBCOrganManager(jdbcManager);
-//		receptorManager = new JDBCReceptorManager(jdbcManager);
-//		requestManager = new JDBCRequestManager(jdbcManager);
-//		type_organManager = new JDBCType_organManager(jdbcManager);
-//
-//		// Initialize database for JPA
-//		// ----------------------------
-//		userManager = new JPAUserManager();
-//
-//		// Menu loop
-//		try {
-//
-<<<<<<< HEAD
+
+
 //			Integer option;
 //			while (true) {
 //				System.out.println("Please, choose an option: ");
@@ -841,20 +816,7 @@ public class Menu {
 //					System.out.println("The selected option is not correct.");
 //					break;
 //				}
-//
-=======
-//			doc_receptor_menu(1);
-//			
-//			
-//			
-			
-//			Integer donor_dni = Utilities.readIntFromKeyboard("Introduce the DNI of the donor you want to update: ");
-//			Donor don = donorManager.getDonor(donor_dni);
-//			if (don == null) {
-//				// if the donor is not in the database we cannot update him
-//				System.out.println("This donor is not in the database.");
-//				System.exit(0);
->>>>>>> branch 'master' of https://github.com/leticia-bmm/amazOrgan
+
 //			}
 //	
 //		} catch (Exception e) {
@@ -862,34 +824,34 @@ public class Menu {
 //		}
 //	}
 
-	public static void main(String[] ars) {
-		JDBCManager jdbcManager = new JDBCManager();
-		donorManager = new JDBCDonorManager(jdbcManager);
-		antigenManager = new JDBCAntigenManager(jdbcManager);
-		antibodyManager = new JDBCAntibodyManager(jdbcManager);
-		locationManager = new JDBCLocationManager(jdbcManager);
-		doctorManager = new JDBCDoctorManager(jdbcManager);
-		receptorManager = new JDBCReceptorManager(jdbcManager);
-		organManager = new JDBCOrganManager(jdbcManager);
-		userManager = new JPAUserManager();
-
-		try {
-			
-			Donor don = donorManager.getDonor(donor_dni);
-			Doctor doctor = doctorManager.getDoctor(222);
-			Donor newd = Utilities.readDonortoUpdate(don, doctor);
-			donorManager.updateDonor(newd, 222);
-			// this also updates the organs
-
-			
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		jdbcManager.disconnect();
-		userManager.disconnect();
-		System.exit(0);
-	}
-
-}
+//	public static void main(String[] ars) {
+//		JDBCManager jdbcManager = new JDBCManager();
+//		donorManager = new JDBCDonorManager(jdbcManager);
+//		antigenManager = new JDBCAntigenManager(jdbcManager);
+//		antibodyManager = new JDBCAntibodyManager(jdbcManager);
+//		locationManager = new JDBCLocationManager(jdbcManager);
+//		doctorManager = new JDBCDoctorManager(jdbcManager);
+//		receptorManager = new JDBCReceptorManager(jdbcManager);
+//		organManager = new JDBCOrganManager(jdbcManager);
+//		userManager = new JPAUserManager();
+//
+//		try {
+//			
+//			Donor don = donorManager.getDonor(donor_dni);
+//			Doctor doctor = doctorManager.getDoctor(222);
+//			Donor newd = Utilities.readDonortoUpdate(don, doctor);
+//			donorManager.updateDonor(newd, 222);
+//			// this also updates the organs
+//
+//			
+//
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//
+//		jdbcManager.disconnect();
+//		userManager.disconnect();
+//		System.exit(0);
+//	}
+//
+//}
