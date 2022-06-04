@@ -279,7 +279,7 @@ public class JDBCReceptorManager implements ReceptorManager {
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setString(1, bloodtype);
 			prep.setBoolean(2, true);
-			ResultSet rs = prep.executeQuery(sql);
+			ResultSet rs = prep.executeQuery();
 			while (rs.next()) {
 				Integer dni = rs.getInt("dni");
 				String organ_name = rs.getString("name");
@@ -313,7 +313,7 @@ public class JDBCReceptorManager implements ReceptorManager {
 					+ "ORDER BY r1.urgency DESC";
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setBoolean(1, true);
-			ResultSet rs = prep.executeQuery(sql);
+			ResultSet rs = prep.executeQuery();
 			while (rs.next()) {
 				Integer dni = rs.getInt("dni");
 				String organ_name = rs.getString("name");

@@ -10,6 +10,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.xml.bind.JAXBException;
+
 import amazOrgan.ifaces.AntibodyManager;
 import amazOrgan.ifaces.AntigenManager;
 import amazOrgan.ifaces.DoctorManager;
@@ -42,10 +44,10 @@ import amazOrgan.jdbc.JDBCRequestManager;
 import amazOrgan.jdbc.JDBCType_organManager;
 import amazOrgan.jpa.JPAUserManager;
 import amazOrgan.pojos.User;
+import amazOrgan.xml.XmlManager;
 
 public class Menu {
 
-	private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
 	private static AntibodyManager antibodyManager;
 	private static AntigenManager antigenManager;
@@ -57,6 +59,7 @@ public class Menu {
 	private static RequestManager requestManager;
 	private static Type_organManager type_organManager;
 	private static UserManager userManager;
+	private static XmlManager xmlManager;
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 	// MENUS
@@ -215,7 +218,7 @@ public class Menu {
 					// this also updates the organs
 
 					// CALL THE MATCH FUNCTION
-					Receptor recMatched = receptorManager.matchWithReceptor(don);
+					Receptor recMatched = receptorManager.matchWithReceptor(newd);
 					if (recMatched != null) {
 						System.out.println("Match found !!");
 						System.out.println("This is the receptor matched with your donor: ");
@@ -248,7 +251,7 @@ public class Menu {
 
 	}
 
-	public static void doc_receptor_menu(int medical_id) {
+	public static void doc_receptor_menu(Integer medical_id) {
 
 		try {
 			int option;
@@ -292,12 +295,24 @@ public class Menu {
 					switch (choice) {
 					case 1:
 						String bt = Utilities.askBloodType();
-						System.out.println(receptorManager.showReceptorsByBloodType(bt));
+						List <Receptor> receptorsbloodType = receptorManager.showReceptorsByBloodType(bt);
+						for(Receptor receptor1 : receptorsbloodType) {
+							System.out.println("\nDNI: " + receptor1.getDni()
+									+ "\nType of Organ: " + receptor1.getRequest().getType_organ().getName()
+									+ "\nStatus: " + receptor1.getStatus()
+									+ "\nUrgency: " + receptor1.getUrgency());
+						}
 
 						break;
 
 					case 2:
-						System.out.println(receptorManager.showReceptorsByUrgency());
+						List <Receptor> receptorsUrgency = receptorManager.showReceptorsByUrgency();
+						for(Receptor receptor1 : receptorsUrgency) {
+							System.out.println("\nDNI: " + receptor1.getDni()
+									+ "\nType of Organ: " + receptor1.getRequest().getType_organ().getName()
+									+ "\nStatus: " + receptor1.getStatus()
+									+ "\nUrgency: " + receptor1.getUrgency());
+						}
 
 						break;
 
@@ -625,6 +640,7 @@ public class Menu {
 		receptorManager = new JDBCReceptorManager(jdbcManager);
 		requestManager = new JDBCRequestManager(jdbcManager);
 		type_organManager = new JDBCType_organManager(jdbcManager);
+		xmlManager = new XmlManager();
 
 		// Initialize database for JPA
 		// ----------------------------
@@ -674,23 +690,29 @@ public class Menu {
 
 				case 5:
 					// See our web page
-					// TODO
-
+					System.out.println("Our web page will automatically appear in the XMLS folder!"
+							+ "\nRefresh if not!");
+					xmlManager.simpleTransform("./xmls/Organ.xml", "./xmls/Organ.xslt", "./xmls/SuperWebPage.html");
 					break;
 
 				case 6:
-					// Import an xml
-					// TODO
-					// ask for the file
-					// unmarshall
-
+					// Import an Xml (put in the database)
+					try {
+						String path = Utilities.readStringFromKeyboard("Introduce the path of the file you want to import: ");
+						xmlManager.unmarshallOrgan(path);
+					}catch(Exception e) {
+						System.out.println("No file found with that name :(");
+					}
 					break;
 
 				case 7:
-					// Export an xml
-					// TODO
-					// ask for the file
-					// marshall
+					// Export an xml (take out of the database)
+					try {
+						String path = Utilities.readStringFromKeyboard("Introduce the path were you want to export: ");
+						xmlManager.marshallOrgan(path);
+					}catch(Exception e) {
+						System.out.println("Not a valid file");
+					}
 
 					break;
 					
@@ -724,6 +746,11 @@ public class Menu {
 //
 //		try {
 //
+//			doc_receptor_menu(1);
+//			
+//			
+//			
+			
 //			Integer donor_dni = Utilities.readIntFromKeyboard("Introduce the DNI of the donor you want to update: ");
 //			Donor don = donorManager.getDonor(donor_dni);
 //			if (don == null) {

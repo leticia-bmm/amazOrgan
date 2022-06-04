@@ -3,6 +3,7 @@ package amazOrgan.xml;
 import java.io.File;
 
 import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.transform.Transformer;
@@ -21,22 +22,22 @@ public class XmlManager {
 	public static OrganManager organManager;
 
 	// from Java to Xml
-	public static void marshallOrgan() throws Exception {
+	public void marshallOrgan(String path) throws JAXBException {
 
 		// everything that is a null, in the database is read as a 0
 		JAXBContext jaxbContext = JAXBContext.newInstance(Organ.class); // has to be the name of the root element
 		Marshaller marshaller = jaxbContext.createMarshaller();
+		JDBCManager jdbcManager = new JDBCManager();
+		JDBCOrganManager organManager = new JDBCOrganManager(jdbcManager);
 
 		// to put everything in order, not all in the same line
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 
-		// print organs
 		// ask for an organ to Xml file
 
 		OrganList organs = organManager.getOrgans();
-		System.out.println(organs);
-		// do a query to acces the info inside the database
-		File file = new File("./xmls/Organ.xml");
+		// do a query to access the info inside the database
+		File file = new File(path);
 		marshaller.marshal(organs, file);
 
 		// print my organ in console
@@ -45,16 +46,17 @@ public class XmlManager {
 	}
 
 	// from Xml to Java
-	public static void unmarshallOrgan() throws Exception {
+	public void unmarshallOrgan(String path) throws JAXBException  {
 
 		JAXBContext jaxbContext = JAXBContext.newInstance(OrganList.class);
 		Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+		JDBCManager jdbcManager = new JDBCManager();
+		JDBCOrganManager organManager = new JDBCOrganManager(jdbcManager);
 
 		// take the organ from the xmls and put it in java
-		File file = new File("./xmls/Organ.xml");
+		File file = new File(path);
 		OrganList organs = (OrganList) unmarshaller.unmarshal(file);
 
-		System.out.println(organs);
 		Organ organ = null;
 		Integer donor_dni = null;
 
@@ -86,7 +88,7 @@ public class XmlManager {
 	 * @param xsltPath   - Absolute path to xslt file.
 	 * @param resultDir  - Directory where you want to put resulting files.
 	 */
-	public static void simpleTransform(String sourcePath, String xsltPath, String resultDir) {
+	public void simpleTransform(String sourcePath, String xsltPath, String resultDir) {
 		TransformerFactory tFactory = TransformerFactory.newInstance();
 		try {
 			Transformer transformer = tFactory.newTransformer(new StreamSource(new File(xsltPath)));
@@ -94,23 +96,6 @@ public class XmlManager {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	public static void main(String[] ars) {
-		JDBCManager jdbcManager = new JDBCManager();
-		organManager = new JDBCOrganManager(jdbcManager);
-		System.out.println("working");
-		
-		 /*try { 
-			 marshallOrgan(); 
-			 //unmarshallOrgan();
-		 
-		 } catch (Exception e) { e.printStackTrace(); }
-		 
-*/
-		
-		simpleTransform("./xmls/Organ.xml", "./xmls/Organ.xslt", "C:/Users/letib/OneDrive/Bureau/Organ-super.html");
-
 	}
 
 }
