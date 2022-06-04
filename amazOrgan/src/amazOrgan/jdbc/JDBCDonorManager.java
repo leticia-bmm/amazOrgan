@@ -81,6 +81,19 @@ public class JDBCDonorManager implements DonorManager {
 			prep.setInt(8, d.getDoctor_charge().getMedical_id());
 			prep.executeUpdate();
 
+			// now we have to introduce the organs
+			List<Organ> organs = d.getOrgans();
+			for (Organ o : organs) {
+				String sql2 = "INSERT INTO organ (id_type_organ, size_organ, donor_dni, available) VALUES (?, ?, ?, 1)";
+				PreparedStatement prep2 = manager.getConnection().prepareStatement(sql2);
+				prep2.setInt(1, o.getType_organ().getId());
+				prep2.setFloat(2, o.getSize());
+				prep2.setInt(3, d.getdni());
+				prep2.executeUpdate();
+				
+
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

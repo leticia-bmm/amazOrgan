@@ -63,7 +63,7 @@ public class Menu {
 			int option;
 			while (true) {
 
-				System.out.println("Please, choose an option:");
+				System.out.println("\n\nPlease, choose an option:");
 				System.out.println("1) See my patients");
 				System.out.println("2) Change my data");
 				System.out.println("3) Work with donors");
@@ -76,7 +76,7 @@ public class Menu {
 
 				case 1:
 					// See my patients
-					System.out.println("SEE MY PATIENTS"); // ok
+					System.out.println("\nSEE MY PATIENTS"); // ok
 
 					// see the receptors
 					System.out.println("Receptors: \n");
@@ -102,7 +102,7 @@ public class Menu {
 
 				case 2:
 					// Change my data
-					System.out.println("CHANGE MY DATA"); // ok
+					System.out.println("\nCHANGE MY DATA"); // ok
 					// first show the info of the doctor
 					doctorManager.getDoctor(medical_id);
 
@@ -124,7 +124,7 @@ public class Menu {
 					break;
 
 				case 5:
-					System.out.println("CHANGE MY PASSWORD"); // ok
+					System.out.println("\nCHANGE MY PASSWORD"); // ok
 					String newpass = Utilities.readStringFromKeyboard("Introduce your new password: ");
 					userManager.updatePassword(medical_id, newpass);
 					break;
@@ -132,7 +132,7 @@ public class Menu {
 				case 0:
 					// go out of the method to exit the program from the main
 					// this is the only moment we exit from this method
-					System.out.println("Thanks for choosing amazOrgan");
+					System.out.println("\nThanks for choosing amazOrgan");
 					return;
 
 				default:
@@ -151,7 +151,7 @@ public class Menu {
 		try {
 			int option;
 			while (true) {
-				System.out.println("Please, choose an option:");
+				System.out.println("\n\nPlease, choose an option:");
 				System.out.println("1) Add donor");
 				System.out.println("2) Show all available donors");
 				System.out.println("3) Update existing donor");
@@ -162,13 +162,15 @@ public class Menu {
 				switch (option) {
 				case 1:
 					// Add donor ok
-					System.out.println("ADD DONOR"); // ONLY DEAD DONORS (when they are alive, they register themselves)
+					System.out.println("\nADD DONOR"); // ONLY DEAD DONORS (when they are alive, they register themselves)
 					Doctor doc = doctorManager.getDoctor(medical_id);
 					Donor d = Utilities.readDeadDonorFromKeyboard(doc, "Introduce the data of the donor");
 					donorManager.addDonor(d);
 					// this method also adds the organs
 
 					// CALL THE MATCH FUNCTION
+					Integer dni = d.getdni();
+					d = donorManager.getDonor(dni);
 					Receptor rMatched = receptorManager.matchWithReceptor(d);
 					if (rMatched != null) {
 						System.out.println("Match found !!");
@@ -180,7 +182,7 @@ public class Menu {
 
 				case 2:
 					// Show donors
-					System.out.println("SHOW ALL AVAILABLE DONORS"); // ok
+					System.out.println("\nSHOW ALL AVAILABLE DONORS"); // ok
 
 					// these donors are not alive and their organs are available
 					List<Donor> list = donorManager.listAllDonors();
@@ -201,7 +203,7 @@ public class Menu {
 
 				case 3:
 					// Update existing donor
-					System.out.println("UPDATE EXISTING DONOR");
+					System.out.println("\nUPDATE EXISTING DONOR");
 					// this option is selected when a donor that was registered in the database but
 					// now has died and the doctor
 					// is adding the organs that are available to donate
@@ -221,9 +223,12 @@ public class Menu {
 					// this also updates the organs
 
 					// CALL THE MATCH FUNCTION
+					
+					Integer DNI = newd.getdni();
+					newd = donorManager.getDonor(DNI);
 					Receptor recMatched = receptorManager.matchWithReceptor(newd);
 					if (recMatched != null) {
-						System.out.println("Match found !!");
+						System.out.println("\nMatch found !!");
 						System.out.println("This is the receptor matched with your donor: ");
 						System.out.println(recMatched);
 					}
@@ -232,7 +237,7 @@ public class Menu {
 
 				case 4:
 					// Get donor
-					System.out.println("GET DONOR");
+					System.out.println("\nGET DONOR");
 					Integer donorDNI = Utilities.readPositiveIntFromKeyboard("Introduce the DNI of the donor");
 					Donor donor = donorManager.getDonor(donorDNI);
 					System.out.println(donor);
@@ -260,7 +265,7 @@ public class Menu {
 		try {
 			int option;
 			while (true) {
-				System.out.println("Please, choose an option:");
+				System.out.println("\n\nPlease, choose an option:");
 				System.out.println("1) Register receptor");
 				System.out.println("2) Show receptors");
 				System.out.println("3) Search receptor");
@@ -272,7 +277,7 @@ public class Menu {
 				switch (option) {
 
 				case 1:
-					System.out.println("REGISTER RECEPTOR");
+					System.out.println("\nREGISTER RECEPTOR");
 					// ask for all the information
 					Receptor r = Utilities.addreceptormenu();
 					receptorManager.addReceptor(r);
@@ -291,7 +296,7 @@ public class Menu {
 
 				case 2:
 					// Show receptors
-					System.out.println("SHOW RECEPTORS");
+					System.out.println("\nSHOW RECEPTORS");
 					System.out.println("Please, choose an option:");
 					System.out.println("1) By bloodtype");
 					System.out.println("2) By urgency");
@@ -329,7 +334,7 @@ public class Menu {
 
 				case 3:
 					// Search receptor
-					System.out.println("SEARCH RECEPTOR");
+					System.out.println("\nSEARCH RECEPTOR");
 					Integer receptorDNI = Utilities.readPositiveIntFromKeyboard("Introduce the DNI of the receptor");
 					Receptor receptor = receptorManager.getReceptor(receptorDNI);
 					System.out.println(receptor);
@@ -340,7 +345,7 @@ public class Menu {
 					// Update data
 					Receptor oldreceptor = null;
 					Receptor newreceptor = null;
-					System.out.println("UPDATE DATA");
+					System.out.println("\nUPDATE DATA");
 
 					Integer receptor_DNI = Utilities.readPositiveIntFromKeyboard("Introduce the DNI of the receptor");
 					oldreceptor = receptorManager.getReceptor(receptor_DNI);
@@ -386,7 +391,7 @@ public class Menu {
 		try {
 			int option;
 			while (true) {
-				System.out.println("Please, choose an option:");
+				System.out.println("\n\nPlease, choose an option:");
 				System.out.println("1) Add organs");
 				System.out.println("2) See my data");
 				System.out.println("3) Delete myself");
@@ -397,7 +402,7 @@ public class Menu {
 				switch (option) {
 
 				case 1:
-					System.out.println("ADD ORGANS");
+					System.out.println("\nADD ORGANS");
 					Donor d1 = donorManager.getDonor(DNI);
 					List<Organ> organs = Utilities.readOrgansAliveDonorFromKeyboard(d1);
 					for (Organ o : organs) {
@@ -407,13 +412,13 @@ public class Menu {
 					break;
 
 				case 2:
-					System.out.println("SEE MY DATA");
+					System.out.println("\nSEE MY DATA");
 					Donor donor = donorManager.getDonor(DNI);
 					System.out.println(donor);
 					break;
 
 				case 3:
-					System.out.println("DELETE MYSELF");
+					System.out.println("\nDELETE MYSELF");
 					// when the donor is deleted from the database, we also have to delete him as a
 					// user
 					Donor deleting_donor = donorManager.getDonor(DNI);
@@ -425,19 +430,19 @@ public class Menu {
 
 					donorManager.deleteDonor(DNI);
 					userManager.deleteUserDonor(DNI);
-					System.out.println("Thanks for choosing amazOrgan.");
+					System.out.println("\nThanks for choosing amazOrgan.");
 
 					return;
 
 				case 4:
-					System.out.println("CHANGE MY PASSWORD");
+					System.out.println("\nCHANGE MY PASSWORD");
 					String newpass = Utilities.readStringFromKeyboard("Introduce your new password");
 					userManager.updatePassword(DNI, newpass);
 					break;
 
 				case 0:
 					// Exit
-					System.out.println("Thanks for choosing amazOrgan");
+					System.out.println("\nThanks for choosing amazOrgan");
 					return;
 				}
 			}
@@ -655,7 +660,7 @@ public class Menu {
 
 			Integer option;
 			while (true) {
-				System.out.println("Please, choose an option: ");
+				System.out.println("\n\nPlease, choose an option: ");
 				System.out.println("1) Login as a Doctor");
 				System.out.println("2) Register as a Doctor");
 				System.out.println("3) Login as a Donor");
@@ -670,25 +675,25 @@ public class Menu {
 				switch (option) {
 				case 1:
 					// Login as a Doctor
-					System.out.println("LOGIN AS A DOCTOR");
+					System.out.println("\nLOGIN AS A DOCTOR");
 					loginDoctor(); // this method calls the doctor menu
 					break;
 
 				case 2:
 					// Register as a Doctor
-					System.out.println("REGISTER AS A DOCTOR");
+					System.out.println("\nREGISTER AS A DOCTOR");
 					registerDoctor();
 					break;
 
 				case 3:
 					// Login as a Donor
-					System.out.println("LOGIN AS A DONOR");
+					System.out.println("\nLOGIN AS A DONOR");
 					loginDonor();
 					break;
 
 				case 4:
 					// Register as a Donor
-					System.out.println("REGISTER AS A DONOR");
+					System.out.println("\nREGISTER AS A DONOR");
 					registerDonor();
 					break;
 
