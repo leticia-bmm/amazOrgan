@@ -173,6 +173,7 @@ public class JDBCDonorManager implements DonorManager {
 				PreparedStatement prep = manager.getConnection().prepareStatement(sql2);
 				prep.setInt(1, dni);
 				ResultSet rs2 = prep.executeQuery();
+				organs = null;
 				while (rs2.next()) {
 					String typeOrgan = rs2.getString("name");
 					Type_organ t = new Type_organ(typeOrgan);
@@ -275,18 +276,27 @@ public class JDBCDonorManager implements DonorManager {
 				ResultSet rs1 = prep1.executeQuery();
 
 				while (rs1.next()) {
+					String nameorgan = null;
+					
+					if (donor.isAlive() == false) {
+						Integer id = rs1.getInt(1);
 
-					Integer id = rs1.getInt(1);
+						// we get the type of organ
+						Integer id_type_organ = rs1.getInt("id_type_organ");
+						nameorgan = rs1.getString("name");
+						Integer lifespan = rs1.getInt("lifespan");
+						Type_organ t = new Type_organ(id_type_organ, nameorgan, lifespan);
 
-					// we get the type of organ
-					Integer id_type_organ = rs1.getInt("id_type_organ");
-					String nameorgan = rs1.getString("name");
-					Integer lifespan = rs1.getInt("lifespan");
-					Type_organ t = new Type_organ(id_type_organ, nameorgan, lifespan);
+						// we get the organ
+						Float size = rs1.getFloat("size_organ");
+						Boolean available = rs1.getBoolean("available");
 
-					// we get the organ
-					Float size = rs1.getFloat("size_organ");
-					Boolean available = rs1.getBoolean("available");
+					} else {
+						
+
+					}
+
+					
 
 					organ = new Organ(id, t, size, available, donor);
 					organs.add(organ);
