@@ -241,7 +241,8 @@ public class Menu {
 					// Get donor
 					System.out.println("GET DONOR");
 					Integer donorDNI = Utilities.readPositiveIntFromKeyboard("Introduce the DNI of the donor");
-					donorManager.getDonor(donorDNI);
+					Donor donor = donorManager.getDonor(donorDNI);
+					System.out.println(donor);
 
 					break;
 
@@ -406,8 +407,13 @@ public class Menu {
 					System.out.println("ADD ORGANS");
 					Donor d1 = donorManager.getDonor(DNI);
 					List<Organ> organs = Utilities.readOrgansAliveDonorFromKeyboard(d1);
+<<<<<<< HEAD
+					for(Organ o : organs) {
+						organManager.addOrganAlive(o);
+=======
 					for (Organ o : organs) {
 						organManager.addOrgan(o);
+>>>>>>> branch 'master' of https://github.com/leticia-bmm/amazOrgan
 					}
 
 					break;

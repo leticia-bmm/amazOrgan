@@ -74,11 +74,11 @@ public class JDBCManager {
 					+ "dni INTEGER PRIMARY KEY," 
 					+ "dob date, " 
 					+ "blood_type TEXT,"
-					+ "alive BOOLEAN, " 
-					+ "id_antigen INTEGER REFERENCES \"antigen\"(id), "
-					+ "id_antibody INTEGER REFERENCES \"antibody\"(id), "
-					+ "id_location INTEGER REFERENCES location(id), "
-					+ "id_doctor_charge INTEGER REFERENCES doctor(medical_id), "
+					+ "alive BOOLEAN," 
+					+ "id_antigen INTEGER REFERENCES \"antigen\"(id),"
+					+ "id_antibody INTEGER REFERENCES \"antibody\"(id),"
+					+ "id_location INTEGER REFERENCES location(id),"
+					+ "id_doctor_charge INTEGER REFERENCES doctor(medical_id),"
 					+ "	CHECK (blood_type IN ('A+', 'B+', 'AB+', 'O+', 'A-', 'B-', 'AB-', 'O-'))" + "	)";
 			stmt.executeUpdate(sql);
 
