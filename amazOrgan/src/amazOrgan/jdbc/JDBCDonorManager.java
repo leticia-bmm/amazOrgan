@@ -325,6 +325,7 @@ public class JDBCDonorManager implements DonorManager {
 	// is updating this information
 	public void updateDonor(Donor d, Integer medicalId) {
 
+		List<Organ> organs = new LinkedList<>();
 		try {
 			// the donor inserted has a dni, a bloodtype and the organs
 			// we have to update the rest of the info which has an id but its c
@@ -365,15 +366,16 @@ public class JDBCDonorManager implements DonorManager {
 			prep.setInt(3, idLocation);
 
 			prep.executeUpdate();
-			
+
 			organs = d.getOrgans();
-			
-			for(Organ o : organs) {
+
+			for (Organ o : organs) {
 				String sql1 = "UPDATE organ SET size_organ = ?, available = 1 WHERE id = ?";
 				prep = manager.getConnection().prepareStatement(sql1);
 				prep.setFloat(1, o.getSize());
 				prep.setInt(2, o.getID());
 				prep.executeUpdate();
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
