@@ -168,7 +168,7 @@ public class JDBCDonorManager implements DonorManager {
 
 				// this query returns the name of the organs
 				String sql2 = "SELECT ty1.name FROM organ AS o1 "
-						+ "JOIN type_of_organ AS ty1 ON ty1.id = o1.id_type_organ " + "WHERE o1.donor_dni = ?";
+						+ "JOIN type_of_organ AS ty1 ON ty1.id = o1.id_type_organ " + "WHERE o1.donor_dni = ? AND o1.available = 1";
 
 				PreparedStatement prep = manager.getConnection().prepareStatement(sql2);
 				prep.setInt(1, dni);
