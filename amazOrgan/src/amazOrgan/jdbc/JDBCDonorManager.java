@@ -32,7 +32,6 @@ public class JDBCDonorManager implements DonorManager {
 	// necesito al menos un medical id para que se me junten el donor y el doctor
 	public void addDonor(Donor d) {
 		try {
-			System.out.println(d);
 			String sql = "INSERT INTO donor (dni, dob, blood_type, alive, id_antigen, id_antibody, id_location, id_doctor_charge) VALUES (?,?,?,?,?,?,?,?)";
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setInt(1, d.getdni());
@@ -106,7 +105,6 @@ public class JDBCDonorManager implements DonorManager {
 		// the Donor received only has a dni, dob, is alive and its doctor is unassigned
 
 		try {
-			System.out.println(d);
 			String sql = "INSERT INTO donor (dni, dob, blood_type, alive, id_antigen, id_antibody, id_location, id_doctor_charge) VALUES (?,?,?,?,?,?,?,?)";
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setInt(1, d.getdni());

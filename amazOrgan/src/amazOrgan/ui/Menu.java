@@ -591,7 +591,7 @@ public class Menu {
 		Donor don = donorManager.getDonor(dni);
 		if (don != null) {
 			// if it exisits, return
-			System.out.println("This DNI is alredy registered in the database. Try to login as a donor.");
+			System.out.println("This DNI is already registered in the database. Try to login as a donor.");
 			return;
 		}
 
